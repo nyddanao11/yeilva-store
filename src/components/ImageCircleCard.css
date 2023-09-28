@@ -1,0 +1,33 @@
+.product-circlecard {
+  text-align: center;
+  border: none;
+ width: 150px;  /*Set the width to 150px */
+ margin: 0 10px; /* Add margin to create spacing between cards */
+ transform: perspective(1000px) rotateY(0deg);
+  transition: transform 0.5s;
+}
+
+.product-circlecard:hover {
+  transform: perspective(1000px) rotateY(20deg);
+}
+
+.circle-image {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 1px solid dimgray ;
+  transition: transform 0.3s; 
+}
+
+
+.product-circlecard:hover .circle-image {
+  transform: scale(1.1); 
+}
+
+.circle-image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

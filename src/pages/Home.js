@@ -1,0 +1,73 @@
+import React from 'react';
+import { Container, Row, Col, Card, Button ,Carousel} from 'react-bootstrap';
+import ImageCard from '../components/ImageCard';
+import Footer from '../components/Footer';
+import { FaFacebook, FaYoutube, FaInstagram, FaShopify,FaSearch, FaShoppingCart } from 'react-icons/fa';
+import { recommendedProducts} from '../data/recommendedProducts';
+import { bestSellingProducts} from '../data/bestSellingProducts';
+import {CarouselImage} from '../data/CarouselImage';
+import {homeProducts} from '../data/homeProducts';
+import FeaturedProducts from '../components/FeaturedProduct';
+import BestSelling from '../components/BestSelling';
+import RecommendedProd from'../components/RecommendedProduct';
+import CircleCard from '../components/CircleProductCard';
+import CarouselSection from '../components/CarouselHeroSection';
+
+ 
+
+const Home = ({ addToCart, product}) => {
+ 
+
+  return (
+    <>
+      {/* Hero Section */}
+     <section className="hero mb-4" style={{ background: '#f7f7f7', padding: '30px 0' }}>
+     <Container fluid>
+      <CarouselSection />
+      </Container>
+    </section>
+
+
+      <section className=" mb-3 mt-3" >
+        <Container fluid>
+          <CircleCard />
+        </Container>
+      </section>
+
+
+      {/* Featured Products */}
+      <section className="featured-products mb-3" style={{ background: '#f7f7f7', padding: '25px 0' }}>
+        <Container>
+          <h2>Featured Products</h2>
+          <FeaturedProducts addToCart={addToCart} product={product}/>
+        </Container>
+      </section>
+
+      {/* Best Selling Products (You can follow a similar structure for other sections) */}
+       <section className="best-selling-products mb-3">
+       
+        <Container>
+          <h2>Best Selling Products</h2>
+         <BestSelling addToCart={addToCart} product={product}/>
+        </Container>
+
+      </section>
+
+      {/* Recommended Products */}
+      <section className="recommended-products mb-3 mt-3" style={{ background: '#f7f7f7', padding: '25px 0' }}>
+        <Container>
+          <h2>Recommended Products</h2>
+          <RecommendedProd addToCart={addToCart} product={product}/>
+        </Container>
+      </section>
+
+      {/* Footer Section */}
+      <section className=" mb-4 d-flex flex-column align-items-center justify-content-center " >
+      <Footer />
+      </section>
+    </>
+  );
+};
+
+export default Home;
+

@@ -1,0 +1,15 @@
+.products-card {
+  /* Your existing styles for product cards here */
+
+  /* Initial transform scale (no scaling) */
+  transform: scale(1);
+
+  /* Add a smooth transition effect on transform */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Style for product cards on hover */
+.products-card:hover {
+  /* Apply the scaling effect on hover */
+  transform: scale(1.05);
+}
