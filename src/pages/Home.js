@@ -1,12 +1,6 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button ,Carousel} from 'react-bootstrap';
-import ImageCard from '../components/ImageCard';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import Footer from '../components/Footer';
-import { FaFacebook, FaYoutube, FaInstagram, FaShopify,FaSearch, FaShoppingCart } from 'react-icons/fa';
-import { recommendedProducts} from '../data/recommendedProducts';
-import { bestSellingProducts} from '../data/bestSellingProducts';
-import {CarouselImage} from '../data/CarouselImage';
-import {homeProducts} from '../data/homeProducts';
 import FeaturedProducts from '../components/FeaturedProduct';
 import BestSelling from '../components/BestSelling';
 import RecommendedProd from'../components/RecommendedProduct';
