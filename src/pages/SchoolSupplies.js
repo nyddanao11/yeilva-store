@@ -39,7 +39,7 @@ const SchoolSupplies = ({ addToCart, cartItems }) => {
           <div className="d-flex flex-column align-items-center p-3">
             <h2 className="mb-4 text-center"  style={{color:"green", border:"1px solid green", borderRadius:"5px", maxWidth:"300px", padding:"6px"}}>Category</h2>
             <Nav className="flex-column">
-              {schoolsupplies .map((item) => (
+              {schoolsupplies.map((item) => (
                 <Nav.Item key={item.id}>
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
@@ -66,7 +66,7 @@ const SchoolSupplies = ({ addToCart, cartItems }) => {
           <Container>
             <Row>
               <Col>
-                {schoolsupplies .find((item) => item.id === activeNavItem).component}
+                {schoolsupplies.find((item) => item.id === activeNavItem).component}
               </Col>
             </Row>
           </Container>

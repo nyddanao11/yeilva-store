@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, InputGroup, FormControl, ListGroup, ListGroupItem } from 'react-bootstrap';
-import{avonproductsData} from'../data/AvonProductsData';
+
 
 const Search = ({ wellnessProductData, pcproductsData, avonproductsData, addToCart }) => {
   const [searchQuery, setSearchQuery] = useState('');
