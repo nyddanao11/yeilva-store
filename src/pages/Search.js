@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Container, InputGroup, FormControl, ListGroup, ListGroupItem } from 'react-bootstrap';
-import Products from './Products';
-import PcProducts from './PcProducts';
-import AvonProducts from'./AvonProducts';
 import{avonproductsData} from'../data/AvonProductsData';
 
 const Search = ({ wellnessProductData, pcproductsData, avonproductsData, addToCart }) => {

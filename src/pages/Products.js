@@ -1,13 +1,8 @@
 import React from 'react';
 import ImageProduct from '../components/ImageProduct';
-import { Button, Container, Card, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Footer from '../components/Footer';
-import PcProducts from './PcProducts';
-import Search from './Search';
 import { wellnessProductData } from '../data/wellnessProductData';
-import { FaSearch, FaShoppingCart } from 'react-icons/fa';
-import ClickProductPage from'./ClickProductPage';
-
 
 
 const Products = ({ addToCart }) => {
