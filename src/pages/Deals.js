@@ -15,10 +15,10 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
             <Card className="w-100">
               <Card.Img variant="top" src={product.url} alt={product.name} style={{maxHeight: '200px', objectFit:'cover'}} />
               <Card.Body>
-                <Card.Title><h6>{product.name}</h6></Card.Title>
-                <Card.Text>
-                  <span className="text-muted"><strike>₱{product.price}</strike></span>
-                  <span className="ms-2 text-danger">₱{product.discountedPrice}</span>
+                <Card.Title ><h6>{product.name}</h6></Card.Title>
+                <Card.Text style={{margin:"0px"}}>
+                  <span className="text-muted" ><strike>₱{product.price}</strike></span>
+                  <span className="ms-2 text-danger" >₱{product.discountedPrice}</span>
                 </Card.Text>
                 <div className="d-flex flex-column justify-content-center align-items-center">
                   <div className="d-flex ">

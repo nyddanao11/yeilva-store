@@ -97,4 +97,11 @@
   price: 800,
   description: "It detoxifies the body, helps fight obesity promotes weight loss, increases the metabolism, supports the immmune system, lowers blood sugar and helps to prevent and fight cancer."
 },
+{
+  id: 15,
+  name: "L-Glutathione",
+  url:  `${process.env.PUBLIC_URL}/images/glutathione.png`,
+  price: 2895,
+  description: "Gluta dietary Supplement capsule that consist of one glutathione with an added Sulfhydryl group. It improves the immune system and protects the body from free radical damage. it can also flush out liver toxins that can achieve whiter skin."
+},
 ];

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Footer from'./Footer';
 
 const SignUpForm = () => {
   const [serverResponse, setServerResponse] = useState('');
@@ -92,30 +93,35 @@ const SignUpForm = () => {
           />
         </Form.Group>
 
-       <div className='d-flex'>
+       <div className='d-flex' justify-content-center>
         <Button variant="primary" type="submit" className="mt-3">
           Sign Up
         </Button>
 
-        <Link to="/login">
-        <Button variant="primary" type="submit" className="mt-3 ms-3">
+        <Link to="/login" style={{marginTop:"20px", marginLeft:"25px"}}>
           Login
-        </Button>
         </Link>
+
         </div>
 
            {/* Display a message for successful login */}
           {isLoginSuccessful && (
-            <p className="text-success mt-2">Login successful. You will be redirected to the home page.</p>
+            <p className="text-success mt-2">Sign-Up successful. You can now login.</p>
 
           )}
 
           {/* Display an error message for unsuccessful login */}
           {!isLoginSuccessful && (
-            <p className="text-danger mt-2">Login failed. Please check your credentials.</p>
+            <p className="text-danger mt-2">Sign-Up failed. Please check your credentials.</p>
           )}
 
       </Form>
+
+       {/* Footer Section */}
+      <section className=" mb-4 d-flex flex-column align-items-center justify-content-center " >
+      <Footer />
+      </section>
+      
     </Container>
   );
 };

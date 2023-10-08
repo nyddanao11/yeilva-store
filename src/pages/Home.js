@@ -21,7 +21,7 @@ const Home = ({ addToCart, product}) => {
   return (
     <>
       {/* Hero Section */}
-     <section className="hero mb-4" style={{ background: '#f7f7f7', padding: '30px 0' }}>
+     <section className="hero mb-1" >
      <Container fluid>
       <CarouselSection />
       </Container>
@@ -37,8 +37,8 @@ const Home = ({ addToCart, product}) => {
 
       {/* Featured Products */}
       <section className="featured-products mb-3" style={{ background: '#f7f7f7', padding: '25px 0' }}>
-        <Container>
-          <h2>Featured Products</h2>
+        <Container fluid>
+        <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Featured Products</strong></h2>
           <FeaturedProducts addToCart={addToCart} product={product}/>
         </Container>
       </section>
@@ -46,17 +46,17 @@ const Home = ({ addToCart, product}) => {
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
        <section className="best-selling-products mb-3">
        
-        <Container>
-          <h2>Best Selling Products</h2>
+        <Container fluid>
+         <h2 className="text-center"style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Best Selling Products</strong></h2>
          <BestSelling addToCart={addToCart} product={product}/>
         </Container>
 
       </section>
 
       {/* Recommended Products */}
-      <section className="recommended-products mb-3 mt-3" style={{ background: '#f7f7f7', padding: '25px 0' }}>
-        <Container>
-          <h2>Recommended Products</h2>
+      <section className="recommended-products mb-3 mt-3 " style={{ background: '#f7f7f7', padding: '25px 0' }}>
+        <Container fluid>
+          <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Recommended Products</strong></h2>
           <RecommendedProd addToCart={addToCart} product={product}/>
         </Container>
       </section>

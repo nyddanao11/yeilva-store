@@ -7,7 +7,8 @@ import Products from './Products';
 import Search from './Search';
 import { avonproductsData } from '../data/AvonProductsData';
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
-
+import ClickProductPageAvon from './ClickProductPageAvon';
+import ImageProductAvon from '../components/ImageProductAvon';
 
 
 const AvonProducts = ({ addToCart }) => {
@@ -18,12 +19,12 @@ const AvonProducts = ({ addToCart }) => {
        <Col md={2}>
        </Col>
         <Col md={9}>
-          <h3 className="text-center text-dark">Featured Products</h3>
-          <Row md={2} xs={1} lg={3} className="g-2">
+          <h3 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}>Avon Products</h3>
+          <Row md={2} xs={2} lg={3} className="g-2">
             {avonproductsData.map((product) => (
               <Col md={4} key={product.id}>
                 <div>
-                  <ImageProduct url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product} />
+                  <ImageProductAvon url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product} />
                   
                 </div>
               </Col>

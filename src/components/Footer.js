@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
+import {Link} from'react-router-dom';
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
       <Container>
         <Row>
 
-          <Col>
+          <Col md={6}>
             <div className="footer-content">
              <h5> Follow us:</h5>
               <div className="social-links">
@@ -26,8 +27,25 @@ const Footer = () => {
                   <FaShopify />
                 </Button>
               </div>
-              <p>&copy; 2023 Yeilva Store. All rights reserved.</p>
+              <p>&copy; 2024 Yeilva Store. All rights reserved.</p>
             </div>
+          </Col>
+          <Col md={3}>
+          <div className="d-flex  align-items-center justify-content-center" style={{marginTop:"40px"}}>
+          
+           <Link to='/contactus'>
+                <Button variant="primary">Contact Us</Button>
+          </Link>
+          </div>
+          </Col>
+
+          <Col md={3}>
+          <div className="d-flex  flex-column align-items-center justify-content-center" style={{marginTop:"30px"}}>
+              <h6> Accepts</h6>
+              <p style={{margin:"0px"}}>Gcash</p>
+              <p style={{margin:"0px"}}>Bank Transfer</p>
+              <p >Cash On Delivery</p>
+          </div>
           </Col>
         </Row>
       </Container>

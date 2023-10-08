@@ -11,20 +11,20 @@ const Vegetables = ({addToCart, cartItems}) => {
 
  return (
     <Container fluid>
-      <Row>
+        <Row>
         {/* Main Content Area for Grocery Items */}
         <Col sm={9}>
           <Row className="mt-4">
             {/* Display Grocery Items */}
             {vegetables.map((item) => (
-              <Col sm={4} key={item.id}>
+              <Col sm={4} xs={6} key={item.id}>
                 <Card className="mb-4">
-                  <Card.Body>
+                  <Card.Body className="d-flex flex-column align-items-center justify-content-center">
+                   <img src={item.url} alt={item.name} style={{ maxHeight:"75px", objectFit:"cover"}}/>
                     <Card.Title>{item.name}</Card.Title>
-                    <Card.Text>Category: {item.category}</Card.Text>
-                    <Button variant="primary" size="sm" onClick={() => addToCart(item)}>
-                      Add to Cart
-                    </Button>
+                    <Card.Text> ₱{item.price}</Card.Text>
+                   
+                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(item)}>Add to Cart</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -32,6 +32,7 @@ const Vegetables = ({addToCart, cartItems}) => {
           </Row>
         </Col>
       </Row>
+       
     </Container>
   );
 };

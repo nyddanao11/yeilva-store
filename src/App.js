@@ -22,33 +22,52 @@ import GroceryItemsPage from './pages/GroceryItems';
 import axios from 'axios';
 import NewArrival from'./pages/NewArrival';
 import { useAuth} from './pages/loginContext';
-
+import ClickProductPage from'./pages/ClickProductPage';
+import ClickProductPagePc from'./pages/ClickProductPagePc';
+import ClickProductPageAvon from'./pages/ClickProductPageAvon';
+import Brochure from'./components/BrochureServices';
+import ClickBestSelling from './pages/ClickBestSelling';
+import ClickFeaturedProduct from'./pages/ClickFeaturedProduct';
+import ClickRecommendedProduct from './pages/ClickRecommendedProduct';
+import ContactUs from'./components/ContactUs';
+import BeautyProducts from'./pages/BeautyProducts';
+import ClickBeautyProducts from'./pages/ClickBeautyProducts';
+import FashionApparel from './pages/FashionApparel';
+import SchoolSupplies from'./pages/SchoolSupplies';
 
 
 
 function App() {
 
    const { isLoggedIn, login, logout } = useAuth();
-
-  const [cartItems, setCartItems] = useState([]);
-
-
-  const navigate = useNavigate();
+   const [cartItems, setCartItems] = useState([]);
+   const navigate = useNavigate();
 
 
-  const addToCart = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id);
+  const addToCart = (product, selectedSize, selectedColor) => {
+  const existingItem = cartItems.find((item) => item.id === product.id);
 
-    if (existingItem) {
-      const updatedItem = { ...existingItem, quantity: existingItem.quantity + 1 };
-      const updatedCart = cartItems.map((item) =>
-        item.id === product.id ? updatedItem : item
-      );
-      setCartItems(updatedCart);
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    }
-  };
+  if (existingItem) {
+    const updatedItem = {
+      ...existingItem,
+      selectedSize,
+      selectedColor,
+    };
+    const updatedCart = cartItems.map((item) =>
+      item.id === product.id ? updatedItem : item
+    );
+    setCartItems(updatedCart);
+  } else {
+    const newItem = { ...product, quantity: 1, selectedSize, selectedColor };
+    setCartItems([...cartItems, newItem]);
+  }
+
+  // Debugging: Log the selectedSize and selectedColor values
+  console.log('Selected Size:', selectedSize);
+  console.log('Selected Color:', selectedColor);
+};
+
+
 
   const removeFromCart = (productToRemove) => {
     const updatedCart = cartItems.filter((product) => product.id !== productToRemove.id);
@@ -86,11 +105,10 @@ const handleLogout = () => {
 
 
  // Function to handle login
-  const handleLogin = () => {
+  const handleLogin = (email) => {
     console.log('User logged in successfully');
-    login();// setIsLoggedIn(true); // Set the login status to true
+    login(email); // Set the login status to true
     // Redirect to the home page after login
-      // Redirect to the home page after login
     navigate('/');
   };
 
@@ -108,14 +126,26 @@ const handleLogout = () => {
             <Route path="/" element={<Home addToCart={addToCart} />} />
             <Route path="/products" element={<Products addToCart={addToCart}  />} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
+            <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
+             <Route path="/fashionapparel" element={<FashionApparel addToCart={addToCart} />} />
+             <Route path="/schoolsupplies" element={<SchoolSupplies addToCart={addToCart} />} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} />} />
+             <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} />} />
+             <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} />} />
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
-            <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />}/>
+            <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} />}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} avonproductsData={avonproductsData} addToCart={addToCart} />} />
-            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} />} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}/>} />
             <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/newarrival" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage />} />
             <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/brochure" element={<Brochure />} />
+            <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart} />} />
+             <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart} />} />
+             <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart} />} />
+              <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart} />} />
+              <Route path="/contactus" element={<ContactUs />} />
           </Routes>
         ) : (
           <Routes>

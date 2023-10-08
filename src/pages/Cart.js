@@ -5,7 +5,8 @@ import { Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css'; // Import your CSS file
 
-const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement,item}) => {
+
+const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement, item, addToCart, handleSizeChangeInCart,  handleColorChangeInCart, selectedColor, selectedSize}) => {
   const calculateTotalPrice = (cartItems) => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -27,8 +28,20 @@ const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement,item
 
   return (
     <Container className="cart-container">
-      <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
-      <div className="sticky-footer">
+     <ShoppingCart
+      cartItems={cartItems}
+      removeFromCart={removeFromCart}
+      addToCart={addToCart}
+      handleIncrement={handleIncrement}
+      handleDecrement={handleDecrement}
+      handleSizeChangeInCart={handleSizeChangeInCart}
+      handleColorChangeInCart={handleColorChangeInCart}
+      selectedSize={selectedSize} // Pass selectedSize
+      selectedColor={selectedColor} // Pass selectedColor
+    />
+
+
+      <div className="sticky-top">
         <h2>Total Price: ₱{total}</h2>
         <Button className="w-100" variant="primary" onClick={handleCheckoutClick}>Proceed to Checkout</Button>
       </div>

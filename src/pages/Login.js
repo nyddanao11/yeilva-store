@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from'axios';
+import axios from 'axios';
+import { useAuth } from './loginContext';
+import Footer from'../components/Footer';
 
 const Login = ({ handleLogin }) => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '', // Add this line to initialize the email field
     password: '',
   });
 
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth(); // Use the login function from the context
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -21,39 +24,46 @@ const Login = ({ handleLogin }) => {
     });
   };
 
- const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('Email:', formData.email);
 
-  try {
-    const response = await axios.post('http://localhost:3001/signin', {
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      const response = await axios.post('http://localhost:3001/signin', {
+        email: formData.email,
+        password: formData.password,
+      });
 
-    if (response.data === 'success') {
-      setIsLoginSuccessful(true);
-      handleLogin(); // Call the handleLogin function from props
-    } else {
+      console.log('Response from server:', response.data);
+      if (response.data.status === 'success') {
+        // Store the email in local storage
+        console.log('Email from response:', response.data.email);
+        localStorage.setItem('email', JSON.stringify(response.data.email));
+        console.log('Email from local storage:', localStorage.getItem('email'));
+
+        setIsLoginSuccessful(true);
+        login(response.data.email); // Use the login function from the context
+        handleLogin(); // Call the handleLogin function from props
+      } else {
+        setIsLoginSuccessful(false);
+      }
+    } catch (error) {
+      console.error('An error occurred during login:', error);
       setIsLoginSuccessful(false);
     }
-  } catch (error) {
-    console.error('An error occurred during login:', error);
-    setIsLoginSuccessful(false);
-  }
-};
-
-
+  };
   return (
     <Container>
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
           <h2>Login</h2>
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="email">
+
+              <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                name="email"
+                name="email" // Make sure this is set to "email"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
@@ -74,6 +84,7 @@ const Login = ({ handleLogin }) => {
             <Button variant="primary" type="submit" className="mt-3">
               Log In
             </Button>
+
           </Form>
 
           {/* Display a message for successful login */}
@@ -100,6 +111,11 @@ const Login = ({ handleLogin }) => {
 
         </Col>
       </Row>
+       {/* Footer Section */}
+      <section className=" mb-4 d-flex flex-column align-items-center justify-content-center " >
+      <Footer />
+      </section>
+
       
     </Container>
   );

@@ -9,17 +9,17 @@ import { AuthProvider } from './pages/loginContext';
 
 
 ReactDOM.render(
-<AuthProvider>
+
   <React.StrictMode>
- 
+ <AuthProvider>
       <Router>
       
         <App /> 
 
       </Router> 
-      
+      </AuthProvider>
   </React.StrictMode>
-  </AuthProvider>,
+  ,
 
   document.getElementById('root')
 );

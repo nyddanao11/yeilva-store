@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate} from'react-router-dom';
 
-const CheckoutForm = ({ cartItems, grandTotal }) => {
+const CheckoutForm = ({ cartItems, grandTotal, cartItem }) => {
  const [formData, setFormData] = useState({
   address: '',
   province: '',
@@ -30,6 +30,10 @@ const CheckoutForm = ({ cartItems, grandTotal }) => {
     navigate('/'); // Redirect to the homepage using navigate
   };
   
+  const handleBackToCart = () => {
+    // Navigate back to the cart page or any other desired location
+    navigate('/cart'); // Change the path accordingly
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +78,10 @@ const CheckoutForm = ({ cartItems, grandTotal }) => {
 
 
   return (    
-    <Form onSubmit={handleSubmit}>
+     <Row>
+      <Col xs={12} md={6}>
+        {/* Checkout Information and List of Items */}
+       <Form onSubmit={handleSubmit}>
       <Form.Group controlId="address">
         <Form.Label>Address</Form.Label>
         <Form.Control
@@ -138,26 +145,69 @@ const CheckoutForm = ({ cartItems, grandTotal }) => {
         />
       </Form.Group>
 
-      <p>Items in Cart:</p>
-      <ul>
-      {cartItems.map((item) => (
-        <div key={item.id}>
-          <img src={item.url} alt={item.name} width="100" height="100" />
-          <p>{item.name} - ₱{item.price} x {item.quantity}</p>
-        </div>
-      ))}
-      </ul>
-      <p>Total Price: ₱{grandTotal}</p>
-      
-      <Button variant="primary" type="submit" className="mb-2 mt-2" style={{width:"100%"}}>
-        Submit Order
-      </Button>
+          <p>Items in Cart:</p>
+          <ul>
+            {cartItems.map((item) => (
+              <div key={item.id}>
+                <img src={item.url} alt={item.name} width="100" height="100" />
+                <p>
+                  {item.name} - ₱{item.price} x {item.quantity}
+                </p>
+                <p> {item.size} {item.color}</p>
+              </div>
+            ))}
+          </ul>
+          <p>Total Price: ₱{grandTotal}</p>
 
-       {showModal && (
-        <SuccessModal show={showModal} onClose={handleCloseModal} handleClose={handleCloseModal} />
-      )}
-      
-    </Form>
+          <Button variant="primary" type="submit" className="mb-2 mt-2" style={{ width: '100%' }}>
+            Submit Order
+          </Button>
+
+          {showModal && (
+            <SuccessModal show={showModal} onClose={handleCloseModal} handleClose={handleCloseModal} />
+          )}
+        </Form>
+      </Col>
+         <Col xs={12} md={6}>
+      {/* Payment Options */}
+      <div>
+        <h3>Payment Options</h3>
+        <div>
+          <h4>GCash</h4>
+          <Form.Group controlId="gcashNumber">
+            <Form.Label>GCash Number</Form.Label>
+            <Form.Control
+              type="text"
+              name="gcashNumber"
+              value={formData.gcashNumber}
+              onChange={handleChange}
+              placeholder="Enter your GCash number"
+              required
+            />
+          </Form.Group>
+          {/* Add more GCash payment instructions or fields as needed */}
+        </div>
+        <div>
+          <h4>Bank Transfer</h4>
+          <Form.Group controlId="bankAccountNumber">
+            <Form.Label>Bank Account Number</Form.Label>
+            <Form.Control
+              type="text"
+              name="bankAccountNumber"
+              value={formData.bankAccountNumber}
+              onChange={handleChange}
+              placeholder="Enter your bank account number"
+              required
+            />
+          </Form.Group>
+          {/* Add more bank transfer payment instructions or fields as needed */}
+        </div>
+        <Button variant="primary" onClick={handleBackToCart} className="mb-2 mt-2" style={{ width: '100%' }}>
+        Back to Cart
+      </Button>
+      </div>
+    </Col>
+    </Row>
   );
 };
 

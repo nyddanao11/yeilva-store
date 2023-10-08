@@ -7,19 +7,18 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   // Function to handle login
   const login = () => {
-    // Perform your login logic here, e.g., set a token in local storage.
-     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
   };
 
   // Function to handle logout
   const logout = () => {
-    // Perform your logout logic here, e.g., remove the token from local storage.
-     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('email');
     setIsLoggedIn(false);
   };
 
@@ -29,9 +28,9 @@ export const AuthProvider = ({ children }) => {
     if (storedLoginState === 'true') {
       setIsLoggedIn(true);
     }
-  }, []); // Empty dependency array to run this effect only once on component mount
+  }, []);
 
-  // Update the context value with login and logout functions
+  // Update the context value with login, logout, and isLoggedIn
   const contextValue = {
     isLoggedIn,
     login,
