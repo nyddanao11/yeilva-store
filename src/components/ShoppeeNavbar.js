@@ -4,6 +4,7 @@ import { Link} from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 
 
+
 function ShopeeNavbar({cartItems, isLoggedIn, handleLogout, handleLogin}) {
 return (
  <Navbar bg="light" variant="light" expand="lg" className="mb-3">

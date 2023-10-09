@@ -6,7 +6,6 @@ import ImageProductBeauty from'../components/ImageProductBeauty';
 
 
 
-
 const BeautyProducts = ({ addToCart }) => {
 
   return (

@@ -4,7 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 
-const ImageProductPc = ({ product, addToCart }) => {
+const ImageProductPc1 = ({ product, addToCart }) => {
   return (
     <Card className="mb-3 w-100">
       <Link to={`/clickproductpagepc/${product.id}`}>
@@ -18,7 +18,7 @@ const ImageProductPc = ({ product, addToCart }) => {
       </Link>
       <Card.Body className="d-flex flex-column align-items-center justify-content-center">
         <Card.Title style={{ fontSize:"13px" }}>{product.name}</Card.Title>
-        <Card.Text style={{ color: "#EE6005" }}>Price: ₱{product.price}</Card.Text>
+        <Card.Text style={{ color: "#EE6005", margin:"0px" }}>Price: ₱{product.price}</Card.Text>
         <Button
           variant="primary"
           size="md"
@@ -32,4 +32,4 @@ const ImageProductPc = ({ product, addToCart }) => {
   );
 };
 
-export default ImageProductPc;
+export default ImageProductPc1;

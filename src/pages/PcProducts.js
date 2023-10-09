@@ -4,10 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Products from './Products';
 import {pcproductsData} from '../data/pcproductsData';
-import ImageProductPc from '../components/ImageProductPc';
-
-
-import ImageProductPc from '../components/ImageProductPc';
+import ImageProductPc1 from '../components/ImageProductPc';
 
 
 const PcProducts= ({addToCart}) => {
@@ -25,7 +22,7 @@ const PcProducts= ({addToCart}) => {
             {pcproductsData.map((product) => (
               <Col md={4} key={product.id}>
                 <div>
-                  <ImageProductPc url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product} />
+                  <ImageProductPc1 url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product} />
                    
                 </div>
               </Col>

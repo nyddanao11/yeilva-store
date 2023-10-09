@@ -41,7 +41,7 @@ const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement, ite
     />
 
 
-      <div className="sticky-top">
+      <div className="sticky-footer">
         <h2>Total Price: ₱{total}</h2>
         <Button className="w-100" variant="primary" onClick={handleCheckoutClick}>Proceed to Checkout</Button>
       </div>

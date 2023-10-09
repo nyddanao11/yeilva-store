@@ -17,6 +17,7 @@ import CombinedNavbar from './components/CombinedNavbar';
 import DealsPage from './pages/Deals';
 import MyAccountPage from './pages/MyAccount';
 import GroceryItemsPage from './pages/GroceryItems';
+import NewArrival from'./pages/NewArrival';
 import { useAuth} from './pages/loginContext';
 import ClickProductPage from'./pages/ClickProductPage';
 import ClickProductPagePc from'./pages/ClickProductPagePc';

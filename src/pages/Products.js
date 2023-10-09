@@ -1,7 +1,8 @@
 import React from 'react';
 import ImageProduct from '../components/ImageProduct';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container,  Row, Col } from 'react-bootstrap';
 import Footer from '../components/Footer';
+import PcProducts from './PcProducts';
 import { wellnessProductData } from '../data/wellnessProductData';
 
 
