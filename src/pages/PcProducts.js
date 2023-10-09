@@ -1,13 +1,12 @@
 // ProductPage.js
 import React from 'react';
-import ImageProduct from '../components/ImageProduct'; // Import your ImageCard component
-import { Button, Container, Card, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col} from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Products from './Products';
-import Search from './Search';
 import {pcproductsData} from '../data/pcproductsData';
-import { FaSearch, FaShoppingCart } from 'react-icons/fa';
-import ClickProductPagePc from'./ClickProductPagePc';
+import ImageProductPc from '../components/ImageProductPc';
+
+
 import ImageProductPc from '../components/ImageProductPc';
 
 

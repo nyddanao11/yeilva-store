@@ -3,7 +3,7 @@ import CheckoutForm from '../components/CheckoutForm';
 import { Button, Container, Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
-import ShoppingCart from '../components/ShoppingCart';
+
 
 const CartItem = ({ item, removeFromCart,
  cartItems, addToCart, grandTotal}) => {

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Navbar, Nav, Container, Form, FormControl, Button, Dropdown, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, Dropdown, NavDropdown } from 'react-bootstrap';
 import { Link} from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
-import Login from '../pages/Login';
 
 
 function ShopeeNavbar({cartItems, isLoggedIn, handleLogout, handleLogin}) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card} from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 import Footer from '../components/Footer';
 import FeaturedProducts from '../components/FeaturedProduct';
 import BestSelling from '../components/BestSelling';

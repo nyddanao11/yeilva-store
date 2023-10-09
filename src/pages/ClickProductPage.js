@@ -3,7 +3,6 @@ import React from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import findProductById from '../data/findProductById';
-import findProductByIdPc from '../data/findProductByIdPc';
 
 const ClickProductPage = ({ addToCart }) => {
   const { id } = useParams();
