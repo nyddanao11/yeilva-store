@@ -12,6 +12,7 @@ const Login = ({ handleLogin }) => {
   });
 
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
+  const [serverResponse, setServerResponse] = useState('');
 
   const navigate = useNavigate();
   const { login } = useAuth(); // Use the login function from the context
@@ -46,10 +47,12 @@ const Login = ({ handleLogin }) => {
         handleLogin(); // Call the handleLogin function from props
       } else {
         setIsLoginSuccessful(false);
+        setServerResponse(response.data.error);
       }
     } catch (error) {
       console.error('An error occurred during login:', error);
       setIsLoginSuccessful(false);
+      setServerResponse('An error occurred during login.');
     }
   };
   return (
@@ -97,6 +100,12 @@ const Login = ({ handleLogin }) => {
           {!isLoginSuccessful && (
             <p className="text-danger mt-2">Login failed. Please check your credentials.</p>
           )}
+
+           {/* Display the server response message */}
+          {serverResponse && (
+            <p className="text-info mt-2" style={{margin:"0px"}}>{serverResponse}</p>
+          )}
+
         </Col>
       </Row>
       <Row className="justify-content-center mt-3">
@@ -107,7 +116,7 @@ const Login = ({ handleLogin }) => {
             Don't have an account? <Link to="/signupform">Sign Up</Link>
           </p>
         )}
-
+        
 
         </Col>
       </Row>
