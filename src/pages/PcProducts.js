@@ -4,7 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Products from './Products';
 import {pcproductsData} from '../data/pcproductsData';
-import ImageProductPc1 from '../components/ImageProductPc';
+import ImageProductPc1 from '../components/ImageProductPc1';
 
 
 const PcProducts= ({addToCart}) => {
