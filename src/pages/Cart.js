@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './Cart.css'; // Import your CSS file
 
 
-const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement, item, addToCart, handleSizeChangeInCart,  handleColorChangeInCart, selectedColor, selectedSize}) => {
+const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement, item, addToCart, handleSizeChange,  handleColorChange, selectedColor, selectedSize}) => {
   const calculateTotalPrice = (cartItems) => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -28,17 +28,16 @@ const Cart = ({ cartItems, removeFromCart, handleIncrement, handleDecrement, ite
 
   return (
     <Container className="cart-container">
-     <ShoppingCart
+    <ShoppingCart
       cartItems={cartItems}
       removeFromCart={removeFromCart}
       addToCart={addToCart}
       handleIncrement={handleIncrement}
       handleDecrement={handleDecrement}
-      handleSizeChangeInCart={handleSizeChangeInCart}
-      handleColorChangeInCart={handleColorChangeInCart}
-      selectedSize={selectedSize} // Pass selectedSize
-      selectedColor={selectedColor} // Pass selectedColor
+      handleSizeChange={handleSizeChange}
+      handleColorChange={handleColorChange}
     />
+
 
 
       <div className="sticky-footer">

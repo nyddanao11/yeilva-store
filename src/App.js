@@ -9,6 +9,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import CheckoutPage from './pages/CheckoutPage';
+import ShoppingCart from'./components/ShoppingCart';
 import SignUpForm  from './components/SignupForm';
 import {wellnessProductData} from'./data/wellnessProductData';
 import {pcproductsData} from './data/pcproductsData';
@@ -39,6 +40,17 @@ function App() {
    const { isLoggedIn, login, logout } = useAuth();
    const [cartItems, setCartItems] = useState([]);
    const navigate = useNavigate();
+   
+    const [selectedSize, setSelectedSize] = useState('none');
+  const [selectedColor, setSelectedColor] = useState('none');
+
+  const handleSizeChange = (newSize) => {
+    setSelectedSize(newSize);
+  };
+
+  const handleColorChange = (newColor) => {
+    setSelectedColor(newColor);
+  };
 
 
   const addToCart = (product, selectedSize, selectedColor) => {
@@ -132,7 +144,9 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} />}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} avonproductsData={avonproductsData} addToCart={addToCart} />} />
-            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}/>} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}  selectedSize={selectedSize}
+        selectedColor={selectedColor}/>} />
+            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
             <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/newarrival" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage />} />

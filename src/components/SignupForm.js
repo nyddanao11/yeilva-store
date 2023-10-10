@@ -115,6 +115,11 @@ const SignUpForm = () => {
             <p className="text-danger mt-2">Sign-Up failed. Please check your credentials.</p>
           )}
 
+           {/* Display the server response message */}
+          {serverResponse && (
+            <p className="text-info mt-2" style={{margin:"0px"}}>{serverResponse}</p>
+          )}
+
       </Form>
 
        {/* Footer Section */}

@@ -13,35 +13,6 @@ const ShoppingCart = ({
   
 }) => {
 
-  const [selectedSize, setSelectedSize] = useState('none');
-  const [selectedColor, setSelectedColor] = useState('none');
-
-   const handleSizeChangeInCart = (event, cartItem) => {
-    const newSize = event.target.value;
-    setSelectedSize(newSize); // Update the selected size
-
-    const updatedCartItem = {
-      ...cartItem,
-      size: newSize,
-    };
-   
-    addToCart(updatedCartItem); // Pass the updated cart item to addToCart
-  };
-
-  const handleColorChangeInCart = (event, cartItem) => {
-    const newColor = event.target.value;
-    setSelectedColor(newColor); // Update the selected color
-
-    const updatedCartItem = {
-      ...cartItem,
-      color: newColor,
-    };
-   
-    addToCart(updatedCartItem); // Pass the updated cart item to addToCart
-  };
-
-  
-
   return (
     <div className="shopping-cart">
       <h2>Your Shopping Cart</h2>
@@ -61,45 +32,7 @@ const ShoppingCart = ({
                     <Col md={8} className="item-details ">
                       <p className="item-name">{cartItem.name}</p>
                       <p className="item-price">₱{cartItem.price}</p>
-                      <p className="item-description">{cartItem.description}</p>
-
-                      <div className='d-flex ' >
-                      {/* Display size and color options as dropdowns */}
-                      <Form.Group controlId="sizeSelect" style={{ width: '25%' }}>
-                        <Form.Label>Size:</Form.Label>
-                        <Form.Control
-                          as="select"
-                          value={selectedSize} // Use the selectedSize prop
-                          onChange={(e) => handleSizeChangeInCart(e, cartItem)}
-                        >
-                          <option>none</option>
-                          <option>Small</option>
-                          <option>Medium</option>
-                          <option>Large</option>
-                          <option>XLarge</option>
-                          {/* Add more size options as needed */}
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Form.Group controlId="colorSelect" style={{ width: '25%', marginLeft: '20px' }}>
-                        <Form.Label>Color:</Form.Label>
-                        <Form.Control
-                          as="select"
-                          value={selectedColor} // Use the selectedColor prop
-                          onChange={(e) => handleColorChangeInCart(e, cartItem)}
-                        >
-                          <option>none</option>
-                          <option>white</option>
-                          <option>Red</option>
-                          <option>Blue</option>
-                          <option>Green</option>
-                          <option>Yellow</option>
-                          <option>gray</option>
-                          <option>Black</option>
-                          {/* Add more color options as needed */}
-                        </Form.Control>
-                      </Form.Group>
-                    </div>
+                      <p className="item-description">{cartItem.description}</p>    
                     </Col>
                   </Row>
                 </Card.Body>

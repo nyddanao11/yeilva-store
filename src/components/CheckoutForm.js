@@ -4,7 +4,8 @@ import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate} from'react-router-dom';
 
-const CheckoutForm = ({ cartItems, grandTotal, cartItem }) => {
+const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
+  selectedColor }) => {
  const [formData, setFormData] = useState({
   address: '',
   province: '',
@@ -12,6 +13,8 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem }) => {
   email: '',
   creditCard: '',
   name: '', // Add the 'name' field
+  size: '',
+  color:'',
   quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
   total: grandTotal,
 });
@@ -74,7 +77,6 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem }) => {
     console.error('Error submitting order:', error);
   }
 };
-
 
 
   return (    
@@ -145,6 +147,17 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem }) => {
         />
       </Form.Group>
 
+          <Form.Group controlId="sizeSelect">
+      <Form.Label>Selected Size:</Form.Label>
+      <Form.Control type="text" value={selectedSize} readOnly />
+    </Form.Group>
+
+    <Form.Group controlId="colorSelect">
+      <Form.Label>Selected Color:</Form.Label>
+      <Form.Control type="text" value={selectedColor} readOnly />
+    </Form.Group>
+
+
           <p>Items in Cart:</p>
           <ul>
             {cartItems.map((item) => (
@@ -153,7 +166,7 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem }) => {
                 <p>
                   {item.name} - ₱{item.price} x {item.quantity}
                 </p>
-                <p> {item.size} {item.color}</p>
+               
               </div>
             ))}
           </ul>
