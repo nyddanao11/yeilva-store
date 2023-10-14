@@ -7,7 +7,7 @@ import { FaHome } from 'react-icons/fa';
 
 function ShopeeNavbar({cartItems, isLoggedIn, handleLogout, handleLogin}) {
 return (
- <Navbar bg="light" variant="light" expand="lg" className="mb-3">
+ <Navbar bg="white" variant="light" expand="lg" className="mb-3 shadow-sm">
    <Container>
 			 	<Navbar.Brand as={Link} to="/" className="text-dark">
 			<FaHome size={24} />
@@ -19,22 +19,17 @@ return (
 
 			<NavDropdown title="Product Category" id="basic-nav-dropdown">
 	      
+	            <Dropdown.Item as={Link} to="/groceryitemspage">Food&Beverages/GroceryItems</Dropdown.Item>
+	            <Dropdown.Item as={Link} to="/schoolsupplies">School and Office Supplies</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/products">Health & Wellness</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/pcproducts">Personal Collection</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/avonproducts">Avon Collection</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/groceryitemspage">Food and beverages</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/beautyproducts">Beauty and Personal Care</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/schoolsupplies">School and Office Supplies</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/fashionapparel">Fashion and Apparel</Dropdown.Item>
 	           <Dropdown.Item as={Link} to="/homekitchen">Home and Kitchen Appliances</Dropdown.Item>
 	           <Dropdown.Item as={Link} to="/homeimprovement">Home Improvement and DIY Tools</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/outdoorsports">Outdoor and Sports Equipment</Dropdown.Item>   
-	            <Dropdown.Item as={Link} to="/mobileaccessories">Mobile Accessories</Dropdown.Item>
-	             <Dropdown.Item as={Link} to="/electronicgadget">Electronic and Gadget</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/petsupplies">Pet Supplies</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/localproducts">Local Artisanal Products</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/toysgames">Toys and Games</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/jewelryaccessories">jewelry and Accessories</Dropdown.Item>
+	            
 	          {/* Add more category links as needed */}
 	      
 	      </NavDropdown>

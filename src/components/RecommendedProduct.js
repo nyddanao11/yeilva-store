@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageCard from './ImageCard';
+
 import { recommendedProducts } from '../data/recommendedProducts';
 import {Col} from 'react-bootstrap';
 import ImageCardRecommended from'../components/ImageCardRecommended';

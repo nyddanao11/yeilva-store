@@ -31,15 +31,17 @@ const FashionApparel = ({ addToCart, cartItems }) => {
     <Container fluid>
       <Row>
         {/* Sidebar */}
-        <Col sm={sidebarCollapsed ? 0 : 3} className={`bg-light sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
+        <Col sm={sidebarCollapsed ? 0 : 3} className={` sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
           <div className="d-flex flex-column align-items-center p-3">
-            <h2 className="mb-4 text-center"  style={{color:"green", border:"1px solid green", borderRadius:"5px", maxWidth:"300px", padding:"6px"}}>Category</h2>
+           
             <Nav className="flex-column">
               {fashionItems.map((item) => (
                 <Nav.Item key={item.id}>
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
+                    style={{color:"white", background:"green", border: "1px solid", 
+                    borderRadius:"2px", margin:"5px", maxWidth:"300px"}}
                   >
                     {item.title}
                   </Nav.Link>

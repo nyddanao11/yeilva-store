@@ -4,6 +4,7 @@ import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
 import {Link} from'react-router-dom';
 
+
 const Footer = () => {
   return (
     <footer className="footer">
@@ -31,11 +32,12 @@ const Footer = () => {
             </div>
           </Col>
           <Col md={3}>
-          <div className="d-flex  align-items-center justify-content-center" style={{marginTop:"40px"}}>
+          <div className="d-flex   align-items-center justify-content-center" style={{marginTop:"30px"}}>
           
            <Link to='/contactus'>
-                <Button variant="primary">Contact Us</Button>
+                <Button variant="primary">Contact Us</Button>     
           </Link>
+          
           </div>
           </Col>
 

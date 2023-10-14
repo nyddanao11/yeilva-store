@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from './Footer';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 
 const ContactUs = () => {
   return (
@@ -15,7 +15,7 @@ const ContactUs = () => {
                   <p><strong>Messenger:</strong> Yeilva Olivar Arong</p>
                   <p><strong>WhatsApp:</strong> 09497042268</p>
                   <p><strong>Phone:</strong> 09497042268</p>
-                  <p><strong>Email:</strong> yeilvastore@gmail.com</p>
+                 <p><strong>Email:</strong> <a href="yeilvastore@gmail.com"> yeilvastore@gmail.com</a></p>
                 </Card.Text>
               </Card.Body>
             </Card>

@@ -1,6 +1,5 @@
 import React from 'react';
 import ShoppingCart from '../components/ShoppingCart';
-import CheckoutPage from './CheckoutPage';
 import { Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css'; // Import your CSS file

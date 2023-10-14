@@ -1,9 +1,8 @@
 import React from 'react';
 import ImageCard from './ImageCard';
 import { bestSellingProducts } from '../data/bestSellingProducts';
-import { FaShoppingCart } from 'react-icons/fa';
-import { Col, Button } from 'react-bootstrap';
-import ClickBestSelling from '../pages/ClickBestSelling';
+import { Col} from 'react-bootstrap';
+
 
 const BestSelling = ({ addToCart }) => {
   return (

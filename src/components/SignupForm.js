@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -120,10 +120,15 @@ const SignUpForm = () => {
             <p className="text-info mt-2" style={{margin:"0px"}}>{serverResponse}</p>
           )}
 
+         
+         <Link to="/termsandconditions" >
+          Terms and Conditions
+        </Link>
+
       </Form>
 
        {/* Footer Section */}
-      <section className=" mb-4 d-flex flex-column align-items-center justify-content-center " >
+      <section className=" mb-4  mt-2 d-flex flex-column align-items-center justify-content-center " >
       <Footer />
       </section>
       

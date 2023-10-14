@@ -1,8 +1,6 @@
 import React from 'react';
-import ImageCard from './ImageCard';
 import {homeProducts} from '../data/homeProducts';
-import { FaShoppingCart } from 'react-icons/fa';
-import { Card, Col, Row, Button } from 'react-bootstrap';
+import { Col} from 'react-bootstrap';
 import './FeaturedProduct.css';
 import ImageCardFeaturedProduct from './ImageCardFeaturedProduct';
 

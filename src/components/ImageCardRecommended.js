@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Row, Button } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './loginContext';
 import Footer from'../components/Footer';
@@ -14,7 +14,6 @@ const Login = ({ handleLogin }) => {
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [serverResponse, setServerResponse] = useState('');
 
-  const navigate = useNavigate();
   const { login } = useAuth(); // Use the login function from the context
 
   const handleInputChange = (event) => {

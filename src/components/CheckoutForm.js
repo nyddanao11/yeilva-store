@@ -13,8 +13,6 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
   email: '',
   creditCard: '',
   name: '', // Add the 'name' field
-  size: '',
-  color:'',
   quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
   total: grandTotal,
 });
@@ -22,7 +20,7 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
 
   const [isSubmitting, setIsSubmitting] = useState(false); // Add state for form submission
 
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
    const [showModal, setShowModal] = useState(false); //
 
 
@@ -57,7 +55,16 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
   }
 
   // Calculate the "name" field by mapping cart items to a formatted string
-  const name = cartItems.map((item) => `${item.name} - ₱${item.price} `).join(', ');
+  const name =  cartItems.map((item) => `
+    <div>
+  <p>Item: ${item.name}</p>
+  <p>Price: ₱${item.price}</p>
+  <p>Quantity: ${item.quantity}</p>
+  <p>Selected Size: ${item.selectedSize}</p>
+  <p>Selected Color: ${item.selectedColor}</p>
+  <img src="${item.url}" alt="${item.name}" width="100" height="100" />
+    </div>
+`).join('<br>');
 
     try {
     setIsSubmitting(true); // Disable the form submission
@@ -147,29 +154,29 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
         />
       </Form.Group>
 
-          <Form.Group controlId="sizeSelect">
-      <Form.Label>Selected Size:</Form.Label>
-      <Form.Control type="text" value={selectedSize} readOnly />
-    </Form.Group>
+         
+         <p>Items in Cart:</p>
+        <ul>
+          {cartItems.map((item) => (
+            <div key={item.id}>
+              <img src={item.url} alt={item.name} width="100" height="100" />
+              <p>
+                {item.name} - ₱{item.price} x {item.quantity}
+              </p>
 
-    <Form.Group controlId="colorSelect">
-      <Form.Label>Selected Color:</Form.Label>
-      <Form.Control type="text" value={selectedColor} readOnly />
-    </Form.Group>
+              <Form.Group controlId={`sizeSelect-${item.id}`}>
+                <Form.Label>Selected Size:</Form.Label>
+                <Form.Control type="text" value={item.selectedSize} readOnly />
+              </Form.Group>
 
+              <Form.Group controlId={`colorSelect-${item.id}`}>
+                <Form.Label>Selected Color:</Form.Label>
+                <Form.Control type="text" value={item.selectedColor} readOnly />
+              </Form.Group>
+            </div>
+          ))}
+        </ul>
 
-          <p>Items in Cart:</p>
-          <ul>
-            {cartItems.map((item) => (
-              <div key={item.id}>
-                <img src={item.url} alt={item.name} width="100" height="100" />
-                <p>
-                  {item.name} - ₱{item.price} x {item.quantity}
-                </p>
-               
-              </div>
-            ))}
-          </ul>
           <p>Total Price: ₱{grandTotal}</p>
 
           <Button variant="primary" type="submit" className="mb-2 mt-2" style={{ width: '100%' }}>

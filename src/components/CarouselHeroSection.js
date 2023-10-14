@@ -1,6 +1,6 @@
 import React from'react';
 import {CarouselImage} from'../data/CarouselImage';
-import {Container, Row, Col, Carousel} from 'react-bootstrap';
+import {Row, Col, Carousel} from 'react-bootstrap';
 import {Link} from'react-router-dom';
 import ImageWithOverlayButton from'./ImgButtonOverly';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Products from './pages/Products';
@@ -32,7 +32,18 @@ import BeautyProducts from'./pages/BeautyProducts';
 import ClickBeautyProducts from'./pages/ClickBeautyProducts';
 import FashionApparel from './pages/FashionApparel';
 import SchoolSupplies from'./pages/SchoolSupplies';
-
+import TermsAndConditionsPage from'./pages/TermsAndConditions';
+import PrivacyPolicyPage from'./pages/PrivacyPolicy';
+import ClickBeverages from './components/Groceries/ClickBeverages';
+import ClickFrozenFoods from'./components/Groceries/ClickFrozenFoods';
+import ClickSnacks from'./components/Groceries/ClickSnacks';
+import ClickAlcoholic from'./components/Groceries/ClickAlcoholic';
+import ClickInstantNoodles from'./components/Groceries/ClickInstantNoodles';
+import ClickCanGoods from'./components/Groceries/ClickCanGoods';
+import ClickLaundry from'./components/Groceries/ClickLaundry';
+import ClickCooking from'./components/Groceries/ClickCooking';
+import ClickVitamins from'./components/Groceries/ClickVitamins';
+import ClickRice from'./components/Groceries/ClickRice';
 
 
 function App() {
@@ -44,16 +55,8 @@ function App() {
     const [selectedSize, setSelectedSize] = useState('none');
   const [selectedColor, setSelectedColor] = useState('none');
 
-  const handleSizeChange = (newSize) => {
-    setSelectedSize(newSize);
-  };
-
-  const handleColorChange = (newColor) => {
-    setSelectedColor(newColor);
-  };
-
-
-  const addToCart = (product, selectedSize, selectedColor) => {
+ 
+const addToCart = (product, selectedSize, selectedColor) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
 
   if (existingItem) {
@@ -148,7 +151,7 @@ const handleLogout = () => {
         selectedColor={selectedColor}/>} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
             <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
-            <Route path="/newarrival" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage />} />
             <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
@@ -157,6 +160,17 @@ const handleLogout = () => {
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart} />} />
               <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart} />} />
               <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/clickbeverages/:id" element={<ClickBeverages addToCart={addToCart} />} />
+               <Route path="/clickfrozenfoods/:id" element={<ClickFrozenFoods addToCart={addToCart} />} />
+               <Route path="/clicksnacks/:id" element={<ClickSnacks addToCart={addToCart} />} />
+               <Route path="/clickalcoholic/:id" element={<ClickAlcoholic addToCart={addToCart} />} />
+              <Route path="/clickinstantnoodles/:id" element={<ClickInstantNoodles addToCart={addToCart} />} />
+               <Route path="/clickcangoods/:id" element={<ClickCanGoods addToCart={addToCart} />} />
+               <Route path="/clicklaundry/:id" element={<ClickLaundry addToCart={addToCart} />} />
+               <Route path="/clickcooking/:id" element={<ClickCooking addToCart={addToCart} />} />
+               <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart} />} />
+                <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart} />} />
+              
           </Routes>
         ) : (
           <Routes>
@@ -164,6 +178,8 @@ const handleLogout = () => {
             <Route path="/" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/signupform" element={<SignUpForm handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+            <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+             <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
           </Routes>
         )}
       </Container>

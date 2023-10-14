@@ -1,14 +1,17 @@
+
 import React, { useState } from 'react';
 import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
-import Fruits from '../components/Groceries/Fruits';
+import VitaminsMedications from '../components/Groceries/VitaminsMedications';
 import Rice from '../components/Groceries/Rice';
-import Vegetables from '../components/Groceries/Vegetables';
 import InstantNoodles from '../components/Groceries/InstantNoodles';
 import CannedGoods from '../components/Groceries/CanGoods';
 import Beverages from '../components/Groceries/Beverages';
 import FrozenFoods from '../components/Groceries/FrozenFoods';
-import AlcholicDrinks from '../components/Groceries/AlcholicDrinks';
+import AlcoholicDrinks from '../components/Groceries/AlcoholicDrinks';
 import Snacks from'../components/Groceries/Snacks';
+import LaundryPersonalCare from'../components/Groceries/LaundryPersonalCare';
+import CookingItems from'../components/Groceries/CookingItems';
+
 
 
 const GroceryItems = ({ addToCart, cartItems }) => {
@@ -25,29 +28,33 @@ const GroceryItems = ({ addToCart, cartItems }) => {
 
   const menuItems = [
     { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'alcholicdrinks', title: 'Alcoholic drinks', component: <AlcholicDrinks addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'alcholicdrinks', title: 'Alcoholic drinks', component: <AlcoholicDrinks addToCart={addToCart} cartItems={cartItems} /> },
     { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} /> },
     { id: 'snacks', title: 'Snacks', component: <Snacks addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'fruits', title: 'Fruits', component: <Fruits addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'vegetables', title: 'Vegetables', component: <Vegetables addToCart={addToCart} cartItems={cartItems} /> },
     { id: 'instantnoodles', title: 'Instant Noodles', component: <InstantNoodles addToCart={addToCart} cartItems={cartItems} /> },
     { id: 'cangoods', title: 'Can Goods', component: <CannedGoods addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'laundrybath', title: 'Laundry&PersonalCare', component: <LaundryPersonalCare addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'cookingitems', title: 'Cooking Items', component: <CookingItems addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'vitamins&medications', title: 'Vitamins&Medications', component: <VitaminsMedications addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} /> },
+  
   ];
 
   return (
     <Container fluid>
       <Row>
         {/* Sidebar */}
-        <Col sm={sidebarCollapsed ? 0 : 3} className={`bg-light sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
+        <Col sm={sidebarCollapsed ? 0 : 3} className={`sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
           <div className="d-flex flex-column align-items-center p-3">
-            <h2 className="mb-4 text-center"  style={{color:"green", border:"1px solid green", borderRadius:"5px", maxWidth:"300px", padding:"6px"}}>Category</h2>
+           
             <Nav className="flex-column">
               {menuItems.map((item) => (
                 <Nav.Item key={item.id}>
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
+                    style={{color:"white", background:"green", border: "1px solid ", 
+                    borderRadius:"2px", margin:"5px", maxWidth:"300px"}}
                   >
                     {item.title}
                   </Nav.Link>

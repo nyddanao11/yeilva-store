@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CheckoutForm from '../components/CheckoutForm';
-import { Button, Container, Card, Row, Col } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaTrash } from 'react-icons/fa';
 import CartItem from './CartItem';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,11 +33,12 @@ const CheckoutPage = ({ cartItems, removeFromCart, addToCart, selectedSize, sele
   };
 
 if (cartItems.length === 0) {
-  window.alert("Your Cart is Empty");
-   navigate('/');
-  // Add a small delay (e.g., 100 milliseconds)
+    navigate('/'); 
+     window.alert("Your Cart is Empty");  
   return null;
+ 
 }
+
 
   return (
     <Container className="mb-4">

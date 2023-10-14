@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col, Form } from 'react-bootstrap';
+import React from 'react';
+import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col} from 'react-bootstrap';
 import './ShoppingCart.css';
 
 
