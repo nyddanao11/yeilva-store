@@ -69,7 +69,7 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
     try {
     setIsSubmitting(true); // Disable the form submission
 
-    const response = await axios.post('http://localhost:3001/checkout', {
+    const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', {
       ...formData,
       name, // Include the calculated "name" field
     });

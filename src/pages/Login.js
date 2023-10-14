@@ -29,7 +29,7 @@ const Login = ({ handleLogin }) => {
     console.log('Email:', formData.email);
 
     try {
-      const response = await axios.post('http://localhost:3001/signin', {
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/signin', {
         email: formData.email,
         password: formData.password,
       });

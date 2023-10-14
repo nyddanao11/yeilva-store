@@ -32,7 +32,7 @@ const MyAccountPage = () => {
     }
 
     axios
-      .get(`http://localhost:3001/api/user?email=${encodeURIComponent(email)}`)
+      .get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`)
       .then((response) => {
         const user = response.data;
         setUserData(user);
