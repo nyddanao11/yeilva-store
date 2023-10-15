@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
 import VitaminsMedications from '../components/Groceries/VitaminsMedications';
 import Rice from '../components/Groceries/Rice';
@@ -11,12 +11,41 @@ import AlcoholicDrinks from '../components/Groceries/AlcoholicDrinks';
 import Snacks from'../components/Groceries/Snacks';
 import LaundryPersonalCare from'../components/Groceries/LaundryPersonalCare';
 import CookingItems from'../components/Groceries/CookingItems';
+import './GroceryItems.css';
 
 
 
 const GroceryItems = ({ addToCart, cartItems }) => {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState('false');
+
+
+useEffect(() => {
+  const initialScreenWidth = window.innerWidth;
+  console.log('Screen width:', initialScreenWidth);
+
+  // Set the sidebar to collapse when the initial width is less than or equal to 768px
+  setSidebarCollapsed(initialScreenWidth <= 768);
+
+  const handleResize = () => {
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+    setSidebarCollapsed(isSmallScreen);
+  };
+
+  // Initial setup
+  handleResize();
+
+  // Listen for changes in viewport dimensions
+  window.addEventListener('resize', handleResize);
+
+  // Remove the event listener when the component unmounts
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []);
+
+
+
 
   const handleMenuItemClick = (item) => {
     setActiveNavItem(item);
@@ -44,7 +73,7 @@ const GroceryItems = ({ addToCart, cartItems }) => {
     <Container fluid>
       <Row>
         {/* Sidebar */}
-        <Col sm={sidebarCollapsed ? 0 : 3} className={`sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
+        <Col sm={sidebarCollapsed ? 0 : 3} className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
           <div className="d-flex flex-column align-items-center p-3">
            
             <Nav className="flex-column">
@@ -63,20 +92,20 @@ const GroceryItems = ({ addToCart, cartItems }) => {
             </Nav>
           </div>
         </Col>
-         {/* Toggle Sidebar Button (Always Visible) */}
         
+        
+      {/* Toggle Sidebar Button (Always Visible) */}
         <Button
           className={`toggle-sidebar-btn d-sm-none ${sidebarCollapsed ? 'collapsed' : ''}`}
           variant="light"
           onClick={toggleSidebar}
-          
         >
-          Toggle Sidebar
+          Toggle Category
         </Button>
         
 
         {/* Main Content Area */}
-        <Col sm={sidebarCollapsed ? 12 : 9}>
+         <Col sm={sidebarCollapsed ? 12 : 9}>
           <Container>
             <Row>
               <Col>

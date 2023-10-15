@@ -1,55 +1,31 @@
-/* Sidebar.css */
-
-/* Sidebar container */
 .sidebar {
-  background-color: #333; /* Set the background color */
-  color: #fff; /* Set the text color */
-  min-width: 250px; /* Set a minimum width for the sidebar */
-  transition: min-width 0.3s ease; /* Add a smooth transition effect */
-  height: 100vh; /* Make the sidebar full height */
-  overflow-y: auto; /* Add scrollbars for content overflow */
+  width: 250px; /* Set an initial width for the sidebar */
+  transition: width 0.5s; /* Add a smooth transition effect */
+
+  /* Additional sidebar styles */
 }
 
-/* Sidebar header */
-.sidebar-header {
-  padding: 20px;
-  text-align: center;
-  background-color: #222; /* Header background color */
+.collapsed .sidebar {
+  width: 0; /* Collapse the sidebar by setting its width to 0 */
 }
 
-/* Sidebar header text */
-.sidebar-header h2 {
-  margin: 0;
-  font-size: 24px;
-}
-
-/* Sidebar navigation links */
-.sidebar-nav {
-  padding: 20px;
-}
-
-/* Sidebar navigation links - active item */
-.sidebar-nav .nav-item .nav-link.active {
-  background-color: #007bff; /* Active link background color */
-  color: #fff; /* Active link text color */
-}
-
-/* Toggle button */
 .toggle-sidebar-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #333; /* Button background color */
-  color: #fff; /* Button text color */
-  border: none;
+  display: none; /* Hide the toggle button by default */
 }
 
-/* Toggle button - collapsed state */
-.toggle-sidebar-btn.collapsed {
-  right: 0;
+
+@media (max-width: 768px) {
+  .collapsed .sidebar {
+    width: 0; /* Collapse the sidebar on small screens */
+  }
+
+  .toggle-sidebar-btn {
+    display: block; /* Show the toggle button on small screens */
+  }
 }
 
-/* Main content */
-.main-content {
-  padding: 20px;
+@media (min-width: 769px) {
+  .collapsed .sidebar {
+    width: 250px; /* Reset the width to the initial width on larger screens */
+  }
 }
