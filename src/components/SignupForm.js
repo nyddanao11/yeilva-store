@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -28,7 +28,7 @@ const SignUpForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('https://yeilva-store-server.up.railway.app/register', formData)
+    axios.post('http://localhost:3001/register', formData)
       .then((response) => {
         if (response.status === 200) {
           setIsLoginSuccessful(true);
@@ -44,6 +44,13 @@ const SignUpForm = () => {
       });
   };
 
+
+  useEffect(() => {
+    if (isLoginSuccessful) {
+      alert('Please confirm your email to login');
+    }
+  }, [isLoginSuccessful]);
+  
 
   return (
     <Container>
@@ -106,7 +113,8 @@ const SignUpForm = () => {
 
            {/* Display a message for successful login */}
           {isLoginSuccessful && (
-            <p className="text-success mt-2">Sign-Up successful. You can now login.</p>
+            <p className="text-success mt-2">Sign-Up successful.</p>
+
 
           )}
 
