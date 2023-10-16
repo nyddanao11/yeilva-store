@@ -27,7 +27,7 @@ const GroceryItems = ({ addToCart, cartItems }) => {
   };
 
   const menuItems = [
-    { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} isSoldOut={true} /> },
     { id: 'alcholicdrinks', title: 'Alcoholic drinks', component: <AlcoholicDrinks addToCart={addToCart} cartItems={cartItems} /> },
     { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} /> },
     { id: 'snacks', title: 'Snacks', component: <Snacks addToCart={addToCart} cartItems={cartItems} /> },
@@ -53,7 +53,7 @@ const GroceryItems = ({ addToCart, cartItems }) => {
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
-                    style={{color:"white", background:"green", border: "1px solid ", 
+                    style={{color:"black", background:"white", border: "1px solid ", 
                     borderRadius:"2px", margin:"5px", maxWidth:"300px"}}
                   >
                     {item.title}

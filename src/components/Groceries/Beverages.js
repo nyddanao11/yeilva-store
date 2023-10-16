@@ -2,10 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import {beer} from'./BeveragesData';
 import{Link} from'react-router-dom';
+import'./SoldOutLabel.css';
 
 
 
-const Beverages = ({ addToCart, cartItems, product}) => {
+const Beverages = ({ addToCart, cartItems, product, isSoldOut}) => {
   
   
   return (
@@ -16,12 +17,13 @@ const Beverages = ({ addToCart, cartItems, product}) => {
           <Row className="mt-4">
             {/* Display Grocery Items */}
             {beer.map((product) => (
+             
               <Col sm={3} xs={6} key={product.id} className="d-flex  align-items-center justify-content-center" >
-                <Card className="mb-4 shadow-sm  " >
+                <Card className="product-card mb-4 shadow-sm  " >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-
+                    {isSoldOut && <div className="sold-out-label">Sold Out</div>}
                    <Link to={`/clickbeverages/${product.id}`}>
-                  
+                   
                     <Card.Img 
                     variant="top" 
                     src={product.url} alt={product.name}
@@ -32,6 +34,8 @@ const Beverages = ({ addToCart, cartItems, product}) => {
 
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
+
+
                    
                     <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
                   </Card.Body>
@@ -41,6 +45,7 @@ const Beverages = ({ addToCart, cartItems, product}) => {
           </Row>
         </Col>
       </Row>
+      
     </Container>
   );
 };

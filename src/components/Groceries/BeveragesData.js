@@ -1,7 +1,7 @@
 export const beer = [
-    { id: 1, name: '600ml', price: 40, url:`${process.env.PUBLIC_URL}/groceries/beverages/coke1.jpg`, category: 'Beverages',  description:'Coka Cola Classic' },
-    { id: 2, name: '250ml', price: 80, url:`${process.env.PUBLIC_URL}/groceries/beverages/coke2.jpg`, category: 'Beverages', description:'Coka Cola Classic' },
-    { id: 3, name: ' 500ml', price: 40, url:`${process.env.PUBLIC_URL}/groceries/beverages/sprite1.jpg`, category: 'Beverages',  description:'Lemon-lime Sprite 100% Natural Flavour' },
+    { id: 1, name: '600ml', price: 40, url:`${process.env.PUBLIC_URL}/groceries/beverages/coke1.jpg`, category: 'Beverages', isSoldOut: 'true', description:'Coka Cola Classic' },
+    { id: 2, name: '250ml', price: 80, url:`${process.env.PUBLIC_URL}/groceries/beverages/coke2.jpg`, category: 'Beverages', soldout: 'true', description:'Coka Cola Classic' },
+    { id: 3, name: ' 500ml', price: 40, url:`${process.env.PUBLIC_URL}/groceries/beverages/sprite1.jpg`, category: 'Beverages', soldout: 'true', description:'Lemon-lime Sprite 100% Natural Flavour' },
     { id: 4, name: '600ml', price: 80, url:`${process.env.PUBLIC_URL}/groceries/beverages/sprite1.jpg`, category: 'Beverages',  description:'Great Sprite Taste Natural Flavour' },
     { id: 5, name: 'CafePuro3in1', price: 40, url:`${process.env.PUBLIC_URL}/groceries/beverages/CafePuro3In1.jpg`, category: 'Beverages',  description:'Cafe Puro 3In1 Instant Coffee Mix 8.8oz' },
     { id: 6, name: 'CaliSparkling ', price: 80, url:`${process.env.PUBLIC_URL}/groceries/beverages/CaliSparkling.jpg`, category: 'Beverages',  description:'Cali Sparkling Pineapple Soft Drink11.15oz_330ml' },
