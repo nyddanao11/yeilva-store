@@ -26,7 +26,7 @@ const Header = ({ cartItems }) => {
 /> <strong >YeilvaSTORE</strong> </Navbar.Brand>
 
        <Nav className="d-flex flex-row pe-1">
-         <Nav.Link as={Link} to="/cart">
+         <Nav.Link as={Link} to="/cart" style={{marginRight:"10px"}}>
               <FaShoppingCart size={20} />{' '}
               <span style={cartItemCountStyle}>({cartItemCount})</span>
               {/* Add shopping cart icon */}
