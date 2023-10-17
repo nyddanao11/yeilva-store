@@ -83,7 +83,7 @@ useEffect(() => {
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
-                    style={{color:"black", background:"white", border: "1px solid ", 
+                    style={{color:"black", background:"white", border: "0.25px solid ", 
                     borderRadius:"2px", margin:"5px"}}
                   >
                     {item.title}
