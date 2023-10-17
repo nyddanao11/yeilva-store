@@ -2,8 +2,15 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import {Frozen} from'./FrozenFoodsData';
 import {Link} from'react-router-dom';
+import'./SoldOutLabel.css';
 
 const FrozenFoods= ({addToCart, cartItems, product}) => {
+  
+  const isProductSoldOut = (product) => {
+    // Replace this condition with your own logic for determining if a product is sold out
+    return product.stock <= 0;
+  };
+
 
   return (
 
@@ -15,8 +22,9 @@ const FrozenFoods= ({addToCart, cartItems, product}) => {
             {/* Display Grocery Items */}
             {Frozen.map((product) => (
               <Col sm={3} xs={6} key={product.id}>
-                <Card className="mb-4 shadow-sm ">
+                <Card className="product-card mb-4 shadow-sm  " >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center">
+                    {isProductSoldOut(product) && <div className="sold-out-label">Sold Out</div>}
 
                    <Link to={`/clickfrozenfoods/${product.id}`}>
                     <Card.Img 

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
 import VitaminsMedications from '../components/Groceries/VitaminsMedications';
 import Rice from '../components/Groceries/Rice';
@@ -11,12 +11,43 @@ import AlcoholicDrinks from '../components/Groceries/AlcoholicDrinks';
 import Snacks from'../components/Groceries/Snacks';
 import LaundryPersonalCare from'../components/Groceries/LaundryPersonalCare';
 import CookingItems from'../components/Groceries/CookingItems';
+import './GroceryItems.css';
+import {beer} from'../components/Groceries/BeveragesData';
+import {alcoholic} from'../components/Groceries/AlcoholicDrinksData';
+import {canned} from'../components/Groceries/CanGoodsData';
+import {Frozen} from'../components/Groceries/FrozenFoodsData';
+import {snacks} from'../components/Groceries/SnacksData';
+import {Noodles} from'../components/Groceries/InstantNoodlesData';
+import {laundry} from'../components/Groceries/LaundryPersonalCareData';
+import {cooking} from'../components/Groceries/CookingItemsData';
+import {vitamins} from'../components/Groceries/VitaminsMedicationsData';
 
 
 
-const GroceryItems = ({ addToCart, cartItems }) => {
+
+const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+
+useEffect(() => {
+  const handleResize = () => {
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+    setSidebarCollapsed(isSmallScreen);
+  };
+
+  // Initial setup
+  handleResize();
+
+  // Listen for changes in viewport dimensions
+  window.addEventListener('resize', handleResize);
+
+  // Remove the event listener when the component unmounts
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []);
+
 
   const handleMenuItemClick = (item) => {
     setActiveNavItem(item);
@@ -27,15 +58,15 @@ const GroceryItems = ({ addToCart, cartItems }) => {
   };
 
   const menuItems = [
-    { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} isSoldOut={true} /> },
-    { id: 'alcholicdrinks', title: 'Alcoholic drinks', component: <AlcoholicDrinks addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'snacks', title: 'Snacks', component: <Snacks addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'instantnoodles', title: 'Instant Noodles', component: <InstantNoodles addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'cangoods', title: 'Can Goods', component: <CannedGoods addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'laundrybath', title: 'Laundry&PersonalCare', component: <LaundryPersonalCare addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'cookingitems', title: 'Cooking Items', component: <CookingItems addToCart={addToCart} cartItems={cartItems} /> },
-    { id: 'vitamins&medications', title: 'Vitamins&Medications', component: <VitaminsMedications addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} product={beer} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'alcoholicdrinks', title: 'Alcoholic drinks', component: <AlcoholicDrinks addToCart={addToCart} cartItems={cartItems} product={alcoholic} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} product={Frozen} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'snacks', title: 'Snacks', component: <Snacks addToCart={addToCart} cartItems={cartItems} product={snacks} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'instantnoodles', title: 'Instant Noodles', component: <InstantNoodles addToCart={addToCart} cartItems={cartItems} product={Noodles} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'cangoods', title: 'Can Goods', component: <CannedGoods addToCart={addToCart} cartItems={cartItems} product={canned} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'laundrybath', title: 'Laundry&PersonalCare', component: <LaundryPersonalCare addToCart={addToCart} cartItems={cartItems}  product={laundry} isProductSoldOut={isProductSoldOut} /> },
+    { id: 'cookingitems', title: 'Cooking Items', component: <CookingItems addToCart={addToCart} cartItems={cartItems} product={cooking} isProductSoldOut={isProductSoldOut}/> },
+    { id: 'vitamins&medications', title: 'Vitamins&Medications', component: <VitaminsMedications addToCart={addToCart} cartItems={cartItems} product={vitamins} isProductSoldOut={isProductSoldOut}/> },
     { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} /> },
   
   ];
@@ -44,7 +75,7 @@ const GroceryItems = ({ addToCart, cartItems }) => {
     <Container fluid>
       <Row>
         {/* Sidebar */}
-        <Col sm={sidebarCollapsed ? 0 : 3} className={`sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
+        <Col sm={sidebarCollapsed ? 0 : 3} className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
           <div className="d-flex flex-column align-items-center p-3">
            
             <Nav className="flex-column">
@@ -53,8 +84,8 @@ const GroceryItems = ({ addToCart, cartItems }) => {
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
-                    style={{color:"black", background:"white", border: "1px solid ", 
-                    borderRadius:"2px", margin:"5px", maxWidth:"300px"}}
+                    style={{color:"black", background:"white", border: "0.25px solid ", 
+                    borderRadius:"2px", margin:"5px"}}
                   >
                     {item.title}
                   </Nav.Link>
@@ -63,20 +94,20 @@ const GroceryItems = ({ addToCart, cartItems }) => {
             </Nav>
           </div>
         </Col>
-         {/* Toggle Sidebar Button (Always Visible) */}
         
+        
+      {/* Toggle Sidebar Button (Always Visible) */}
         <Button
           className={`toggle-sidebar-btn d-sm-none ${sidebarCollapsed ? 'collapsed' : ''}`}
           variant="light"
           onClick={toggleSidebar}
-          
         >
-          Toggle Sidebar
+          Toggle Category
         </Button>
         
 
         {/* Main Content Area */}
-        <Col sm={sidebarCollapsed ? 12 : 9}>
+         <Col sm={sidebarCollapsed ? 12 : 9}>
           <Container>
             <Row>
               <Col>

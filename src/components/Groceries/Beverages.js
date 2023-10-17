@@ -6,7 +6,13 @@ import'./SoldOutLabel.css';
 
 
 
-const Beverages = ({ addToCart, cartItems, product, isSoldOut}) => {
+const Beverages = ({ addToCart, cartItems, product}) => {
+
+  const isProductSoldOut = (product) => {
+    // Replace this condition with your own logic for determining if a product is sold out
+    return product.stock <= 0;
+  };
+
   
   
   return (
@@ -21,7 +27,7 @@ const Beverages = ({ addToCart, cartItems, product, isSoldOut}) => {
               <Col sm={3} xs={6} key={product.id} className="d-flex  align-items-center justify-content-center" >
                 <Card className="product-card mb-4 shadow-sm  " >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-                    {isSoldOut && <div className="sold-out-label">Sold Out</div>}
+                    {isProductSoldOut(product) && <div className="sold-out-label">Sold Out</div>}
                    <Link to={`/clickbeverages/${product.id}`}>
                    
                     <Card.Img 
