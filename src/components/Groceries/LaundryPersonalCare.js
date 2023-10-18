@@ -5,12 +5,22 @@ import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
 
 
-const LaundryPersonalCare= ({ addToCart, cartItems, products}) => {
+const LaundryPersonalCare= ({ addToCart, cartItems, products, currentPage, setCurrentPage}) => {
   
    const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
     return product.stock <= 0;
   };
+
+
+  const visibleProducts = laundry.filter((product) => product.page === currentPage);
+
+const totalPages = Math.max(...laundry.map((product) => product.page));
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+const handlePageChange = (newPage) => {
+  setCurrentPage(newPage);
+};
 
   
    
@@ -21,7 +31,7 @@ const LaundryPersonalCare= ({ addToCart, cartItems, products}) => {
         <Col sm={10}>
           <Row className="mt-4">
             {/* Display Grocery Items */}
-            {laundry.map((product) => (
+            {visibleProducts.map((product) => (
               <Col sm={3} xs={6} key={product.id}>
                <Card className="product-card mb-4 shadow-sm  " >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center">
@@ -46,6 +56,16 @@ const LaundryPersonalCare= ({ addToCart, cartItems, products}) => {
           </Row>
         </Col>
       </Row>
+
+       <div className="pagination">
+        {pageNumbers.map((page) => (
+          <button  key={page} onClick={() => handlePageChange(page)} style={{marginRight:"5px",
+           border:'none'}}>
+            {page}
+          </button>
+        ))}
+      </div>
+
     </Container>
   );
 };

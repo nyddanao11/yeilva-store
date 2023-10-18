@@ -29,6 +29,9 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
 
+  const [currentPage, setCurrentPage] = useState(1);
+
+
 useEffect(() => {
   const handleResize = () => {
     const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
@@ -56,20 +59,19 @@ useEffect(() => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
-  const menuItems = [
-    { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} product={beer} isProductSoldOut={isProductSoldOut}/> },
+   const menuItems = [
+    { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} product={beer} isProductSoldOut={isProductSoldOut}  currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
     { id: 'alcoholicdrinks', title: 'Alcoholic drinks', component: <AlcoholicDrinks addToCart={addToCart} cartItems={cartItems} product={alcoholic} isProductSoldOut={isProductSoldOut}/> },
     { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} product={Frozen} isProductSoldOut={isProductSoldOut}/> },
-    { id: 'snacks', title: 'Snacks', component: <Snacks addToCart={addToCart} cartItems={cartItems} product={snacks} isProductSoldOut={isProductSoldOut}/> },
-    { id: 'instantnoodles', title: 'Instant Noodles', component: <InstantNoodles addToCart={addToCart} cartItems={cartItems} product={Noodles} isProductSoldOut={isProductSoldOut}/> },
-    { id: 'cangoods', title: 'Can Goods', component: <CannedGoods addToCart={addToCart} cartItems={cartItems} product={canned} isProductSoldOut={isProductSoldOut}/> },
-    { id: 'laundrybath', title: 'Laundry&PersonalCare', component: <LaundryPersonalCare addToCart={addToCart} cartItems={cartItems}  product={laundry} isProductSoldOut={isProductSoldOut} /> },
-    { id: 'cookingitems', title: 'Cooking Items', component: <CookingItems addToCart={addToCart} cartItems={cartItems} product={cooking} isProductSoldOut={isProductSoldOut}/> },
-    { id: 'vitamins&medications', title: 'Vitamins&Medications', component: <VitaminsMedications addToCart={addToCart} cartItems={cartItems} product={vitamins} isProductSoldOut={isProductSoldOut}/> },
-    { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'snacks', title: 'Snacks', component: <Snacks addToCart={addToCart} cartItems={cartItems} product={snacks} isProductSoldOut={isProductSoldOut}  currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'instantnoodles', title: 'Instant Noodles', component: <InstantNoodles addToCart={addToCart} cartItems={cartItems} product={Noodles} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'cangoods', title: 'Can Goods', component: <CannedGoods addToCart={addToCart} cartItems={cartItems} product={canned} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'laundrybath', title: 'Laundry&PersonalCare', component: <LaundryPersonalCare addToCart={addToCart} cartItems={cartItems}  product={laundry} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'cookingitems', title: 'Cooking Items', component: <CookingItems addToCart={addToCart} cartItems={cartItems} product={cooking} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'vitamins&medications', title: 'Vitamins&Medications', component: <VitaminsMedications addToCart={addToCart} cartItems={cartItems} product={vitamins} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} product={rice} isProductSoldOut={isProductSoldOut} /> },
   
   ];
-
   return (
     <Container fluid>
       <Row>
@@ -83,7 +85,7 @@ useEffect(() => {
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
-                    style={{color:"black", background:"white", border: "0.25px solid ", 
+                    style={{color:"black", background:"#EFEFEF", 
                     borderRadius:"2px", margin:"5px"}}
                   >
                     {item.title}
