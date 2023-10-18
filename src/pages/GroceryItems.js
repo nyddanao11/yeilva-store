@@ -30,6 +30,8 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
 
 
   const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 8; // You can adjust this number as needed
+
 
 
 useEffect(() => {
