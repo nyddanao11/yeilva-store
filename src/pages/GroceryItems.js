@@ -20,6 +20,7 @@ import {Noodles} from'../components/Groceries/InstantNoodlesData';
 import {laundry} from'../components/Groceries/LaundryPersonalCareData';
 import {cooking} from'../components/Groceries/CookingItemsData';
 import {vitamins} from'../components/Groceries/VitaminsMedicationsData';
+import {rice} from'../components/Groceries/RiceData';
 
 
 
@@ -30,7 +31,7 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8; // You can adjust this number as needed
+  
 
 
 
