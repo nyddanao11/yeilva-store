@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from'react-router-dom';
 
 const ConfirmPage = () => {
   const [confirmationStatus, setConfirmationStatus] = useState('pending');
@@ -34,6 +35,11 @@ const ConfirmPage = () => {
 
       {confirmationStatus === 'success' && (
         <p>Email confirmed successfully. You can now log in.</p>
+
+         <Link to="/login" style={{textDecoration:'none', padding:'15px', backgroundColor:'#0D6EFD'}}>
+          Login
+        </Link>
+
         // You can add a button or link to the login page here
       )}
 
