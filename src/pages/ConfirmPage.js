@@ -10,6 +10,8 @@ const ConfirmPage = () => {
 
     // Example request using the 'fetch' API:
     const token = new URLSearchParams(window.location.search).get('token');
+     console.log(token);
+     
     if (token) {
       fetch(`/api/confirm?token=${token}`)
         .then((response) => response.json())
