@@ -59,7 +59,17 @@ const handlePageChange = (newPage) => {
       
        <div className="pagination">
         {pageNumbers.map((page) => (
-          <button  key={page} onClick={() => handlePageChange(page)} style={{marginRight:"5px", border:'none'}}>
+                   <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={currentPage === page ? 'active-page' : ''}
+            style={{
+              marginRight: "5px",
+              border: "none",
+              background: currentPage === page ? ' #0D6EFD' : '#EFEFEF',
+              color: currentPage === page ? 'white' : 'black',
+            }}
+          >
             {page}
           </button>
         ))}
