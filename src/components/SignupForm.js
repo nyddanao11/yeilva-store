@@ -28,7 +28,7 @@ const SignUpForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:3001/register', formData)
+    axios.post('https://yeilva-store-server.up.railway.app/register', formData)
       .then((response) => {
         if (response.status === 200) {
           setIsLoginSuccessful(true);
