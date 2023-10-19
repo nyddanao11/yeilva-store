@@ -36,7 +36,7 @@ const ConfirmPage = () => {
       {confirmationStatus === 'success' && (
         <p>Email confirmed successfully. You can now log in.</p>
 
-         <Link to="/login" style={{textDecoration:'none', padding:'15px', backgroundColor:'#0D6EFD'}}>
+         <Link to="/login" style={{textDecoration:'none', padding:'15px', backgroundColor:'#0D6EFD', color:'white'}}>
           Login
         </Link>
 
