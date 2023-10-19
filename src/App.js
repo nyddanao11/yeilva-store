@@ -44,6 +44,7 @@ import ClickLaundry from'./components/Groceries/ClickLaundry';
 import ClickCooking from'./components/Groceries/ClickCooking';
 import ClickVitamins from'./components/Groceries/ClickVitamins';
 import ClickRice from'./components/Groceries/ClickRice';
+import ConfirmPage from'./pages/ConfirmPage';
 
 
 function App() {
@@ -177,6 +178,7 @@ const handleLogout = () => {
 
             <Route path="/" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/signupform" element={<SignUpForm handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
+             <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
              <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
