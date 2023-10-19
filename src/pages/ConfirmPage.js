@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ConfirmPage = () => {
+  const [confirmationStatus, setConfirmationStatus] = useState('pending');
+
   useEffect(() => {
     // Here, you can make a request to your server to confirm the email.
     // You can use the 'token' parameter from the URL to identify the user.
@@ -11,18 +13,33 @@ const ConfirmPage = () => {
       fetch(`/api/confirm?token=${token}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data); // You can handle the response as needed
+          if (data.message === 'Email verified successfully') {
+            setConfirmationStatus('success');
+          } else {
+            setConfirmationStatus('error');
+          }
         })
         .catch((error) => {
           console.error('Error confirming email:', error);
+          setConfirmationStatus('error');
         });
     }
   }, []);
 
   return (
     <div>
-      <p>Confirmation in progress...</p>
-      {/* You can add loading animations or messages here */}
+      {confirmationStatus === 'pending' && (
+        <p>Confirmation in progress...</p>
+      )}
+
+      {confirmationStatus === 'success' && (
+        <p>Email confirmed successfully. You can now log in.</p>
+        // You can add a button or link to the login page here
+      )}
+
+      {confirmationStatus === 'error' && (
+        <p>Error confirming email. Please check your confirmation link or try again later.</p>
+      )}
     </div>
   );
 };
