@@ -34,15 +34,15 @@ const ConfirmPage = () => {
       )}
 
       {confirmationStatus === 'success' && (
-        <p>Email confirmed successfully. You can now log in.</p>
-
-         <Link to="/login" style={{textDecoration:"none", padding:"15px", 
-         background:"#0D6EFD", color:"white"}}>
-          Login
-        </Link>
-
-        // You can add a button or link to the login page here
+        <div>
+          <p>Email confirmed successfully. You can now log in.</p>
+          <Link to="/login" style={{ textDecoration: 'none', padding: '15px', background: '#0D6EFD', color: 'white' }}>
+            Login
+          </Link>
+          {/* You can add a button or link to the login page here */}
+        </div>
       )}
+
 
       {confirmationStatus === 'error' && (
         <p>Error confirming email. Please check your confirmation link or try again later.</p>
