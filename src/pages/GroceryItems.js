@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
 import VitaminsMedications from '../components/Groceries/VitaminsMedications';
@@ -10,7 +11,6 @@ import AlcoholicDrinks from '../components/Groceries/AlcoholicDrinks';
 import Snacks from'../components/Groceries/Snacks';
 import LaundryPersonalCare from'../components/Groceries/LaundryPersonalCare';
 import CookingItems from'../components/Groceries/CookingItems';
-import './GroceryItems.css';
 import {beer} from'../components/Groceries/BeveragesData';
 import {alcoholic} from'../components/Groceries/AlcoholicDrinksData';
 import {canned} from'../components/Groceries/CanGoodsData';
@@ -21,6 +21,7 @@ import {laundry} from'../components/Groceries/LaundryPersonalCareData';
 import {cooking} from'../components/Groceries/CookingItemsData';
 import {vitamins} from'../components/Groceries/VitaminsMedicationsData';
 import {rice} from'../components/Groceries/RiceData';
+import './GroceryItems.css';
 
 
 
@@ -31,7 +32,6 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  
 
 
 
@@ -39,6 +39,7 @@ useEffect(() => {
   const handleResize = () => {
     const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
     setSidebarCollapsed(isSmallScreen);
+    console.log("Screen size is small: ", isSmallScreen);
   };
 
   // Initial setup
@@ -59,10 +60,11 @@ useEffect(() => {
   };
 
   const toggleSidebar = () => {
+      console.log('Toggling sidebar');
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
-   const menuItems = [
+  const menuItems = [
     { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} product={beer} isProductSoldOut={isProductSoldOut}  currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
     { id: 'alcoholicdrinks', title: 'Alcoholic drinks', component: <AlcoholicDrinks addToCart={addToCart} cartItems={cartItems} product={alcoholic} isProductSoldOut={isProductSoldOut}/> },
     { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} product={Frozen} isProductSoldOut={isProductSoldOut}/> },
@@ -75,18 +77,19 @@ useEffect(() => {
     { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} product={rice} isProductSoldOut={isProductSoldOut} /> },
   
   ];
+
   return (
     <Container fluid>
       <Row>
         {/* Sidebar */}
-        <Col sm={sidebarCollapsed ? 0 : 3} className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
+      <Col sm={3} className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
           <div className="d-flex flex-column align-items-center p-3">
            
             <Nav className="flex-column">
               {menuItems.map((item) => (
-                <Nav.Item key={item.id}>
+                <Nav.Item key={item.id} >
                   <Nav.Link
-                    className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
+                    className={`py-2  ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
                    
                        style={{
@@ -96,6 +99,7 @@ useEffect(() => {
                         margin: '5px',
                       }}
                   >
+
                     {item.title}
                   </Nav.Link>
                 </Nav.Item>
@@ -106,8 +110,8 @@ useEffect(() => {
         
         
       {/* Toggle Sidebar Button (Always Visible) */}
-        <Button
-          className={`toggle-sidebar-btn d-sm-none ${sidebarCollapsed ? 'collapsed' : ''}`}
+         <Button
+          className="toggle-sidebar-btn d-sm-none"
           variant="light"
           onClick={toggleSidebar}
         >
@@ -116,7 +120,7 @@ useEffect(() => {
         
 
         {/* Main Content Area */}
-         <Col sm={sidebarCollapsed ? 12 : 9}>
+         <Col   sm={12} md={9}>
           <Container>
             <Row>
               <Col>
