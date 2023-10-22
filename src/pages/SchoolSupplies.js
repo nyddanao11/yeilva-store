@@ -46,8 +46,8 @@ const SchoolSupplies = ({ addToCart, cartItems }) => {
                     onClick={() => handleMenuItemClick(item.id)}
                      
                        style={{
-                        background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
-                        color: activeNavItem === item.id ? 'white' : 'black',
+                        background: activeNavItem === item.id ? '#FFFFFF' : '#EFEFEF',
+                        color: activeNavItem === item.id ? 'black' : 'black',
                         borderRadius: '2px',
                         margin: '5px',
                       }}

@@ -8,12 +8,12 @@ const ConfirmPage = () => {
     // Here, you can make a request to your server to confirm the email.
     // You can use the 'token' parameter from the URL to identify the user.
 
-    // Example request using the 'fetch' API:
+    // Request using the 'fetch' API:
     const token = new URLSearchParams(window.location.search).get('token');
      console.log(token);
      
     if (token) {
-      fetch(`/api/confirm?token=${token}`)
+      fetch(`https://yeilva-store-server.up.railway.app/api/confirm?token=${token}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.message === 'Email verified successfully') {
