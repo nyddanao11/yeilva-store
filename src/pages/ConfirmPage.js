@@ -13,8 +13,8 @@ const ConfirmPage = () => {
      console.log(token);
      
     if (token) {
-      const serverAddress = 'https://yeilva-store-server.up.railway.app'; // Replace with your server's actual address
-  fetch(`${serverAddress}/api/confirm?token=${token}`)
+    
+  fetch(`https://yeilva-store-server.up.railway.app/api/confirm?token=${token}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.message === 'Email verified successfully') {
