@@ -19,7 +19,7 @@ return(
                 className="d-block w-100"
                 src={item.url}
                 alt={`Slide ${item.id}`}
-                style={{ maxHeight: '250px', objectFit: 'cover', width: '100%', height: '100%' }}
+                style={{ maxHeight: '270px', objectFit: 'cover', width: '100%', height: '100%' }}
               />
               <Carousel.Caption>
                 <h3 >{item.caption}</h3>
