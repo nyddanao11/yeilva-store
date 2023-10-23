@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Card, Row, Col, Form } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 
-const CartItem = ({ item, removeFromCart, cartItems }) => {
-  const [selectedSize, setSelectedSize] = useState('none');
-  const [selectedColor, setSelectedColor] = useState('none');
+const CartItem = ({ item, removeFromCart }) => {
+  const [selectedSize, setSelectedSize] = useState(item.selectedSize || 'none');
+  const [selectedColor, setSelectedColor] = useState(item.selectedColor || 'none');
 
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
@@ -12,6 +12,9 @@ const CartItem = ({ item, removeFromCart, cartItems }) => {
 
     // Update the selected size in the item
     item.selectedSize = newSize;
+
+    // You might need to update the item in the cart as well if it's part of a cart state
+    // e.g., cartItems[index] = item;
   };
 
   const handleColorChange = (event) => {
@@ -20,6 +23,9 @@ const CartItem = ({ item, removeFromCart, cartItems }) => {
 
     // Update the selected color in the item
     item.selectedColor = newColor;
+
+    // You might need to update the item in the cart as well if it's part of a cart state
+    // e.g., cartItems[index] = item;
   };
 
   return (
@@ -42,7 +48,7 @@ const CartItem = ({ item, removeFromCart, cartItems }) => {
                 <Form.Label>Size:</Form.Label>
                 <Form.Control
                   as="select"
-                  value={item.selectedSize || 'none'} // Use item's selectedSize
+                  value={selectedSize}
                   onChange={handleSizeChange}
                 >
                   <option value="none">none</option>
@@ -61,7 +67,7 @@ const CartItem = ({ item, removeFromCart, cartItems }) => {
                 <Form.Label>Color:</Form.Label>
                 <Form.Control
                   as="select"
-                  value={item.selectedColor || 'none'} // Use item's selectedColor
+                  value={selectedColor}
                   onChange={handleColorChange}
                 >
                   <option value="none">none</option>
