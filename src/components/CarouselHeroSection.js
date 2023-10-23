@@ -10,7 +10,7 @@ return(
    <h1 className="primary text-center" 
    style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"10px"}}><strong >Welcome To YeilvaSTORE</strong></h1>
         <p>Discover a wide range of products.</p>
-    <Row className="mb-3" className="row flex-nowrap overflow-auto " style={{width:'100%'}}>
+    <Row className="mb-3 row flex-nowrap overflow-auto " style={{width:'100%'}}>
       <Col md={8} > 
         <Carousel>
           {CarouselImage.map((item) => (
