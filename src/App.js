@@ -53,9 +53,6 @@ function App() {
    const [cartItems, setCartItems] = useState([]);
    const navigate = useNavigate();
    
-    const [selectedSize, setSelectedSize] = useState('none');
-  const [selectedColor, setSelectedColor] = useState('none');
-
  
 const addToCart = (product, selectedSize, selectedColor) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
@@ -148,8 +145,7 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} />}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} avonproductsData={avonproductsData} addToCart={addToCart} />} />
-            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}  selectedSize={selectedSize}
-        selectedColor={selectedColor}/>} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
             <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
