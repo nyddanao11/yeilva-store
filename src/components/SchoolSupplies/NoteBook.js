@@ -1,35 +1,60 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import {notebook} from'./NotebookData';
+import {Link} from'react-router-dom';
+import'../Groceries/SoldOutLabel.css';
 
 
-const NoteBook= ({ addToCart, cartItems}) => {
+
+const NoteBook = ({ addToCart, cartItems, product, currentPage, setCurrentPage}) => {
+
+  const isProductSoldOut = (product) => {
+    // Replace this condition with your own logic for determining if a product is sold out
+    return product.stock <= 0;
+  };
+
+
+  const visibleProducts = notebook.filter((product) => product.page === currentPage);
+
+const totalPages = Math.max(...notebook.map((product) => product.page));
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+const handlePageChange = (newPage) => {
+  setCurrentPage(newPage);
+};
   
-  const notebook = [
-    { id: 1, name: 'ballpen1', price: 5, url:`${process.env.PUBLIC_URL}/schoolsupplies/chippy1.jpg`, category: 'School Supplies' },
-    { id: 2, name: 'marker1', price: 7, url:`${process.env.PUBLIC_URL}/schoolsupplies/piatos.jpg`, category: 'School Supplies' },
-     { id:3, name: 'ballpen2', price: 6, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco1.jpg`, category: 'School Supplies' },
-    { id: 4, name: 'marker2', price: 8, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies' },
-    
-    // Add more canned goods as needed
-  ];
 
+  
   
   return (
-     <Container fluid>
-        <Row>
+    <Container fluid >
+      <Row>
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
             {/* Display Grocery Items */}
-            {notebook.map((item) => (
-              <Col sm={3} xs={6} key={item.id}>
-                <Card className="mb-4">
+            {visibleProducts.map((product) => (
+             
+              <Col sm={3} xs={6} key={product.id} className="d-flex  align-items-center justify-content-center" >
+                <Card className="product-card mb-4 shadow-sm  " >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-                   <img src={item.url} alt={item.name} style={{ maxHeight:"75px", objectFit:"cover"}}/>
-                    <Card.Title style={{fontSize:"14px"}}>{item.name}</Card.Title>
-                    <Card.Text style={{margin:"0px"}}> ₱{item.price}</Card.Text>
+                    {isProductSoldOut(product) && <div className="sold-out-label">Sold Out</div>}
+                   <Link to={`/clicknotebook/${product.id}`}>
                    
-                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(item)}>AddToCart</Button>
+                    <Card.Img 
+                    variant="top" 
+                    src={product.url} alt={product.name}
+                    className="products-card" 
+                    style={{ maxHeight:"75px", objectFit:"cover"}}/>
+                  
+                   </Link>
+
+                    <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
+                    <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
+
+
+                   
+                    <Button variant="primary" style={{fontSize:"10px", maxWidth:"100%"}} onClick={() => addToCart(product)}>AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -37,6 +62,26 @@ const NoteBook= ({ addToCart, cartItems}) => {
           </Row>
         </Col>
       </Row>
+
+       <div className="pagination">
+        {pageNumbers.map((page) => (
+          <button
+  key={page}
+  onClick={() => handlePageChange(page)}
+  className={currentPage === page ? 'active-page' : ''}
+  style={{
+    marginRight: "5px",
+    border: "none",
+    background: currentPage === page ? ' #0D6EFD' : '#EFEFEF',
+    color: currentPage === page ? 'white' : 'black',
+  }}
+>
+  {page}
+</button>
+
+        ))}
+      </div>
+      
     </Container>
   );
 };

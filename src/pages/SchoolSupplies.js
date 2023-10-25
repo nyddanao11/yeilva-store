@@ -6,11 +6,17 @@ import PencilCase from '../components/SchoolSupplies/PencilCase';
 import Paper from'../components/SchoolSupplies/Paper';
 import PencilEraser from'../components/SchoolSupplies/PencilEraser';
 import NoteBook from'../components/SchoolSupplies/NoteBook';
+import {ballpen}from'../components/SchoolSupplies/BallpenMarkerData';
+import {bondpaper} from'../components/SchoolSupplies/BondPaperData';
+import {notebook} from'../components/SchoolSupplies/NotebookData';
 
 
-const SchoolSupplies = ({ addToCart, cartItems }) => {
+const SchoolSupplies = ({ addToCart, cartItems, isProductSoldOut  }) => {
   const [activeNavItem, setActiveNavItem] = useState('ballpenmarker');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   const handleMenuItemClick = (item) => {
     setActiveNavItem(item);
@@ -22,9 +28,9 @@ const SchoolSupplies = ({ addToCart, cartItems }) => {
   };
 
   const schoolsupplies = [
-    { id: 'ballpenmarker', title: 'Ballpen & Marker', component: <BallpenMarker addToCart={addToCart} cartItems={cartItems} /> },
-     { id: 'bondpaper', title: 'Bondpaper', component: <BondPaper addToCart={addToCart} cartItems={cartItems} /> },
-     { id: 'notebook', title: 'Notebook', component: <NoteBook addToCart={addToCart} cartItems={cartItems} /> },
+    { id: 'ballpenmarker', title: 'Ballpen & Marker', component: <BallpenMarker addToCart={addToCart} cartItems={cartItems} product={ballpen} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+     { id: 'bondpaper', title: 'Bondpaper', component: <BondPaper addToCart={addToCart} cartItems={cartItems}  product={bondpaper} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+     { id: 'notebook', title: 'Notebook', component: <NoteBook addToCart={addToCart} cartItems={cartItems} product={notebook} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
      { id: 'pencilcase', title: 'Pencilcase', component: <PencilCase addToCart={addToCart} cartItems={cartItems} /> },
      { id: 'paper', title: 'Paper & Envelope', component: <Paper addToCart={addToCart} cartItems={cartItems} /> },
      { id: 'pencileraser', title: 'Pencil & eraser', component: <PencilEraser addToCart={addToCart} cartItems={cartItems} /> }
@@ -44,10 +50,9 @@ const SchoolSupplies = ({ addToCart, cartItems }) => {
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
-                     
-                       style={{
-                        background: activeNavItem === item.id ? '#FFFFFF' : '#EFEFEF',
-                        color: activeNavItem === item.id ? 'black' : 'black',
+                         style={{
+                        background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
+                        color: activeNavItem === item.id ? 'white' : 'black',
                         borderRadius: '2px',
                         margin: '5px',
                       }}
@@ -81,6 +86,8 @@ const SchoolSupplies = ({ addToCart, cartItems }) => {
 
       
       </Row>
+
+
     </Container>
   );
 };
