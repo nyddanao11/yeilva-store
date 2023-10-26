@@ -44,7 +44,7 @@ import ClickLaundry from'./components/Groceries/ClickLaundry';
 import ClickCooking from'./components/Groceries/ClickCooking';
 import ClickVitamins from'./components/Groceries/ClickVitamins';
 import ClickRice from'./components/Groceries/ClickRice';
-import ConfirmPage from'./pages/ConfirmPage';
+
 import ClickMarker from'./components/SchoolSupplies/ClickBallpenMarker';
 import ClickPaper from'./components/SchoolSupplies/ClickBondPaper';
 import ClickNote from'./components/SchoolSupplies/ClickNotebook';
