@@ -58,26 +58,22 @@ function App() {
    
   
 
- 
-const addToCart = (product, selectedSize, selectedColor) => {
+  
+const addToCart = (product) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
 
   if (existingItem) {
     const updatedItem = {
       ...existingItem,
-      selectedSize,
-      selectedColor,
     };
     const updatedCart = cartItems.map((item) =>
       item.id === product.id ? updatedItem : item
     );
     setCartItems(updatedCart);
   } else {
-    const newItem = { ...product, quantity: 1, selectedSize, selectedColor };
+    const newItem = { ...product, quantity: 1 };
     setCartItems([...cartItems, newItem]);
   }
-
-  
 };
 
 
