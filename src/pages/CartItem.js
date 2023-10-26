@@ -3,8 +3,8 @@ import { Card, Row, Col, Form } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 
 const CartItem = ({ item, removeFromCart }) => {
-  const [selectedSize, setSelectedSize] = useState(item.selectedSize || 'none');
-  const [selectedColor, setSelectedColor] = useState(item.selectedColor || 'none');
+  const [selectedSize, setSelectedSize] = useState('none');
+  const [selectedColor, setSelectedColor] = useState('none');
 
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
