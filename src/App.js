@@ -45,6 +45,9 @@ import ClickCooking from'./components/Groceries/ClickCooking';
 import ClickVitamins from'./components/Groceries/ClickVitamins';
 import ClickRice from'./components/Groceries/ClickRice';
 import ConfirmPage from'./pages/ConfirmPage';
+import ClickMarker from'./components/SchoolSupplies/ClickBallpenMarker';
+import ClickPaper from'./components/SchoolSupplies/ClickBondPaper';
+import ClickNote from'./components/SchoolSupplies/ClickNotebook';
 
 
 function App() {
@@ -53,6 +56,8 @@ function App() {
    const [cartItems, setCartItems] = useState([]);
    const navigate = useNavigate();
    
+  
+
  
 const addToCart = (product, selectedSize, selectedColor) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
@@ -72,9 +77,7 @@ const addToCart = (product, selectedSize, selectedColor) => {
     setCartItems([...cartItems, newItem]);
   }
 
-  // Debugging: Log the selectedSize and selectedColor values
-  console.log('Selected Size:', selectedSize);
-  console.log('Selected Color:', selectedColor);
+  
 };
 
 
@@ -145,7 +148,7 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} />}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} avonproductsData={avonproductsData} addToCart={addToCart} />} />
-            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} />} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}  />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
             <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
@@ -166,7 +169,10 @@ const handleLogout = () => {
                <Route path="/clicklaundry/:id" element={<ClickLaundry addToCart={addToCart} />} />
                <Route path="/clickcooking/:id" element={<ClickCooking addToCart={addToCart} />} />
                <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart} />} />
-                <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart} />} />
+              <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart} />} />
+              <Route path="/clickballpen/:id" element={<ClickMarker addToCart={addToCart} />} />
+              <Route path="/clickbondpaper/:id" element={<ClickPaper addToCart={addToCart} />} />
+               <Route path="/clicknotebook/:id" element={<ClickNote addToCart={addToCart} />} />
               
           </Routes>
         ) : (
@@ -174,7 +180,7 @@ const handleLogout = () => {
 
             <Route path="/" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/signupform" element={<SignUpForm handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
-             <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+            <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
              <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
