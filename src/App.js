@@ -56,9 +56,7 @@ function App() {
    const [cartItems, setCartItems] = useState([]);
    const navigate = useNavigate();
    
-  
 
-  
 const addToCart = (product) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
 
@@ -122,7 +120,8 @@ const handleLogout = () => {
   };
 
  
-    return (
+ 
+ return (
     
     <div>
       {/* Render the CombinedNavbar outside of the Routes */}
@@ -179,19 +178,18 @@ const handleLogout = () => {
             <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-             <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+            <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
           </Routes>
         )}
       </Container>
       </div>
-      
-    
-    
+         
   );
 }
 
 
 export default App;
+
 
 
 

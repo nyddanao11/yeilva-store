@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const CircleCard = () => {
   return (
-    <Container>
+    <Container >
       <Row className="flex-nowrap overflow-auto" >
         {cans.map((product) => (
           <Col key={product.id} xs={6} md={4} lg={3}>

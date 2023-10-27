@@ -5,7 +5,7 @@ import axios from 'axios';
 const ConfirmPage = () => {
   const [confirmationStatus, setConfirmationStatus] = useState('pending');
 
- useEffect(() => {
+  useEffect(() => {
   const token = new URLSearchParams(window.location.search).get('token');
   console.log(token);
 
@@ -37,7 +37,7 @@ const ConfirmPage = () => {
         <p>Confirmation in progress...</p>
       )}
 
-      {confirmationStatus === 'success' && (
+        {confirmationStatus === 'success' && (
         <div>
           <p>Email confirmed successfully. You can now log in.</p>
           <Link to="/login" style={{ textDecoration: 'none', padding: '15px', background: '#0D6EFD', color: 'white' }}>

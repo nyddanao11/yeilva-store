@@ -50,7 +50,6 @@ const SignUpForm = () => {
       alert('Please confirm your email to login');
     }
   }, [isLoginSuccessful]);
-  
 
   return (
     <Container>

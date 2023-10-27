@@ -40,7 +40,6 @@ const FashionApparel = ({ addToCart, cartItems }) => {
                   <Nav.Link
                     className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick(item.id)}
-                    
                        style={{
                         background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
                         color: activeNavItem === item.id ? 'white' : 'black',

@@ -31,7 +31,7 @@ const Header = ({ cartItems }) => {
               <span style={cartItemCountStyle}>({cartItemCount})</span>
               {/* Add shopping cart icon */}
             </Nav.Link>
-             <Nav.Link as={Link} to="/search">
+             <Nav.Link as={Link} to="/search" >
               <FaSearch size={20} /> {/* Add search icon */}
             </Nav.Link>
          </Nav>
