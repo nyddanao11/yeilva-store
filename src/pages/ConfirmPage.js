@@ -38,7 +38,7 @@ const ConfirmPage = () => {
       )}
 
         {confirmationStatus === 'success' && (
-        <div>
+        <div className="d-flex flex-column justify-content-center align-items-center">
           <p>Email confirmed successfully. You can now log in.</p>
           <Link to="/login" style={{ textDecoration: 'none', padding: '15px', background: '#0D6EFD', color: 'white' }}>
             Login
