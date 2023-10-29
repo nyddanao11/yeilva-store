@@ -17,7 +17,7 @@
   id: 3,
   name: "Barley Grass Juice",
   url:  `${process.env.PUBLIC_URL}/images/barley.png`,
-  price: 750,
+  price: 850,
   description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels."
 },
 {
@@ -32,28 +32,28 @@
   name: "Absorbent Cee",
   url:  `${process.env.PUBLIC_URL}/images/absorbent c.png`,
   price: 750,
-  description:"Vitamin Cee for strong immune system and prevent cardio vascular disease"
+  description:"Vitamin Cee for strong immune system and prevent cardio vascular disease, 100 pcs"
 },
 {
   id: 6,
   name: "Primeshape",
   url:  `${process.env.PUBLIC_URL}/images/primeshape.jpg`,
   price: 143,
-  description:"Can help improve our brain functions, lowers the risk of diabetes and it is a good appetite suppressant that helps elemenate free radicals.It can increase blood circulation and increase your stamina. It prevents high blood pressure and it is loaded with antioxidants that helps boosts your immune system"
+  description:"Can help improve our brain functions, lowers the risk of diabetes and it is a good appetite suppressant that helps elemenate free radicals.It can increase blood circulation and increase your stamina. It prevents high blood pressure and it is loaded with antioxidants that helps boosts your immune system, 5 sachet"
 },
 {
   id: 7,
   name: "Arctic C",
   url: `${process.env.PUBLIC_URL}/images/artic c.png`,
   price: 750,
-  description:"blend of omega 3,6 and 9 which contains essential fatty acids EPA and DHA derived from the tissues of oily fish that can contributes to the healthy function of the heart and normal the maintenance of the brain"
+  description:"blend of omega 3,6 and 9 which contains essential fatty acids EPA and DHA derived from the tissues of oily fish that can contributes to the healthy function of the heart and normal the maintenance of the brain, 30 capsule"
 },
 {
   id: 8,
   name: "Garcinia Cambogia",
   url:  `${process.env.PUBLIC_URL}/images/Garcinia01.jpg`,
   price: 450,
-  description: "reduces blood pressure and the inflammatory process associated with heart disease, prevents heart attack and stroke and neutralizes the damaging effect fo free radicals"
+  description: "reduces blood pressure and the inflammatory process associated with heart disease, prevents heart attack and stroke and neutralizes the damaging effect fo free radicals, 10sachet"
 },
 {
   id: 9,
@@ -66,7 +66,7 @@
   id: 10,
   name: "Turmeric",
   url:  `${process.env.PUBLIC_URL}/images/turmeric.png`,
-  price: 350,
+  price: 253,
   description:"Natural tea and powerful immune booster. it contains high level of antioxidants and inflammatory properties. It is good in our body because it gives 11 natural ingredients to strenghten the body's immune system and keeping the body healthy."
 },
 {
@@ -80,7 +80,7 @@
   id: 12,
   name: "Buah Merah",
   url:  `${process.env.PUBLIC_URL}/images/Buah merah.png`,
-  price: 220,
+  price: 450,
   description:"Helps in boosting body energy and immunity, detoxifying liver, preventing signs of aging, prevents hypertension and diabetes, regulates blood pressure, improves good cholesterol levels and sharpens memory"
 },
 {
@@ -94,7 +94,7 @@
   id: 14,
   name: "Detox",
   url:  `${process.env.PUBLIC_URL}/images/detox.png`,
-  price: 800,
+  price: 850,
   description: "It detoxifies the body, helps fight obesity promotes weight loss, increases the metabolism, supports the immmune system, lowers blood sugar and helps to prevent and fight cancer."
 },
 {

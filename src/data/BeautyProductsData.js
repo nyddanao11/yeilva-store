@@ -3,14 +3,14 @@
   id: 1,
   name: "Glutathione Soap",
   url: `${process.env.PUBLIC_URL}/beauty/gluta.png`,
-  price: 150,
+  price: 200,
   description: "Whitening Soap"               
 },
 {
   id: 2,
   name: "Tea Tree soap",
   url:  `${process.env.PUBLIC_URL}/beauty/teatree.png`,
-  price: 150,
+  price: 200,
   description:"Skin medicated herbal soap. It is a plant based soap with added tea tree oil. A natural antibacterial that can be used as a cleanser and medication for individuals who do not want to use synthetic or chemical treatments for skin problems.  "
 },
 {
@@ -24,7 +24,7 @@
   id: 4,
   name: "Kojic Soap",
   url:  `${process.env.PUBLIC_URL}/beauty/kojic.png`,
-  price: 150,
+  price: 200,
   description: "Skin whitening herbal soap to make the skin tone brighter, flawless and young. It also protects the outer skin layer by preventing pigment formulation caused by sun exposure. "
 },
 {
