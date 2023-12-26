@@ -1,0 +1,36 @@
+/* Set an initial width for the sidebar */
+.sidebar {
+  width: 300px;
+  transition: width 0.5s; /* Add a smooth transition effect */
+}
+
+/* Hide the sidebar and toggle button on screens below 768px */
+@media (max-width: 768px) {
+  .collapsed.sidebar {
+    width: 0;
+    display: none;
+  }
+  .toggle-sidebar-btn {
+    display: block;
+  }
+}
+
+/* Show the sidebar on screens above 768px */
+@media (min-width: 769px) {
+  .collapsed.sidebar {
+    width: 300px;
+  }
+}
+
+/* Toggle button styles */
+.toggle-sidebar-btn {
+  display: none;
+}
+
+/* Reset the width to the initial width on larger screens */
+@media (min-width: 769px) {
+  .sidebar {
+    width: 300px;
+    display: block;
+  }
+}
