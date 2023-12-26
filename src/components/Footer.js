@@ -21,7 +21,7 @@ const Footer = () => {
                 <Button variant="link" href="https://www.youtube.com/watch?v=vwFjm2BG8pU&t=31s" target="_blank">
                   <FaYoutube />
                 </Button>
-                <Button variant="link" href="https://www.instagram.com/" target="_blank">
+                <Button variant="link" href="https://www.instagram.com/yeilvastore?igsh=MWJ6anpib2o1ZjduYQ%3D%3D" target="_blank">
                   <FaInstagram />
                 </Button>
                 <Button variant="link" href="https://shope.ee/5pZmnVEM3L" target="_blank">
