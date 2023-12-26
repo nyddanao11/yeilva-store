@@ -5,10 +5,10 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 const PencilEraser= ({ addToCart, cartItems}) => {
   
   const pencileraser = [
-    { id: 1, name: 'Pencil1', price: 5, url:`${process.env.PUBLIC_URL}/schoolsupplies/chippy1.jpg`, category: 'School Supplies' },
-    { id: 2, name: 'Pencil2', price: 7, url:`${process.env.PUBLIC_URL}/schoolsupplies/piatos.jpg`, category: 'School Supplies' },
-     { id:3, name: 'Pencil3', price: 6, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco1.jpg`, category: 'School Supplies' },
-    { id: 4, name: 'Pencil4', price: 8, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies' },
+    { id: 1, name: 'Pencil1', price: 5, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/chippy1.jpg`, category: 'School Supplies' },
+    { id: 2, name: 'Pencil2', price: 7, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/piatos.jpg`, category: 'School Supplies' },
+     { id:3, name: 'Pencil3', price: 6, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco1.jpg`, category: 'School Supplies' },
+    { id: 4, name: 'Pencil4', price: 8, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies' },
     
     // Add more canned goods as needed
   ];

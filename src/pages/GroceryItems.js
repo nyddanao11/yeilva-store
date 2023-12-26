@@ -1,67 +1,44 @@
-
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import VitaminsMedications from '../components/Groceries/VitaminsMedications';
+import { FaBars } from 'react-icons/fa'; // Import your custom icon
 import Rice from '../components/Groceries/Rice';
 import InstantNoodles from '../components/Groceries/InstantNoodles';
 import CannedGoods from '../components/Groceries/CanGoods';
 import Beverages from '../components/Groceries/Beverages';
 import FrozenFoods from '../components/Groceries/FrozenFoods';
 import AlcoholicDrinks from '../components/Groceries/AlcoholicDrinks';
-import Snacks from'../components/Groceries/Snacks';
-import LaundryPersonalCare from'../components/Groceries/LaundryPersonalCare';
-import CookingItems from'../components/Groceries/CookingItems';
-import {beer} from'../components/Groceries/BeveragesData';
-import {alcoholic} from'../components/Groceries/AlcoholicDrinksData';
-import {canned} from'../components/Groceries/CanGoodsData';
-import {Frozen} from'../components/Groceries/FrozenFoodsData';
-import {snacks} from'../components/Groceries/SnacksData';
-import {Noodles} from'../components/Groceries/InstantNoodlesData';
-import {laundry} from'../components/Groceries/LaundryPersonalCareData';
-import {cooking} from'../components/Groceries/CookingItemsData';
-import {vitamins} from'../components/Groceries/VitaminsMedicationsData';
-import {rice} from'../components/Groceries/RiceData';
-import './GroceryItems.css';
-
-
-
+import Snacks from '../components/Groceries/Snacks';
+import LaundryPersonalCare from '../components/Groceries/LaundryPersonalCare';
+import CookingItems from '../components/Groceries/CookingItems';
+import { beer } from '../components/Groceries/BeveragesData';
+import { alcoholic } from '../components/Groceries/AlcoholicDrinksData';
+import { canned } from '../components/Groceries/CanGoodsData';
+import { Frozen } from '../components/Groceries/FrozenFoodsData';
+import { snacks } from '../components/Groceries/SnacksData';
+import { Noodles } from '../components/Groceries/InstantNoodlesData';
+import { laundry } from '../components/Groceries/LaundryPersonalCareData';
+import { cooking } from '../components/Groceries/CookingItemsData';
+import { vitamins } from '../components/Groceries/VitaminsMedicationsData';
+import { rice } from '../components/Groceries/RiceData';
+import { useMediaQuery } from 'react-responsive';
 
 const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [collapsed, setCollapsed] = useState(false);
 
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
-
-useEffect(() => {
-  const handleResize = () => {
-    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
-    setSidebarCollapsed(isSmallScreen);
-    console.log("Screen size is small: ", isSmallScreen);
+  const handleToggleSidebar = () => {
+    if (isSmallScreen) {
+      setCollapsed(!collapsed);
+    }
   };
-
-  // Initial setup
-  handleResize();
-
-  // Listen for changes in viewport dimensions
-  window.addEventListener('resize', handleResize);
-
-  // Remove the event listener when the component unmounts
-  return () => {
-    window.removeEventListener('resize', handleResize);
-  };
-}, []);
-
 
   const handleMenuItemClick = (item) => {
     setActiveNavItem(item);
-  };
-
-  const toggleSidebar = () => {
-      console.log('Toggling sidebar');
-    setSidebarCollapsed(!sidebarCollapsed);
   };
 
   const menuItems = [
@@ -81,56 +58,51 @@ useEffect(() => {
   return (
     <Container fluid>
       <Row>
-        {/* Sidebar */}
-      <Col sm={3} className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
-          <div className="d-flex flex-column align-items-center p-3">
-           
-            <Nav className="flex-column">
-              {menuItems.map((item) => (
-                <Nav.Item key={item.id} >
-                  <Nav.Link
-                    className={`py-2  ${activeNavItem === item.id ? 'active' : ''}`}
-                    onClick={() => handleMenuItemClick(item.id)}
-                   
-                       style={{
-                        background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
-                        color: activeNavItem === item.id ? 'white' : 'black',
-                        borderRadius: '2px',
-                        margin: '5px',
-                      }}
-                  >
+        <Col sm={12} md={3}>
+         
+          <Navbar
+            expand="md"
+            bg="light"
+            className={`flex-md-column ${isSmallScreen && collapsed ? 'collapsed' : ''}`}
+            style={{
+              transition: 'margin-left 0.3s ease',
+            }}
+          >
+             <Navbar.Toggle
+              aria-controls="basic-navbar-nav"
+              onClick={handleToggleSidebar}
+            >
+              {/* Custom collapse icon */}
+              <FaBars /> <span className="category">category</span>
+            </Navbar.Toggle>
 
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="flex-md-column">
+                {menuItems.map((item) => (
+                  <Nav.Link
+                    key={item.id}
+                    onClick={() => handleMenuItemClick(item.id)}
+                    className={`py-2  ${activeNavItem === item.id ? 'active' : ''}`}
+                    style={{
+                      background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
+                      color: activeNavItem === item.id ? 'white' : 'black',
+                      borderRadius: '2px',
+                      margin: '5px',
+                    }}
+                  >
                     {item.title}
                   </Nav.Link>
-                </Nav.Item>
-              ))}
-            </Nav>
+                ))}
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </Col>
+
+        <Col sm={12} md={9}>
+          <div className="d-flex flex-column align-items-center p-3">
+            {menuItems.find((item) => item.id === activeNavItem)?.component}
           </div>
         </Col>
-        
-        
-      {/* Toggle Sidebar Button (Always Visible) */}
-         <Button
-          className="toggle-sidebar-btn d-sm-none"
-          variant="light"
-          onClick={toggleSidebar}
-        >
-          Toggle Category
-        </Button>
-        
-
-        {/* Main Content Area */}
-         <Col   sm={12} md={9}>
-          <Container>
-            <Row>
-              <Col>
-                {menuItems.find((item) => item.id === activeNavItem).component}
-              </Col>
-            </Row>
-          </Container>
-        </Col>
-     
-       
       </Row>
     </Container>
   );

@@ -19,7 +19,7 @@ return(
                 className="d-block w-100"
                 src={item.url}
                 alt={`Slide ${item.id}`}
-                style={{ maxHeight: '270px', objectFit: 'cover', width: '100%', height: '100%' }}
+                style={{maxHeight: '300px', objectFit: 'fill', width: '100%' }}
               />
               <Carousel.Caption>
                 <h3 >{item.caption}</h3>
@@ -28,7 +28,7 @@ return(
           ))}
         </Carousel>
       </Col>
-      <Col md={4} style={{ maxHeight: '250px' }}>
+      <Col md={4} style={{ maxHeight: '240px' }}>
         {/* Add your two images here */}
          <Link to='/brochure'>
          <ImageWithOverlayButton />
@@ -36,7 +36,7 @@ return(
         <img
           src={`${process.env.PUBLIC_URL}/groceries/noodles/freedelivery.png`}
           alt="free delivery"
-          style={{ objectFit:'cover', maxHeight: '125px', width: '100%', height: '50%'
+          style={{ objectFit:'cover', maxHeight: '115px', width: '100%'
            }}
         />
        

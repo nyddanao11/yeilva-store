@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const ImageCardFeaturedProduct = ({ addToCart, product }) => {
   return (
-    <Card style={{ width: '10rem', margin: '10px' }} className="product-card">
+    <Card style={{ width: '10rem' }} className="product-card">
       <Link to={`/clickproductpagefeaturedproduct/${product.id}`}>
         <div style={{ height: '200px', overflow: 'hidden' }}>
           <img

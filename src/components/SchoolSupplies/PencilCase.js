@@ -5,10 +5,26 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 const PencilCase= ({ addToCart, cartItems}) => {
   
   const pencilcase = [
-    { id: 1, name: 'Case1', price: 5, url:`${process.env.PUBLIC_URL}/schoolsupplies/chippy1.jpg`, category: 'School Supplies' },
-    { id: 2, name: 'Case2', price: 7, url:`${process.env.PUBLIC_URL}/schoolsupplies/piatos.jpg`, category: 'School Supplies' },
-     { id:3, name: 'Case3', price: 6, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco1.jpg`, category: 'School Supplies' },
-    { id: 4, name: 'Case4', price: 8, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies' },
+    { id: 1, name: 'Case1', price: 5, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/chippy1.jpg`, category: 'School Supplies', 
+           thumbnails:
+      [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+      ],},
+    { id: 2, name: 'Case2', price: 7, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/piatos.jpg`, category: 'School Supplies', 
+          thumbnails:
+      [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+      ],},
+     { id:3, name: 'Case3', price: 6, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco1.jpg`, category: 'School Supplies', 
+          thumbnails:
+      [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+      ],},
+    { id: 4, name: 'Case4', price: 8, weight:25, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies', 
+          thumbnails:
+      [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`,
+      ],},
     
     // Add more canned goods as needed
   ];

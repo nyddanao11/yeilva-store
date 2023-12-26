@@ -1,0 +1,22 @@
+
+.main-image-container {
+  position: relative;
+}
+
+.main-image {
+  height: 250px; /* Adjust as needed */
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* Adjust for spacing between thumbnails */
+  margin-top: 10px;
+}
+
+.thumbnail-image {
+  width: 50px; /* Adjust thumbnail size as needed */
+  height: 50px; /* Adjust thumbnail size as needed */
+  object-fit: cover;
+  cursor: pointer;
+}

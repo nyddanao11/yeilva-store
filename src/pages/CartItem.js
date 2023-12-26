@@ -88,7 +88,7 @@ const CartItem = ({ item, removeFromCart }) => {
             <button
               className="btn btn-danger"
               onClick={() => {
-                removeFromCart(item);
+                removeFromCart(item.id);
               }}
             >
               <FaTrash className="me-1" />

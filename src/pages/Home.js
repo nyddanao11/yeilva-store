@@ -1,65 +1,80 @@
 import React from 'react';
-import { Container} from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap';
 import Footer from '../components/Footer';
 import FeaturedProducts from '../components/FeaturedProduct';
 import BestSelling from '../components/BestSelling';
 import RecommendedProd from'../components/RecommendedProduct';
 import CircleCard from '../components/CircleProductCard';
 import CarouselSection from '../components/CarouselHeroSection';
+import Accordion from '../components/FAQAccordion';
 
  
-
 const Home = ({ addToCart, product}) => {
  
 
   return (
-    <>
+
+    <Container>
       {/* Hero Section */}
-     <section className="hero mb-1" >
-     <Container fluid>
+     <Row className="hero mb-1" >
+     <Col>
       <CarouselSection />
-      </Container>
-    </section>
+      </Col>
+    </Row>
 
 
-      <section className=" mb-3 mt-3" >
-        <Container fluid>
+      <Row className=" mb-2 mt-3"  >
+        <Col>
           <CircleCard />
-        </Container>
-      </section>
+        </Col>
+      </Row>
 
 
       {/* Featured Products */}
-      <section className="featured-products mb-3" style={{ background: '#f7f7f7', padding: '25px 0' }}>
-        <Container fluid>
-        <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Featured Products</strong></h2>
-          <FeaturedProducts addToCart={addToCart} product={product}/>
-        </Container>
-      </section>
+
+      <Row className="featured-products" style={{ background: '#f7f7f7', padding: '20px 0' }}>
+         <Col>
+         <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px", marginBottom:'15px'}}><strong >Featured Products</strong></h2>
+           <FeaturedProducts addToCart={addToCart} product={product}/>
+       </Col>
+      </Row>
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
-       <section className="best-selling-products mb-3">
+       <Row className="best-selling-products ">
        
-        <Container fluid>
-         <h2 className="text-center"style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Best Selling Products</strong></h2>
+        <Col>
+         <h2 className="text-center"style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px", marginBottom:'10px'}}><strong >Best Selling Products</strong></h2>
          <BestSelling addToCart={addToCart} product={product}/>
-        </Container>
+        </Col>
 
-      </section>
+      </Row>
 
       {/* Recommended Products */}
-      <section className="recommended-products mb-3 mt-3 " style={{ background: '#f7f7f7', padding: '25px 0' }}>
-        <Container fluid>
+      <Row className="recommended-products mb-1 mt-1 " style={{ background: '#f7f7f7', padding: '25px 0' }}>
+        <Col>
           <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Recommended Products</strong></h2>
           <RecommendedProd addToCart={addToCart} product={product}/>
-        </Container>
-      </section>
+        </Col>
+      </Row>
+
+    {/* FAQ Section */}
+      <Row>
+        <Col>
+        <h2>FAQ</h2>
+          <Accordion />
+        </Col>
+     </Row>
+     
 
       {/* Footer Section */}
-      <section className=" mb-4 d-flex flex-column align-items-center justify-content-center " >
+      <Row className="mt-4 mb-4  " >
+      <Col>
       <Footer />
-      </section>
-    </>
+      </Col>
+      </Row>
+
+      </Container>
+ 
   );
 };
 

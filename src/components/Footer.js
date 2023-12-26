@@ -8,10 +8,10 @@ import {Link} from'react-router-dom';
 const Footer = () => {
   return (
     <footer className="footer">
-      <Container>
+      <Container >
         <Row>
 
-          <Col md={6}>
+          <Col md={4}>
             <div className="footer-content">
              <h5> Follow us:</h5>
               <div className="social-links">
@@ -31,17 +31,18 @@ const Footer = () => {
               <p>&copy; 2024 Yeilva Store. All rights reserved.</p>
             </div>
           </Col>
-          <Col md={3}>
+          <Col md={4}>
           <div className="d-flex   align-items-center justify-content-center" style={{marginTop:"30px"}}>
           
            <Link to='/contactus'>
                 <Button variant="primary">Contact Us</Button>     
           </Link>
+        
           
           </div>
           </Col>
 
-          <Col md={3}>
+          <Col md={4}>
           <div className="d-flex  flex-column align-items-center justify-content-center" style={{marginTop:"30px"}}>
               <h6> Accepts</h6>
               <p style={{margin:"0px"}}>Gcash</p>

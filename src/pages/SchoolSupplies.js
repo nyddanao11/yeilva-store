@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
+import { Container, Row, Col, Nav,  Navbar} from 'react-bootstrap';
 import BallpenMarker from '../components/SchoolSupplies/BallpenMarker';
 import BondPaper from'../components/SchoolSupplies/BondPaper';
 import PencilCase from '../components/SchoolSupplies/PencilCase';
@@ -9,23 +9,28 @@ import NoteBook from'../components/SchoolSupplies/NoteBook';
 import {ballpen}from'../components/SchoolSupplies/BallpenMarkerData';
 import {bondpaper} from'../components/SchoolSupplies/BondPaperData';
 import {notebook} from'../components/SchoolSupplies/NotebookData';
+import { useMediaQuery } from 'react-responsive';
+import { FaBars } from 'react-icons/fa'; // Import your custom icon
 
 
 const SchoolSupplies = ({ addToCart, cartItems, isProductSoldOut  }) => {
   const [activeNavItem, setActiveNavItem] = useState('ballpenmarker');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+ const [collapsed, setCollapsed] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
 
+const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+
+  const handleToggleSidebar = () => {
+    if (isSmallScreen) {
+      setCollapsed(!collapsed);
+    }
+  };
 
   const handleMenuItemClick = (item) => {
     setActiveNavItem(item);
   };
 
-  const toggleSidebar = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
-
-  };
 
   const schoolsupplies = [
     { id: 'ballpenmarker', title: 'Ballpen & Marker', component: <BallpenMarker addToCart={addToCart} cartItems={cartItems} product={ballpen} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
@@ -37,57 +42,55 @@ const SchoolSupplies = ({ addToCart, cartItems, isProductSoldOut  }) => {
     ];
    
 
- return (
+  return (
     <Container fluid>
       <Row>
-        {/* Sidebar */}
-        <Col sm={sidebarCollapsed ? 0 : 3} className={` sidebar ${sidebarCollapsed ? 'd-none' : ''}`}>
-          <div className="d-flex flex-column align-items-center p-3">
-           
-            <Nav className="flex-column">
-              {schoolsupplies.map((item) => (
-                <Nav.Item key={item.id}>
+        <Col sm={12} md={3}>
+         
+          <Navbar
+            expand="md"
+            bg="light"
+            className={`flex-md-column ${isSmallScreen && collapsed ? 'collapsed' : ''}`}
+            style={{
+              transition: 'margin-left 0.3s ease',
+            }}
+          >
+             <Navbar.Toggle
+              aria-controls="basic-navbar-nav"
+              onClick={handleToggleSidebar}
+            >
+              {/* Custom collapse icon */}
+              <FaBars /> <span className="category">category</span>
+            </Navbar.Toggle>
+
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="flex-md-column">
+                {schoolsupplies.map((item) => (
                   <Nav.Link
-                    className={`py-2 ${activeNavItem === item.id ? 'active' : ''}`}
+                    key={item.id}
                     onClick={() => handleMenuItemClick(item.id)}
-                         style={{
-                        background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
-                        color: activeNavItem === item.id ? 'white' : 'black',
-                        borderRadius: '2px',
-                        margin: '5px',
-                      }}
+                    className={`py-2  ${activeNavItem === item.id ? 'active' : ''}`}
+                    style={{
+                      background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
+                      color: activeNavItem === item.id ? 'white' : 'black',
+                      borderRadius: '2px',
+                      margin: '5px',
+                    }}
                   >
                     {item.title}
                   </Nav.Link>
-                </Nav.Item>
-              ))}
-            </Nav>
+                ))}
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </Col>
+
+        <Col sm={12} md={9}>
+          <div className="d-flex flex-column align-items-center p-3">
+            {schoolsupplies.find((item) => item.id === activeNavItem)?.component}
           </div>
         </Col>
-          {/* Toggle Sidebar Button (Always Visible) */}
-        <Button
-          className={`toggle-sidebar-btn d-sm-none ${sidebarCollapsed ? 'collapsed' : ''}`}
-          variant="light"
-          onClick={toggleSidebar}
-        >
-          Toggle Sidebar
-        </Button>
-
-        {/* Main Content Area */}
-        <Col sm={sidebarCollapsed ? 12 : 9}>
-          <Container>
-            <Row>
-              <Col>
-                {schoolsupplies.find((item) => item.id === activeNavItem).component}
-              </Col>
-            </Row>
-          </Container>
-        </Col>
-
-      
       </Row>
-
-
     </Container>
   );
 };

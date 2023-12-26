@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the application source code to the container
 COPY . /app
 
-# Install application dependencies with --legacy-peer-deps
-RUN npm install --legacy-peer-deps
+# Install application dependencies
+RUN npm install
 
 # Specify the command to run when the container starts
 CMD ["npm", "start"]

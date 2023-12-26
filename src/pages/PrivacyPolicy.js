@@ -44,7 +44,7 @@ const PrivacyPolicyPage = () => {
       <h5>Contact Us</h5>
       <p>
         If you have any questions about this Privacy Policy, please contact us at
-         <a href="yeilvastore@gmail.com">yeilvastore@gmail.com</a>
+         <a href="mailto:yeilvastore@gmail.com">yeilvastore@gmail.com</a>
       </p>
     </Container>
   );

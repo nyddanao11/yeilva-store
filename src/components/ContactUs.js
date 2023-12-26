@@ -13,9 +13,9 @@ const ContactUs = () => {
               <Card.Body>
                 <Card.Text>
                   <p><strong>Messenger:</strong> Yeilva Olivar Arong</p>
-                  <p><strong>WhatsApp:</strong> 09497042268</p>
-                  <p><strong>Phone:</strong> 09497042268</p>
-                 <p><strong>Email:</strong> <a href="yeilvastore@gmail.com"> yeilvastore@gmail.com</a></p>
+                  <p><strong>WhatsApp:</strong> 639497042268</p>
+                  <p><strong>Phone:</strong> 639497042268</p>
+                 <p><strong>Email:</strong> <a href="mailto:yeilvastore@gmail.com"> yeilvastore@gmail.com</a></p>
                 </Card.Text>
               </Card.Body>
             </Card>

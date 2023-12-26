@@ -1,15 +1,27 @@
 import React from 'react';
+import 'swiper/swiper-bundle.css';
 import ProductCard from './ImageCircleCard'; // Assuming your component file is named 'ImageCircleCard'
 import { cans } from '../data/grocery';
 import './ImageCircleCard.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useMediaQuery } from 'react-responsive';
 
-const CircleCard = () => {
+const CircleCard = ({ addToCart }) => {
+const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
+const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
+const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+
   return (
-    <Container >
-      <Row className="flex-nowrap overflow-auto" >
-        {cans.map((product) => (
-          <Col key={product.id} xs={6} md={4} lg={3}>
+   <>
+    <swiper-container
+     css-mode="true"
+     navigation="true" 
+     space-between= {20}
+     slides-per-view={isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1}
+  
+    >
+      
+         {cans.map((product) => (
+          <swiper-slide key={product.id} >
             <ProductCard
               image={product.image}
               name={product.name}
@@ -17,10 +29,12 @@ const CircleCard = () => {
               category={product.category}
               link={product.link}
             />
-          </Col>
+
+          </swiper-slide>
         ))}
-      </Row>
-    </Container>
+    
+    </swiper-container>
+    </>
   );
 };
 

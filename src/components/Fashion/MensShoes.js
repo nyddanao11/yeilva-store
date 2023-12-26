@@ -1,34 +1,49 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import {mensshoes} from'./MensShoesData';
+import {Link} from'react-router-dom';
+import'../Groceries/SoldOutLabel.css';
 
 
-const MensShoes= ({ addToCart, cartItems}) => {
+const MensShoes= ({ addToCart, cartItems,  currentPage, setCurrentPage, product}) => {
+
+  const isProductSoldOut = (product) => {
+    // Replace this condition with your own logic for determining if a product is sold out
+    return product.stock <= 0;
+  };
   
-  const mensshoes = [
-    { id: 1, name: 'nike01', price: 1500, url:`${process.env.PUBLIC_URL}/fashion/mensshoes/nike01.jpg`, category: 'Mens Shoes', description:'' },
-    { id: 2, name: 'nike02', price: 1500, url:`${process.env.PUBLIC_URL}/fashion/mensshoes/nike03.png`, category: 'Mens Shoes', description:'' },
-  
-    
-    // Add more canned goods as needed
-  ];
+  const visibleProducts = mensshoes.filter((product) => product.page === currentPage);
 
+const totalPages = Math.max(...mensshoes.map((product) => product.page));
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+const handlePageChange = (newPage) => {
+  setCurrentPage(newPage);
+};
   
   return (
-   <Container fluid>
-       <Row>
+    <Container fluid>
+        <Row>
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
             {/* Display Grocery Items */}
-            {mensshoes.map((item) => (
-              <Col sm={3} xs={6} key={item.id}>
-                <Card className="mb-4">
+            {visibleProducts.map((product) => (
+              <Col sm={3} xs={6} key={product.id}>
+               <Card className="product-card mb-4 shadow-sm  " >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-                   <img src={item.url} alt={item.name} style={{ maxHeight:"75px", objectFit:"cover"}}/>
-                   <Card.Title style={{fontSize:"14px"}}>{item.name}</Card.Title>
-                    <Card.Text style={{margin:"0px"}}> ₱{item.price}</Card.Text>
+                    {isProductSoldOut(product) && <div className="sold-out-label">Sold Out</div>}
+
+                    <Link to={`/clickmensshoes/${product.id}`}>
+                   <img src={product.url} alt={product.name} style={{ maxHeight:"75px", objectFit:"cover"}}/>
+                    </Link>
+
+                    <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
+                    <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
                    
-                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(item)}>AddToCart</Button>
+
+ 
+                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -36,8 +51,26 @@ const MensShoes= ({ addToCart, cartItems}) => {
           </Row>
         </Col>
       </Row>
-       
-    </Container>
+
+       <div className="pagination">
+        {pageNumbers.map((page) => (
+             <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={currentPage === page ? 'active-page' : ''}
+            style={{
+              marginRight: "5px",
+              border: "none",
+              background: currentPage === page ? ' #0D6EFD' : '#EFEFEF',
+              color: currentPage === page ? 'white' : 'black',
+            }}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
+
+   </Container>
   );
 };
 

@@ -11,7 +11,7 @@ const ConfirmPage = () => {
 
   if (token) {
     // Define the server address (replace with your server's actual address)
-    const serverAddress = 'https://yeilva-store-server.up.railway.app';
+    const serverAddress = 'http://localhost:3001';
 
     // Make the GET request using Axios
     axios.get(`${serverAddress}/api/confirm?token=${token}`)
@@ -32,13 +32,13 @@ const ConfirmPage = () => {
 
 
   return (
-    <div>
+    <div className="d-flex flex-column justify-content-center align-items-center">
       {confirmationStatus === 'pending' && (
         <p>Confirmation in progress...</p>
       )}
 
         {confirmationStatus === 'success' && (
-        <div className="d-flex flex-column justify-content-center align-items-center">
+        <div>
           <p>Email confirmed successfully. You can now log in.</p>
           <Link to="/login" style={{ textDecoration: 'none', padding: '15px', background: '#0D6EFD', color: 'white' }}>
             Login

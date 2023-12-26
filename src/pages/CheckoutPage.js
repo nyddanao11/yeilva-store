@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
 import { useNavigate } from 'react-router-dom';
 
-const CheckoutPage = ({ cartItems, removeFromCart, addToCart, selectedSize, selectedColor }) => {
+const CheckoutPage = ({ cartItems, removeFromCart, addToCart, selectedSize, selectedColor, fetchUserData }) => {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
   const [shippingRate, setShippingRate] = useState(0);
-  const discountCoupon = 5;
+  const discountCoupon = 0;
 
   const navigate = useNavigate();
 
@@ -21,30 +21,47 @@ const CheckoutPage = ({ cartItems, removeFromCart, addToCart, selectedSize, sele
     setTotalItemsPrice(itemsPrice);
   }, [cartItems]);
 
-  useEffect(() => {
-    const calculatedShippingRate = totalItemsPrice * 0.05 + 30;
-    setShippingRate(calculatedShippingRate);
-  }, [totalItemsPrice]);
 
-  const grandTotal = totalItemsPrice + shippingRate - discountCoupon;
+useEffect(() => {
+  // Calculate shipping rate based on cart items
+  const calculatedShippingRate = (cartItems.reduce(
+    (total, item) => total + item.weight * 0.145,
+    0
+  ) + 30).toFixed(2);
+
+  // Set the shipping rate with only two decimal places
+  setShippingRate(Number(calculatedShippingRate));
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [cartItems, totalItemsPrice]); // Add other dependencies if needed
+
+
+
+
+ const Total = (totalItemsPrice + shippingRate - discountCoupon).toFixed(2);
+ const grandTotal= Number(Total);
+
 
   const handleProceedToCheckout = () => {
     setShowCheckoutForm(true);
   };
 
-if (cartItems.length === 0) {
-    navigate('/'); 
-     window.alert("Your Cart is Empty");  
-  return null;
- 
-}
+  // Call navigate conditionally within a useEffect hook
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      navigate('/');
+      window.alert("Your Cart is Empty");
+    }
+  }, [cartItems, navigate]);
 
 
   return (
     <Container className="mb-4">
-      <h2>Checkout</h2>
+   <div style={{ textAlign: 'center', paddingTop:'15px', paddingBottom:'15px' }}>
+      <h2 >Checkout and Shipping Details</h2>
+      </div>
       {!showCheckoutForm ? (
-        <>
+        <div>
           <div className="mb-4">
             {cartItems.map((item) => (
               <CartItem
@@ -60,15 +77,15 @@ if (cartItems.length === 0) {
           <p>Total Items Price: ₱{totalItemsPrice}</p>
           <p>Shipping Rate: ₱{shippingRate}</p>
           <p>Discount Coupon: -₱{discountCoupon}</p>
-          <p><strong>Grand Total: ₱{grandTotal}</strong></p>
+          <h4 style={{paddingBottom:'10px'}}>Grand Total: ₱{grandTotal}</h4>
           <Button onClick={handleProceedToCheckout}>Continue to Shipping</Button>
           <Link to="/cart">
             <Button variant="primary" className="ms-2">Back to Cart</Button>
           </Link>
-        </>
+        </div>
       ) : (
-        <CheckoutForm cartItems={cartItems} grandTotal={grandTotal}  selectedSize={selectedSize}
-          selectedColor={selectedColor}  />
+        <CheckoutForm cartItems={cartItems}   grandTotal={grandTotal}  selectedSize={selectedSize}
+          selectedColor={selectedColor} fetchUserData={fetchUserData}/>
       )}
     </Container>
   );

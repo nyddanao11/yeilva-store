@@ -43,7 +43,7 @@ const handlePageChange = (newPage) => {
                    
 
  
-                    <Button variant="success" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
+                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>

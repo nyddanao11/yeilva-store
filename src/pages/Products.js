@@ -5,6 +5,8 @@ import Footer from '../components/Footer';
 import { wellnessProductData } from '../data/wellnessProductData';
 
 
+
+
 const Products = ({ addToCart }) => {
 
   return (
@@ -23,6 +25,7 @@ const Products = ({ addToCart }) => {
                   <ImageProduct url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product} />
                  
                 </div>
+               
               </Col>
             ))};
           </Row>

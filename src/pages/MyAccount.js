@@ -1,55 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
-import axios from 'axios';
+import { Container, Row, Col, Card, Form, FloatingLabel} from 'react-bootstrap';
+import { fetchUserData } from '../components/userService';
+import { Link} from 'react-router-dom';
+import FeaturedProduct from'../components/FeaturedProduct';
 
-const MyAccountPage = () => {
+
+const MyAccountPage = ({addToCart}) => {
   const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
     email: '',
+    joineddate: '', // Added joinedDate to the state
   });
 
+  
   useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
+    if (storedUserEmail) {
+      fetchUserData(storedUserEmail.replace(/"/g, ''))
+        .then((user) => {
+          // Set user data including joinedDate
+           console.log('User data:', user);
+          setUserData({
+            ...user,
+            joineddate: user.joineddate ?  (user.joineddate) : '', // Format timestamp to a readable date
+          });
+        })
 
-    if (!storedUserEmail) {
-      // Email is missing in local storage
+
+        .catch((error) => console.error('Error setting user data:', error));
+    } else {
       console.log('Email is missing in local storage');
-      return;
     }
+  }, []);
 
-    // Fetch user data using the email from local storage
-    console.log('Fetching user data for email:', storedUserEmail);
-    
-    fetchUserData(storedUserEmail.replace(/"/g, '')); // Remove double quotes
+//   const username =userData.email==='bonifacioamoren@gmail.com'
+// const authenticated = Boolean(userData.username);
 
-  }, []); // Removed the dependencies array to ensure this effect runs once
+ 
+   return (
 
-  const fetchUserData = (email) => {
-    if (!email) {
-      console.error('Email is undefined');
-      return;
-    }
 
-    axios
-      .get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`)
-      .then((response) => {
-        const user = response.data;
-        setUserData(user);
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-      });
-  };
-
-  const handleUpdateInformation = () => {
-    // Handle updating user information here
-  };
-
-  return (
     <Container className="mt-4">
       <h1 className="text-center mb-4">My Account</h1>
-      <Row>
+      <Row className="justify-content-center">
         <Col md={4}>
           <Card>
             <Card.Body>
@@ -57,73 +51,95 @@ const MyAccountPage = () => {
 
               {userData && (
                 <Form>
-                  <Form.Group controlId="formBasicFirstName">
-                    <Form.Label>First name</Form.Label>
+                <Form.Group controlId="formBasicFirstName" className="mb-3">
+                  <FloatingLabel controlId="floatingFirstName" label="First name">
                     <Form.Control
                       type="text"
                       placeholder="Your First name"
                       value={userData.firstname}
-                      onChange={(e) =>
-                        setUserData({ ...userData, firstname: e.target.value })
-                      }
+                      onChange={(e) => setUserData({ ...userData, firstname: e.target.value })}
+                      readOnly // Add the readOnly attribute
                     />
-                  </Form.Group>
-                  <Form.Group controlId="formBasicLastName">
-                    <Form.Label>Last name</Form.Label>
+                  </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicLastName" className="mb-3">
+                  <FloatingLabel controlId="floatingLastName" label="Last name">
                     <Form.Control
                       type="text"
                       placeholder="Your Last name"
                       value={userData.lastname}
-                      onChange={(e) =>
-                        setUserData({ ...userData, lastname: e.target.value })
-                      }
+                      onChange={(e) => setUserData({ ...userData, lastname: e.target.value })}
+                      readOnly // Add the readOnly attribute
                     />
-                  </Form.Group>
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                  </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicEmail" className="mb-3">
+                  <FloatingLabel controlId="floatingEmail" label="Email address">
                     <Form.Control
                       type="email"
                       placeholder="Your Email"
                       value={userData.email}
-                      onChange={(e) =>
-                        setUserData({ ...userData, email: e.target.value })
-                      }
+                      onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                      readOnly // Add the readOnly attribute
                     />
-                  </Form.Group>
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="New Password" />
-                  </Form.Group>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={handleUpdateInformation}
-                    className="mt-2"
-                  >
-                    Update Information
-                  </Button>
+                  </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicJoinedDate" >
+                  <FloatingLabel controlId="floatingJoinedDate" label="Joined Date">
+                    <Form.Control
+                      type="text"
+                      value={userData.joineddate}
+                      readOnly
+                    />
+                  </FloatingLabel>
+                </Form.Group>
+
                 </Form>
               )}
             </Card.Body>
           </Card>
         </Col>
-        <Col md={8}>
-          <Card>
-            <Card.Body>
-              <h5>Order History</h5>
-              {/* Display a list of user's order history */}
-              <ul>
-                <li>
-                  <strong>Order #12345</strong> - Date: January 1, 2023
-                </li>
-                {/* Add more order history items */}
-              </ul>
-            </Card.Body>
-          </Card>
+
+        <Col md={4} >
+
+         <div className="mt-3">
+            <h3>History </h3>
+            <Link to="/checkouthistory" style={{ textDecoration: 'none' }}>
+              View Checkout History
+            </Link>
+          </div>
+
+          <div className="mt-3">
+            <Link to="/loanformhistory" style={{ textDecoration: 'none' }}>
+              View Loan Application History
+            </Link>
+          </div>
+
+
+          <div className="mt-3">
+            {userData.email === 'bonifacioamoren@gmail.com' && (
+              <Link to="/adminpage" style={{ textDecoration: 'none' }}>
+              YeilvaSTORE-Link
+              </Link>
+            )}
+          </div>
+
+        
         </Col>
       </Row>
+
+        <Row style={{marginTop:"25px"}}>
+      <hr></hr>
+      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+     <FeaturedProduct addToCart={addToCart}/>
+      </Row>
+
     </Container>
   );
 };
+
 
 export default MyAccountPage;

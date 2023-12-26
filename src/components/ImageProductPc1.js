@@ -23,7 +23,7 @@ const ImageProductPc1 = ({ product, addToCart }) => {
           variant="primary"
           size="md"
           onClick={() => addToCart(product)}
-           style={{ fontSize:"12px"}}
+           style={{ fontSize:"12px", width:"100%"}}
         >
           <FaShoppingCart className="me-1" /> Add to Cart
         </Button>
