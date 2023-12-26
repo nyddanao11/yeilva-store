@@ -9,7 +9,7 @@ const PrivateRoute = ({ element }) => {
     const checkAuthentication = async () => {
       try {
         // Send a request to a protected endpoint to check authentication
-        const response = await axios.get('http://localhost:3001/api/check-auth', { withCredentials: true });
+        const response = await axios.get('https://yeilva-store-server.up.railway.app/api/check-auth', { withCredentials: true });
       //    console.log('Server response:', response.data);
       // console.log('Document cookies:', document.cookie);
 

@@ -37,7 +37,7 @@ const ChangePassword = () => {
 
     try {
       // Make a request to your server to handle password change logic
-      const response = await axios.post('http://localhost:3001/change-password', {
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/change-password', {
         email: email,
         password: password,
       });

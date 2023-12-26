@@ -98,7 +98,7 @@ const [userData, setUserData] = useState({
     try {
     setIsSubmitting(true); // Disable the form submission
 
-   const response = await axios.post('http://localhost:3001/checkout', formData);
+   const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', formData);
     console.log(response.data);
 
     setShowModal(true);
@@ -117,7 +117,7 @@ const [userData, setUserData] = useState({
   }
 
   try {
-    const response = await axios.get(`http://localhost:3001/api/user?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
     const user = response.data;
     setUserData(user);
   } catch (error) {

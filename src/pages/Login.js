@@ -36,7 +36,7 @@ const Login = ({ handleLogin }) => {
     try {
       setLoading(true); // Set loading to true when the request is initiated
 
-      const response = await axios.post('http://localhost:3001/signin', {
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/signin', {
         email: formData.email,
         password: formData.password,
       });

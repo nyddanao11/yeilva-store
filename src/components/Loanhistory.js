@@ -20,7 +20,7 @@ const fetchData = async () => {
   if (searchEmail) {
     try {
       // Use axios to fetch data
-      const response = await axios.get(`http://localhost:3001/api/loanform-history?email=${encodeURIComponent(searchEmail)}`);
+      const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/loanform-history?email=${encodeURIComponent(searchEmail)}`);
       console.log('Checkout Response:', response.data);
 
       if (response.data.length === 0) {
@@ -78,7 +78,7 @@ useEffect(() => {
 
   const fetchCheckoutHistory = async (email) => {
   try {
-    const checkoutResponse = await axios.get(`http://localhost:3001/api/loanform-history?email=${encodeURIComponent(email)}`);
+    const checkoutResponse = await axios.get(`https://yeilva-store-server.up.railway.app/api/loanform-history?email=${encodeURIComponent(email)}`);
     console.log('Checkout Response:', checkoutResponse.data);
     setLoanformHistory(checkoutResponse.data);
   } catch (error) {
@@ -108,7 +108,7 @@ const handlePaymentUpdate = async (applicationNumber, index, userEmail) => {
       };
 
       // Make the API call to update payments and payment dates
-      await axios.post('http://localhost:3001/api/updatePayments', {
+      await axios.post('https://yeilva-store-server.up.railway.app/api/updatePayments', {
         applicationNumber,
         ...updatedPayments,
       });
@@ -129,7 +129,7 @@ const handlePaymentUpdate = async (applicationNumber, index, userEmail) => {
     try {
       setLoading(true);
 
-      await axios.post('http://localhost:3001/api/updateStatus', {
+      await axios.post('https://yeilva-store-server.up.railway.app/api/updateStatus', {
         applicationNumber,
         newStatus: paymentStates[index].newStatus,
       });

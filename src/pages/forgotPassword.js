@@ -22,7 +22,7 @@ const ForgotPassword = () => {
       setLoading(true); // Set loading to true during form submission
 
       // Make a request to your server to handle forgot password logic
-      const response = await axios.post('http://localhost:3001/api/send-otp', {
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/send-otp', {
         email: email,
       });
 

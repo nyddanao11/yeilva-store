@@ -51,7 +51,7 @@ const [image, setImage] = useState(null);
     formData.append('image', image);
 
 try {
-  const response = await axios.post('http://localhost:3001/api/saveLoanForm', formData, {
+  const response = await axios.post('https://yeilva-store-server.up.railway.app/api/saveLoanForm', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

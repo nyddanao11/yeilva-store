@@ -19,7 +19,7 @@ const handleLogin = async (e) => {
   try {
     // Make a POST request to your authentication endpoint
     const response = await axios.post(
-      'http://localhost:3001/api/adminlogin',
+      'https://yeilva-store.up.railway.app/api/adminlogin',
       {
         username: trimmedUsername,
         password: trimmedPassword,
