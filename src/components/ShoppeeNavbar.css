@@ -1,0 +1,20 @@
+
+/* ShoppeeNavbar.css */
+
+/* Define the hover effect for nav links */
+.home:hover{
+   background-color: #CFE2FF !important;
+  
+}
+.nav-link:hover{
+   background-color: #CFE2FF !important;
+   color: black !important;
+
+  text-decoration: none; /* Remove the default underline */
+  }
+/*
+.nav-link.active{
+  background-color: #0D6EFD !important;
+   color: #007bff !important;
+}
+*/

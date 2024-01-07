@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Footer from'./Footer';
@@ -7,6 +7,9 @@ import Footer from'./Footer';
 const SignUpForm = () => {
   const [serverResponse, setServerResponse] = useState('');
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // const backgroundImage = `${process.env.PUBLIC_URL}/background1.png`;
 
   // Create state variables for form fields
   const [formData, setFormData] = useState({
@@ -25,24 +28,31 @@ const SignUpForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
 
-    axios.post('https://yeilva-store-server.up.railway.app/register', formData)
-      .then((response) => {
-        if (response.status === 200) {
-          setIsLoginSuccessful(true);
-        } else {
-          setIsLoginSuccessful(false);
-          setServerResponse(response.data.error); // Set the error message
-        }
-      })
-      .catch((error) => {
-        console.error('Error submitting form data:', error);
+ const handleSubmit = (event) => {
+  event.preventDefault();
+
+  setLoading(true); // Set loading to true when the form is submitted
+
+  axios.post('https://yeilva-store-server.up.railway.app/register', formData)
+    .then((response) => {
+      if (response.status === 200) {
+        setIsLoginSuccessful(true);
+      } else {
         setIsLoginSuccessful(false);
-        setServerResponse('An error occurred during registration.');
-      });
-  };
+        setServerResponse(response.data.error); // Set the error message
+      }
+    })
+    .catch((error) => {
+      console.error('Error submitting form data:', error);
+      setIsLoginSuccessful(false);
+      setServerResponse(' Error: Email already registered ');
+    })
+    .finally(() => {
+      setLoading(false); // Set loading to false when the request is complete (success or failure)
+    });
+};
+
 
 
   useEffect(() => {
@@ -51,31 +61,75 @@ const SignUpForm = () => {
     }
   }, [isLoginSuccessful]);
 
-  return (
-    <Container>
-      <h2>Sign Up</h2>
-      <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="firstname">
-  <Form.Label>First Name</Form.Label>
-  <Form.Control
-    type="text"
-    name="firstname" // Change to "firstname"
-    value={formData.firstname}
-    onChange={handleInputChange}
-    required
-  />
-</Form.Group>
 
-<Form.Group controlId="lastname">
-  <Form.Label>Last Name</Form.Label>
-  <Form.Control
-    type="text"
-    name="lastname" // Change to "lastname"
-    value={formData.lastname}
-    onChange={handleInputChange}
-    required
-  />
-</Form.Group>
+  return (
+   <div
+     style={{
+        // background: `url(${backgroundImage})`,
+        // backgroundSize: 'cover',
+        // minHeight: '100vh',
+        display: 'flex',
+        flexDirection:'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop:'30px',
+      }}
+    >
+      <Container>
+        <Row className="justify-content-center">
+ 
+           <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
+
+         <div className="text-left" style={{ color: 'green' }}>
+         <h1>CREATE <br />NEW ACCOUNT</h1>
+         <p style={{ color: 'black' }}>Already have an Account? Login</p>
+          <p><a href="mailto:yeilvastore@gmail.com"  style={{textDecoration:'none'}}> Need help?</a></p>
+         </div>
+
+     
+        </Col>
+
+
+           <Col xs={12} md={6}>
+            <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
+
+                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h2>
+
+
+
+           {/* Display a message for successful login */}
+          {isLoginSuccessful && (
+            <p className="text-success mt-2">Sign-Up successful.</p>
+
+          )}
+      
+           {/* Display the server response message */}
+          {serverResponse && (
+            <p className="text-danger mt-3" >{serverResponse}</p>
+          )}
+
+          <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="firstname">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="firstname" // Change to "firstname"
+            value={formData.firstname}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="lastname">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="lastname" // Change to "lastname"
+            value={formData.lastname}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
 
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
@@ -99,47 +153,40 @@ const SignUpForm = () => {
           />
         </Form.Group>
 
-       <div className='d-flex' justify-content-center>
-        <Button variant="primary" type="submit" className="mt-3">
-          Sign Up
-        </Button>
+      
+        <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
+        {loading ? <Spinner animation="border" size="sm" /> : 'Sign Up'}
+      </Button>
 
-        <Link to="/login" style={{marginTop:"20px", marginLeft:"25px"}}>
-          Login
-        </Link>
+
+        </Form>
+        </div>
+      
+
+          <div style={{ maxWidth: '400px', }}>
+
+            <p  className=" mt-3"> Have an account?
+            <Link to="/login"  style={{marginTop:"20px", marginLeft:"10px",  textDecoration: 'none' }}>
+              Login
+            </Link>
+            </p>
+
+         <p  className=" mt-3" > By signing up you Agree to YeilvaSTORE  <Link to="/termsandconditions" style={{ textDecoration: 'none' }} >
+          Terms of Service & Privacy Policy
+        </Link></p>    
 
         </div>
+      
+      </Col>
+      </Row>
 
-           {/* Display a message for successful login */}
-          {isLoginSuccessful && (
-            <p className="text-success mt-2">Sign-Up successful.</p>
-
-
-          )}
-
-          {/* Display an error message for unsuccessful login */}
-          {!isLoginSuccessful && (
-            <p className="text-danger mt-2">Sign-Up failed. Please check your credentials.</p>
-          )}
-
-           {/* Display the server response message */}
-          {serverResponse && (
-            <p className="text-info mt-2" style={{margin:"0px"}}>{serverResponse}</p>
-          )}
-
-         
-         <Link to="/termsandconditions" >
-          Terms and Conditions
-        </Link>
-
-      </Form>
+    </Container>
 
        {/* Footer Section */}
-      <section className=" mb-4  mt-2 d-flex flex-column align-items-center justify-content-center " >
+      <section className="w-100  mt-2" >
       <Footer />
       </section>
-      
-    </Container>
+      </div>
   );
 };
 
