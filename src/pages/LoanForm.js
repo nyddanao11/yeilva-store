@@ -82,7 +82,7 @@ try {
   }
 
   try {
-    const response = await axios.get(`http://localhost:3001/api/user?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
     const user = response.data;
     setUserData(user);
   } catch (error) {
@@ -124,7 +124,7 @@ useEffect(() => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:3001/api/loandata?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/loandata?email=${encodeURIComponent(email)}`);
     const user = response.data;
    setLoanUserData(user);
   } catch (error) {
