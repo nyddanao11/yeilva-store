@@ -14,7 +14,7 @@ const ConfirmPage = () => {
     const serverAddress = 'https://yeilva-store-server.up.railway.app';
 
     // Make the GET request using Axios
-    axios.get(`${serverAddress}/api/confirm?token=${token}`)
+    axios.get(`${serverAddress}/confirm?token=${token}`)
       .then((response) => {
         const data = response.data;
         if (data.message === 'Email verified successfully') {
