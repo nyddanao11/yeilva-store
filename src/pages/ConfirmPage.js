@@ -11,7 +11,7 @@ const ConfirmPage = () => {
 
   if (token) {
     // Define the server address (replace with your server's actual address)
-    const serverAddress = 'https://yeilva-store-server.up.railway.app/';
+    const serverAddress = 'https://yeilva-store-server.up.railway.app';
 
     // Make the GET request using Axios
     axios.get(`${serverAddress}/api/confirm?token=${token}`)
