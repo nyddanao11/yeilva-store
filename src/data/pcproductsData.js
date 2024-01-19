@@ -1,6 +1,6 @@
 export const pcproductsData = [
     {
-  id: 30,
+  id: 20,
   name: "Alert Toothpaste 01",
   url: `${process.env.PUBLIC_URL}/imgpc/alertpaste.png`,
   description: 'Can last up to 4000 brushes, prevents cavities, strengthens teeth and freshens breath',
@@ -12,7 +12,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 31,
+  id: 21,
   name: "Alert Toothpaste 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/alertpaste1.png`,
   description: 'Can last up to 4000 brushes, prevents cavities, strengthens teeth and freshens breath',
@@ -24,7 +24,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 32,
+  id: 22,
   name: "Alert Toothpaste 03",
   url:  `${process.env.PUBLIC_URL}/imgpc/alertpaste2.png`,
   description: 'Helps fight tooth decay, strengthens teeth and moisturizes gums, with vitamins c ',
@@ -36,7 +36,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 33,
+  id: 23,
  name: "Alert Toothpaste 04",
   url:  `${process.env.PUBLIC_URL}/imgpc/alertpaste3.png`,
   description: 'Helps fight tooth decay, strengthens teeth and moisturizes gums, with vitamins c ',
@@ -48,7 +48,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 34,
+  id: 24,
   name: "Alert Toothpaste 05",
   url:  `${process.env.PUBLIC_URL}/imgpc/alertpaste4.png`,
   description: '12 hour cavity protection and Plaque control technology ',
@@ -60,7 +60,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 35,
+  id: 25,
   name: "Blue wave 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
   price: 135,
@@ -71,7 +71,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 36,
+  id: 26,
    name: "Blue wave 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
   price: 135,
@@ -82,7 +82,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 65,
+  id: 27,
   name: "Check soap 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/check.png`,
   price: 220,
@@ -93,7 +93,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 60,
+  id: 28,
   name: "Check soap 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/check1.png`,
   price: 220,
@@ -104,7 +104,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 39,
+  id: 29,
   name: "Check soap 03",
   url:  `${process.env.PUBLIC_URL}/imgpc/check2.png`,
   price: 60,
@@ -115,7 +115,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 40,
+  id: 30,
   name: "Cool its 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
   price: 150,
@@ -126,7 +126,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 41,
+  id: 31,
   name: "Cool its 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
   price: 150,
@@ -137,7 +137,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 42,
+  id: 32,
   name: "Cool its 03",
   url:  `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
   price: 150,
@@ -148,7 +148,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 43,
+  id: 33,
   name: "Gluta 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
   price: 245,
@@ -159,7 +159,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 44,
+  id: 34,
   name: "Gluta 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
   price: 160,
@@ -170,7 +170,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 45,
+  id: 35,
   name: "Gluta 03",
   url:  `${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
   price: 120,
@@ -181,7 +181,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 46,
+  id: 36,
   name: "Mouthwash",
   url:  `${process.env.PUBLIC_URL}/imgpc/mwash.png`,
   price: 175,
@@ -192,7 +192,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 47,
+  id: 37,
   name: "Tuff",
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
   price: 290,
@@ -203,7 +203,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 48,
+  id: 38,
   name: "Tuff pld 1",
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
   price: 179,
@@ -214,7 +214,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 49,
+  id: 39,
   name: "Tuff pld 2",
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
   price: 179,
@@ -225,7 +225,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 50,
+  id: 40,
   name: "Tuff pld 3",
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
   price: 179,
@@ -236,7 +236,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 51,
+  id: 41,
   name: "Tuff pld 4",
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
   price: 179,
@@ -247,7 +247,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 52,
+  id: 42,
   name: "Tuff pld 4",
   url:  `${process.env.PUBLIC_URL}/imgpc/sof.png`,
   price: 285,
@@ -258,7 +258,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 53,
+  id: 43,
   name: "Target 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/target.png`,
   price: 349,
@@ -268,7 +268,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/target.png`,
       ],
 },{
-  id: 54,
+  id: 44,
   name: "Target 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/target1.png`,
   price: 239,
@@ -279,7 +279,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 55,
+  id: 45,
   name: "Tuff clean 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
   price: 184,
@@ -290,7 +290,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 56,
+  id: 46,
   name: "Tuff clean 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
   price: 299,
@@ -301,7 +301,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 57,
+  id: 47,
   name: "Tuff clean 03",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
   price: 299,
@@ -312,7 +312,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 58,
+  id: 48,
   name: "Tuff dishwashing 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
   price: 99,
@@ -323,7 +323,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 59,
+  id: 49,
   name: "Tuff dishwashing 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
   price: 99,
@@ -334,7 +334,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 60,
+  id: 50,
   name: "Tuff dwl 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
   price:66,
@@ -345,7 +345,7 @@ export const pcproductsData = [
       ],
 },
 {
-  id: 61,
+  id: 51,
   name: "Tuff dwl 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
   price: 66,

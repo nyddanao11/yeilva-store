@@ -1,6 +1,6 @@
  export const beautyProductsData= [
 {
-  id: 1,
+  id: 90,
   name: "Glutathione Soap",
   url: `${process.env.PUBLIC_URL}/beauty/gluta.png`,
   price: 150,
@@ -12,7 +12,7 @@
       ],              
 },
 {
-  id: 2,
+  id: 91,
   name: "Tea Tree soap",
   url:  `${process.env.PUBLIC_URL}/beauty/teatree.png`,
   price: 150,
@@ -24,7 +24,7 @@
       ],  
 },
 {
-  id: 3,
+  id: 92,
   name: "Ion Napkin",
   url:  `${process.env.PUBLIC_URL}/beauty/ionnapkin.png`,
   price: 230,
@@ -36,7 +36,7 @@
       ],  
 },
 {
-  id: 4,
+  id: 93,
   name: "Kojic Soap",
   url:  `${process.env.PUBLIC_URL}/beauty/kojic.png`,
   price: 150,
@@ -49,7 +49,7 @@
       ],  
 },
 {
-  id: 5,
+  id: 94,
   name: "Collagen cream",
   url:  `${process.env.PUBLIC_URL}/beauty/collagen.png`,
   price: 178,
@@ -61,7 +61,7 @@
       ],  
 },
 {
-  id: 6,
+  id: 95,
   name: "Toner",
   url:  `${process.env.PUBLIC_URL}/beauty/clarifyingtoner.png`,
   price: 143,
@@ -73,7 +73,7 @@
       ],  
 },
 {
-  id: 7,
+  id: 96,
   name: "Pore toner",
   url: `${process.env.PUBLIC_URL}/beauty/poretoner.png`,
   price: 168,
@@ -85,7 +85,7 @@
       ],  
 },
 {
-  id: 8,
+  id: 97,
   name: "Rejuvenating",
   url:  `${process.env.PUBLIC_URL}/beauty/rejuvenating.png`,
   price: 204,
@@ -97,7 +97,7 @@
       ],  
 },
 {
-  id: 9,
+  id: 98,
   name: "SBF Placenta",
   url:  `${process.env.PUBLIC_URL}/beauty/sbfplacenta.png`,
   price: 185,
@@ -109,7 +109,7 @@
       ],  
 },
 {
-  id: 10,
+  id: 99,
   name: "obagi set",
   url:  `${process.env.PUBLIC_URL}/beauty/obagiset.png`,
   price: 850,
@@ -121,7 +121,7 @@
       ],  
 },
 {
-  id: 11,
+  id: 100,
   name: "Bamboo Charcoal ",
   url:  `${process.env.PUBLIC_URL}/beauty/toothpaste.png`,
   price: 300,
@@ -134,7 +134,7 @@
 },
 
 {
-  id: 15,
+  id: 101,
   name: "L-Glutathione",
   url:  `${process.env.PUBLIC_URL}/images/glutathione.png`,
   price: 2895,
