@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Container, InputGroup, FormControl, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 
-const Search = ({ wellnessProductData, pcproductsData, avonproductsData, beautyProductsData, addToCart }) => {
+const Search = ({ wellnessProductData, pcproductsData, avonproductsData, addToCart }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Combine products from different sources into a single array
-  const allProducts = [...wellnessProductData, ...pcproductsData, ...avonproductsData, ...beautyProductsData];
+  const allProducts = [...wellnessProductData, ...pcproductsData, ...avonproductsData];
 
   // Function to filter products based on the search query
   const filteredProducts = allProducts.filter((product) =>

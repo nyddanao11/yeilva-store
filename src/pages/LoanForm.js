@@ -108,9 +108,7 @@ useEffect(() => {
       setFirstName(userData.firstname);
       setLastName(userData.lastname);
       setEmail(userData.email);
-      // setEmail(userData.phone_number);
-      // setEmail(userData.gcash_account);
-      // setEmail(userData.address);
+    
       // ... (populate other fields as needed)
     }
   }, [userData]);
@@ -151,18 +149,7 @@ useEffect(() => {
     setGcash(loanUserData.gcash_account);
     setAddress(loanUserData.address);
 
-    // if (loanUserData.image instanceof Buffer) {
-    //   // Determine the image format (assuming it is specified by the server)
-    //   const imageFormat = 'png'; // Change this based on the actual format received
-    //   // Convert the Buffer to a data URL with the correct format
-    //   const imageDataUrl = `data:image/${imageFormat};base64,${loanUserData.image.toString('base64')}`;
-    //   // Set the data URL as the source of the image
-    //   setImage(imageDataUrl);
-    // } else {
-    //   // If the image is not a Buffer, you might need to handle it differently
-    //   setImage(loanUserData.image);
-    // }
-
+  
     
   }
 }, [loanUserData]);
