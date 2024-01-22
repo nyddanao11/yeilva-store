@@ -68,6 +68,9 @@ import RestrictedAccess from'./components/RestrictedAccess';
 import GrocerySidebar from './pages/GrocerySideBar';
 import PrivateRoute from './pages/PrivateRoute'; // Import your PrivateRoute component
 import LockoutPage from './pages/LockoutPage';
+import InstallmentHistorypage from './components/InstallmentHistoryPage';
+import InstallmentUser from'./pages/InstallmentUsers';
+import Epayment from'./pages/Epayment';
 
 
 
@@ -258,6 +261,9 @@ const handleLogout = () => {
                   <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
                     <Route path="/grocerysidebar" element={<GrocerySidebar />} />
                     <Route path ="/adminloginpage" element={<LoginPage />}/>
+                      <Route path="/installmenthistorypage" element={<InstallmentHistoryPage />} />
+                     <Route path="/installmentuser" element={<InstallmentUser />} />
+                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                    
 

@@ -42,8 +42,13 @@ const MyAccountPage = ({addToCart}) => {
 
 
     <Container className="mt-4">
-      <h1 className="text-center mb-4">My Account</h1>
+    <div className="d-flex justify-content-center aligned-items-center">
+       <h2 className="text-center mb-4 " style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px",
+        padding:"10px 25px", marginBottom:'15px'}}><strong >My Account</strong></h2
+        >
+       </div>
       <Row className="justify-content-center">
+
         <Col md={4}>
           <Card>
             <Card.Body>
@@ -118,11 +123,17 @@ const MyAccountPage = ({addToCart}) => {
             </Link>
           </div>
 
+           <div className="mt-3">
+            <Link to="/installmenthistorypage" style={{ textDecoration: 'none' }}>
+              View Product Installment History
+            </Link>
+          </div>
+
 
           <div className="mt-3">
             {userData.email === 'bonifacioamoren@gmail.com' && (
               <Link to="/adminpage" style={{ textDecoration: 'none' }}>
-              YeilvaSTORE-Link
+              YeilvaSTORE-AdminPage
               </Link>
             )}
           </div>

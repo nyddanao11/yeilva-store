@@ -3,13 +3,18 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import {deals} from '../data/DealsData';
 import { Link } from 'react-router-dom';
+import FeaturedProduct from'../components/FeaturedProduct';
+
 
 
 const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
  
   return (
     <Container className="mt-4">
-      <h1 className="text-center mb-4">Deals of the Day</h1>
+       <div className="d-flex justify-content-center aligned-items-center">
+       <h2 className="text-center mb-4 " style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px",
+        padding:"10px 25px", marginBottom:'15px'}}><strong >Deals of the Day</strong></h2>
+       </div>
       <Row>
         {deals.map((product) => (
           <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
@@ -40,6 +45,12 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
             </Card>
           </Col>
         ))}
+      </Row>
+
+        <Row style={{marginTop:"25px"}}>
+      <hr className='mt-2 '></hr>
+      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+     <FeaturedProduct addToCart={addToCart}/>
       </Row>
     </Container>
   );

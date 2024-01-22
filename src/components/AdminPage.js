@@ -3,6 +3,7 @@ import { Container, Tab, Tabs} from 'react-bootstrap';
 
 import DeactivateUser from './DeactivateUser';
 import LoanHistory from './Loanhistory';
+import InstallmentHistory from'./installment';
 
 
 const AdminPage = () => {
@@ -26,6 +27,8 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
         return loanHistoryTabContent; // Use the variable here
       case 'DeactivateUser':
         return renderDeactivateUserTab();
+      case 'InstallmentHistory':
+        return renderInstallmentHistoryTab();
       // Add more cases for additional tabs
       default:
         return null;
@@ -40,9 +43,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
     } else if (activeTab === 'DeactivateUser') {
       // Fetch user data for deactivation
       // ...
-    }
+    }else if (activeTab === 'InstallmentHistory'){
     // Add more cases for additional tabs
   };
+};
 
   useEffect(() => {
     fetchData();
@@ -58,6 +62,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
   const renderDeactivateUserTab = () => {
     // Render content for the 'Deactivate User' tab
     return <DeactivateUser />;
+  };
+
+  const renderInstallmentHistoryTab = () => {
+    return <InstallmentHistory />;
   };
 
   const handleSearch = async () => {
@@ -90,6 +98,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
         <Tab eventKey="DeactivateUser" title="Deactivate User">
           {/* Content for the 'Deactivate User' tab */}
           {renderDeactivateUserTab()}
+        </Tab>
+        <Tab eventKey="InstallmentHistory" title="InstallmentHistory">
+          {/* Content for the 'InstallmentHistory' tab */}
+          {renderInstallmentHistoryTab()}
         </Tab>
         {/* Add more Tab components for additional tabs */}
       </Tabs>

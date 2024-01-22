@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
-import {useNavigate} from'react-router-dom';
+import {useNavigate, Link} from'react-router-dom';
 
 const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
   selectedColor}) => {
+
+   const [errorMessage, setErrorMessage] = useState('');
 
 const [userData, setUserData] = useState({
     firstname: '',
@@ -62,20 +64,21 @@ const [userData, setUserData] = useState({
   };
 
 
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Calculate the "name" field by mapping cart items to a formatted string
-  const itemName =  cartItems.map((item) => `
-    <div>
-    <p>Item: ${item.name}</p>
-    <p>Price: ₱${item.price}</p>
-    <p>Quantity: ${item.quantity}</p>
-    <p>Selected Size: ${item.selectedSize}</p>
-    <p>Selected Color: ${item.selectedColor}</p>
-    <img src="${item.url}" alt="${item.name}" width="100" height="100" />
-    </div>
-  `).join('<br>');
+    const itemName = cartItems.map((item) => `
+      <div>
+        <p>Item: ${item.name}</p>
+        <p>Price: ₱${item.price}</p>
+        <p>Quantity: ${item.quantity}</p>
+        <p>Selected Size: ${item.selectedSize}</p>
+        <p>Selected Color: ${item.selectedColor}</p>
+        <img src="${item.url}" alt="${item.name}" width="100" height="100" />
+      </div>
+    `).join('<br>');
 
     const formData = {
       ...userData,
@@ -83,32 +86,38 @@ const [userData, setUserData] = useState({
       quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
       total: grandTotal,
       paymentOption: selectedPayment,
-  
     };
 
-    // Prevent multiple submissions
-    if (isSubmitting) {
-      return;
+    // Check if the selected payment option is 'Installment'
+    if (selectedPayment === 'Installment') {
+      try {
+        setIsSubmitting(true); // Disable the form submission
+
+        // Make the Axios request to the 'installmentuser' endpoint
+        const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData);
+        console.log(response.data);
+
+
+        setShowModal(true);
+      } catch (error) {
+  console.error('Error submitting installment order:', error);
+  setErrorMessage('There was an error submitting your installment order. Please try again later.');
+}
+
+    } else {
+      // Make the Axios request to the 'checkout' endpoint for other payment options
+      try {
+        setIsSubmitting(true); // Disable the form submission
+
+        const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', formData);
+        console.log(response.data);
+
+        setShowModal(true);
+      } catch (error) {
+        console.error('Error submitting order:', error);
+      }
     }
-     if (cartItems.length === 0) {
-    console.error('Cart is empty. Cannot submit order.');
-    return; // Prevent form submission
-  }
-
-    try {
-    setIsSubmitting(true); // Disable the form submission
-
-   const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', formData);
-    console.log(response.data);
-
-    setShowModal(true);
-    
-    // Optionally, you can redirect the user to a success page
-    // history.push('/success'); // Use React Router for this
-  } catch (error) {
-    console.error('Error submitting order:', error);
-  }
-};
+  };
 
  const fetchUserData = async (email, setUserData)  => {
   if (!email) {
@@ -180,9 +189,9 @@ useEffect(() => {
        </Form.Group>
 
       <Form.Group controlId="address">
-        <Form.Label>Address</Form.Label>
+        <Form.Label>Address & Landmark</Form.Label>
         <Form.Control
-          type="text"
+          as="textarea" rows={3}
           name="address"
           value={userData.address}
         onChange={handleUserChange}
@@ -264,7 +273,7 @@ useEffect(() => {
             <div>
               <Form.Check
                 type="radio"
-                label="E-wallets banks"
+                label="E-wallet/bank transfer"
                 name="paymentMethod"
                 value="E-wallets banks"
                 onChange={(e) => handleEwalletsClick(e, 'E-wallets banks')}
@@ -278,6 +287,15 @@ useEffect(() => {
                 onChange={(e) => handleEwalletsClick(e, 'Cash on Delivery')}
                 checked={selectedPayment === 'Cash on Delivery'} // Add checked prop
               />
+
+               <Form.Check
+                type="radio"
+                label="Installment"
+                name="paymentMethod"
+                value="Installment"
+                onChange={(e) => handleEwalletsClick(e, 'Installment')}
+                checked={selectedPayment === 'Installment'} // Add checked prop
+              />
             </div>
           </Form.Group>
 
@@ -287,11 +305,19 @@ useEffect(() => {
               onClick={handleEwalletsClick}
               style={{ marginTop: "15px", marginBottom: "10px", marginRight: "15px" }}
             >
-              Proceed to Payment
+               <Link to='/epayment' style={{textDecoration:'none', color:'white'}}>Proceed to Payment</Link>
             </Button>
           )}
 
 
+          {errorMessage && (
+            <div style={{ color: 'red', marginTop: '10px' }}>
+              {errorMessage}
+            </div>
+          )}
+
+
+         
           <Button variant="primary" onClick={handleBackToCart} className="mb-2 " style={{ width: '150px', marginTop:'15px' }}>
             Back to Cart
           </Button>
