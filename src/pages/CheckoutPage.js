@@ -57,9 +57,11 @@ useEffect(() => {
 
   return (
     <Container className="mb-4">
-   <div style={{ textAlign: 'center', paddingTop:'15px', paddingBottom:'15px' }}>
-      <h2 >Checkout and Shipping Details</h2>
-      </div>
+  <div className="d-flex justify-content-center aligned-items-center">
+       <h2 className="text-center mb-4 " style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px",
+        padding:"10px 25px", marginBottom:'15px'}}><strong >Checkout and Shipping Details</strong></h2
+        >
+       </div>
       {!showCheckoutForm ? (
         <div>
           <div className="mb-4">
