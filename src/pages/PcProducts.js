@@ -25,7 +25,7 @@ const PcProducts= ({addToCart}) => {
                    
                 </div>
               </Col>
-            ))};
+            ))}
           </Row>
         </Col>
       </Row >

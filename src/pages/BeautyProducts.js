@@ -25,7 +25,7 @@ const BeautyProducts = ({ addToCart }) => {
                  
                 </div>
               </Col>
-            ))};
+            ))}
           </Row>
         </Col>
       </Row>

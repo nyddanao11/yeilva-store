@@ -22,7 +22,7 @@ const AvonProducts = ({ addToCart }) => {
                   
                 </div>
               </Col>
-            ))};
+            ))}
           </Row>
         </Col>
       </Row>
