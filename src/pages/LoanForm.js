@@ -165,7 +165,7 @@ useEffect(() => {
      
         <Col xs={12} md={6} style={{marginBottom:'20px'}}>
      <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
-              <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Loan Application</h2>
+              <h2 style={{ textAlign: 'center', marginBottom: '20px', color:'green' }}>Loan Application</h2>
           
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formLoanAmount" className="mb-3">

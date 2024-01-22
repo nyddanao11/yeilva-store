@@ -47,7 +47,8 @@ const Footer = () => {
               <h6> Accepts</h6>
               <p style={{margin:"0px"}}>Gcash</p>
               <p style={{margin:"0px"}}>Bank Transfer</p>
-              <p >Cash On Delivery</p>
+              <p style={{margin:"0px"}}>Cash On Delivery</p>
+              <p>Installment </p>
           </div>
           </Col>
         </Row>

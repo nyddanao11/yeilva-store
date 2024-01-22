@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Row, Col} from 'react-bootstrap';
+import { Form, Button, Row, Col, FloatingLabel} from 'react-bootstrap';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link} from'react-router-dom';
@@ -155,82 +155,75 @@ useEffect(() => {
         {/* Checkout Information and List of Items */}
        <Form onSubmit={handleSubmit}>
 
-        <Form.Group controlId="formBasicFirstName">
-        <Form.Label>First name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Your First name"
-          value={userData.firstname || ''} // Ensure userData.firstname is initialized or use an empty string
-          onChange={handleUserChange}
-          readOnly
-          />
-        </Form.Group>
+  <FloatingLabel controlId="formBasicFirstName" label="First name" style={{marginBottom:'10px'}}>
+    <Form.Control
+      type="text"
+      placeholder="Your First name"
+      value={userData.firstname || ''}
+      onChange={handleUserChange}
+      readOnly
+    />
+  </FloatingLabel>
 
-        <Form.Group controlId="formBasicLastName">
-        <Form.Label>Last name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Your Last name"
-          value={userData.lastname || ''}
-          onChange={handleUserChange}
-          readOnly
-          />
-        </Form.Group>
+  <FloatingLabel controlId="formBasicLastName" label="Last name" style={{marginBottom:'10px'}}>
+    <Form.Control
+      type="text"
+      placeholder="Your Last name"
+      value={userData.lastname || ''}
+      onChange={handleUserChange}
+      readOnly
+    />
+  </FloatingLabel>
 
-        <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-          <Form.Control
-          type="email"
-          placeholder="Your Email"
-          value={userData.email || ''}
-          onChange={handleUserChange}
-          readOnly
-          />
-       </Form.Group>
+  <FloatingLabel controlId="formBasicEmail" label="Email address" style={{marginBottom:'10px'}}>
+    <Form.Control
+      type="email"
+      placeholder="Your FloatingLabelEmail"
+      value={userData.email || ''}
+      onChange={handleUserChange}
+      readOnly
+    />
+  </FloatingLabel>
 
-      <Form.Group controlId="address">
-        <Form.Label>Address & Landmark</Form.Label>
-        <Form.Control
-          as="textarea" rows={3}
-          name="address"
-          value={userData.address}
-        onChange={handleUserChange}
-          required
-        />
-      </Form.Group>
+  <FloatingLabel controlId="address" label="Address & Landmark" style={{marginBottom:'10px'}}>
+    <Form.Control
+      as="textarea" rows={3}
+      name="address"
+      value={userData.address}
+      onChange={handleUserChange}
+      required
+    />
+  </FloatingLabel>
 
-      <Form.Group controlId="province">
-        <Form.Label>Province</Form.Label>
-        <Form.Control
-          type="text"
-          name="province"
-          value={userData.province}
-         onChange={handleUserChange}
-          required
-        />
-      </Form.Group>
+  <FloatingLabel controlId="province" label="Province" style={{marginBottom:'10px'}}>
+    <Form.Control
+      type="text"
+      name="province"
+      value={userData.province}
+      onChange={handleUserChange}
+      required
+    />
+  </FloatingLabel>
 
-      <Form.Group controlId="phone">
-        <Form.Label>Phone</Form.Label>
-        <Form.Control
-          type="text"
-          name="phone"
-          value={userData.phone}
-          onChange={handleUserChange}
-          required
-        />
-         </Form.Group>
-    
-      <Form.Group controlId="quantity" style={{width:'150px'}}>
-        <Form.Label>Quantity</Form.Label>
-        <Form.Control
-          type="text"
-          name="quantity"
-          value={formData.quantity}
-          onChange={handleFormChange}
-          required
-        />
-      </Form.Group>
+  <FloatingLabel controlId="phone" label="Phone" style={{marginBottom:'10px'}}>
+    <Form.Control
+      type="text"
+      name="phone"
+      value={userData.phone}
+      onChange={handleUserChange}
+      required
+    />
+  </FloatingLabel>
+
+  <FloatingLabel controlId="quantity" label="Quantity" style={{ width: '150px' }}>
+    <Form.Control
+      type="text"
+      name="quantity"
+      value={formData.quantity}
+      onChange={handleFormChange}
+      required
+    />
+  </FloatingLabel>
 
        <div  style={{border:'1px #d3d4d5 solid', background:'white', 
           borderRadius:'10px', margin:'15px', padding:'10px'}}>  
@@ -243,15 +236,13 @@ useEffect(() => {
                 {item.name} - ₱{item.price} x {item.quantity}
               </p>
 
-              <Form.Group controlId={`sizeSelect-${item.id}`} style={{width:'150px'}}>
-                <Form.Label >Selected Size:</Form.Label>
+              <FloatingLabel controlId={`sizeSelect-${item.id}`} label="Selected Size:" style={{width:'150px', marginBottom:'10px'}}> 
                 <Form.Control type="text" value={item.selectedSize} readOnly />
-              </Form.Group>
+              </FloatingLabel>
 
-              <Form.Group controlId={`colorSelect-${item.id}`} style={{width:'150px'}}>
-                <Form.Label >Selected Color:</Form.Label>
+              <FloatingLabel controlId={`colorSelect-${item.id}`}  label="Selected Color:" style={{width:'150px'}}>
                 <Form.Control type="text" value={item.selectedColor} readOnly />
-              </Form.Group>
+              </FloatingLabel>
             </div>
           ))}
         </ul>
@@ -268,8 +259,8 @@ useEffect(() => {
       {/* Payment Options */}
       <div className="mx-3 " style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
         <h3>Payment Options</h3>
-       <Form.Group controlId="paymentMethod">
-            <Form.Label>Choose Payment Method</Form.Label>
+       <FloatingLabel controlId="paymentMethod"  >
+           
             <div>
               <Form.Check
                 type="radio"
@@ -297,7 +288,7 @@ useEffect(() => {
                 checked={selectedPayment === 'Installment'} // Add checked prop
               />
             </div>
-          </Form.Group>
+          </FloatingLabel>
 
           {selectedPayment === 'E-wallets banks' && (
             <Button
