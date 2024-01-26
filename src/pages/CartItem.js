@@ -86,7 +86,7 @@ const CartItem = ({ item, removeFromCart }) => {
           <Col md={4}>
             <p>Total: ₱{item.price * item.quantity}</p>
             <button
-              className="btn btn-danger"
+                className="btn btn-success"
               onClick={() => {
                 removeFromCart(item.id);
               }}

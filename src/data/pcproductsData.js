@@ -83,9 +83,9 @@ export const pcproductsData = [
 },
 {
   id: 27,
-  name: "Check soap 01",
+  name: "Check papaya",
   url:  `${process.env.PUBLIC_URL}/imgpc/check.png`,
-  price: 220,
+  price: 69,
    weight:150,
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/check.png`,
@@ -96,7 +96,7 @@ export const pcproductsData = [
   id: 28,
   name: "Check soap 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/check1.png`,
-  price: 220,
+  price: 65,
    weight:150,
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/check1.png`,
@@ -107,7 +107,7 @@ export const pcproductsData = [
   id: 29,
   name: "Check soap 03",
   url:  `${process.env.PUBLIC_URL}/imgpc/check2.png`,
-  price: 60,
+  price: 65,
    weight:150,
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/check2.png`,
@@ -261,7 +261,7 @@ export const pcproductsData = [
   id: 43,
   name: "Target 01",
   url:  `${process.env.PUBLIC_URL}/imgpc/target.png`,
-  price: 349,
+  price: 369,
    weight:250,
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/target.png`,

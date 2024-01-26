@@ -3,7 +3,7 @@ export const deals = [
   id: 1,
   name: "Mangosteen choco",
   url:  `${process.env.PUBLIC_URL}/images/choco.jpg`,
-  price: 220,
+  price: 230,
   description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",               
   discountedPrice: 200,
   weight:120,

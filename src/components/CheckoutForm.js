@@ -301,7 +301,7 @@ useEffect(() => {
           )}
 
 
-          {errorMessage && (
+          {errorMessage && selectedPayment === 'Installment' && (
             <div style={{ color: 'red', marginTop: '10px' }}>
               {errorMessage}
             </div>

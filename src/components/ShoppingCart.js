@@ -93,7 +93,7 @@ const ShoppingCart = ({
 
                 <div className="mx-4">
                  <Button
-                    variant="danger"
+                    variant="success"
                     className=""
                     onClick={() => removeFromCart(cartItem.id)}
                   >
