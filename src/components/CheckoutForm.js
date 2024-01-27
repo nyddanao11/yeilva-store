@@ -314,7 +314,7 @@ useEffect(() => {
           </Button>
 
 
-             <h5 style={{color:'red', marginBottom:'15px', marginTop:'15px'}}>Total Price: ₱{grandTotal}</h5>
+             <h5 style={{color:'black', marginBottom:'15px', marginTop:'15px'}}>Total Price: ₱{grandTotal}</h5>
           <Button variant="danger" type="submit" className="mb-2 mt-2" style={{ width: '100%' }}>
            Place Order
           </Button>
