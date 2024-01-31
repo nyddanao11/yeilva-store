@@ -225,18 +225,17 @@ useEffect(() => {
     />
   </FloatingLabel>
 
-       <div  style={{border:'1px #d3d4d5 solid', background:'white', 
-          borderRadius:'10px', margin:'15px', padding:'10px'}}>  
-         <p className='mt-3 ' style={{fontSize:'20px'}}>Items in Cart:</p>
-        <ul >
-          {cartItems.map((item) => (
-            <div key={item.id}>
-              <img src={item.url} alt={item.name} width="100" height="100" />
-              <p className='mt-3'  style={{fontSize:'15px'}}>
-                {item.name} - ₱{item.price} x {item.quantity}
-              </p>
+      <div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding: '10px' }}>
+  <p className='mt-3' style={{ fontSize: '20px' }}>Items in Cart:</p>
+  <ul>
+    {cartItems.map((item) => (
+      <div key={item.id}>
+        <img src={item.url} alt={item.name} width="100" height="100" />
+        <p className='mt-3' style={{ fontSize: '15px' }}>
+          {item.name} - ₱{item.price} x {item.quantity}
+        </p>
 
-                 {item.selectedSize && ( // Conditionally render if selectedSize has a value
+        {item.selectedSize && ( // Conditionally render if selectedSize has a value
           <FloatingLabel controlId={`sizeSelect-${item.id}`} label="Selected Size:" style={{ width: '150px', marginBottom: '10px' }}>
             <Form.Control type="text" value={item.selectedSize} readOnly />
           </FloatingLabel>
@@ -246,13 +245,11 @@ useEffect(() => {
           <FloatingLabel controlId={`colorSelect-${item.id}`} label="Selected Color:" style={{ width: '150px' }}>
             <Form.Control type="text" value={item.selectedColor} readOnly />
           </FloatingLabel>
-            </div>
-          ))}
-        </ul>
-       
-         
+        )}
       </div>
-
+    ))}
+  </ul>
+</div>
 
           {showModal && (
             <SuccessModal show={showModal} onClose={handleCloseModal} handleClose={handleCloseModal} />
