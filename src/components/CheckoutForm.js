@@ -101,7 +101,7 @@ const [userData, setUserData] = useState({
         setShowModal(true);
       } catch (error) {
   console.error('Error submitting installment order:', error);
-  setErrorMessage('There was an error submitting your installment order. Please try again later.');
+  setErrorMessage('There was an error submitting your installment order. Please make sure you dont have a pending installment and your total purchases is equal to or above ₱500.');
 }
 
     } else {
