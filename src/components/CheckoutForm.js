@@ -236,13 +236,16 @@ useEffect(() => {
                 {item.name} - ₱{item.price} x {item.quantity}
               </p>
 
-              <FloatingLabel controlId={`sizeSelect-${item.id}`} label="Selected Size:" style={{width:'150px', marginBottom:'10px'}}> 
-                <Form.Control type="text" value={item.selectedSize} readOnly />
-              </FloatingLabel>
+                 {item.selectedSize && ( // Conditionally render if selectedSize has a value
+          <FloatingLabel controlId={`sizeSelect-${item.id}`} label="Selected Size:" style={{ width: '150px', marginBottom: '10px' }}>
+            <Form.Control type="text" value={item.selectedSize} readOnly />
+          </FloatingLabel>
+        )}
 
-              <FloatingLabel controlId={`colorSelect-${item.id}`}  label="Selected Color:" style={{width:'150px'}}>
-                <Form.Control type="text" value={item.selectedColor} readOnly />
-              </FloatingLabel>
+        {item.selectedColor && ( // Conditionally render if selectedColor has a value
+          <FloatingLabel controlId={`colorSelect-${item.id}`} label="Selected Color:" style={{ width: '150px' }}>
+            <Form.Control type="text" value={item.selectedColor} readOnly />
+          </FloatingLabel>
             </div>
           ))}
         </ul>
