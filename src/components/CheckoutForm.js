@@ -281,7 +281,7 @@ useEffect(() => {
 
                <Form.Check
                 type="radio"
-                label="Installment"
+                label="Installment (purchases above ₱500)"
                 name="paymentMethod"
                 value="Installment"
                 onChange={(e) => handleEwalletsClick(e, 'Installment')}
