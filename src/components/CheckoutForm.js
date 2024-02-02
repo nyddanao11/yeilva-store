@@ -225,11 +225,11 @@ useEffect(() => {
     />
   </FloatingLabel>
 
-      <div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding: '10px' }}>
-  <p className='mt-3' style={{ fontSize: '20px' }}>Items in Cart:</p>
+<div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding: '10px 20px' }}>
+  <h3 className='mt-3' >Items in Cart:</h3>
   <ul>
     {cartItems.map((item) => (
-      <div key={item.id}>
+      <div key={item.id} style={{marginBottom:"10px"}}>
         <img src={item.url} alt={item.name} width="100" height="100" />
         <p className='mt-3' style={{ fontSize: '15px' }}>
           {item.name} - ₱{item.price} x {item.quantity}
@@ -246,10 +246,17 @@ useEffect(() => {
             <Form.Control type="text" value={item.selectedColor} readOnly />
           </FloatingLabel>
         )}
+
+     
       </div>
     ))}
   </ul>
+
+    <Button variant="primary" onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px' }}>
+            Back to Cart
+          </Button>
 </div>
+
 
           {showModal && (
             <SuccessModal show={showModal} onClose={handleCloseModal} handleClose={handleCloseModal} />
