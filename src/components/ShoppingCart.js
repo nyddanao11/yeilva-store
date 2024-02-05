@@ -35,7 +35,7 @@ const ShoppingCart = ({
           <ListGroup.Item className="cart-item">Your cart is empty.</ListGroup.Item>
         ) : (
           cartItems.map((cartItem) => (
-            <ListGroup.Item key={cartItem.id} className="cart-item">
+            <ListGroup.Item key={cartItem.id} className="cart-item mb-3">
               <Card className="pb-2" style={{ border: "none" }}>
                 <Card.Body>
                   <Row className="">

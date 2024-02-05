@@ -29,7 +29,7 @@ const CartItem = ({ item, removeFromCart }) => {
   };
 
   return (
-    <Card>
+    <Card className="mb-3">
       <Card.Body>
         <Row>
           <Col md={3}>
