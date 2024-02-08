@@ -23,54 +23,60 @@ const Home = ({ addToCart, product}) => {
     </Row>
 
 
-      <Row className=" mb-2 mt-3"  >
-        <Col>
+     <Row className=" mb-2 "  style={{ background: '#f7f7f7', padding: '10px 0' }}>
+      <div style={{maxWidth:'120px', padding:'10px'}}>
+      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Categories</h5>
+      </div>
           <CircleCard />
-        </Col>
+      
       </Row>
 
 
       {/* Featured Products */}
 
-      <Row className="featured-products" style={{ background: '#f7f7f7', padding: '20px 0' }}>
-         <Col>
-         <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px", marginBottom:'15px'}}><strong >Featured Products</strong></h2>
+      <Row className="featured-products" style={{ background: '#f7f7f7', padding: '10px 0' }}>
+        <div style={{maxWidth:'195px', padding:'10px'}}>
+      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Featured Products</h5>
+      </div>
            <FeaturedProducts addToCart={addToCart} product={product}/>
-       </Col>
+       
       </Row>
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
        <Row className="best-selling-products ">
-       
-        <Col>
-         <h2 className="text-center"style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px", marginBottom:'10px'}}><strong >Best Selling Products</strong></h2>
+      
+         <div style={{maxWidth:'220px', padding:' 10px'}}>
+      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Best Selling Products</h5>
+      </div>
          <BestSelling addToCart={addToCart} product={product}/>
-        </Col>
+       
 
       </Row>
 
       {/* Recommended Products */}
-      <Row className="recommended-products mb-1 mt-1 " style={{ background: '#f7f7f7', padding: '25px 0' }}>
-        <Col>
-          <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}><strong >Recommended Products</strong></h2>
+      <Row className="recommended-products " style={{ background: '#f7f7f7', padding: '10px 0' }}>
+       
+          <div style={{maxWidth:'250px', padding:'10px'}}>
+      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Recommended Products</h5>
+      </div>
           <RecommendedProd addToCart={addToCart} product={product}/>
-        </Col>
+      
       </Row>
 
     {/* FAQ Section */}
       <Row>
-        <Col>
-        <h2>FAQ</h2>
+        
+        <h5 style={{color:"green"}}>FAQ</h5>
           <Accordion />
-        </Col>
+       
      </Row>
      
 
       {/* Footer Section */}
       <Row className="mt-4 mb-4  " >
-      <Col>
+    
       <Footer />
-      </Col>
+   
       </Row>
 
       </Container>
@@ -79,4 +85,3 @@ const Home = ({ addToCart, product}) => {
 };
 
 export default Home;
-

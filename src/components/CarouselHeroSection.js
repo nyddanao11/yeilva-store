@@ -6,10 +6,7 @@ import ImageWithOverlayButton from'./ImgButtonOverly';
 
 const CarouselSection=()=>{
 return(
-<>
-   <h1 className="primary text-center" 
-   style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"10px"}}><strong >Welcome To YeilvaSTORE</strong></h1>
-        <p>Discover a wide range of products.</p>
+<>      
     <Row  className=" mb-3 row flex-nowrap overflow-auto " style={{width:'100%'}}>
       <Col md={8} > 
         <Carousel>
@@ -33,12 +30,7 @@ return(
          <Link to='/brochure'>
          <ImageWithOverlayButton />
          </Link>
-        <img
-          src={`${process.env.PUBLIC_URL}/groceries/noodles/freedelivery.png`}
-          alt="free delivery"
-          style={{ objectFit:'cover', maxHeight: '115px', width: '100%'
-           }}
-        />
+      
        
 
       </Col>
