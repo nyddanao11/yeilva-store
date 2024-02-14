@@ -14,18 +14,19 @@ const Home = ({ addToCart, product}) => {
 
   return (
 
-    <Container>
+        <Container>
       {/* Hero Section */}
      <Row className="hero mb-1" >
-     <Col>
+     
       <CarouselSection />
-      </Col>
+     
     </Row>
 
 
-     <Row className=" mb-2 "  style={{ background: '#f7f7f7', padding: '10px 0' }}>
-      <div style={{maxWidth:'120px', padding:'10px'}}>
-      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Categories</h5>
+      <Row className=" mb-2 "  style={{ background: '#f7f7f7', padding: '10px 0' }}>
+
+      <div className="d-flex justify-content-center align-items-center ">
+      <h5  style={{color:"green", marginBottom:'15px'}}>Categories</h5>
       </div>
           <CircleCard />
       
@@ -35,19 +36,20 @@ const Home = ({ addToCart, product}) => {
       {/* Featured Products */}
 
       <Row className="featured-products" style={{ background: '#f7f7f7', padding: '10px 0' }}>
-        <div style={{maxWidth:'195px', padding:'10px'}}>
-      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Featured Products</h5>
+       <div className="d-flex justify-content-center align-items-center ">
+      <h5  style={{color:"green", marginBottom:'15px'}}>Featured Products</h5>
       </div>
+
            <FeaturedProducts addToCart={addToCart} product={product}/>
        
       </Row>
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
        <Row className="best-selling-products ">
-      
-         <div style={{maxWidth:'220px', padding:' 10px'}}>
-      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Best Selling Products</h5>
+       <div className="d-flex justify-content-center align-items-center ">  
+      <h5  style={{color:"green", marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
       </div>
+   
          <BestSelling addToCart={addToCart} product={product}/>
        
 
@@ -55,10 +57,10 @@ const Home = ({ addToCart, product}) => {
 
       {/* Recommended Products */}
       <Row className="recommended-products " style={{ background: '#f7f7f7', padding: '10px 0' }}>
-       
-          <div style={{maxWidth:'250px', padding:'10px'}}>
-      <h5  style={{color:"green", borderBottom:'1px solid black', marginBottom:'15px'}}>Recommended Products</h5>
+        <div className="d-flex justify-content-center align-items-center ">
+           <h5  style={{color:"green", marginBottom:'6px', marginTop:"7px"}}>Recommended Products</h5>
       </div>
+ 
           <RecommendedProd addToCart={addToCart} product={product}/>
       
       </Row>
