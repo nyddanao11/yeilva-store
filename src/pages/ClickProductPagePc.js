@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdPc from '../data/findProductByIdPc';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
+import BreadCrumbPc from'../components/BreadCrumbPc';
 
 
 const ClickProductPagePc = ({ addToCart }) => {
