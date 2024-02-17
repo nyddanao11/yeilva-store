@@ -49,9 +49,10 @@ const ClickProductPagePc = ({ addToCart }) => {
 
   return (
     <Container>
-      <Row>
-        {/* Product Image */}
-        <Col xs={12} md={6}>
+       <Row className="justify-content-center">
+
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
+          <BreadCrumbPc productId={product.id} />
          <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}

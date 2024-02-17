@@ -16,7 +16,9 @@ const PcProducts= ({addToCart}) => {
        <Col md={2}>
        </Col>
         <Col md={9}>
-          <h2 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}>Personal Collections</h2>
+           <div className="d-flex justify-content-center align-items-center mb-2">
+          <h4 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}>Personal Collections</h4>
+          </div>
           <Row md={2} xs={2} lg={3} className="g-2">
             {pcproductsData.map((product) => (
               <Col md={4} key={product.id}>
