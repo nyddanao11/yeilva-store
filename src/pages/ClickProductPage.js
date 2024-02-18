@@ -5,6 +5,7 @@ import findProductById from '../data/findProductById';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
 import BreadCrumbNav from'../components/BreadCrumbNav';
+import TabbedComponent from'../components/ProductTablature';
 
 
 const ClickProductPage = ({ addToCart }) => {
