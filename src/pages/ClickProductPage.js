@@ -83,6 +83,13 @@ const ClickProductPage = ({ addToCart }) => {
         </Col>
       </Row>
 
+       <Row>
+        <Col className="mt-3 mb-3">
+        <TabbedComponent />
+        </Col>
+
+      </Row>
+
       <Row style={{marginTop:"25px"}}>
       <hr></hr>
     <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
