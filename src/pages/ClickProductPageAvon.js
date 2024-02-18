@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdAvon from '../data/findProductByIdAvon';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
+import BreadCrumbAvon from'../components/BreadCrumbAvon';
 
 
 const ClickProductPageAvon = ({ addToCart }) => {
@@ -48,9 +49,10 @@ const ClickProductPageAvon = ({ addToCart }) => {
 
   return (
     <Container>
-      <Row>
-        {/* Product Image */}
-        <Col xs={12} md={6}>
+       <Row className="justify-content-center">
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
+          <BreadCrumbAvon productId={product.id} />
+
           <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
