@@ -79,7 +79,7 @@ const ClickProductPagePc = ({ addToCart }) => {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p>Price: ₱{product.price}</p>
+          <h6>Price: ₱{product.price}</h6>
           <p>Description: {product.description}</p>
 
           {/* Add to Cart Button */}
