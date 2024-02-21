@@ -16,7 +16,7 @@ const ProductDetails = ({productId}) => {
 
   return (
    
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column mt-2">
 
       <h4>Product Details</h4>
         {clickedTabs.map((item, index) => (
@@ -36,7 +36,7 @@ const ProductDetails = ({productId}) => {
 
 const Reviews = () => {
   return (
-    <div>
+    <div className="mt-2">
       <h4>Reviews</h4>
       <p>User Review</p>
     </div>
@@ -45,7 +45,7 @@ const Reviews = () => {
 
 const Shipping = () => {
   return (
-    <div>
+    <div className="mt-2">
       <h4>Shipping</h4>
       <p>Shipping Content</p>
     </div>
