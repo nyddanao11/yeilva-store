@@ -85,8 +85,10 @@ const ClickProductPage = ({ addToCart }) => {
       </Row>
 
        <Row>
-        <Col className="mt-3 mb-3">
-        <TabbedComponent />
+        <Col>
+         <div style={{marginTop:"45px", marginBottom:"45px"}}>
+        <TabbedComponent  productId={product.id}/>
+        </div>
         </Col>
 
       </Row>

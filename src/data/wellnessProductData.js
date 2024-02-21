@@ -12,6 +12,8 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+ 
 },
 {
   id: 2,
@@ -25,6 +27,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai2.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
+   productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
 },
 {
   id: 3,
@@ -38,6 +41,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/barley1.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/barley2.png`,
       ],
+   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
 },
 {
   id: 4,
@@ -51,6 +55,7 @@
       `${process.env.PUBLIC_URL}/images/dealsthumb/acai2.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
+  productdetails:"1 plastic Bottle of 500ml acaiberry juice, BFAD#1009889000",
 },
 {
   id: 5,
@@ -65,6 +70,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/absorbentcee2.png`,
        
       ],
+  productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
 },
 {
   id: 6,
@@ -79,6 +85,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/primeshape2.png`,
       
       ],
+  productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
 },
 {
   id: 7,
@@ -93,6 +100,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/arcticc2.png`,
        
       ],
+  productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
 },
 {
   id: 8,
@@ -107,6 +115,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"15g of 10 sachets sweetened with stevia,  BFAD#1009889000",
 },
 {
   id: 9,
@@ -121,6 +130,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
 },
 {
   id: 10,
@@ -135,6 +145,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
 },
 {
   id: 11,
@@ -149,6 +160,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
 },
 {
   id: 12,
@@ -163,12 +175,24 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"Net wt 30g,  BFAD#1009889000",
 },
 {
   id: 13,
   name: "Mangosteen choco",
   url:  `${process.env.PUBLIC_URL}/images/choco.jpg`,
   price: 230,
+   weight:120,
+  description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",               
+    thumbnails:
+      [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+      ],
+  productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+},
+{
   id: 14,
   name: "Detox",
   url:  `${process.env.PUBLIC_URL}/images/detox.png`,
@@ -181,6 +205,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
 },
 {
   id: 15,
@@ -195,5 +220,6 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+  productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
 },
 ];

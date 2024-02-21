@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
+import{wellnessProductData} from'../data/wellnessProductData';
 
-const ProductDetails = () => {
+const ProductDetails = ({productId}) => {
+
+  const [clickedTabs, setClickedTabs] = useState([]);
+
+  const selectedProduct = wellnessProductData.find((item) => item.id === productId);
+
+  const handleItemClick = (item) => {
+    console.log('Clicked item:', item);
+    // Adding the clicked item to the state
+    setClickedTabs([...clickedTabs, item]);
+  };
+
   return (
-    <div>
+   
+      <div className="d-flex flex-column">
+
       <h4>Product Details</h4>
-      <p>Product Details Content</p>
-    </div>
+        {clickedTabs.map((item, index) => (
+          <span key={index} onClick={() => handleItemClick(item)}>
+            {item.productdetails}
+          </span>
+        ))}
+       {/* Render the product details */}
+      {selectedProduct && (
+        <span onClick={() => handleItemClick(selectedProduct)}>
+          {selectedProduct.productdetails}
+        </span>
+      )}
+      </div>
   );
 };
 
@@ -14,7 +38,7 @@ const Reviews = () => {
   return (
     <div>
       <h4>Reviews</h4>
-      <p>Reviews Content</p>
+      <p>User Review</p>
     </div>
   );
 };
@@ -28,7 +52,7 @@ const Shipping = () => {
   );
 };
 
-const TabbedComponent = () => {
+const TabbedComponent = ({productId}) => {
   const [key, setKey] = useState('details');
 
   return (
@@ -53,7 +77,7 @@ const TabbedComponent = () => {
           <Col>
             <Tab.Content>
               <Tab.Pane eventKey="details">
-                <ProductDetails />
+                <ProductDetails productId={productId}/>
               </Tab.Pane>
               <Tab.Pane eventKey="reviews">
                 <Reviews />
