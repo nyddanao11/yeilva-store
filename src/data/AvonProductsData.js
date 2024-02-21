@@ -9,6 +9,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/babycare01.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/babycare01.jpg`,
       ],
+   productdetails:"Avon Products",
 },
 {
   id: 62,
@@ -20,6 +21,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/bodyspray01.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/bodyspray01.jpg`,
       ],
+     productdetails:"Avon Products",
 },
 {
   id: 63,
@@ -31,6 +33,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/bodyspray02.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/bodyspray02.jpg`,
       ],
+   productdetails:"Avon Products",
 },
 {
   id: 64,
@@ -42,6 +45,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/bodyspray03.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/bodyspray03.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 65,
@@ -53,6 +57,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/bodyspray04.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/bodyspray04.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 66,
@@ -64,6 +69,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/bodyspray05.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/bodyspray05.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 67,
@@ -75,6 +81,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/colon01.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/colon01.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 68,
@@ -86,6 +93,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/colon02.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/colon02.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 69,
@@ -97,6 +105,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 70,
@@ -108,6 +117,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/colon04.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/colon04.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 71,
@@ -119,6 +129,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/colon05.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/colon05.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 72,
@@ -130,6 +141,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/colon06.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/colon06.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 73,
@@ -141,6 +153,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/colon07.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/colon07.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 74,
@@ -152,6 +165,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/colon08.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/colon08.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 75,
@@ -163,6 +177,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/colon09.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/colon09.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 76,
@@ -174,6 +189,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/lotion01.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/lotion01.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 77,
@@ -185,6 +201,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/lotion02.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/lotion02.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 78,
@@ -196,6 +213,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 79,
@@ -207,6 +225,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/moist01.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/moist01.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 80,
@@ -218,6 +237,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/moist02.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/moist02.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 81,
@@ -229,6 +249,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/moist03.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/moist03.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 82,
@@ -240,6 +261,7 @@ export const avonproductsData = [
       [ `${process.env.PUBLIC_URL}/imgavon/moist04.jpg`,
          `${process.env.PUBLIC_URL}/imgavon/moist04.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 83,
@@ -251,6 +273,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/shampoo01.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/shampoo01.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 84,
@@ -262,6 +285,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/shampoo02.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/shampoo02.jpg`,
       ],
+  productdetails:"Avon Products",
 },{
   id: 85,
   name: "Disinfectant",
@@ -272,6 +296,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/disinfect01.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/disinfect01.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 86,
@@ -283,6 +308,7 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/disinfect02.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/disinfect02.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 {
   id: 87,
@@ -294,5 +320,6 @@ export const avonproductsData = [
       [`${process.env.PUBLIC_URL}/imgavon/disinfect03.jpg`,
         `${process.env.PUBLIC_URL}/imgavon/disinfect03.jpg`,
       ],
+  productdetails:"Avon Products",
 },
 ];

@@ -5,6 +5,7 @@ import findProductByIdAvon from '../data/findProductByIdAvon';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
 import BreadCrumbAvon from'../components/BreadCrumbAvon';
+import TabbedComponentAvon from'../components/ProductTablatureAvon';
 
 
 const ClickProductPageAvon = ({ addToCart }) => {
@@ -49,10 +50,10 @@ const ClickProductPageAvon = ({ addToCart }) => {
 
   return (
     <Container>
-       <Row className="justify-content-center">
+        <Row className="justify-content-center">
+
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
           <BreadCrumbAvon productId={product.id} />
-
           <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
@@ -76,7 +77,7 @@ const ClickProductPageAvon = ({ addToCart }) => {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p>Price: ₱{product.price}</p>
+          <h6>Price: ₱{product.price}</h6>
           <p>Description: {product.description}</p>
 
           {/* Add to Cart Button */}
@@ -89,6 +90,13 @@ const ClickProductPageAvon = ({ addToCart }) => {
         </Col>
       </Row>
 
+        <Row>
+        <Col>
+        <div style={{marginTop:"45px", marginBottom:"45px"}}>
+        <TabbedComponentAvon  productId={product.id}/>
+        </div>
+        </Col>
+      </Row>
 
      <Row style={{marginTop:"25px"}}>
       <hr></hr>
