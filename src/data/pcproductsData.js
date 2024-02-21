@@ -10,6 +10,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/alertpaste.png`,
         `${process.env.PUBLIC_URL}/imgpc/alertpaste.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 21,
@@ -22,6 +23,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/alertpaste1.png`,
         `${process.env.PUBLIC_URL}/imgpc/alertpaste1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 22,
@@ -34,6 +36,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/alertpaste2.png`,
         `${process.env.PUBLIC_URL}/imgpc/alertpaste2.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 23,
@@ -46,6 +49,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/alertpaste3.png`,
         `${process.env.PUBLIC_URL}/imgpc/alertpaste3.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 24,
@@ -58,6 +62,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/alertpaste4.png`,
         `${process.env.PUBLIC_URL}/imgpc/alertpaste4.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 25,
@@ -69,6 +74,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
          `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 26,
@@ -80,6 +86,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
          `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 27,
@@ -91,6 +98,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/check.png`,
         `${process.env.PUBLIC_URL}/imgpc/check.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 28,
@@ -102,6 +110,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/check1.png`,
         `${process.env.PUBLIC_URL}/imgpc/check1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 29,
@@ -113,6 +122,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/check2.png`,
         `${process.env.PUBLIC_URL}/imgpc/check2.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 30,
@@ -124,6 +134,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
          `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 31,
@@ -135,6 +146,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
         `${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 32,
@@ -146,6 +158,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
          `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 33,
@@ -157,6 +170,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
          `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 34,
@@ -168,6 +182,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
          `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 35,
@@ -179,6 +194,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
         `${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 36,
@@ -190,6 +206,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/mwash.png`,
         `${process.env.PUBLIC_URL}/imgpc/mwash.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 37,
@@ -201,6 +218,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
         `${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 38,
@@ -212,6 +230,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
         `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 39,
@@ -223,6 +242,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
          `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 40,
@@ -234,6 +254,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
         `${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 41,
@@ -245,6 +266,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
          `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 42,
@@ -256,6 +278,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/sof.png`,
         `${process.env.PUBLIC_URL}/imgpc/sof.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 43,
@@ -267,7 +290,9 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/target.png`,
         `${process.env.PUBLIC_URL}/imgpc/target.png`,
       ],
-},{
+   productdetails:"Personal Collection Products",
+},
+{
   id: 44,
   name: "Target 02",
   url:  `${process.env.PUBLIC_URL}/imgpc/target1.png`,
@@ -277,6 +302,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/target1.png`,
          `${process.env.PUBLIC_URL}/imgpc/target1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 45,
@@ -288,6 +314,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 46,
@@ -299,6 +326,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
          `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 47,
@@ -310,6 +338,7 @@ export const pcproductsData = [
       [ `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
          `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 48,
@@ -321,6 +350,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 49,
@@ -332,6 +362,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 50,
@@ -343,6 +374,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 {
   id: 51,
@@ -354,6 +386,7 @@ export const pcproductsData = [
       [`${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
       ],
+   productdetails:"Personal Collection Products",
 },
 
 ];

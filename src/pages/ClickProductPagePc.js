@@ -5,6 +5,8 @@ import findProductByIdPc from '../data/findProductByIdPc';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
 import BreadCrumbPc from'../components/BreadCrumbPc';
+import TabbedComponentPc from'../components/ProductTablaturePc';
+
 
 
 const ClickProductPagePc = ({ addToCart }) => {
@@ -50,7 +52,7 @@ const ClickProductPagePc = ({ addToCart }) => {
 
   return (
     <Container>
-       <Row className="justify-content-center">
+      <Row className="justify-content-center">
 
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
           <BreadCrumbPc productId={product.id} />
@@ -90,6 +92,14 @@ const ClickProductPagePc = ({ addToCart }) => {
         </Col>
       </Row>
 
+      <Row>
+        <Col>
+        <div style={{marginTop:"45px", marginBottom:"45px"}}>
+        <TabbedComponentPc  productId={product.id}/>
+        </div>
+        </Col>
+
+      </Row>
 
      <Row style={{marginTop:"25px"}}>
       <hr></hr>
