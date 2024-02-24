@@ -34,14 +34,43 @@ const ProductDetails = ({productId}) => {
   );
 };
 
-const Reviews = () => {
+
+
+const Reviews = ({ selectedProduct }) => {
+  const [clickedReviews, setClickedReviews] = useState([]);
+
+  const handleItemClick = (item) => {
+    console.log('Clicked item:', item);
+    // Adding the clicked item to the state
+    setClickedReviews([...clickedReviews, item]);
+  };
+
   return (
     <div className="mt-2">
       <h4>Reviews</h4>
-      <p>User Review</p>
+      {/* Display existing reviews */}
+      <ul>
+        {clickedReviews.map((item, index) => (
+          <li key={index} onClick={() => handleItemClick(item)}>
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      {selectedProduct && (
+        <ul>
+          {selectedProduct.reviews.map((review, index) => (
+            <li key={index} onClick={() => handleItemClick(review)}>
+              {review}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
+
+
 
 const Shipping = () => {
   return (
@@ -80,7 +109,7 @@ const TabbedComponent = ({productId}) => {
                 <ProductDetails productId={productId}/>
               </Tab.Pane>
               <Tab.Pane eventKey="reviews">
-                <Reviews />
+                 <Reviews selectedProduct={wellnessProductData.find(product => product.id === productId)} />
               </Tab.Pane>
               <Tab.Pane eventKey="shipping">
                 <Shipping />
