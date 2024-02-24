@@ -5,6 +5,8 @@ import findProductByIdFeatured from '../data/findProductByIdFeatured';
 import './ClickProductPage.css';
 import BestSelling from '../components/BestSelling';
 import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
+import TabbedComponentFeatured from'../components/ProductTablatureFeatured';
+import {FaStar} from'react-icons/fa';
 
 
 
@@ -51,9 +53,9 @@ const ClickFeaturedProduct= ({ addToCart }) => {
   return (
     <Container>
        <Row className="justify-content-center">
-
+         <BreadCrumbFeatured productId={product.id} />
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
-          <BreadCrumbFeatured productId={product.id} />
+         
             <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
@@ -77,8 +79,19 @@ const ClickFeaturedProduct= ({ addToCart }) => {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p>Price: ₱{product.price}</p>
+          <p> ₱{product.price}</p>
           <p>Description: {product.description}</p>
+          <div className="d-flex flex-column mb-3">
+                  <div className="d-flex ">
+                    <span className="text-warning me-1 mb-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <FaStar key={index} />
+                      ))}
+                    </span>
+                    <span className="text-muted">{product.rating}</span>
+                    <span className="mx-3"> Number of Reviews: {product.reviews.length} </span>
+                  </div>
+              </div>
 
           <Button variant="primary" onClick={() => addToCart(product)}>
             Add to Cart
