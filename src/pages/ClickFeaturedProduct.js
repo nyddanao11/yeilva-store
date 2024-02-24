@@ -101,6 +101,14 @@ const ClickFeaturedProduct= ({ addToCart }) => {
           </Button>
         </Col>
       </Row>
+       <Row>
+        <Col>
+        <div style={{marginTop:"45px", marginBottom:"45px"}}>
+        <TabbedComponentFeatured  productId={product.id}/>
+        </div>
+        </Col>
+
+      </Row>
 
       <Row style={{marginTop:"25px"}}>
       <hr></hr>
