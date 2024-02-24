@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 import{pcproductsData} from'../data/pcproductsData';
+import ReviewComponent from'./ReviewComponent';
 
 const ProductDetails = ({productId}) => {
 
@@ -64,6 +65,10 @@ const Reviews = ({ selectedProduct }) => {
           ))}
         </ul>
       )}
+           <div style={{maxWidth:"500px", border:"1px solid", borderRadius:"10px", padding:"10px"}}>
+          <span>Write a review</span> 
+          <ReviewComponent />
+          </div>
     </div>
   );
 };
