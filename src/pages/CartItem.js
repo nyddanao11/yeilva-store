@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Card, Row, Col, Form } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
+import { useMediaQuery } from 'react-responsive';
 
 const CartItem = ({ item, removeFromCart }) => {
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
+const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
+const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+
   const [selectedSize, setSelectedSize] = useState('none');
   const [selectedColor, setSelectedColor] = useState('none');
 
@@ -32,16 +37,23 @@ const CartItem = ({ item, removeFromCart }) => {
     <Card className="mb-3">
       <Card.Body>
         <Row>
-          <Col md={3}>
-            <img
-              src={item.url}
-              alt={item.name}
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
-          </Col>
-          <Col md={5}>
-            <h6>{item.name}</h6>
-            <p>Price: ₱{item.price}</p>
+          <Col md={6} xs={4} className='mb-3 d-flex justify-content-center align-items-center'>
+
+          {isSmallScreen ? (
+              <img
+                src={item.url}
+                alt={item.name}
+                style={{ maxWidth: '100px', height: 'auto' }}
+              />
+            ) :  <img
+                src={item.url}
+                alt={item.name}
+                style={{ maxWidth: '30%', height: 'auto' }}
+              />}
+        </Col>
+          <Col md={6} xs={8} >
+            <h5> {item.name}</h5>
+            <h6>₱{item.price}</h6>
             <p>Quantity: {item.quantity}</p>
             <div className="d-flex mb-3">
               <Form.Group controlId={`sizeSelect_${item.id}`} style={{ width: '25%' }}>
@@ -82,11 +94,10 @@ const CartItem = ({ item, removeFromCart }) => {
                 </Form.Control>
               </Form.Group>
             </div>
-          </Col>
-          <Col md={4}>
-            <p>Total: ₱{item.price * item.quantity}</p>
+         <div style={{marginTop:"15px"}}>
+            <h6>Sub-total: ₱{item.price * item.quantity}</h6>
             <button
-                className="btn btn-success"
+              className="btn btn-success"
               onClick={() => {
                 removeFromCart(item.id);
               }}
@@ -94,6 +105,8 @@ const CartItem = ({ item, removeFromCart }) => {
               <FaTrash className="me-1" />
               Remove
             </button>
+            </div>
+            
           </Col>
         </Row>
       </Card.Body>

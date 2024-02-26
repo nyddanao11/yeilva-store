@@ -55,12 +55,10 @@ useEffect(() => {
   }, [cartItems, navigate]);
 
 
-  return (
+   return (
     <Container className="mb-4">
-  <div className="d-flex justify-content-center aligned-items-center">
-       <h2 className="text-center mb-4 " style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px",
-        padding:"10px 25px", marginBottom:'15px'}}><strong >Checkout and Shipping Details</strong></h2
-        >
+   <div className="d-flex justify-content-center aligned-items-center">
+       <h4 className="text-center mb-2 " style={{padding:"10px ", marginBottom:'15px'}}>Checkout/Shipping Details</h4>      
        </div>
       {!showCheckoutForm ? (
         <div>
@@ -73,6 +71,7 @@ useEffect(() => {
                 addToCart={addToCart}
                 selectedSize={selectedSize} // Pass selectedSize as a prop
                selectedColor={selectedColor} // Pass selectedColor as a prop
+               
               />
             ))}
           </div>

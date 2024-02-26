@@ -3,6 +3,7 @@
   border: none;
  width: 150px;  /*Set the width to 150px */
  margin: 0 10px; /* Add margin to create spacing between cards */
+  margin-bottom: 20px;
  transform: perspective(1000px) rotateY(0deg);
   transition: transform 0.5s;
 }

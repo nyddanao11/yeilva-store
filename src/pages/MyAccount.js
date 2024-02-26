@@ -43,9 +43,7 @@ const MyAccountPage = ({addToCart}) => {
 
     <Container className="mt-4">
     <div className="d-flex justify-content-center aligned-items-center">
-       <h2 className="text-center mb-4 " style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px",
-        padding:"10px 25px", marginBottom:'15px'}}><strong >My Account</strong></h2
-        >
+       <h4 className="text-center mb-4 " style={{marginBottom:'15px'}}>My Account</h4>
        </div>
       <Row className="justify-content-center">
 
@@ -111,7 +109,7 @@ const MyAccountPage = ({addToCart}) => {
         <Col md={4} >
 
          <div className="mt-3">
-            <h3>History </h3>
+            <h4>History </h4>
             <Link to="/checkouthistory" style={{ textDecoration: 'none' }}>
               View Checkout History
             </Link>

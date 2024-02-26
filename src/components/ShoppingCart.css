@@ -3,13 +3,15 @@
 text-align: center;
 padding-bottom: 8px;
 }
-.item-name{
+/*.item-name{
   font-size: 25px;
+  font-weight: bold;
 }
 
 .item-price{
   font-size: 15px;
-}
+   font-weight: bold;
+}*/
 
   .cart-item .quantity{
      display: flex;

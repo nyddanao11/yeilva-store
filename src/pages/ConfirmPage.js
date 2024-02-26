@@ -40,7 +40,7 @@ const ConfirmPage = () => {
         {confirmationStatus === 'success' && (
         <div>
           <p>Email confirmed successfully. You can now log in.</p>
-          <Link to="/login" style={{ textDecoration: 'none', padding: '15px', background: '#0D6EFD', color: 'white' }}>
+          <Link to="/login" style={{ textDecoration: 'none', padding: '15px 25px', background: '#0D6EFD', color: 'white'}}>
             Login
           </Link>
           {/* You can add a button or link to the login page here */}

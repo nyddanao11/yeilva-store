@@ -29,17 +29,17 @@ const ShoppingCart = ({
 
   return (
     <div className="shopping-cart">
-      <h2 className='page-title'>Your Shopping Cart</h2>
+      <h4 className='page-title'>Your Shopping Cart</h4>
       <ListGroup className="cart-group">
         {cartItems.length === 0 ? (
           <ListGroup.Item className="cart-item">Your cart is empty.</ListGroup.Item>
         ) : (
           cartItems.map((cartItem) => (
-            <ListGroup.Item key={cartItem.id} className="cart-item mb-3">
-              <Card className="pb-2" style={{ border: "none" }}>
-                <Card.Body>
-                  <Row className="">
-                    <Col md={4} className="image-description">
+            <ListGroup.Item key={cartItem.id} className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+              <Card className="pb-2 " style={{ border: "none"}}>
+                <Card.Body >
+                  <Row >
+                    <Col md={4}  className="image-description d-flex flex-column justify-content-center align-items-center">
                        <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[cartItem.id] || cartItem.url}
@@ -59,9 +59,9 @@ const ShoppingCart = ({
                         ))}
                       </div>
                     </Col>
-                <Col md={8} className="item-details">
-                      <p className="item-name">{cartItem.name}</p>
-                      <p className="item-price">₱{cartItem.price}</p>
+                <Col md={8}  className="item-details mt-3">
+                      <h4 className="item-name">{cartItem.name}</h4>
+                      <h6 className="item-price">₱{cartItem.price}</h6>
                       <p className="item-description">{cartItem.description}</p>
                  
             <div className="quantity">

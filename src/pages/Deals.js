@@ -12,8 +12,7 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
   return (
     <Container className="mt-4">
        <div className="d-flex justify-content-center aligned-items-center">
-       <h2 className="text-center mb-4 " style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px",
-        padding:"10px 25px", marginBottom:'15px'}}><strong >Deals of the Day</strong></h2>
+       <h4 className="text-center mb-4 " style={{marginBottom:'15px'}}>Deals of the Day</h4>
        </div>
       <Row>
         {deals.map((product) => (
