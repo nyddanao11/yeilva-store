@@ -20,7 +20,7 @@ const Home = ({ addToCart, product}) => {
       <CarouselSection /> 
     </Row>
 
-      <Row  style={{background:'#FFFFFF', padding: '10px ', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+      <Row  style={{background:'#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
         <div className="d-flex justify-content-center align-items-center ">
         <h5  style={{marginBottom:'15px'}}>Categories</h5>
         </div>
@@ -29,7 +29,7 @@ const Home = ({ addToCart, product}) => {
 
       {/* Featured Products */}
 
-      <Row  style={{ background: '#FFFFFF', padding: '20px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+      <Row  style={{ background: '#FFFFFF', padding: '20px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
          <div className="d-flex justify-content-center align-items-center ">
         <h5  style={{marginBottom:'15px'}}>Featured Products</h5>
         </div>
@@ -39,7 +39,7 @@ const Home = ({ addToCart, product}) => {
       </Row>
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
-       <Row className="best-selling-products " style={{ background: '#FFFFFF', padding: '10px ', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)' }}>
+       <Row className="best-selling-products " style={{ background: '#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)' }}>
        <div className="d-flex justify-content-center align-items-center ">  
       <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
       </div>
@@ -49,7 +49,7 @@ const Home = ({ addToCart, product}) => {
       </Row>
 
       {/* Recommended Products */}
-      <Row className="recommended-products " style={{ background: '#FFFFFF', padding: '10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+      <Row className="recommended-products " style={{ background: '#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
         <div className="d-flex justify-content-center align-items-center ">
            <h5  style={{marginBottom:'6px', marginTop:"7px"}}>Recommended Products</h5>
       </div>
