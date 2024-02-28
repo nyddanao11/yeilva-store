@@ -56,7 +56,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
             <h6>₱{item.price}</h6>
             <p>Quantity: {item.quantity}</p>
             <div className="d-flex mb-3">
-              <Form.Group controlId={`sizeSelect_${item.id}`} style={{ width: '25%', margin:'auto' }}>
+              <Form.Group controlId={`sizeSelect_${item.id}`} style={{ width: '70px'}}>
                 <Form.Label>Size:</Form.Label>
                 <Form.Control
                   as="select"
@@ -74,7 +74,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
               <Form.Group
                 controlId={`colorSelect_${item.id}`}
-                style={{ width: '25%', margin:'auto' }}
+                style={{ width: '70px', marginLeft:'20px' }}
               >
                 <Form.Label>Color:</Form.Label>
                 <Form.Control
