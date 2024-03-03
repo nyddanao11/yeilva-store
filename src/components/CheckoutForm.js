@@ -150,7 +150,7 @@ useEffect(() => {
   return (    
      <Row className='d-flex flex-column justify-content-center align-items-center' >
      
-      <Col xs={12} md={6} style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
+      <Col xs={12} md={8} style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
 
         {/* Checkout Information and List of Items */}
        <Form onSubmit={handleSubmit}>

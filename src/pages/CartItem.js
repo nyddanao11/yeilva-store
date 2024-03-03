@@ -34,9 +34,10 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
   };
 
   return (
-    <Card className="mb-3">
+     <div className='d-flex justify-content-center align-items-center'>
+    <Card className="mb-3 " style={{maxWidth:'650px'}}>
       <Card.Body>
-        <Row>
+        <Row >
           <Col md={6} xs={4} className='mb-3 d-flex justify-content-center align-items-center'>
 
           {isSmallScreen ? (
@@ -48,7 +49,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
             ) :  <img
                 src={item.url}
                 alt={item.name}
-                style={{ maxWidth: '30%', height: 'auto' }}
+                style={{ maxWidth: '50%', height: 'auto' }}
               />}
         </Col>
           <Col md={6} xs={8} >
@@ -94,7 +95,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
                 </Form.Control>
               </Form.Group>
             </div>
-            
+
          <div className='d-flex' style={{marginTop:"20px"}}>
             <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
             <button
@@ -111,6 +112,8 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
         </Row>
       </Card.Body>
     </Card>
+    </div>
+
   );
 };
 
