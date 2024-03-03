@@ -34,30 +34,6 @@
       [`${process.env.PUBLIC_URL}/groceries/medicine/Saridon.png`,
          `${process.env.PUBLIC_URL}/groceries/medicine/Saridon1.png`,
       ],},
-    { id: 8, name: 'Jasmine', category:'Rice', price:250, weight:5, url:`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,  description:'', stock:0, page:1, 
-           thumbnails:
-      [`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-         `${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-      ],},
-     { id: 9, name: 'Basmate', category:'Rice', price: 250, weight:5, url:`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`, description:'', stock:0, page:2, 
-           thumbnails:
-      [`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-         `${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-      ],},
-    { id: 10, name: 'Jasmine', category:'Rice', price:250, weight:5, url:`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,  description:'', stock:0, page:2, 
-           thumbnails:
-      [`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-         `${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-      ],},
-     { id: 11, name: 'Basmate', category:'Rice', price: 250, weight:5, url:`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`, description:'', stock:0, page:2, 
-           thumbnails:
-      [`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-         `${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-      ],},
-    { id: 12, name: 'Jasmine', category:'Rice', price:250, weight:5, url:`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,  description:'', stock:0, page:2, 
-           thumbnails:
-      [`${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-         `${process.env.PUBLIC_URL}/groceries/rice/rice1.png`,
-      ],},
+   
     // Add more fruits as needed
   ];

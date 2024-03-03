@@ -225,36 +225,46 @@ useEffect(() => {
     />
   </FloatingLabel>
 
-<div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding: '10px 20px' }}>
-  <h3 className='mt-3' >Items in Cart:</h3>
-  <ul>
+ <div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding:'0px 15px'}}>
+  <h5 className='mt-1'>Items in Cart:</h5>
+  <ul style={{padding:'5px'}}>
     {cartItems.map((item) => (
-      <div key={item.id} style={{marginBottom:"10px"}}>
-        <img src={item.url} alt={item.name} width="100" height="100" />
-        <p className='mt-3' style={{ fontSize: '15px' }}>
+      <div key={item.id} style={{marginBottom:"10px", padding:'5px 10px', border:'1px #d3d4d5 solid ', borderRadius: '5px'}} className='d-flex justify-content-center align-items-center'>
+      <div >
+        <img src={item.url} alt={item.name} width="100px" height="100px" />
+     </div>
+        <div style={{padding:'0px 3px', display:'flex', flexDirection:'column'}}>
+        <p style={{ fontSize: '15px' }}>
           {item.name} - ₱{item.price} x {item.quantity}
         </p>
 
         {item.selectedSize && ( // Conditionally render if selectedSize has a value
-          <FloatingLabel controlId={`sizeSelect-${item.id}`} label="Selected Size:" style={{ width: '150px', marginBottom: '10px' }}>
-            <Form.Control type="text" value={item.selectedSize} readOnly />
-          </FloatingLabel>
+          <Form.Group controlId={`sizeSelect-${item.id}`} >
+            <Form.Label>Selected Size:</Form.Label>
+            <Form.Control type="text" value={item.selectedSize} readOnly style={{width:'70px'}}/>
+          </Form.Group>
         )}
 
         {item.selectedColor && ( // Conditionally render if selectedColor has a value
-          <FloatingLabel controlId={`colorSelect-${item.id}`} label="Selected Color:" style={{ width: '150px' }}>
-            <Form.Control type="text" value={item.selectedColor} readOnly />
-          </FloatingLabel>
+           <Form.Group controlId={`colorSelect-${item.id}`} >
+            <Form.Label>Selected Color:</Form.Label>
+            <Form.Control type="text" value={item.selectedColor} readOnly style={{width:'70px'}}/>
+          </Form.Group>
+         
         )}
 
+        </div>
      
       </div>
+       
     ))}
+
   </ul>
 
-    <Button variant="primary" onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px' }}>
+
+    <Button variant="primary" onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px', padding:'0px 10px'}}>
             Back to Cart
-          </Button>
+    </Button>
 </div>
 
 

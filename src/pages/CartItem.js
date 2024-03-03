@@ -103,7 +103,6 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
               }}
             >
               <FaTrash className="me-1" />
-              Remove
             </button>
             </div>
             
