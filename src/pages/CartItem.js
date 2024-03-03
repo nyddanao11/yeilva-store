@@ -94,15 +94,16 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
                 </Form.Control>
               </Form.Group>
             </div>
-         <div style={{marginTop:"15px"}}>
-            <h6>Sub-total: ₱{item.price * item.quantity}</h6>
+            
+         <div className='d-flex' style={{marginTop:"20px"}}>
+            <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
             <button
-              className="btn btn-success"
+              className="btn btn-success mx-2 "
               onClick={() => {
                 removeFromCart(item.id);
               }}
             >
-              <FaTrash className="me-1" />
+              <FaTrash />
             </button>
             </div>
             
