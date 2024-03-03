@@ -4,6 +4,7 @@ import { Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const CheckoutPage = ({ cartItems, removeFromCart, addToCart, selectedSize, selectedColor, fetchUserData }) => {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
@@ -88,6 +89,10 @@ useEffect(() => {
         <CheckoutForm cartItems={cartItems}   grandTotal={grandTotal}  selectedSize={selectedSize}
           selectedColor={selectedColor} fetchUserData={fetchUserData}/>
       )}
+
+       <div className="mt-4 mb-4  " >
+      <Footer />   
+      </div>
     </Container>
   );
 };
