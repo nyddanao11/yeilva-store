@@ -4,6 +4,7 @@ import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import {deals} from '../data/DealsData';
 import { Link } from 'react-router-dom';
 import FeaturedProduct from'../components/FeaturedProduct';
+import './LoanForm.css';
 
 
 
@@ -45,10 +46,12 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
           </Col>
         ))}
       </Row>
+      
+ <Row style={{marginTop:"25px"}}>
 
-        <Row style={{marginTop:"25px"}}>
-      <hr className='mt-2 '></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
     </Container>

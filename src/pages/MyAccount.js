@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, FloatingLabel} from 'react-bootstrap';
 import { fetchUserData } from '../components/userService';
 import { Link} from 'react-router-dom';
 import FeaturedProduct from'../components/FeaturedProduct';
+import './LoanForm.css';
 
 
 const MyAccountPage = ({addToCart}) => {
@@ -141,8 +142,10 @@ const MyAccountPage = ({addToCart}) => {
       </Row>
 
         <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
 
