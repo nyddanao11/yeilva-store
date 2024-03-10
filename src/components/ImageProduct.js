@@ -8,7 +8,7 @@ const ImageProduct = ({ product, addToCart }) => {
   return (
     <Card className="mb-3 w-100" >
       <Link to={`/clickproductpage/${product.id}`}>
-        <Card.Img
+       <Card.Img
           variant="top"
           src={product.url}
           style={{ maxHeight: "150px", objectFit: "cover" }}
