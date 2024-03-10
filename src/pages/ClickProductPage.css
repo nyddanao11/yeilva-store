@@ -20,3 +20,21 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+ .line::before,
+ .line::after {
+          content: "";
+          flex: 1;
+          border-top: 1px solid gray;
+          margin-top: 6px;
+        }
+        .text {
+         
+          margin: 0 10px;
+
+        }
+        .line {
+          display: flex;
+          align-items: center;
+        }
+    

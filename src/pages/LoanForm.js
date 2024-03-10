@@ -8,6 +8,7 @@ import LoanTable from '../components/LoanTable'; // Import the LoanTable compone
 import FeaturedProduct from'../components/FeaturedProduct';
 import LoanAccordion from '../components/LoanAccordion';
 import Footer from '../components/Footer';
+import './LoanForm.css';
 
 
 const LoanForm = ({addToCart}) => {
@@ -268,9 +269,11 @@ useEffect(() => {
       <LoanAccordion />
       </Row>
 
-      <Row style={{marginTop:"25px"}}>
-      <hr className='mt-2 '></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+     <Row style={{marginTop:"40px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
 

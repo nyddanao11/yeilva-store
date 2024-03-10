@@ -102,16 +102,18 @@ const ClickBestSelling= ({ addToCart }) => {
         </Col>
       </Row>
 
-      <Row>
-        <Col className="mt-3 mb-3">
+      <Row style={{marginBottom:'60px', marginTop:'60px'}}>
+        <Col>
         <TabbedComponent  productId={product.id} />
         </Col>
 
       </Row>
 
-      <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+       <Row style={{marginTop:"25px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
     </Container>

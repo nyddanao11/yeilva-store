@@ -102,18 +102,19 @@ const ClickFeaturedProduct= ({ addToCart }) => {
           </Button>
         </Col>
       </Row>
-       <Row>
+
+      <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
-        <div style={{marginTop:"45px", marginBottom:"45px"}}>
-        <TabbedComponentFeatured  productId={product.id}/>
-        </div>
+        <TabbedComponentFeatured  productId={product.id} />
         </Col>
 
       </Row>
 
-      <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
+       <Row style={{marginTop:"25px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
        <BestSelling addToCart={addToCart}/>
       </Row>
     </Container>
