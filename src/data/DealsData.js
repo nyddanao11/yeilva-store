@@ -14,6 +14,13 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
+   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
+           "Amazing results! Feeling more energized and healthier after just a few days of use.",
+          "Impressed with the quality! This product has become a staple in my daily routine.",
+          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
+    ],
+  rating: 4.5,
 },
 {
   id: 2,
@@ -29,6 +36,13 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai2.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
+   productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
+    reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
+           "Amazing results! Feeling more energized and healthier after just a few days of use.",
+          "Impressed with the quality! This product has become a staple in my daily routine.",
+          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
+    ],
+  rating: 4.5, 
  },
  {
   id: 3,
@@ -45,6 +59,13 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/arcticc2.png`,
        
       ],
+  productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
+   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
+           "Amazing results! Feeling more energized and healthier after just a few days of use.",
+          "Impressed with the quality! This product has become a staple in my daily routine.",
+          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
+    ],
+  rating: 4.5,
 },
 {
   id: 5,
@@ -61,6 +82,13 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/absorbentcee2.png`,
        
       ],
+  productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
+   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
+           "Amazing results! Feeling more energized and healthier after just a few days of use.",
+          "Impressed with the quality! This product has become a staple in my daily routine.",
+          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
+    ],
+  rating: 4.5,
 },
 
 

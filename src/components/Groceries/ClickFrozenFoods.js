@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdFrozen from './findProductByIdFrozen';
 import './ClickBeverages.css';
 import FeaturedProduct from'../FeaturedProduct';
-
+import BreadCrumbFrozen from'./BreadCrumbFrozen';
 
 const ClickBeverages = ({ addToCart }) => {
   const { id } = useParams();
@@ -48,9 +48,12 @@ const ClickBeverages = ({ addToCart }) => {
 
   return (
     <Container>
-      <Row>
-        {/* Product Image */}
-        <Col xs={12} md={6}>
+      <Row className="justify-content-center">
+        <BreadCrumbFrozen productId={product.id} />
+
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
+        style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
+
         <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}

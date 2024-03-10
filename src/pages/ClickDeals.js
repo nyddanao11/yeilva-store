@@ -4,6 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdDeals from '../data/findProductByIdDeals';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
+import BreadCrumbDeals from'../components/BreadCrumbDeals';
+import TabbedComponent from'../components/ProductTablatureDeals';
+import { FaStar} from 'react-icons/fa';
 
 
 const ClickDeals= ({ addToCart }) => {
@@ -49,18 +52,20 @@ const ClickDeals= ({ addToCart }) => {
 
   return (
     <Container>
-      <Row>
-        {/* Product Image */}
-        <Col xs={12} md={6}>
+             <Row className="justify-content-center">
+        <BreadCrumbDeals productId={product.id} />
+
+         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
+        style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
+        
            <div className="main-image-container">
-         
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
                           alt={product.name}
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails mb-2">
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -72,21 +77,35 @@ const ClickDeals= ({ addToCart }) => {
                         ))}
                       </div>
         </Col>
-
-        {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p>Price: ₱{product.discountedPrice}</p>
+          <h6>₱{product.price}</h6>
           <p>Description: {product.description}</p>
-
-          {/* Add to Cart Button */}
+           <div className="d-flex flex-column mb-3">
+                  <div className="d-flex ">
+                    <span className="text-warning me-1 mb-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <FaStar key={index} />
+                      ))}
+                    </span>
+                    <span className="text-muted">{product.rating}</span>
+                    <span className="mx-3"> Number of Reviews: {product.reviews.length} </span>
+                  </div>
+              </div>
           <Button variant="primary" onClick={() => addToCart(product)}>
             Add to Cart
           </Button>
-           <Button variant="primary" onClick={handleCheckoutClick} className="mx-3">
+          <Button variant="primary" onClick={handleCheckoutClick} className="mx-3">
             Buy Now
           </Button>
         </Col>
+      </Row>
+
+      <Row>
+        <Col className="mt-3 mb-3">
+        <TabbedComponent  productId={product.id} />
+        </Col>
+
       </Row>
 
        <Row style={{marginTop:"25px"}}>
