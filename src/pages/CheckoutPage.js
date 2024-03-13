@@ -57,6 +57,7 @@ useEffect(() => {
 
 
    return (
+    <>
     <Container className="mb-4 d-flex justify-content-center aligned-items-center flex-column" style={{maxWidth:'650px'}}>
    <div className="d-flex justify-content-center aligned-items-center">
        <h4 className="text-center mb-2 " style={{padding:"10px ", marginBottom:'15px'}}>Checkout/Shipping Details</h4>      
@@ -90,10 +91,11 @@ useEffect(() => {
           selectedColor={selectedColor} fetchUserData={fetchUserData}/>
       )}
 
-       <div className="mt-4 mb-4  " >
+    </Container>
+     <div className="mt-4 mb-4  " >
       <Footer />   
       </div>
-    </Container>
+      </>
   );
 };
 
