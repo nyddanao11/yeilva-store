@@ -46,8 +46,10 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
           </Col>
         ))}
       </Row>
-      
- <Row style={{marginTop:"25px"}}>
+
+        
+
+       <Row style={{marginTop:"25px"}}>
 
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>

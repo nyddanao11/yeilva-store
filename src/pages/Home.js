@@ -7,24 +7,28 @@ import RecommendedProd from'../components/RecommendedProduct';
 import CircleCard from '../components/CircleProductCard';
 import CarouselSection from '../components/CarouselHeroSection';
 import Accordion from '../components/FAQAccordion';
+import ImageSlider from '../components/ImageSlider';
 
  
 const Home = ({ addToCart, product}) => {
  
 
   return (
+    <>
+    <Container fluid className="mb-1" style={{padding:"0"}}> 
+ 
+    <ImageSlider />
+     </Container>
 
     <Container>
-      {/* Hero Section */}
-     <Row className="hero mb-1" >
-      <CarouselSection /> 
-    </Row>
-
-      <Row  style={{background:'#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+    
+      <Row  className="d-flex justify-content-center align-items-center" >
         <div className="d-flex justify-content-center align-items-center ">
         <h5  style={{marginBottom:'15px'}}>Categories</h5>
         </div>
+        <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 6px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
             <CircleCard />
+          </Col>
       </Row>
 
       {/* Featured Products */}
@@ -39,13 +43,13 @@ const Home = ({ addToCart, product}) => {
       </Row>
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
-       <Row className="best-selling-products " style={{ background: '#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)' }}>
+       <Row className="d-flex justify-content-center align-items-center" >
        <div className="d-flex justify-content-center align-items-center ">  
       <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
       </div>
-   
+    <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
          <BestSelling addToCart={addToCart} product={product}/>
-       
+      </Col> 
       </Row>
 
       {/* Recommended Products */}
@@ -73,7 +77,7 @@ const Home = ({ addToCart, product}) => {
       </Row>
 
       </Container>
- 
+ </>
   );
 };
 

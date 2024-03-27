@@ -5,6 +5,7 @@ import {Link} from'react-router-dom';
 import ImageWithOverlayButton from'./ImgButtonOverly';
 
 const CarouselSection=()=>{
+
 return(
 <>      
     <Row  className=" mb-3 row flex-nowrap overflow-auto " style={{width:'100%'}}>
@@ -16,7 +17,8 @@ return(
                 className="d-block w-100"
                 src={item.url}
                 alt={`Slide ${item.id}`}
-                style={{maxHeight: '300px', objectFit: 'fit', width: '100%' }}
+                style={{maxHeight: '300px', objectFit: 'fit', width: '100%'
+                 }}
               />
               <Carousel.Caption>
                 <h3 >{item.caption}</h3>
