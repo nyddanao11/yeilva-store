@@ -17,7 +17,7 @@ export const CarouselImage = [
     },
     {
       id: 62,
-      name: "Personal Collection and Avon Prodcuts",
+      name: "Personal Collection and Avon Products",
       url: `${process.env.PUBLIC_URL}/images/carousel03.png`,
       caption: "Explore our exclusive deals",
       link:'/pcproducts',

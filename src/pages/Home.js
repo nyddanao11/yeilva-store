@@ -15,7 +15,7 @@ const Home = ({ addToCart, product}) => {
 
   return (
     <>
-    <Container fluid className="mb-1" style={{padding:"0"}}> 
+    <Container fluid style={{padding:"0", marginBottom:"10px"}}> 
  
     <ImageSlider />
      </Container>
