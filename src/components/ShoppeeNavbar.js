@@ -38,7 +38,7 @@ useEffect(() => {
 
 
 return (
- <Navbar bg="white" variant="light" expand="lg" className="mb-3 shadow-sm">
+ <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
    <Container>
 			 	<Navbar.Brand as={Link} to="/" className="home text-dark" style={{  borderRadius:'5px'}}>
 			<FaHome size={24} />

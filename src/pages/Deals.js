@@ -5,6 +5,7 @@ import {deals} from '../data/DealsData';
 import { Link } from 'react-router-dom';
 import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
+import Footer from '../components/Footer';
 
 
 
@@ -25,8 +26,9 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
               <Card.Body>
                 <Card.Title ><h6>{product.name}</h6></Card.Title>
                 <Card.Text style={{margin:"0px"}}>
-                  <span className="text-muted" ><strike>₱{product.price}</strike></span>
-                  <span className="ms-2 text-danger" >₱{product.discountedPrice}</span>
+                  <span className="text-muted" ><strike>₱{product.discountedPrice}</strike></span>
+                  <span className="ms-2 text-danger" >₱{product.price}</span>
+                  <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"16px"}}>{product.percentage}</span>
                 </Card.Text>
                 <div className="d-flex flex-column ">
                   <div className="d-flex ">
@@ -56,6 +58,14 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
       </div>
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
+
+             {/* Footer Section */}
+      <Row className="mt-4 mb-4  " >
+        <Col>
+        <Footer />
+        </Col>
+      </Row>
+
     </Container>
   );
 };

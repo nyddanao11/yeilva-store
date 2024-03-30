@@ -23,6 +23,8 @@ import { cooking } from '../components/Groceries/CookingItemsData';
 import { vitamins } from '../components/Groceries/VitaminsMedicationsData';
 import { rice } from '../components/Groceries/RiceData';
 import { useMediaQuery } from 'react-responsive';
+import FeaturedProduct from'../components/FeaturedProduct';
+import Footer from '../components/Footer';
 
 const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
@@ -104,6 +106,22 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
           </div>
         </Col>
       </Row>
+
+        <Row style={{marginTop:"40px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
+      </Row>
+
+         {/* Footer Section */}
+      <Row className="mt-4 mb-4  " >
+      <Col>
+      <Footer />
+      </Col>
+      </Row>
+
     </Container>
   );
 };

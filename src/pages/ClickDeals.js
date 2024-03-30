@@ -55,7 +55,7 @@ const ClickDeals= ({ addToCart }) => {
              <Row className="justify-content-center">
         <BreadCrumbDeals productId={product.id} />
 
-         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
         
            <div className="main-image-container">
@@ -79,7 +79,11 @@ const ClickDeals= ({ addToCart }) => {
         </Col>
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <h6>₱{product.price}</h6>
+          <div >
+                  <span className="text-muted" ><strike>₱{product.discountedPrice}</strike></span>
+                  <span className="ms-2 text-danger" >₱{product.price}</span>
+                  <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"16px"}}>{product.percentage}</span>
+          </div>
           <p>Description: {product.description}</p>
            <div className="d-flex flex-column mb-3">
                   <div className="d-flex ">
@@ -113,7 +117,8 @@ const ClickDeals= ({ addToCart }) => {
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>
       </div>
-     <FeaturedProduct addToCart={addToCart}/>
+
+     <FeaturedProduct addToCart={addToCart} />
       </Row>
     </Container>
   );

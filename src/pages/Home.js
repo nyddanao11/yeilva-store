@@ -16,11 +16,10 @@ const Home = ({ addToCart, product}) => {
   return (
     <>
     <Container fluid style={{padding:"0", marginBottom:"10px"}}> 
- 
     <ImageSlider />
      </Container>
 
-    <Container>
+    <Container fluid>
     
       <Row  className="d-flex justify-content-center align-items-center" >
         <div className="d-flex justify-content-center align-items-center ">
@@ -47,7 +46,7 @@ const Home = ({ addToCart, product}) => {
        <div className="d-flex justify-content-center align-items-center ">  
       <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
       </div>
-    <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+    <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
          <BestSelling addToCart={addToCart} product={product}/>
       </Col> 
       </Row>
