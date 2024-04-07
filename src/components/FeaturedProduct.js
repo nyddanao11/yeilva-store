@@ -1,38 +1,62 @@
 import React from 'react';
-import 'swiper/swiper-bundle.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 import { homeProducts } from '../data/homeProducts';
-import ImageCardFeaturedProduct from './ImageCardFeaturedProduct';
 import { useMediaQuery } from 'react-responsive';
+import ImageCardFeaturedProduct from './ImageCardFeaturedProduct';
 
 const FeaturedProduct = ({ addToCart }) => {
-const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
-const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
-const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
+  const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+
+ // Custom arrow component
+  const CustomPrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick}>
+        Previous
+      </div>
+    );
+  };
+
+  // Custom arrow component
+  const CustomNextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div className={className} style={{ ...style, display: 'block', background: 'green' }} onClick={onClick}>
+        Next
+      </div>
+    );
+  };
+
+  const settings = {
+    dots: false, // Remove dots
+    infinite: true,
+    speed: 500,
+    slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+    slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />, // Custom previous arrow component
+    nextArrow: <CustomNextArrow />, // Custom next arrow component
+  };
+
+ 
 
   return (
-   <>
-    <swiper-container
-     css-mode="true"
-     navigation="true" 
-     space-between= {20}
-     slides-per-view={isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1}
-  
-    >
-      
-        {homeProducts.map((product) => (
-          <swiper-slide key={product.id} >
-            <ImageCardFeaturedProduct
-              url={product.url}
-              name={product.name}
-              price={product.price}
-              addToCart={addToCart}
-              product={product}
-            />
-          </swiper-slide>
-        ))}
-    
-    </swiper-container>
-    </>
+    <Slider {...settings}>
+      {homeProducts.map((product) => (
+        <div key={product.id}>
+          <ImageCardFeaturedProduct
+            url={product.url}
+            name={product.name}
+            price={product.price}
+            addToCart={addToCart}
+            product={product}
+          />
+        </div>
+      ))}
+    </Slider>
   );
 };
 
