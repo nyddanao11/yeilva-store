@@ -15,11 +15,11 @@ const Home = ({ addToCart, product}) => {
 
   return (
     <>
-    <Container fluid style={{padding:"0", marginBottom:"10px"}}> 
+    <div style={{marginBottom:"10px"}}> 
     <ImageSlider />
-     </Container>
+     </div>
 
-    <Container fluid>
+    <Container>
     
       <Row  className="d-flex justify-content-center align-items-center" >
         <div className="d-flex justify-content-center align-items-center ">
@@ -71,7 +71,7 @@ const Home = ({ addToCart, product}) => {
      
 
       {/* Footer Section */}
-      <Row className="mt-4 mb-4  " >    
+      <Row className="mt-4" >    
       <Footer /> 
       </Row>
 

@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
  
   return (
+    <>
     <Container className="mt-4">
        <div className="d-flex justify-content-center aligned-items-center">
        <h4 className="text-center mb-4 " style={{marginBottom:'15px'}}>Deals of the Day</h4>
@@ -59,14 +60,17 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
 
-             {/* Footer Section */}
-      <Row className="mt-4 mb-4  " >
-        <Col>
-        <Footer />
-        </Col>
-      </Row>
+     
 
     </Container>
+
+             {/* Footer Section */}
+      <div className="mt-4 " >
+        
+        <Footer />
+        
+      </div>
+      </>
   );
 };
 

@@ -51,7 +51,7 @@ const ClickDeals= ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container  className="mt-3 p-2">
              <Row className="justify-content-center">
         <BreadCrumbDeals productId={product.id} />
 

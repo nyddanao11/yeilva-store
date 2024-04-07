@@ -10,6 +10,7 @@ import {mensshoes} from '../components/Fashion/MensShoesData';
 import {womensshoes} from '../components/Fashion/WomensShoesData';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
+import Footer from '../components/Footer';
 
 
 const FashionApparel = ({ addToCart, cartItems, isProductSoldOut }) => {
@@ -39,7 +40,8 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
    
 
   return (
-    <Container fluid>
+    <>
+    <Container>
       <Row>
         <Col sm={12} md={3}>
          
@@ -88,6 +90,13 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
         </Col>
       </Row>
     </Container>
+        {/* Footer Section */}
+      <div className="mt-4 " >
+     
+      <Footer />
+    
+      </div>
+      </>
   );
 };
 

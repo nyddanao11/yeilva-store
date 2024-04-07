@@ -10,13 +10,14 @@ const PcProducts= ({addToCart}) => {
 
   
   return (
+    <>
      <Container fluid>
          
       <Row className='mb-3'>
        <Col md={2}>
        </Col>
         <Col md={9}>
-           <div className="d-flex justify-content-center align-items-center mb-2">
+           <div className="d-flex justify-content-center align-items-center mb-2 mt-3">
           <h4 className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}>Personal Collections</h4>
           </div>
           <Row md={2} xs={2} lg={3} className="g-2">
@@ -31,12 +32,12 @@ const PcProducts= ({addToCart}) => {
           </Row>
         </Col>
       </Row >
-
-           <section className=" mb-4 d-flex flex-column align-items-center justify-content-center">
-      <Footer />
-      </section>
       
         </Container>
+         <section className=" mt-4 d-flex flex-column align-items-center justify-content-center">
+        <Footer />
+      </section>
+      </>
         
   );
 };

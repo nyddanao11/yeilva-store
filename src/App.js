@@ -70,6 +70,7 @@ import PrivateRoute from './pages/PrivateRoute'; // Import your PrivateRoute com
 import LockoutPage from './pages/LockoutPage';
 import InstallmentHistoryPage from './components/InstallmentHistoryPage';
 import Epayment from'./pages/Epayment';
+import DeleteAccount from './components/DeleteAccount';
 
 
 
@@ -199,7 +200,7 @@ const handleLogout = () => {
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
 
-      <Container className="mb-4">
+      <div>
         {/* Conditionally render Routes based on login status */}
         {isLoggedIn ? (
           <Routes>
@@ -264,6 +265,7 @@ const handleLogout = () => {
                     
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
+                        <Route path="/deleteaccount" element={<DeleteAccount />} />
                    
 
                  <Route component={NotFoundPage} />
@@ -306,7 +308,7 @@ const handleLogout = () => {
 
           </Routes>
         )}
-      </Container>
+      </div>
       </div>
          
   );

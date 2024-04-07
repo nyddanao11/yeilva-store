@@ -28,6 +28,7 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
 
   
   return (
+    <>
     <Container className="cart-container">
       <ShoppingCart
         cartItems={cartItems}
@@ -49,10 +50,15 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
         </Button>
       </div>
       
-        <div className="mt-4 mb-4  " >
-      <Footer />   
-      </div>
+      
     </Container>
+        {/* Footer Section */}
+      <div className="mt-4 " >
+     
+      <Footer />
+    
+      </div>
+      </>
   );
 };
 

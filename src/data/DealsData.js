@@ -6,7 +6,7 @@ export const deals = [
   price: 200,
   description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",               
   discountedPrice: 230,
-  percentage:"13%",
+  percentage:"-13%",
   weight:120,
   rating: 4.5,
   thumbnails:
@@ -21,7 +21,6 @@ export const deals = [
           "Impressed with the quality! This product has become a staple in my daily routine.",
           "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
     ],
-  rating: 4.5,
 },
 {
   id: 2,
@@ -30,7 +29,7 @@ export const deals = [
   price: 1800,
   description:"What are some of ACAI BERRY’s health benefits? The acai berry has numerous health benefits, and has been proven to protect virtually every system in the body. A few of these benefits include: Weight loss: Acai is composed of several vitamins and minerals, and works to suppress hunger, increase energy, and stimulate metabolism. Digestive System Aid: A high level of fiber makes acai berry a natural colon cleanser. Boosts the Immune System: The high concentration of antioxidants in acai berry helps to support the immune system by fortifying cells and fighting off intruders. Acai berry has also been proven to: Regulate sugar level, Prevents Cardio vascular disease, Improves heart function , Maintain Healthy Teeth and Gums, Prevent Cancer. ",
   discountedPrice: 2000,
-  percentage:"10%",
+  percentage:"-10%",
   weight:1000,
   rating: 4.2,
    thumbnails:
@@ -44,7 +43,6 @@ export const deals = [
           "Impressed with the quality! This product has become a staple in my daily routine.",
           "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
     ],
-  rating: 4.5, 
  },
  {
   id: 3,
@@ -52,7 +50,7 @@ export const deals = [
   url: `${process.env.PUBLIC_URL}/images/artic c.png`,
   price: 600,
   discountedPrice: 750,
-  percentage:"20%",
+  percentage:"-20%",
    weight:35,
    rating: 4.2,
   description:"blend of omega 3,6 and 9 which contains essential fatty acids EPA and DHA derived from the tissues of oily fish that can contributes to the healthy function of the heart and normal the maintenance of the brain",
@@ -68,7 +66,6 @@ export const deals = [
           "Impressed with the quality! This product has become a staple in my daily routine.",
           "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
     ],
-  rating: 4.5,
 },
 {
   id: 5,
@@ -76,7 +73,7 @@ export const deals = [
   url:  `${process.env.PUBLIC_URL}/images/absorbent c.png`,
   price: 600,
   discountedPrice: 750,
-  percentage:"20%",
+  percentage:"-20%",
    weight:120,
    rating: 4.2,
   description:"Vitamin Cee for strong immune system and prevent cardio vascular disease",
@@ -92,7 +89,6 @@ export const deals = [
           "Impressed with the quality! This product has become a staple in my daily routine.",
           "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
     ],
-  rating: 4.5,
 },
 
 {
@@ -101,7 +97,7 @@ export const deals = [
   url:  `${process.env.PUBLIC_URL}/images/jag.jpg`,
   price:324.5,
   discountedPrice: 649,
- percentage:"50%",
+ percentage:"-50%",
    weight:120,
    rating: 4.2,
   description:"Jag Jeans shirt for women, available in marron color and medium size only",
@@ -114,7 +110,6 @@ export const deals = [
   productdetails:"for women, available in marron color and medium size only, only one left",
    reviews:[" no reviews "
     ],
-  rating: "no ratings",
 },
 {
   id: 7,
@@ -122,7 +117,7 @@ export const deals = [
   url:  `${process.env.PUBLIC_URL}/images/j&g.jpg`,
   price: 299.5,
   discountedPrice: 599,
-  percentage:"50%",
+  percentage:"-50%",
    weight:120,
    rating: 4.2,
   description:"J&G shirt for women, available in orange color and medium size only, only one left",
@@ -135,7 +130,6 @@ export const deals = [
   productdetails:"J&G shirt for women, available in orange color and medium size only, only one left",
    reviews:["no reviews"
     ],
-  rating: "no ratings",
 },
 
 

@@ -160,7 +160,8 @@ useEffect(() => {
 
 
   return (
-    <Container className="mt-5">
+    <>
+    <Container className="mt-4">
 
       <Row className="justify-content-center">
      
@@ -277,15 +278,16 @@ useEffect(() => {
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
 
-         {/* Footer Section */}
-      <Row className="mt-4 mb-4  " >
-      <Col>
-      <Footer />
-      </Col>
-      </Row>
-
-
     </Container>
+
+         {/* Footer Section */}
+      <div className="mt-4 " >
+     
+      <Footer />
+   
+      </div>
+      </>
+
   );
 };
 

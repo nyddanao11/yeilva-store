@@ -28,7 +28,7 @@ const ShoppingCart = ({
 
 
   return (
-    <div className="shopping-cart">
+    <div className="shopping-cart mt-3">
       <h4 className='page-title'>Your Shopping Cart</h4>
       <ListGroup className="cart-group">
         {cartItems.length === 0 ? (

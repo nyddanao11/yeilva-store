@@ -58,7 +58,8 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   ];
 
   return (
-    <Container fluid>
+    <>
+    <Container >
       <Row>
         <Col sm={12} md={3}>
          
@@ -115,14 +116,14 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
 
-         {/* Footer Section */}
-      <Row className="mt-4 mb-4  " >
-      <Col>
-      <Footer />
-      </Col>
-      </Row>
-
     </Container>
+        {/* Footer Section */}
+      <div className="mt-4 " >
+     
+      <Footer />
+    
+      </div>
+      </>
   );
 };
 
