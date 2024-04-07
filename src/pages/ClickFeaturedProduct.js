@@ -51,12 +51,12 @@ const ClickFeaturedProduct= ({ addToCart }) => {
   }
 
   return (
-    <Container>
-       <Row className="justify-content-center">
-         <BreadCrumbFeatured productId={product.id} />
+    <Container className="mt-3">
+     <Row className="justify-content-center">
+           <BreadCrumbFeatured productId={product.id} />
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
-         
+          
             <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
@@ -80,7 +80,7 @@ const ClickFeaturedProduct= ({ addToCart }) => {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p> ₱{product.price}</p>
+          <h6> ₱{product.price}</h6>
           <p>Description: {product.description}</p>
           <div className="d-flex flex-column mb-3">
                   <div className="d-flex ">
@@ -103,7 +103,7 @@ const ClickFeaturedProduct= ({ addToCart }) => {
         </Col>
       </Row>
 
-      <Row style={{marginBottom:'60px', marginTop:'60px'}}>
+       <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
         <TabbedComponentFeatured  productId={product.id} />
         </Col>
@@ -115,6 +115,7 @@ const ClickFeaturedProduct= ({ addToCart }) => {
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>
       </div>
+
        <BestSelling addToCart={addToCart}/>
       </Row>
     </Container>

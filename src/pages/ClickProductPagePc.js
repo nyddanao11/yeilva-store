@@ -51,7 +51,7 @@ const ClickProductPagePc = ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Row className="justify-content-center">
          <BreadCrumbPc productId={product.id} />
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
@@ -102,7 +102,7 @@ const ClickProductPagePc = ({ addToCart }) => {
         </Col>
       </Row>
 
-     <Row style={{marginBottom:'60px', marginTop:'60px'}}>
+    <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
         <TabbedComponentPc  productId={product.id} />
         </Col>

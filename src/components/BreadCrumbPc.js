@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { pcproductsData  } from '../data/pcproductsData';
+import { Breadcrumb } from 'react-bootstrap'; // Import Breadcrumb from react-bootstrap
+import { pcproductsData } from '../data/pcproductsData';
 
-const BreadCrumbPc = ({ productId}) => {
+const BreadCrumbPc = ({ productId }) => {
   const [clickedItems, setClickedItems] = useState([]);
 
   const selectedProduct = pcproductsData.find((item) => item.id === productId);
@@ -14,22 +15,21 @@ const BreadCrumbPc = ({ productId}) => {
   };
 
   return (
-   
-      <div className="d-flex" style={{textDecoration:"none", fontSize:"12px", marginBottom:"5px"}}>
-        <Link to="/" style={{textDecoration:"none"}}>Home > </Link>
-        <Link to="/pcproducts" style={{textDecoration:"none"}}>PC products > </Link>
-        {clickedItems.map((item, index) => (
-          <span key={index} onClick={() => handleItemClick(item)}>
-            {item.name}
-          </span>
-        ))}
-        {selectedProduct && (
-          <span onClick={() => handleItemClick(selectedProduct)}>
-            {selectedProduct.name}
-          </span>
-        )}
-      </div>
+    <Breadcrumb style={{fontSize:"12px"}}>
+      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/pcproducts' }}>PC Products</Breadcrumb.Item>
       
+      {clickedItems.map((item, index) => (
+        <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>
+          {item.name}
+        </Breadcrumb.Item>
+      ))}
+      {selectedProduct && (
+        <Breadcrumb.Item onClick={() => handleItemClick(selectedProduct)}>
+          {selectedProduct.name}
+        </Breadcrumb.Item>
+      )}
+    </Breadcrumb>
   );
 };
 

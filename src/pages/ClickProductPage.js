@@ -9,6 +9,7 @@ import TabbedComponent from'../components/ProductTablature';
 import { FaStar} from 'react-icons/fa';
 
 
+
 const ClickProductPage = ({ addToCart }) => {
   const { id } = useParams();
  
@@ -48,20 +49,22 @@ const ClickProductPage = ({ addToCart }) => {
   }
 
   return (
-    <Container>
-        <Row className="justify-content-center">
-          <BreadCrumbNav productId={product.id} />
-         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
+    <Container className="mt-3">
+      <Row className="justify-content-center">
+        <BreadCrumbNav productId={product.id} />
+
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
-          
-          <div className="main-image-container">
+        
+
+           <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
                           alt={product.name}
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails mb-2">
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -77,7 +80,7 @@ const ClickProductPage = ({ addToCart }) => {
           <h2>{product.name}</h2>
           <h6>₱{product.price}</h6>
           <p>Description: {product.description}</p>
-          <div className="d-flex flex-column mb-3">
+           <div className="d-flex flex-column mb-3">
                   <div className="d-flex ">
                     <span className="text-warning me-1 mb-2">
                       {Array.from({ length: 5 }).map((_, index) => (

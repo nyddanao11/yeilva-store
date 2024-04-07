@@ -51,7 +51,7 @@ const ClickBeautyProducts = ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container className="mt-3">
               <Row className="justify-content-center">
         <BreadCrumbBeauty productId={product.id} />
 
@@ -101,7 +101,7 @@ const ClickBeautyProducts = ({ addToCart }) => {
         </Col>
       </Row>
 
-     <Row style={{marginBottom:'60px', marginTop:'60px'}}>
+    <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
         <TabbedComponent  productId={product.id} />
         </Col>
@@ -113,6 +113,7 @@ const ClickBeautyProducts = ({ addToCart }) => {
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>
       </div>
+
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
     </Container>
