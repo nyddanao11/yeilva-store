@@ -49,7 +49,7 @@ const ClickCanGoods = ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbCanGoods productId={product.id} />
 
