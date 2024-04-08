@@ -49,7 +49,7 @@ const ClickPaper = ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container  className="mt-3">
         <Row className="justify-content-center">
         <BreadCrumbBondpaper productId={product.id} />
 

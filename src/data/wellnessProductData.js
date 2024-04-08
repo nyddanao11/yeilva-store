@@ -216,9 +216,9 @@
   description:"100% authentic quantum bracelet with scalar energy and is available for both men and woman to improves stamina, endurance and strength. it also calms the mind and restores balance and harmony to the body.",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/bracelet.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/bracele649.jpg`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/bracele640.jpg`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/bracele641.jpg`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
    reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",

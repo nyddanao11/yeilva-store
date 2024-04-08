@@ -50,7 +50,7 @@ const ClickNote = ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbNotebook productId={product.id} />
 
