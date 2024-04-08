@@ -161,11 +161,10 @@ navigate ('/deleteaccount');
       </Row>
 
     </Container>
-     <div className="mt-4 " >
-        
-        <Footer />
-        
-      </div>
+      {/* Footer Section */}
+      <Container fluid className="mt-4 " >    
+      <Footer /> 
+      </Container>
       </>
   );
 };

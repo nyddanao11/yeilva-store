@@ -15,19 +15,15 @@ const BreadCrumbAvon = ({ productId }) => {
   };
 
   return (
-    <Breadcrumb style={{fontSize:"12px"}}>
+    <Breadcrumb style={{ fontSize: "12px" }}>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/avonproducts' }}>Avon products</Breadcrumb.Item>
-      
+
       {clickedItems.map((item, index) => (
-        <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>
-          {item.name}
-        </Breadcrumb.Item>
+        <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>{item.name}</Breadcrumb.Item>
       ))}
       {selectedProduct && (
-        <Breadcrumb.Item onClick={() => handleItemClick(selectedProduct)}>
-          {selectedProduct.name}
-        </Breadcrumb.Item>
+        <Breadcrumb.Item>{selectedProduct.name}</Breadcrumb.Item>
       )}
     </Breadcrumb>
   );

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -15,7 +16,7 @@ const BestSelling = ({ addToCart, cartCount }) => {
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick}>
+      <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick}>
         Previous
       </div>
     );
@@ -24,7 +25,7 @@ const BestSelling = ({ addToCart, cartCount }) => {
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: 'green' }} onClick={onClick}>
+      <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick}>
         Next
       </div>
     );

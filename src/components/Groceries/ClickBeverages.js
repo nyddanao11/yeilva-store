@@ -48,7 +48,7 @@ const ClickBeverages = ({ addToCart }) => {
   }
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbBeverages productId={product.id} />
 
