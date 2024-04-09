@@ -19,6 +19,9 @@ const FrozenFoods= ({addToCart, cartItems, product}) => {
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
+           <div className="d-flex justify-content-center align-items-center mb-2">
+           <h6> Frozen Foods</h6>
+           </div>
             {/* Display Grocery Items */}
             {Frozen.map((product) => (
               <Col sm={3} xs={6} key={product.id}>

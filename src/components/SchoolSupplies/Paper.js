@@ -36,6 +36,9 @@ const Paper= ({ addToCart, cartItems}) => {
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
+          <div className="d-flex justify-content-center align-items-center mb-2">
+           <h6>Paper&Envelope</h6>
+           </div>
             {/* Display Grocery Items */}
             {paper.map((item) => (
               <Col sm={3} xs={6} key={item.id}>
