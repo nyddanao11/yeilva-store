@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdWomensShoes from './findProductByIdWomensShoes';
 import FeaturedProduct from'../FeaturedProduct';
 import './ClickWomens.css';
+import '../LoanForm.css';
 import BreadCrumbWomensShoes from'./BreadCrumbWomensShoes';
 
 
@@ -61,7 +62,7 @@ const ClickWomensShoes = ({ addToCart }) => {
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails mb-2">
                        {product.thumbnails.map((thumb, index) => (
                           <img
                             key={index}
@@ -91,10 +92,12 @@ const ClickWomensShoes = ({ addToCart }) => {
         </Col>
       </Row>
 
-       <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
-     <FeaturedProduct addToCart={addToCart} />
+      <Row style={{marginTop:"40px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
       </Row>
      </Container>
   );

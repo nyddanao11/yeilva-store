@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdAlcoholic from './findProductByIdAlcoholic';
 import './ClickBeverages.css';
+import '../LoanForm.css';
 import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbAlcoholic from'./BreadCrumbAlcoholic';
 
@@ -50,7 +51,7 @@ const ClickAlcoholic = ({ addToCart }) => {
 
   return (
     <Container className="mt-3">
-       <Row className="justify-content-center">
+       <Row className="justify-content-center ">
         <BreadCrumbAlcoholic productId={product.id} />
 
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
@@ -63,7 +64,7 @@ const ClickAlcoholic = ({ addToCart }) => {
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails" style={{paddingBottom:"10px"}}>
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -92,11 +93,13 @@ const ClickAlcoholic = ({ addToCart }) => {
         </Col>
       </Row>
 
-      
-        <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
-     <FeaturedProduct addToCart={addToCart} />
+    
+        <Row style={{marginTop:"40px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
       </Row>
     </Container>
   );

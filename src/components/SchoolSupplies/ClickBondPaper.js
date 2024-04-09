@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdBondPaper from './findProductByIdBondPaper';
 import './ClickBallpenMarker.css';
+import '../LoanForm.css';
 import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbBondpaper from'./BreadCrumbBondpaper'
 
@@ -49,7 +50,7 @@ const ClickPaper = ({ addToCart }) => {
   }
 
   return (
-    <Container  className="mt-3">
+    <Container className="mt-3">
         <Row className="justify-content-center">
         <BreadCrumbBondpaper productId={product.id} />
 
@@ -62,7 +63,7 @@ const ClickPaper = ({ addToCart }) => {
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails" style={{paddingBottom:"10px"}}>
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -91,10 +92,12 @@ const ClickPaper = ({ addToCart }) => {
         </Col>
       </Row>
 
-       <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
-     <FeaturedProduct addToCart={addToCart} />
+       <Row style={{marginTop:"40px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
       </Row>
      </Container>
   );

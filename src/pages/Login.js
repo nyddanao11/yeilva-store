@@ -157,10 +157,10 @@ const Login = ({ handleLogin }) => {
         </Row>
       </Container>
 
-      <section className="w-100  mt-2">
-        <Footer />
-      </section>
-    </div>
+     <Container fluid className="mt-4 " >    
+      <Footer /> 
+      </Container>
+      </div>
   );
 };
 

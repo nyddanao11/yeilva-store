@@ -201,10 +201,9 @@ const SignUpForm = () => {
         </Row>
     </Container>
 
-       {/* Footer Section */}
-      <section className="w-100  mt-2" >
-      <Footer />
-      </section>
+       <Container fluid className="mt-4 " >    
+      <Footer /> 
+      </Container>
 
       </div>
   );

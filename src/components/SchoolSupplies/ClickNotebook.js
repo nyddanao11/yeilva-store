@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdNotebook from './findProductByIdNotebook';
 import './ClickBallpenMarker.css';
+import '../LoanForm.css';
 import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbNotebook from'./BreadCrumbNotebook';
 
@@ -63,7 +64,7 @@ const ClickNote = ({ addToCart }) => {
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails" style={{paddingBottom:"10px"}}>
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}

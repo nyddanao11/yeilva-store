@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdInstantNoodles from './findProductByIdInstantNoodles';
 import './ClickBeverages.css';
+import '../LoanForm.css';
 import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbNoodles from'./BreadCrumbNoodles';
 
@@ -61,7 +62,7 @@ const ClickInstantNoodles = ({ addToCart }) => {
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails"  style={{paddingBottom:"10px"}}>
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -90,10 +91,12 @@ const ClickInstantNoodles = ({ addToCart }) => {
         </Col>
       </Row>
 
-       <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
-     <FeaturedProduct addToCart={addToCart} />
+        <Row style={{marginTop:"40px"}}>
+
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
       </Row>
     </Container>
   );

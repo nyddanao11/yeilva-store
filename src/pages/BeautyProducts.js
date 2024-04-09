@@ -35,7 +35,7 @@ const BeautyProducts = ({ addToCart }) => {
 
     
     </Container>
-      <section className=" mt-4 d-flex flex-column align-items-center justify-content-center">
+      <section className=" mt-4 ">
         <Footer />
       </section>
       </>

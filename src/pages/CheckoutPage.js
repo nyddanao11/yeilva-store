@@ -93,9 +93,9 @@ useEffect(() => {
 
     </Container>
     {/* Footer Section */}
-      <Container fluid className="mt-4 " >    
+      <div className="mt-4 " >    
       <Footer /> 
-      </Container>
+      </div>
       </>
   );
 };

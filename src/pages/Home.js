@@ -15,9 +15,9 @@ const Home = ({ addToCart, product}) => {
 
   return (
   <>
-    <Container fluid  style={{marginBottom:"15px"}}> 
+    <div style={{marginBottom:"15px"}}> 
     <ImageSlider />
-     </Container>
+     </div>
 
     <Container>
     
@@ -71,9 +71,9 @@ const Home = ({ addToCart, product}) => {
 
       </Container>
           {/* Footer Section */}
-      <Container fluid className="mt-4 " >    
+      <div className="mt-4 " >    
       <Footer /> 
-      </Container>
+      </div>
  </>
   );
 };
