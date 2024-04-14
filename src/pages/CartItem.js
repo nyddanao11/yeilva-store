@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Form } from 'react-bootstrap';
+import { Card, Row, Col, Form, Button } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 
@@ -98,7 +98,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
          <div className='d-flex' style={{marginTop:"20px"}}>
             <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
-           <button
+           <Button
               variant="outline-secondary"
               className="mx-4"
               onClick={() => {
@@ -106,7 +106,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
               }}
             >
               <FaTrash />
-            </button>
+            </Button>
             </div>
             
           </Col>
