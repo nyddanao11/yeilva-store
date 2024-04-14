@@ -53,7 +53,7 @@ const ClickCooking = ({ addToCart }) => {
      <Row className="justify-content-center">
         <BreadCrumbCooking productId={product.id} />
 
-        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
          <div className="main-image-container">
                         <Image

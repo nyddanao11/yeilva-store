@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import {beer} from'./BeveragesData';
 import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
+import { FaShoppingCart } from 'react-icons/fa';
 
 
 
@@ -29,6 +30,7 @@ const handlePageChange = (newPage) => {
   return (
     <Container fluid >
       <Row>
+
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
@@ -55,9 +57,8 @@ const handlePageChange = (newPage) => {
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
 
-
-                   
-                    <Button variant="primary" style={{fontSize:"10px", maxWidth:"100%"}} onClick={() => addToCart(product)}>AddToCart</Button>
+   
+                    <Button variant="primary" size="sm" style={{fontSize:"10px", width:"100%"}} onClick={() => addToCart(product)}> <FaShoppingCart style={{fontSize:'10px'}} />AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>

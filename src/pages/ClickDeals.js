@@ -80,8 +80,8 @@ const ClickDeals= ({ addToCart }) => {
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
           <div >
-                  <span className="text-muted" ><strike>₱{product.discountedPrice}</strike></span>
-                  <span className="ms-2 text-danger" >₱{product.price}</span>
+                    <span className="text-muted ms-1" ><strike>₱{product.discountedPrice}</strike></span>
+                  <span className="ms-2 " style={{paddingLeft:"2px", color:"black", fontWeight:"bold", fontSize:"16px"}}>₱{product.price}</span>
                   <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"16px"}}>{product.percentage}</span>
           </div>
           <p>Description: {product.description}</p>

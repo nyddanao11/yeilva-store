@@ -12,11 +12,11 @@ const BestSelling = ({ addToCart, cartCount }) => {
   const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
-  // Custom arrow components
+   // Custom arrow components
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick}>
+      <div className={className} style={{ ...style, display:'block', background:' #D6D6D6', borderRadius: '50%'}} onClick={onClick}>
         Previous
       </div>
     );
@@ -25,20 +25,21 @@ const BestSelling = ({ addToCart, cartCount }) => {
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick}>
+      <div className={className} style={{ ...style, display:'block', background: '#D6D6D6', borderRadius: '50%'}} onClick={onClick}>
         Next
       </div>
     );
   };
 
-  const settings = {
+ const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: isLargeScreen ? 4 : isMediumScreen ? 3 : isSmallScreen ? 2 : 1,
-    slidesToScroll: 1,
-    prevArrow: <CustomPrevArrow />,
+    slidesToScroll:  isLargeScreen ? 4: isMediumScreen ? 3 : isSmallScreen ? 2 : 1,
+     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+   
   };
 
   

@@ -73,9 +73,6 @@ import InstallmentHistoryPage from './components/InstallmentHistoryPage';
 import Epayment from'./pages/Epayment';
 import DeleteAccount from './components/DeleteAccount';
 
-
-
-
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
 const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
@@ -83,8 +80,6 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
    const { isLoggedIn, login, logout } = useAuth();
   const [cartCount, setCartCount] = useState(0);
-
-
 
 const [cartItems, setCartItems] = useState(() => {
   // Use a function to get the initial value from localStorage
@@ -103,7 +98,6 @@ const [cartItems, setCartItems] = useState(() => {
     setCartCount(cartItems.length);
   }, [cartItems,  setCartCount]);
 
-
   useEffect(() => {
   
     const storedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -111,7 +105,6 @@ const [cartItems, setCartItems] = useState(() => {
     // Update the cart count on component mount
     setCartCount(storedItems.length);
   }, []);
-
 
 const addToCart = (product) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
@@ -138,9 +131,6 @@ const addToCart = (product) => {
   }
 };
 
-
-
-
 const removeFromCart = (itemId) => {
   console.log('Removing item with ID:', itemId);
   setCartItems((prevCartItems) => {
@@ -149,7 +139,6 @@ const removeFromCart = (itemId) => {
     return updatedCart;
   });
 };
-
 
 const handleIncrement = (item) => {
   console.log('Incrementing quantity for item with ID:', item.id);
@@ -175,16 +164,10 @@ const handleDecrement = (item) => {
   });
 };
 
-
-
-
 const handleLogout = () => {
   logout(); // Set the login status to false
   // You can also perform additional cleanup tasks here, such as clearing user data from local storage
 };
-
-
-
 
  // Function to handle login
   const handleLogin = (email) => {
@@ -194,9 +177,6 @@ const handleLogout = () => {
     navigate('/');
   };
 
-
-
- 
  return (
     
     <div>
@@ -270,7 +250,6 @@ const handleLogout = () => {
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                    
-
                  <Route component={NotFoundPage} />
                         
           </Routes>
@@ -302,12 +281,9 @@ const handleLogout = () => {
                 <Route path="/homeimprovement" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                  <Route path="/outdoorsports" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                   <Route path="/cart" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
-                   <Route path="/search" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
-             
+                   <Route path="/search" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>    
           
-            <Route component={NotFoundPage} />
-
-            
+            <Route component={NotFoundPage} /> 
 
           </Routes>
         )}
@@ -418,20 +394,15 @@ const handleLogout = () => {
              
           
             <Route component={NotFoundPage} />
-
-            
-
           </Routes>
         )}
         </div>
-        )};
-    
+        )}
+  
       </div>
          
   );
-}
-
-
+};
 
 export default App;
 

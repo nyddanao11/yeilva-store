@@ -100,14 +100,14 @@ export const deals = [
  percentage:"-50%",
    weight:120,
    rating: 4.2,
-  description:"Jag Jeans shirt for women, available in marron color and medium size only",
+  description:"Jag Jeans shirt for women, available in maroon color and medium size only",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/jag.jpg`,
        `${process.env.PUBLIC_URL}/images/jag.jpg`,
        `${process.env.PUBLIC_URL}/images/jag.jpg`,
        
       ],
-  productdetails:"for women, available in marron color and medium size only, only one left",
+  productdetails:"for women, available in maroon color and medium size only, only one left",
    reviews:[" no reviews "
     ],
 },

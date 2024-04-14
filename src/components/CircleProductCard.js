@@ -15,7 +15,7 @@ const CircleCard = ({ addToCart }) => {
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick}>
+      <div className={className} style={{ ...style, display:'block', background:' #D6D6D6', borderRadius: '50%'}} onClick={onClick}>
         Previous
       </div>
     );
@@ -24,22 +24,23 @@ const CircleCard = ({ addToCart }) => {
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: 'black' }} onClick={onClick}>
+      <div className={className} style={{ ...style, display:'block', background: '#D6D6D6', borderRadius: '50%'}} onClick={onClick}>
         Next
       </div>
     );
   };
+
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
-    slidesToScroll: 1,
-    prevArrow: <CustomPrevArrow />,
+    slidesToScroll:  isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+    
   };
-
 
 
   return (

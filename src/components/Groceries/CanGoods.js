@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import {canned} from'./CanGoodsData';
 import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const CannedGoods = ({ addToCart, cartItems, product, currentPage, setCurrentPage}) => {
   
@@ -27,7 +28,7 @@ const handlePageChange = (newPage) => {
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
-            <div className="d-flex justify-content-center align-items-center mb-2">
+          <div className="d-flex justify-content-center align-items-center mb-2">
            <h6> Can Goods</h6>
            </div>
             {/* Display Grocery Items */}
@@ -48,7 +49,7 @@ const handlePageChange = (newPage) => {
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
                    
-                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
+                    <Button variant="primary" size="sm" style={{fontSize:"10px", width:"100%"}} onClick={() => addToCart(product)}> <FaShoppingCart style={{fontSize:'10px'}} />AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>

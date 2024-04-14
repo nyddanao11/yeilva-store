@@ -9,71 +9,66 @@ import CarouselSection from '../components/CarouselHeroSection';
 import Accordion from '../components/FAQAccordion';
 import ImageSlider from '../components/ImageSlider';
 
- 
 const Home = ({ addToCart, product}) => {
- 
 
   return (
-  <>
-    <div style={{marginBottom:"15px"}}> 
-    <ImageSlider />
-     </div>
-
-    <Container>
-    
-      <Row  className="d-flex justify-content-center align-items-center" >
-        <div className="d-flex justify-content-center align-items-center ">
-        <h5  style={{marginBottom:'15px'}}>Categories</h5>
-        </div>
-        <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 6px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-            <CircleCard />
-          </Col>
-      </Row>
-
-      {/* Featured Products */}
-
-      <Row  style={{ background: '#FFFFFF', padding: '20px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-         <div className="d-flex justify-content-center align-items-center ">
-        <h5  style={{marginBottom:'15px'}}>Featured Products</h5>
+    <>
+     <div  style={{marginBottom:'10px'}}> 
+       <ImageSlider/>  
         </div>
 
-             <FeaturedProducts addToCart={addToCart} product={product}/>
-       
+    <Container >
+      <Row className="d-flex justify-content-center align-items-center" >
+           <div className="d-flex justify-content-center align-items-center ">  
+          <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Categories</h5>
+          </div>
+        <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+             <CircleCard addToCart={addToCart} product={product}/>
+          </Col> 
       </Row>
+
+        <Row className="d-flex justify-content-center align-items-center" >
+           <div className="d-flex justify-content-center align-items-center ">  
+          <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Featured Products</h5>
+          </div>
+        <Col lg={10} md={10} sm={12} style={{background:'#FFFFFF', padding:'20px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+              <FeaturedProducts addToCart={addToCart} product={product}/>
+          </Col> 
+      </Row>
+
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
        <Row className="d-flex justify-content-center align-items-center" >
-       <div className="d-flex justify-content-center align-items-center ">  
-      <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
-      </div>
-    <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-         <BestSelling addToCart={addToCart} product={product}/>
-      </Col> 
+           <div className="d-flex justify-content-center align-items-center ">  
+          <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
+          </div>
+        <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+             <BestSelling addToCart={addToCart} product={product}/>
+          </Col> 
       </Row>
 
-      {/* Recommended Products */}
-      <Row className="recommended-products " style={{ background: '#FFFFFF', padding: '10px 0px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-        <div className="d-flex justify-content-center align-items-center ">
-           <h5  style={{marginBottom:'6px', marginTop:"7px"}}>Recommended Products</h5>
-      </div>
- 
-          <RecommendedProd addToCart={addToCart} product={product}/>
-      
+
+      <Row className="d-flex justify-content-center align-items-center" >
+           <div className="d-flex justify-content-center align-items-center ">  
+          <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Recommended Products</h5>
+           </div>
+         <Col lg={10} md={10} sm={12} style={{background:'#FFFFFF', padding:'20px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+            <RecommendedProd addToCart={addToCart} product={product}/>    
+        </Col> 
       </Row>
 
     {/* FAQ Section */}
-      <Row>
-        
+      <Row>  
         <h5>FAQ</h5>
-          <Accordion />
-       
+          <Accordion />     
      </Row>
-
+     
       </Container>
-          {/* Footer Section */}
+
+      {/* Footer Section */}
       <div className="mt-4 " >    
       <Footer /> 
-      </div>
+      </div>    
  </>
   );
 };

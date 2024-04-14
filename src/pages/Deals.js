@@ -27,8 +27,8 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
               <Card.Body>
                 <Card.Title ><h6>{product.name}</h6></Card.Title>
                 <Card.Text style={{margin:"0px"}}>
-                  <span className="text-muted" ><strike>₱{product.discountedPrice}</strike></span>
-                  <span className="ms-2 text-danger" >₱{product.price}</span>
+                  <span className="text-muted ms-1" ><strike>₱{product.discountedPrice}</strike></span>
+                  <span className="ms-2 "  style={{paddingLeft:"2px", color:"black", fontWeight:"bold", fontSize:"16px"}}>₱{product.price}</span>
                   <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"16px"}}>{product.percentage}</span>
                 </Card.Text>
                 <div className="d-flex flex-column ">
@@ -60,15 +60,10 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
      <FeaturedProduct addToCart={addToCart}/>
       </Row>
 
-     
-
     </Container>
-
-             {/* Footer Section */}
-      <div className="mt-4 " >
-        
-        <Footer />
-        
+       {/* Footer Section */}
+      <div className="mt-4 " >    
+      <Footer /> 
       </div>
       </>
   );
