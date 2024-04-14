@@ -98,7 +98,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
          <div className='d-flex' style={{marginTop:"20px"}}>
             <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
-           <Button
+           <button
               variant="outline-secondary"
               className="mx-4"
               onClick={() => {
@@ -106,7 +106,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
               }}
             >
               <FaTrash />
-            </Button>
+            </button>
             </div>
             
           </Col>
