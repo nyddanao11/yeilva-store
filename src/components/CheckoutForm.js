@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Row, Col, FloatingLabel} from 'react-bootstrap';
+import { Form, Button, Row, Col, FloatingLabel, Spinner} from 'react-bootstrap';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link} from'react-router-dom';
@@ -8,6 +8,7 @@ const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
   selectedColor}) => {
 
    const [errorMessage, setErrorMessage] = useState('');
+   const [loading, setLoading] = useState(false);
 
 const [userData, setUserData] = useState({
     firstname: '',
@@ -68,6 +69,7 @@ const [userData, setUserData] = useState({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     // Calculate the "name" field by mapping cart items to a formatted string
     const itemName = cartItems.map((item) => `
       <div>
@@ -115,7 +117,9 @@ const [userData, setUserData] = useState({
         setShowModal(true);
       } catch (error) {
         console.error('Error submitting order:', error);
-      }
+      } finally {
+      setLoading(false);
+     }
     }
   };
 
@@ -328,8 +332,8 @@ useEffect(() => {
         
 
              <h5 style={{color:'black', marginBottom:'15px', marginTop:'15px'}}>Total Price: ₱{grandTotal}</h5>
-          <Button variant="danger" type="submit" className="mb-2 mt-2" style={{ width: '100%' }}>
-           Place Order
+         <Button variant="danger" type="submit" className="mb-2 mt-2"  disabled={loading} style={{ width: '100%' }}>
+           {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'} 
           </Button>
 
         </div>

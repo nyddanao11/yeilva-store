@@ -72,6 +72,7 @@ import LockoutPage from './pages/LockoutPage';
 import InstallmentHistoryPage from './components/InstallmentHistoryPage';
 import Epayment from'./pages/Epayment';
 import DeleteAccount from './components/DeleteAccount';
+import ScrollToTop from './pages/ScrollToTop';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -180,6 +181,7 @@ const handleLogout = () => {
  return (
     
     <div>
+    <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
 {isLargeScreen?(
@@ -196,6 +198,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
+             <Route path="/consumerelectronics" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} />} />
              <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} />} />
              <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} />} />
