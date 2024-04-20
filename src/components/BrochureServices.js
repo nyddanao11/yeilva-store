@@ -5,7 +5,7 @@ import{Link} from 'react-router-dom';
 
 const Brochure = () => {
   return (
-    <div className="brochure">
+    <div className="brochure" style={{paddingTop:"15px"}}>
       <Container>
         <Row>
           <Col md={6} >
@@ -69,13 +69,10 @@ const Brochure = () => {
             </Card>
           </Col>
         </Row>
-
-        {/* Footer Section */}
-      <section className=" mb-4 d-flex flex-column align-items-center justify-content-center " >
-      <Footer />
-      </section>
-        
       </Container>
+        <div className="mt-4" >
+            <Footer />
+        </div>
     </div>
   );
 };

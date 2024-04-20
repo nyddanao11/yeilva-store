@@ -36,7 +36,7 @@ const handleDeleteAccount = async()=>{
 };
 
   return (
-    <div>
+    <div style={{paddingTop:"15px"}}>
     {serverResponse && (
               <p className="text-danger mt-3">{serverResponse}</p>
             )}

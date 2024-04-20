@@ -1,4 +1,4 @@
-import React from 'react';
+                 import React from 'react';
 import 'swiper/swiper-bundle.css';
 import { CarouselImage } from '../data/CarouselImage';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
               style={{
                 position: 'relative',
                 width: '100%',
-                paddingTop: '56.25%', // 16:9 aspect ratio (9 / 16 * 100)
+                paddingTop: '75.25%', // 16:9 aspect ratio (9 / 16 * 100)
                 marginBottom: '20px',
                 overflow: 'hidden',
               }}
@@ -50,7 +50,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
               style={{
                 position: 'relative',
                 width: '100%',
-                paddingTop: '25.25%', // 3/4 of screen height
+                paddingTop: '30.25%', // 3/4 of screen height
                 marginBottom: '20px',
                 overflow: 'hidden',
               }}
@@ -60,8 +60,8 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
                   position: 'absolute',
                   top: 0,
                   left: 0,
-                  width: '100%',
-                  height: '100%',
+                  width: '1320px',
+                  height: '350px',
                   backgroundImage: `url(${product.url})`,
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',

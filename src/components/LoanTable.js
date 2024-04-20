@@ -56,7 +56,7 @@ const LoanTable = () => {
         </tr>
         <tr>
           <td>₱10,000</td>
-          <td>₱3,000</td>
+          <td>₱5,500</td>
           
         </tr>
         <tr>
@@ -81,7 +81,7 @@ const LoanTable = () => {
         </tr>
         <tr>
           <td>₱5,000</td>
-          <td>₱5500</td>
+          <td>₱5,500</td>
        
         </tr>
         <tr>

@@ -78,8 +78,9 @@ const ClickProductPage = ({ addToCart }) => {
         </Col>
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <h6>₱{product.price}</h6>
+        
           <p>Description: {product.description}</p>
+           <h6>₱{product.price}</h6>
            <div className="d-flex flex-column mb-3">
                   <div className="d-flex ">
                     <span className="text-warning me-1 mb-2">

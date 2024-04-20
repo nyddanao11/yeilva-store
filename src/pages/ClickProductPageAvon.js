@@ -6,6 +6,7 @@ import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
 import BreadCrumbAvon from'../components/BreadCrumbAvon';
 import TabbedComponentAvon from'../components/ProductTablatureAvon';
+import { FaStar} from 'react-icons/fa';
 
 
 const ClickProductPageAvon = ({ addToCart }) => {
@@ -51,9 +52,10 @@ const ClickProductPageAvon = ({ addToCart }) => {
   return (
     <Container className="mt-3">
         <Row className="justify-content-center">
-
-        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
-          <BreadCrumbAvon productId={product.id} />
+           <BreadCrumbAvon productId={product.id} />
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3"
+         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
+         
           <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
@@ -61,7 +63,7 @@ const ClickProductPageAvon = ({ addToCart }) => {
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails  mb-2" >
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -77,10 +79,19 @@ const ClickProductPageAvon = ({ addToCart }) => {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <h6>Price: ₱{product.price}</h6>
+         
           <p>Description: {product.description}</p>
-
-          {/* Add to Cart Button */}
+           <h6>Price: ₱{product.price}</h6>
+           <div className="d-flex flex-column mb-3">
+                  <div className="d-flex ">
+                    <span className="text-warning me-1 mb-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <FaStar key={index} />
+                      ))}
+                    </span>
+                     <span className="text-muted">{product.rating}</span>
+                  </div>
+              </div>
           <Button variant="primary" onClick={() => addToCart(product)}>
             Add to Cart
           </Button>
