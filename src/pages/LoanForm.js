@@ -262,9 +262,13 @@ useEffect(() => {
 </div>
       </Col>
 
-     <Col xs={12} md={5} >   
+   
+       <Col xs={12} md={5} >   
        <LoanTable /> 
-      <Link to='/loanterms' className="mt-3">Loan Terms and Conditions</Link>
+      <div  style={{border:"1px solid  #d3d4d5", borderRadius:"5px", background:"white",  
+               maxWidth:"250px", padding:"10px", marginTop:"40px", textAlign:"center"}}>
+            <Link to='/loanterms' style={{ textDecoration:"none", color:"black"}}>Loan Terms and Conditions</Link>
+         </div>
        </Col>
        </Row>
 
