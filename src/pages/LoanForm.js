@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Col, Row, FloatingLabel, Spinner } from 'react-bootstrap';
 import axios from'axios';
 import LoanFormModal from '../components/modalLoanForm';
-import {useNavigate} from'react-router-dom';
+import {useNavigate, Link} from'react-router-dom';
 import LoanTable from '../components/LoanTable'; // Import the LoanTable component
 import FeaturedProduct from'../components/FeaturedProduct';
 import LoanAccordion from '../components/LoanAccordion';
