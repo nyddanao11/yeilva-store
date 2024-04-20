@@ -1,5 +1,4 @@
-                 import React from 'react';
-import 'swiper/swiper-bundle.css';
+import React from 'react';
 import { CarouselImage } from '../data/CarouselImage';
 import { useNavigate } from 'react-router-dom';
 import { Container, Carousel } from 'react-bootstrap';

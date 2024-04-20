@@ -9,6 +9,7 @@ import FeaturedProduct from'../components/FeaturedProduct';
 import LoanAccordion from '../components/LoanAccordion';
 import Footer from '../components/Footer';
 import './LoanForm.css';
+import LoanTerms from'./LoanTerms'
 
 
 const LoanForm = ({addToCart}) => {
@@ -261,7 +262,10 @@ useEffect(() => {
 </div>
       </Col>
 
-       <Col xs={12} md={5} >   <LoanTable /> </Col>
+     <Col xs={12} md={5} >   
+       <LoanTable /> 
+      <Link to='/loanterms' className="mt-3">Loan Terms and Conditions</Link>
+       </Col>
        </Row>
 
       <Row className='mb-3 '>

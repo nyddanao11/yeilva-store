@@ -73,6 +73,7 @@ import InstallmentHistoryPage from './components/InstallmentHistoryPage';
 import Epayment from'./pages/Epayment';
 import DeleteAccount from './components/DeleteAccount';
 import ScrollToTop from './pages/ScrollToTop';
+import LoanTerms from './pages/LoanTerms';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -252,6 +253,8 @@ const handleLogout = () => {
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
+                         <Route path="/loanterms" element={<LoanTerms />} />
+
                    
                  <Route component={NotFoundPage} />
                         
@@ -360,6 +363,8 @@ const handleLogout = () => {
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
+                         <Route path="/loanterms" element={<LoanTerms />} />
+
                    
 
                  <Route component={NotFoundPage} />
