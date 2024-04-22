@@ -17,6 +17,9 @@ padding-bottom: 8px;
      display: flex;
 
   }
+  .quantity{
+    margin-top: 15px;
+  }
 
 .cart-item .quantity .quantity-in{
     display: flex;

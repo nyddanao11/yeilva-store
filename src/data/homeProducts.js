@@ -81,6 +81,7 @@ export const homeProducts = [
       url: `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       price: 220,
          weight:800,
+        description:'laundry detergent net weight 800g',
          thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
         `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,

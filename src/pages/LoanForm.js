@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Col, Row, FloatingLabel, Spinner } from 'react-bootstrap';
 import axios from'axios';
 import LoanFormModal from '../components/modalLoanForm';
-import {useNavigate, Link} from'react-router-dom';
+import {useNavigate} from'react-router-dom';
 import LoanTable from '../components/LoanTable'; // Import the LoanTable component
 import FeaturedProduct from'../components/FeaturedProduct';
 import LoanAccordion from '../components/LoanAccordion';
 import Footer from '../components/Footer';
 import './LoanForm.css';
-import LoanTerms from'./LoanTerms'
+import HoverButton from'../components/HoverButton'
 
 
 const LoanForm = ({addToCart}) => {
@@ -265,10 +265,9 @@ useEffect(() => {
    
        <Col xs={12} md={5} >   
        <LoanTable /> 
-      <div  style={{border:"1px solid  #d3d4d5", borderRadius:"5px", background:"white",  
-               maxWidth:"250px", padding:"10px", marginTop:"40px", textAlign:"center"}}>
-            <Link to='/loanterms' style={{ textDecoration:"none", color:"black"}}>Loan Terms and Conditions</Link>
-         </div>
+          <div style={{marginTop:"40px"}}>
+           <HoverButton />
+           </div>
        </Col>
        </Row>
 

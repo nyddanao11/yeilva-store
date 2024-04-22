@@ -4,8 +4,7 @@ import { fetchUserData } from '../components/userService';
 import { Link} from 'react-router-dom';
 import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
-import DeleteAccount from'../components/DeleteAccount';
-import { useNavigate } from 'react-router-dom';
+import HoverButton1 from'../components/HoverButton1'
 import Footer from'../components/Footer';
 
 
@@ -17,9 +16,6 @@ const MyAccountPage = ({addToCart}) => {
     joineddate: '', // Added joinedDate to the state
   });
 
-const navigate = useNavigate();
-
-  
   useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
     if (storedUserEmail) {
@@ -40,14 +36,7 @@ const navigate = useNavigate();
     }
   }, []);
 
-  const DeleteUser =()=>{
   
-// alert('Are you sure To Delete your Account? ')
-navigate ('/deleteaccount');
-
- 
-}
-
     return (
     <>
     <Container className="mt-4">
@@ -143,11 +132,11 @@ navigate ('/deleteaccount');
               YeilvaSTORE-AdminPage
               </Link>
             )}
+            
           </div>
-
-          <button className=" py-2 mt-3 w-100px " 
-          style={{border:"1px solid #d3d4d5", borderRadius:"5px", background:"white", color:"black"}} onClick={DeleteUser}> 
-         Request to Delete Account </button>
+          <div style={{marginTop:"25px"}}>
+         <HoverButton1 />
+         </div
         
         </Col>
       </Row>

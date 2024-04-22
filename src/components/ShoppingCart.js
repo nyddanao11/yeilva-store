@@ -60,11 +60,11 @@ const ShoppingCart = ({
                       </div>
                     </Col>
                 <Col md={8}  className="item-details mt-3">
-                      <h4 className="item-name">{cartItem.name}</h4>
-                      <h6 className="item-price">₱{cartItem.price}</h6>
+                      <h4 className="item-name">{cartItem.name}</h4> 
                       <p className="item-description">{cartItem.description}</p>
+                       <h6 className="item-price ">₱{cartItem.price}</h6>
                  
-            <div className="quantity">
+            <div className="quantity ">
                 <div className="quantity-in d-flex align-items-center justify-content-center pb-2">
                   <Button
                     variant="outline-secondary"

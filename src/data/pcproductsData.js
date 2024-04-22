@@ -11,11 +11,9 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste.png`,
       ],
    productdetails:"Personal Collection Products",
-   reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-        "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-        "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-        "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-        "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
+   reviews:[
+       
+        "Highly recommend this Toothpaste! Can last up to 4000 brushes, prevents cavities, strengthens teeth and freshens breath.",
      ],
    rating: 5.0,
 },
@@ -31,11 +29,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste1.png`,
       ],
    productdetails:"Personal Collection Products",
-    reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-        "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-        "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-        "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-        "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
+    reviews:[ "Highly recommend this Toothpaste! Can last up to 4000 brushes, prevents cavities, strengthens teeth and freshens breath.",
      ],
    rating: 5.0,
 },
@@ -51,11 +45,8 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste2.png`,
       ],
    productdetails:"Personal Collection Products",
-    reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-        "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-        "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-        "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-        "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
+    reviews:[
+        "Highly recommend this Toothpaste! Can last up to 4000 brushes, prevents cavities, strengthens teeth and freshens breath.",
      ],
    rating: 5.0,
 },
@@ -71,11 +62,8 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste3.png`,
       ],
    productdetails:"Personal Collection Products",
-   reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-        "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-        "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-        "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-        "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
+   reviews:[
+    "Helps fight tooth decay, strengthens teeth and moisturizes gums, with vitamins C ",
      ],
    rating: 5.0,
 },
@@ -91,11 +79,8 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste4.png`,
       ],
    productdetails:"Personal Collection Products",
-   reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-        "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-        "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-        "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-        "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
+   reviews:[
+        "12 hour cavity protection and Plaque control technology ",
      ],
    rating: 5.0,
 },
@@ -105,6 +90,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
   price: 135,
    weight:800,
+     description:'laundry detergent net weight 800g',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
          `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
@@ -124,6 +110,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
   price: 135,
    weight:800,
+    description:'laundry detergent net weight 800g',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
          `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
@@ -143,6 +130,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/check.png`,
   price: 69,
    weight:150,
+    description:'3 in 1 whitening antibacterial and hydrating soap plus 40% ',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/check.png`,
         `${process.env.PUBLIC_URL}/imgpc/check.png`,
@@ -162,6 +150,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/check1.png`,
   price: 65,
    weight:150,
+    description:'antibacterial soap plus 40% ',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/check1.png`,
         `${process.env.PUBLIC_URL}/imgpc/check1.png`,
@@ -181,6 +170,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/check2.png`,
   price: 65,
    weight:150,
+    description:'antibacterial soap fruity floral soap plus 40% ',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/check2.png`,
         `${process.env.PUBLIC_URL}/imgpc/check2.png`,
@@ -200,6 +190,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
   price: 150,
    weight:100,
+    description:'body cologne confident ',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
          `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
@@ -219,6 +210,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
   price: 150,
    weight:100,
+    description:'body cologne cool ',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
         `${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
@@ -238,6 +230,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
   price: 150,
    weight:100,
+    description:'body cologne sweet',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
          `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
@@ -257,6 +250,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
   price: 245,
    weight:100,
+    description:'glutalight glow instant whitening face and body lotion',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
          `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
@@ -276,6 +270,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
   price: 160,
    weight:100,
+  description:'glutalight whitening facial wash',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
          `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
@@ -295,6 +290,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
   price: 120,
    weight:100,
+  description:'glutalight whitening soap with glutathione AHA&BHA for triple strength whitening',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
         `${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
@@ -314,6 +310,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/mwash.png`,
   price: 175,
    weight:250,
+     description:'Alert Mouthwash',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/mwash.png`,
         `${process.env.PUBLIC_URL}/imgpc/mwash.png`,
@@ -333,6 +330,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
   price: 290,
    weight:500,
+    description:'Liquid Laundry Detergent',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
         `${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
@@ -352,6 +350,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
   price: 179,
   weight:800,
+    description:'Concentrated Laundry Detergents, active clean fresh fabicon 800g',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
         `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
@@ -371,6 +370,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
   price: 179,
    weight:800,
+     description:'Concentrated Laundry Detergents, active clean fresh fabicon 800g',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
          `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
@@ -390,6 +390,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
   price: 179,
    weight:800,
+     description:'Concentrated Laundry Detergents, active clean fresh fabicon 800g',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
         `${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
@@ -409,6 +410,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
   price: 179,
    weight:800,
+     description:'Concentrated Laundry Detergents, active clean fresh fabicon 800g',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
          `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
@@ -428,6 +430,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/sof.png`,
   price: 285,
    weight:800,
+     description:'Concentrated Laundry Detergents, active clean fresh fabicon 800g',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/sof.png`,
         `${process.env.PUBLIC_URL}/imgpc/sof.png`,
@@ -447,6 +450,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/target.png`,
   price: 369,
    weight:250,
+     description:'multi insect killer, killing made easy',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/target.png`,
         `${process.env.PUBLIC_URL}/imgpc/target.png`,
@@ -466,6 +470,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/target1.png`,
   price: 239,
     weight:200,
+    description:'multi insect killer, killing made easy iwas dengue formula',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/target1.png`,
          `${process.env.PUBLIC_URL}/imgpc/target1.png`,
@@ -485,6 +490,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
   price: 184,
     weight:450,
+     description:'multi surface cleaner kills 99.9% germs',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
@@ -504,6 +510,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
   price: 299,
     weight:450,
+     description:'toilet bowl cleaner',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
          `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
