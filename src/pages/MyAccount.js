@@ -126,17 +126,17 @@ const MyAccountPage = ({addToCart}) => {
           </div>
 
 
-          <div className="mt-3">
+           <div className="mt-3">
             {userData.email === 'bonifacioamoren@gmail.com' && (
               <Link to="/adminpage" style={{ textDecoration: 'none' }}>
               YeilvaSTORE-AdminPage
               </Link>
             )}
-            
           </div>
+          
           <div style={{marginTop:"25px"}}>
          <HoverButton1 />
-         </div
+         </div>
         
         </Col>
       </Row>
@@ -150,10 +150,11 @@ const MyAccountPage = ({addToCart}) => {
       </Row>
 
     </Container>
-      {/* Footer Section */}
-      <Container fluid className="mt-4 " >    
+
+    {/* Footer Section */}
+      <div className="mt-4 " >    
       <Footer /> 
-      </Container>
+      </div>
       </>
   );
 };
