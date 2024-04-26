@@ -292,6 +292,7 @@ const handleLogout = () => {
                  <Route path="/outdoorsports" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                   <Route path="/cart" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                    <Route path="/search" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>    
+                      <Route path="/needhelp" element={<NeedHelp />} />
           
             <Route component={NotFoundPage} /> 
 
@@ -405,6 +406,7 @@ const handleLogout = () => {
                  <Route path="/outdoorsports" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                   <Route path="/cart" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                    <Route path="/search" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+                    <Route path="/needhelp" element={<NeedHelp />} />
              
           
             <Route component={NotFoundPage} />
