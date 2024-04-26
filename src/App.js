@@ -56,6 +56,7 @@ import ClickMarker from'./components/SchoolSupplies/ClickBallpenMarker';
 import ClickPaper from'./components/SchoolSupplies/ClickBondPaper';
 import ClickNote from'./components/SchoolSupplies/ClickNotebook';
 import ClickDeals from'./pages/ClickDeals';
+import ClickDealsFashion from'./pages/ClickDealsFashion';
 import ClickWomens from './components/Fashion/ClickWomens';
 import ClickMens from './components/Fashion/ClickMens';
 import ClickMensShoes from './components/Fashion/ClickMensShoes';
@@ -74,6 +75,7 @@ import Epayment from'./pages/Epayment';
 import DeleteAccount from './components/DeleteAccount';
 import ScrollToTop from './pages/ScrollToTop';
 import LoanTerms from './pages/LoanTerms';
+import NeedHelp from'./pages/NeedHelp';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -205,7 +207,7 @@ const handleLogout = () => {
              <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} />} />
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} />}/>
-            <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} avonproductsData={avonproductsData} addToCart={addToCart} />} />
+           
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
                                               avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} addToCart={addToCart} />} />
@@ -241,6 +243,7 @@ const handleLogout = () => {
                    <Route path="/clickmensshoes/:id" element={<ClickMensShoes addToCart={addToCart} />} />
                     <Route path="/clickwomensshoes/:id" element={<ClickWomensShoes addToCart={addToCart} />} />
                 <Route path="/clickdeals/:id" element={<ClickDeals addToCart={addToCart} />} />
+                  <Route path="/clickdealsfashion/:id" element={<ClickDealsFashion  addToCart={addToCart} />} />
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage />} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
@@ -254,6 +257,7 @@ const handleLogout = () => {
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
+                           <Route path="/needhelp" element={<NeedHelp />} />
 
                    
                  <Route component={NotFoundPage} />
@@ -315,7 +319,7 @@ const handleLogout = () => {
              <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} />} />
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} />}/>
-            <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} avonproductsData={avonproductsData} addToCart={addToCart} />} />
+           
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
                                               avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} addToCart={addToCart} />} />
@@ -351,6 +355,7 @@ const handleLogout = () => {
                    <Route path="/clickmensshoes/:id" element={<ClickMensShoes addToCart={addToCart} />} />
                     <Route path="/clickwomensshoes/:id" element={<ClickWomensShoes addToCart={addToCart} />} />
                 <Route path="/clickdeals/:id" element={<ClickDeals addToCart={addToCart} />} />
+                  <Route path="/clickdealsfashion/:id" element={<ClickDealsFashion  addToCart={addToCart} />} />
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage />} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
@@ -364,6 +369,7 @@ const handleLogout = () => {
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
+                           <Route path="/needhelp" element={<NeedHelp />} />
 
                    
 

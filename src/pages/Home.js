@@ -57,9 +57,10 @@ const Home = ({ addToCart, product}) => {
         </Col> 
       </Row>
 
-    {/* FAQ Section */}
-      <Row>  
+   <Row>  
+      <div className="d-flex justify-content-center align-items-center mt-3">
         <h5>FAQ</h5>
+        </div>
           <Accordion />     
      </Row>
      

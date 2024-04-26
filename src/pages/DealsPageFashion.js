@@ -1,34 +1,30 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
-import {deals} from '../data/DealsData';
+import {dealsFashion} from '../data/DealsFashion';
 import { Link } from 'react-router-dom';
 import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
 import Footer from '../components/Footer';
-import DealsPageFashion from'./DealsPageFashion';
 
 
-const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
+const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
  
   return (
     <>
-      <div className="d-flex flex-column justify-content-center aligned-items-center bg-primary" >
-       <h4 className="text-center mt-4" style={{ color:"white"}}>Deals</h4>
-       <h6 className="text-center  mb-4" style={{ color:"white"}}>Browse our Deals of the day and save big</h6>
-       </div>
+     
     <Container className="mt-4">
      
       <Row>
       <div className="d-flex mt-2">
-          <h5>Health and Wellness </h5>
-          <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-          <p  style={{paddingLeft:'15px'}}>{'(0)'}</p>
+          <h5>Fashion and Apparel </h5>
+          <Link to="/fashionapparel" style={{paddingLeft:'10px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
+          <p  style={{paddingLeft:'10px'}}>{'(0)'}</p>
       </div>
-        {deals.map((product) => (
+        {dealsFashion.map((product) => (
           <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
             <Card className="w-100">
-            <Link to={`/clickdeals/${product.id}`}>
+            <Link to={`/clickdealsfashion/${product.id}`}>
               <Card.Img variant="top" src={product.url} alt={product.name} style={{maxHeight: '200px', objectFit:'cover'}} />
               </Link>
               <Card.Body>
@@ -56,29 +52,11 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
           </Col>
         ))}
       </Row>
-
-
-      <Row>
-      <DealsPageFashion />
-      </Row>
      
-        
-
-       <Row style={{marginTop:"25px"}}>
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
-
     </Container>
-       {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>
+
       </>
   );
 };
 
-export default DealsPage;
+export default DealsPageFashion;

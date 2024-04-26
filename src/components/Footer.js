@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
 import {Link} from'react-router-dom';
+import HoverButton2 from'./HoverButton2';
 
 
 const Footer = () => {
@@ -11,8 +12,8 @@ const Footer = () => {
       <Container >
         <Row>
 
-          <Col md={4}>
-            <div className="footer-content">
+          <Col md={4} className="footer-content">
+            <div>
              <h5> Follow us:</h5>
               <div className="social-links">
                 <Button variant="link" href="https://www.facebook.com/yeilvastore/" target="_blank">
@@ -31,19 +32,14 @@ const Footer = () => {
               <p>&copy; 2024 Yeilva Store. All rights reserved.</p>
             </div>
           </Col>
-          <Col md={4}>
-          <div className="d-flex   align-items-center justify-content-center" style={{marginTop:"30px"}}>
-          
-           <Link to='/contactus'>
-                <Button variant="primary">Contact Us</Button>     
-          </Link>
-        
-          
+          <Col md={4}  className="d-flex   align-items-center justify-content-center mt-2 mb-3" >
+          <div>  
+           <HoverButton2 /> 
           </div>
           </Col>
 
-          <Col md={4}>
-          <div className="d-flex  flex-column align-items-center justify-content-center" style={{marginTop:"30px"}}>
+          <Col md={4} className="d-flex flex-column align-items-center justify-content-center mt-2" >
+          <div >
               <h6> Accepts</h6>
               <p style={{margin:"0px"}}>Gcash</p>
               <p style={{margin:"0px"}}>Bank Transfer</p>

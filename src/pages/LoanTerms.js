@@ -20,7 +20,7 @@ const LoanTerms = () => {
         You must meet the following eligibility criteria to use the Platform and apply for a loan:
 
       You must be at least 18 years old.
-      You must be a resident of the [Country Name].
+      You must be a resident of the Philippines.
       You must have a valid bank account.
       You must provide accurate and truthful information during the application process.
       </p>
@@ -78,7 +78,7 @@ const LoanTerms = () => {
 
       <h5>10. Contact Information</h5>
       <p>
-      If you have any questions or concerns about these terms and conditions, please contact us at [contact email or phone number].
+      If you have any questions or concerns about these terms and conditions, please contact us at {" "} <Link to="/needhelp" > Contact Us</Link>.
       By using the Platform and entering into a loan agreement, you acknowledge that you have read, understood, and agree
       to be bound by these terms and conditions.
       </p>

@@ -530,6 +530,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
   price: 299,
     weight:500,
+    description:'toilet bowl cleaner',
    thumbnails:
       [ `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
          `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
@@ -549,6 +550,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
   price: 99,
     weight:300,
+    description:'dishwashing liquid',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
@@ -568,6 +570,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
   price: 99,
     weight:300,
+      description:'dishwashing liquid',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
@@ -587,6 +590,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
   price:66,
     weight:250,
+     description:'dishwashing liquid',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
@@ -606,6 +610,7 @@ export const pcproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
   price: 66,
     weight:250,
+     description:'dishwashing liquid',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
         `${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
