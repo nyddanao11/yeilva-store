@@ -24,19 +24,18 @@ const NeedHelp =()=>{
 
       });
 
-      if (response.data.status === 'success') {
-        setMessage('Message is sent Successfully');
-
-        navigate('/login');
-		}else{
-			setMessage(response.data.error);
-		}
-		}catch(error){
-			 setMessage('Error: Message Not sent, Please try again.')
-		} finally{
-			setLoading(false);
-			}
-		}
+     if (response.data.status === 'success') {
+        setMessage('Message sent successfully');
+        setLoading(false);  // Reset loading
+      } else {
+        setMessage(response.data.error);
+        setLoading(false);  // Reset loading
+      }
+    } catch (error) {
+      setMessage('Error: Message not sent.');
+      setLoading(false);  // Reset loading
+    }
+  };
 
 	return(
 			<>
