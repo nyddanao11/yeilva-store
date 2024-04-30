@@ -3,18 +3,13 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import {dealsFashion} from '../data/DealsFashion';
 import { Link } from 'react-router-dom';
-import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
-import Footer from '../components/Footer';
-
 
 const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
  
   return (
     <>
-     
-    <Container className="mt-4">
-     
+ <Container>
       <Row>
       <div className="d-flex mt-2">
           <h5>Fashion and Apparel </h5>
@@ -52,8 +47,7 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
           </Col>
         ))}
       </Row>
-     
-    </Container>
+       </Container>
 
       </>
   );

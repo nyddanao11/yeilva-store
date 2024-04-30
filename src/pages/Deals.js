@@ -3,25 +3,16 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import {deals} from '../data/DealsData';
 import { Link } from 'react-router-dom';
-import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
-import Footer from '../components/Footer';
-import DealsPageFashion from'./DealsPageFashion';
-
 
 const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
  
   return (
     <>
-      <div className="d-flex flex-column justify-content-center aligned-items-center bg-primary" >
-       <h4 className="text-center mt-4" style={{ color:"white"}}>Deals</h4>
-       <h6 className="text-center  mb-4" style={{ color:"white"}}>Browse our Deals of the day and save big</h6>
-       </div>
-    <Container className="mt-4">
-     
+<Container>
       <Row>
       <div className="d-flex mt-2">
-          <h5>Health and Wellness </h5>
+           <h5>Health and Wellness </h5>
           <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
           <p  style={{paddingLeft:'15px'}}>{'(0)'}</p>
       </div>
@@ -56,27 +47,8 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
           </Col>
         ))}
       </Row>
+      </Container>
 
-
-      <Row>
-      <DealsPageFashion />
-      </Row>
-     
-        
-
-       <Row style={{marginTop:"25px"}}>
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
-
-    </Container>
-       {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>
       </>
   );
 };

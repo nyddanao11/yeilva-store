@@ -1,19 +1,38 @@
 import React, {useState}from 'react';
 import{Form, Container, Row, Col, Button, Spinner} from'react-bootstrap';
 import Footer from'../components/Footer';
+import axios from'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const NeedHelp =()=>{
   const[email, setEmail] = useState('');
   const[message, setMessage] = useState('');
   const[loading, setLoading] = useState(false);
+  const[mainMessage, setMainMessage] = useState('')
+  const navigate = useNavigate();
 
   const handleSubmit=async(e)=>{
 		e.preventDefault()
 		try{
-			setLoading(true);
-		}
-		catch(error){
+			  setLoading(true); // Set loading to true during form submission
 
+      // Make a request to your server to handle forgot password logic
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/help', {
+        email: email,
+        mainMessage: mainMessage,
+
+      });
+
+      if (response.data.status === 'success') {
+        setMessage('Message is sent Successfully');
+
+        navigate('/login');
+		}else{
+			setMessage(response.data.error);
+		}
+		}catch(error){
+			 setMessage('Error: Message Not sent, Please try again.')
 		} finally{
 			setLoading(false);
 			}
@@ -27,6 +46,7 @@ const NeedHelp =()=>{
 					<div style={{textAlign:"center"}}>
 					<h2  >Need Help?</h2>
 					</div>
+					  {message && <p className="mt-3" style={{color:"red"}}>{message}</p>}
 						<Form onSubmit={handleSubmit}>
 						 <Form.Group controlId="email">
 						  <Form.Label>Email</Form.Label>
@@ -38,14 +58,14 @@ const NeedHelp =()=>{
 						/>
 						</Form.Group>
 
-						 <Form.Group controlId="message">
+						 <Form.Group controlId="mainMessage">
 						  <Form.Label>message</Form.Label>
 					    	<Form.Control 
 					    	as="textarea"
-						     type="message"
+						     type="mainMessage"
 							placeholder="Enter your message"
-							value={message}
-							onChange={(e) => setMessage(e.target.value)} required 
+							value={mainMessage}
+							onChange={(e) => setMainMessage(e.target.value)} required 
 						/>
 						
             <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>

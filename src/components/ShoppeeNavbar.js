@@ -68,7 +68,7 @@ return (
 	      </NavDropdown>
 	     
 
-		 <Nav.Link as={NavLink} to="/deals"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
+		 <Nav.Link as={NavLink} to="/dealsofday"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
 		 
   
 

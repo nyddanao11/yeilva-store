@@ -17,7 +17,7 @@ import {pcproductsData} from './data/pcproductsData';
 import {avonproductsData} from './data/AvonProductsData';
 import {beautyProductsData} from './data/BeautyProductsData';
 import CombinedNavbar from './components/CombinedNavbar';
-import DealsPage from './pages/Deals';
+import DealsOfDay from'./pages/DealsOfDay';
 import LoanForm from './pages/LoanForm';
 import MyAccountPage from './pages/MyAccount';
 import GroceryItemsPage from './pages/GroceryItems';
@@ -214,7 +214,7 @@ const handleLogout = () => {
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
-            <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
+           <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems} />} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage addToCart={addToCart}/>} />
@@ -327,7 +327,7 @@ const handleLogout = () => {
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
-            <Route path="/deals" element={<DealsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems} />} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage addToCart={addToCart}/>} />

@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import Footer from './Footer';
 import{Link} from 'react-router-dom';
+import NeedHelp from '../pages/NeedHelp';
 
 const Brochure = () => {
   return (
@@ -62,7 +63,7 @@ const Brochure = () => {
                 <Card.Text>
                   Visit Us Today!
                 </Card.Text>
-                <Link to='/contactus'>
+                <Link to='/needhelp'>
                 <Button variant="primary">Contact Us</Button>
                 </Link>
               </Card.Body>

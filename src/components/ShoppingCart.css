@@ -45,8 +45,10 @@ padding-bottom: 8px;
   position: relative;
 }
 
+
 .main-image {
-  height: 250px; /* Adjust as needed */
+ max-width: 250px;
+  height: 300px; /* Adjust as needed */
 }
 
 .thumbnails {

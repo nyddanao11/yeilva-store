@@ -1,6 +1,6 @@
 import { deals } from './DealsData';
 // findProductById.js
-const findProductById = (id) => {
+const  findProductByIdDeals= (id) => {
   // Convert id to a number (if it's not already) and search for the product
   const productId = Number(id);
   const product = deals.find(
@@ -10,5 +10,5 @@ const findProductById = (id) => {
 };
 
 
-export default findProductById;
+export default  findProductByIdDeals;
 

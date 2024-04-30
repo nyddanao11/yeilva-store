@@ -17,7 +17,7 @@ const BreadCrumbDeals = ({ productId }) => {
  return (
     <Breadcrumb style={{ fontSize: "12px" }}>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
-         <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/deals' }}>Deals</Breadcrumb.Item>
+         <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/dealsofday' }}>Deals</Breadcrumb.Item>
 
       {clickedItems.map((item, index) => (
         <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>{item.name}</Breadcrumb.Item>
