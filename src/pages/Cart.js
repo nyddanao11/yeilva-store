@@ -16,6 +16,11 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
   };
 
   const total = calculateTotalPrice(cartItems);
+  const formattedPrice = new Intl.NumberFormat('fil-PH', {
+  style: 'currency',
+  currency: 'PHP',  // Currency code for Philippine Pesos
+}).format(total);
+
 
   // Function to handle the checkout button click
   const handleCheckoutClick = () => {
@@ -43,7 +48,7 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
       />
 
       <div className="sticky-footer">
-        <h2>Total Price: ₱{total}</h2>
+        <h2>Total Price: {formattedPrice}</h2>
     
         <Button className="w-100" variant="primary" onClick={handleCheckoutClick}>
           Proceed to Checkout

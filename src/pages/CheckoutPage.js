@@ -41,6 +41,10 @@ useEffect(() => {
 
  const Total = (totalItemsPrice + shippingRate - discountCoupon).toFixed(2);
  const grandTotal= Number(Total);
+const formattedGrandTotal = new Intl.NumberFormat('fil-PH', {
+  style: 'currency',
+  currency: 'PHP',  // Currency code for Philippine Pesos
+}).format(grandTotal);
 
 
   const handleProceedToCheckout = () => {
@@ -80,14 +84,14 @@ useEffect(() => {
           <p>Total Items Price: ₱{totalItemsPrice}</p>
           <p>Shipping Rate: ₱{shippingRate}</p>
           <p>Discount Coupon: -₱{discountCoupon}</p>
-          <h4 style={{paddingBottom:'10px'}}>Grand Total: ₱{grandTotal}</h4>
+          <h4 style={{paddingBottom:'10px'}}>Grand Total: {formattedGrandTotal}</h4>
           <Button onClick={handleProceedToCheckout}>Continue to Shipping</Button>
           <Link to="/cart">
             <Button variant="primary" className="ms-2">Back to Cart</Button>
           </Link>
         </div>
       ) : (
-        <CheckoutForm cartItems={cartItems}   grandTotal={grandTotal}  selectedSize={selectedSize}
+        <CheckoutForm cartItems={cartItems}   formattedGrandTotal={formattedGrandTotal}  selectedSize={selectedSize}
           selectedColor={selectedColor} fetchUserData={fetchUserData}/>
       )}
 

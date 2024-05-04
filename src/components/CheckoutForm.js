@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link} from'react-router-dom';
 
-const CheckoutForm = ({ cartItems, grandTotal, cartItem, selectedSize,
+const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
   selectedColor}) => {
 
    const [errorMessage, setErrorMessage] = useState('');
@@ -24,7 +24,7 @@ const [userData, setUserData] = useState({
  const [formData, setFormData] = useState({
   name: '', // Add the 'name' field
   quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
-  total: grandTotal,
+  total: formattedGrandTotal,
 
 });
 
@@ -86,7 +86,7 @@ const [userData, setUserData] = useState({
       ...userData,
       name: itemName,
       quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
-      total: grandTotal,
+      total: formattedGrandTotal,
       paymentOption: selectedPayment,
     };
 
@@ -331,7 +331,7 @@ useEffect(() => {
 
         
 
-             <h5 style={{color:'black', marginBottom:'15px', marginTop:'15px'}}>Total Price: ₱{grandTotal}</h5>
+             <h5 style={{color:'black', marginBottom:'15px', marginTop:'15px'}}>Total Price: {formattedGrandTotal}</h5>
          <Button variant="danger" type="submit" className="mb-2 mt-2"  disabled={loading} style={{ width: '100%' }}>
            {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'} 
           </Button>

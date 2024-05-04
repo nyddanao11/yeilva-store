@@ -76,6 +76,7 @@ import DeleteAccount from './components/DeleteAccount';
 import ScrollToTop from './pages/ScrollToTop';
 import LoanTerms from './pages/LoanTerms';
 import NeedHelp from'./pages/NeedHelp';
+import OfflineIndicator from'./pages/OfflineIndicator';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -184,6 +185,7 @@ const handleLogout = () => {
  return (
     
     <div>
+      <OfflineIndicator />
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
