@@ -16,7 +16,7 @@ const NeedHelp = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/messages', {
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/messages', {
         email,
         mainMessage,
       });
