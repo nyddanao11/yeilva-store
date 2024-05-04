@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col } from 'react-bootstrap';
 import { FaTrash, FaShoppingCart } from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
 import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
 
@@ -16,8 +17,11 @@ const ShoppingCart = ({
 
 
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
-
- 
+  const navigate = useNavigate();
+ const backToHome=()=>{  
+// alert('Are you sure To Delete your Account? ')
+navigate ('/');
+}
   const handleThumbnailClick = (itemId, imageUrl) => {
     // Update the selected thumbnail for the specific item
     setSelectedThumbnails((prevSelectedThumbnails) => ({
@@ -34,9 +38,10 @@ const ShoppingCart = ({
         {cartItems.length === 0 ? (
           <ListGroup.Item className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
           <Card className="image-description d-flex flex-column justify-content-center align-items-center" style={{ border: "none"}}>
-           <Card.Body>
+           <Card.Body  className="d-flex flex-column justify-content-center align-items-center" >
               <h6>Your cart is empty.</h6>
               <FaShoppingCart size={100} style={{color:'#0D6EFD'}} />
+              <Button style={{width:"150px", marginTop:"10px"}} onClick={backToHome}>Shop Now</Button>
             </Card.Body>
            </Card>
           </ListGroup.Item>
