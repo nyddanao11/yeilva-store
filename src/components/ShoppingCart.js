@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col } from 'react-bootstrap';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaShoppingCart } from 'react-icons/fa';
 import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
 
@@ -28,11 +28,18 @@ const ShoppingCart = ({
 
 
   return (
-    <div className="shopping-cart mt-3">
+    <div className="shopping-cart">
       <h4 className='page-title'>Your Shopping Cart</h4>
       <ListGroup className="cart-group">
         {cartItems.length === 0 ? (
-          <ListGroup.Item className="cart-item">Your cart is empty.</ListGroup.Item>
+          <ListGroup.Item className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+          <Card className="image-description d-flex flex-column justify-content-center align-items-center" style={{ border: "none"}}>
+           <Card.Body>
+              <h6>Your cart is empty.</h6>
+              <FaShoppingCart size={100} style={{color:'#0D6EFD'}} />
+            </Card.Body>
+           </Card>
+          </ListGroup.Item>
         ) : (
           cartItems.map((cartItem) => (
             <ListGroup.Item key={cartItem.id} className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
@@ -60,11 +67,11 @@ const ShoppingCart = ({
                       </div>
                     </Col>
                 <Col md={8}  className="item-details mt-3">
-                      <h4 className="item-name">{cartItem.name}</h4> 
+                      <h4 className="item-name">{cartItem.name}</h4>  
                       <p className="item-description">{cartItem.description}</p>
-                       <h6 className="item-price ">₱{cartItem.price}</h6>
+                      <h6 className="item-price">₱{cartItem.price}</h6>
                  
-            <div className="quantity ">
+            <div className="quantity">
                 <div className="quantity-in d-flex align-items-center justify-content-center pb-2">
                   <Button
                     variant="outline-secondary"
@@ -98,6 +105,7 @@ const ShoppingCart = ({
                   >
                     <FaTrash />
                   </Button>
+
                 </div>
               </div>
 
