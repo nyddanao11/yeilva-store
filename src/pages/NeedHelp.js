@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Container, Row, Col, Button, Spinner } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import axios from 'axios';
@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 
 const NeedHelp = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // New state to track message type
-  const [loading, setLoading] = useState(false);
   const [mainMessage, setMainMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // State for tracking message type
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Start loading
 
     try {
       const response = await axios.post('https://yeilva-store-server.up.railway.app/api/messages', {
@@ -23,16 +25,21 @@ const NeedHelp = () => {
 
       if (response.data.status === 'success') {
         setMessage('Message sent successfully');
-        setMessageType('success'); // Success message type
+        setMessageType('success'); // Set message type to success
+
+        // Redirect to homepage after 3 seconds
+        setTimeout(() => {
+          navigate('/'); // Redirect to the homepage
+        }, 3000); // 3-second delay
       } else {
         setMessage(response.data.error);
-        setMessageType('error'); // Error message type
+        setMessageType('error'); // Set message type to error
       }
     } catch (error) {
       setMessage('Error: Message not sent.');
-      setMessageType('error'); // Error message type
+      setMessageType('error'); // Set message type to error
     } finally {
-      setLoading(false); // Reset loading
+      setLoading(false); // Stop loading
     }
   };
 
@@ -45,17 +52,18 @@ const NeedHelp = () => {
           {message && (
             <p
               className="mt-3"
-              style={{ color: messageType === 'success' ? 'green' : 'red' }} // Conditional styling based on message type
+              style={{ color: messageType === 'success' ? 'green' : 'red' }} // Set color based on message type
             >
               {message}
             </p>
           )}
+
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter your Email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -73,7 +81,12 @@ const NeedHelp = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
+            <Button
+              variant="primary"
+              type="submit"
+              className="w-100 mt-3"
+              disabled={loading}
+            >
               {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
             </Button>
           </Form>
