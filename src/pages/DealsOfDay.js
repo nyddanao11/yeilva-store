@@ -15,9 +15,8 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
        </div>
 
     <Container className="mt-4"> 
-       <DealsPage />
-        <DealsPageFashion />
-
+      <DealsPage  addToCart={addToCart}/>
+        <DealsPageFashion addToCart={addToCart}/>
      
        <Row style={{marginTop:"25px"}}>
 
