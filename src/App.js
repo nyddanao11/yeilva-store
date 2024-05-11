@@ -77,6 +77,7 @@ import ScrollToTop from './pages/ScrollToTop';
 import LoanTerms from './pages/LoanTerms';
 import NeedHelp from'./pages/NeedHelp';
 import OfflineIndicator from'./pages/OfflineIndicator';
+import ReviewComponent from'./components/ReviewComponent';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -260,6 +261,7 @@ const handleLogout = () => {
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
+                             <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
 
                    
                  <Route component={NotFoundPage} />
@@ -373,6 +375,7 @@ const handleLogout = () => {
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
+                             <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
 
                    
 
