@@ -52,21 +52,21 @@ const backToClickProduct =()=>{
   const reviewData = {
     rating: rating,
     comment: comment,
-    productname: selectedProd, // Assuming name is the property that holds the product name
+    productname: selectedProd,
     userData: userData,
   };
   try {
-    const response = await axios.post('https://yeilva-store-server.up.railway.app/api/reviews', reviewData);
+    const response = await axios.post('/api/reviews', reviewData); // Use relative URL
     console.log(response.data);
-    // Reset form fields after successful submission
     setRating(0);
     setComment('');
-    alert('review submitted successfully!');
+    alert('Review submitted successfully!');
   } catch (error) {
     console.error('Error submitting review:', error);
     alert('Error submitting review!');
   }
 };
+
 
 
   return (
