@@ -43,11 +43,13 @@ const NeedHelp = () => {
     }
   };
 
-  return (
-    <Container className="mt-3">
-      <Row className="justify-content-center">
+ return (
+    <>
+    <Container className="mt-4">
+      <Row className="justify-content-center" >
         <Col sm={12} md={6}>
-          <h2>Need Help?</h2>
+           <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
+          <h3>Need Help?</h3>
 
           {message && (
             <p
@@ -90,10 +92,15 @@ const NeedHelp = () => {
               {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
             </Button>
           </Form>
+          </div>
         </Col>
       </Row>
-      <Footer />
+     
     </Container>
+    <div style={{marginTop:"25px"}}>
+     <Footer />
+     </div>
+     </>
   );
 };
 

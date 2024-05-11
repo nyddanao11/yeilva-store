@@ -15,11 +15,9 @@ const ShoppingCart = ({
   cartCount
 }) => {
 
-
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
   const navigate = useNavigate();
  const backToHome=()=>{  
-// alert('Are you sure To Delete your Account? ')
 navigate ('/');
 }
   const handleThumbnailClick = (itemId, imageUrl) => {
@@ -29,7 +27,6 @@ navigate ('/');
       [itemId]: imageUrl,
     }));
   };
-
 
   return (
     <div className="shopping-cart">
@@ -41,7 +38,7 @@ navigate ('/');
            <Card.Body  className="d-flex flex-column justify-content-center align-items-center" >
               <h6>Your cart is empty.</h6>
               <FaShoppingCart size={100} style={{color:'#0D6EFD'}} />
-              <Button style={{width:"150px", marginTop:"10px"}} onClick={backToHome}>Shop Now</Button>
+              <Button style={{width:"180px", marginTop:"10px"}} onClick={backToHome}>Continue Shopping</Button>
             </Card.Body>
            </Card>
           </ListGroup.Item>

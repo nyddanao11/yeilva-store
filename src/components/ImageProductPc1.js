@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom';
 
 const ImageProductPc1 = ({ product, addToCart }) => {
   return (
-    <Card className="mb-3 w-100">
+     <Card style={{ width:"165px"}} className="product-card mb-4">
       <Link to={`/clickproductpagepc/${product.id}`}>
-        <Card.Img
-          variant="top"
+        <div  style={{ height: '200px', overflow: 'hidden'}}>
+      <img
           src={product.url}
-          style={{ maxHeight: "150px", objectFit: "cover" }}
-          className="products-card"
+          style={{objectFit: "cover", height: '100%', width: '100%' }}
           alt={product.name}
         />
+        </div>
       </Link>
       <Card.Body className="d-flex flex-column align-items-center justify-content-center">
         <Card.Title style={{ fontSize:"13px" }}>{product.name}</Card.Title>

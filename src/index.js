@@ -6,22 +6,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './pages/loginContext';
-
-
+import ScrollToTop from './pages/ScrollToTop';
 
 ReactDOM.render(
 
   <React.StrictMode>
  <AuthProvider>
       <Router>
-      
+      <ScrollToTop />
         <App /> 
-
       </Router> 
       </AuthProvider>
-  </React.StrictMode>
-  ,
-
+  </React.StrictMode> ,
   document.getElementById('root')
 );
 
