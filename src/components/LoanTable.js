@@ -96,6 +96,35 @@ const LoanTable = () => {
         </tr>
       </tbody>
 
+        <thead>
+        <tr>
+          <th>Loan Amount</th>
+          <th>2 Months Amortization</th>
+         </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>₱3,000</td>
+          <td>₱3,600</td>
+        
+        </tr>
+        <tr>
+          <td>₱5,000</td>
+          <td>₱6,000</td>
+       
+        </tr>
+        <tr>
+          <td>₱10,000</td>
+          <td>₱12,000</td>
+        
+        </tr>
+        <tr>
+          <td>₱15,000</td>
+          <td>₱18,000</td>
+    
+        </tr>
+      </tbody>
+
 
     </Table>
   );

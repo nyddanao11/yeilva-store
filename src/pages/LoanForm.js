@@ -260,14 +260,16 @@ useEffect(() => {
           <LoanFormModal show={showModal} onClose={handleCloseModal} />
         )}
 </div>
+
+       <div style={{marginTop:"40px"}}>
+           <HoverButton />
+       </div>
+       
       </Col>
 
    
        <Col xs={12} md={5} >   
        <LoanTable /> 
-          <div style={{marginTop:"40px"}}>
-           <HoverButton />
-           </div>
        </Col>
        </Row>
 
