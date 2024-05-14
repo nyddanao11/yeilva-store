@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Footer from'./Footer';
 import { Formik, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
@@ -200,10 +199,6 @@ const SignUpForm = () => {
           </Col>
         </Row>
     </Container>
-
-       <Container fluid className="mt-4 " >    
-      <Footer /> 
-      </Container>
 
       </div>
   );

@@ -12,8 +12,6 @@ import {notebook} from'../components/SchoolSupplies/NotebookData';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
 import FeaturedProduct from'../components/FeaturedProduct';
-import Footer from '../components/Footer';
-
 
 const SchoolSupplies = ({ addToCart, cartItems, isProductSoldOut  }) => {
   const [activeNavItem, setActiveNavItem] = useState('ballpenmarker');
@@ -104,12 +102,7 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
      
     </Container>
-        {/* Footer Section */}
-      <div className="mt-4 " >
-     
-      <Footer />
-    
-      </div>
+ 
       </>
   );
 };

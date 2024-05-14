@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Col, Row} from 'react-bootstrap';
 import axios from'axios';
 import { fetchUserData } from '../components/userService';
-import Footer from '../components/Footer';
 import {useNavigate, useParams} from'react-router-dom';
 
 const ReviewComponent = () => {
@@ -104,9 +103,6 @@ const backToClickProduct =()=>{
         </Col>
        </Row>
       </Container>
-     <div style={{marginTop:"25px"}}>
-     <Footer />
-     </div>
     </>
   );
 };

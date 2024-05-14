@@ -78,6 +78,8 @@ import LoanTerms from './pages/LoanTerms';
 import NeedHelp from'./pages/NeedHelp';
 import OfflineIndicator from'./pages/OfflineIndicator';
 import ReviewComponent from'./components/ReviewComponent';
+import Footer from './components/Footer';
+
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -190,7 +192,7 @@ const handleLogout = () => {
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-{isLargeScreen?(
+   {isLargeScreen?(
       <Container>
         {/* Conditionally render Routes based on login status */}
         {isLoggedIn ? (
@@ -302,6 +304,9 @@ const handleLogout = () => {
 
           </Routes>
         )}
+         <div className="mt-4 " >    
+          <Footer /> 
+          </div>
       </Container>
 
       ):(
@@ -417,6 +422,9 @@ const handleLogout = () => {
             <Route component={NotFoundPage} />
           </Routes>
         )}
+         <div className="mt-4 " >    
+          <Footer /> 
+          </div>
         </div>
         )}
   

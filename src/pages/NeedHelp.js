@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Container, Row, Col, Button, Spinner } from 'react-bootstrap';
-import Footer from '../components/Footer';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -97,9 +96,7 @@ const NeedHelp = () => {
       </Row>
      
     </Container>
-    <div style={{marginTop:"25px"}}>
-     <Footer />
-     </div>
+
      </>
   );
 };

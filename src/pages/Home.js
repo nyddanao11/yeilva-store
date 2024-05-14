@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col} from 'react-bootstrap';
-import Footer from '../components/Footer';
 import FeaturedProducts from '../components/FeaturedProduct';
 import BestSelling from '../components/BestSelling';
 import RecommendedProd from'../components/RecommendedProduct';
@@ -66,10 +65,6 @@ const Home = ({ addToCart, product}) => {
      
       </Container>
 
-      {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>    
  </>
   );
 };

@@ -4,7 +4,6 @@ import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './loginContext';
-import Footer from '../components/Footer';
 import LockoutPage from'./LockoutPage';
 
 const Login = ({ handleLogin }) => {
@@ -155,10 +154,6 @@ const Login = ({ handleLogin }) => {
           
           </Col>
         </Row>
-      </Container>
-
-     <Container fluid className="mt-4 " >    
-      <Footer /> 
       </Container>
       </div>
   );

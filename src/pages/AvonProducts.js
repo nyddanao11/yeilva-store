@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Footer from '../components/Footer';
 import { avonproductsData } from '../data/AvonProductsData';
 import ImageProductAvon from '../components/ImageProductAvon';
 
@@ -27,9 +26,6 @@ const AvonProducts = ({ addToCart }) => {
       </Row>
     </Container>
 
-      <section className=" mt-4 ">
-        <Footer />
-      </section>
       </>
   );
 };

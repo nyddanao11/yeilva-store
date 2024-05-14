@@ -4,7 +4,6 @@ import { Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../components/Footer';
 
 const CheckoutPage = ({ cartItems, removeFromCart, addToCart, selectedSize, selectedColor, fetchUserData }) => {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
@@ -96,10 +95,7 @@ const formattedGrandTotal = new Intl.NumberFormat('fil-PH', {
       )}
 
     </Container>
-    {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>
+   
       </>
   );
 };

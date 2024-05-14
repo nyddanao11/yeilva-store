@@ -1,7 +1,6 @@
 import React from 'react';
 import ImageProduct from '../components/ImageProduct';
 import { Container,  Row, Col } from 'react-bootstrap';
-import Footer from '../components/Footer';
 import { wellnessProductData } from '../data/wellnessProductData';
 
 
@@ -28,9 +27,6 @@ const Products = ({ addToCart}) => {
       </Row>
     </Container>
 
-      <section className=" mt-4 ">
-        <Footer />
-      </section>
       </>
   );
 };

@@ -3,7 +3,6 @@ import ShoppingCart from '../components/ShoppingCart';
 import { Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
-import Footer from '../components/Footer';
 
 const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
  handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems}) => {
@@ -57,10 +56,7 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
       
       
     </Container>
-      {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>
+  
       </>
   );
 };

@@ -89,7 +89,7 @@ const ClickProductPage = ({ addToCart }) => {
                       ))}
                     </span>
                     <span className="text-muted">{product.rating}</span>
-                    <span className="mx-3"> Number of Reviews: {product.reviews.length} </span>
+                    <span className="mx-3"> Number of Reviews: 3 </span>
                   </div>
               </div>
           <Button variant="primary" onClick={() => addToCart(product)}>

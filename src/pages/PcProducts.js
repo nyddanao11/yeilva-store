@@ -1,7 +1,6 @@
 // ProductPage.js
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
-import Footer from '../components/Footer';
 import {pcproductsData} from '../data/pcproductsData';
 import ImageProductPc1 from '../components/ImageProductPc1';
 
@@ -30,9 +29,6 @@ const PcProducts= ({addToCart}) => {
       </Row>
     </Container>
 
-      <section className=" mt-4 ">
-        <Footer />
-      </section>
       </>
   );
 };

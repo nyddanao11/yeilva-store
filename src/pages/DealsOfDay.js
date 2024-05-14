@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import DealsPage from'./Deals';
 import DealsPageFashion from'./DealsPageFashion';
-import Footer from '../components/Footer';
 import FeaturedProduct from'../components/FeaturedProduct';
 
 const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
@@ -27,10 +26,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
       </Row>
 
     </Container>
-       {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>
+      
    </>
   );
 };

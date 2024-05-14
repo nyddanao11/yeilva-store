@@ -24,7 +24,6 @@ import { vitamins } from '../components/Groceries/VitaminsMedicationsData';
 import { rice } from '../components/Groceries/RiceData';
 import { useMediaQuery } from 'react-responsive';
 import FeaturedProduct from'../components/FeaturedProduct';
-import Footer from '../components/Footer';
 
 const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
@@ -117,12 +116,7 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
       </Row>
 
     </Container>
-        {/* Footer Section */}
-      <div className="mt-4 " >
      
-      <Footer />
-    
-      </div>
       </>
   );
 };

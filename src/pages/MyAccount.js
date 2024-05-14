@@ -5,7 +5,6 @@ import { Link} from 'react-router-dom';
 import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
 import HoverButton1 from'../components/HoverButton1'
-import Footer from'../components/Footer';
 
 
 const MyAccountPage = ({addToCart}) => {
@@ -151,10 +150,6 @@ const MyAccountPage = ({addToCart}) => {
 
     </Container>
 
-    {/* Footer Section */}
-      <div className="mt-4 " >    
-      <Footer /> 
-      </div>
       </>
   );
 };

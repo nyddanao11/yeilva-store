@@ -7,7 +7,6 @@ import {useNavigate} from'react-router-dom';
 import LoanTable from '../components/LoanTable'; // Import the LoanTable component
 import FeaturedProduct from'../components/FeaturedProduct';
 import LoanAccordion from '../components/LoanAccordion';
-import Footer from '../components/Footer';
 import './LoanForm.css';
 import HoverButton from'../components/HoverButton'
 
@@ -261,7 +260,7 @@ useEffect(() => {
         )}
 </div>
 
-       <div style={{marginTop:"40px"}}>
+       <div  style={{marginTop:"40px", paddingLeft:"50px"}}>
            <HoverButton />
        </div>
        
@@ -289,10 +288,6 @@ useEffect(() => {
 
     </Container>
 
-      {/* Footer Section */}
-      <Container fluid className="mt-4 " >    
-      <Footer /> 
-      </Container>
       </>
 
   );

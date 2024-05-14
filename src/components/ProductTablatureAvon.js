@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { Tab, Nav, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
+import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
 import{avonproductsData} from'../data/AvonProductsData';
+import ReviewComponent from'./ReviewComponent';
+import {useNavigate} from'react-router-dom';
+
 
 const ProductDetails = ({productId}) => {
 
   const [clickedTabs, setClickedTabs] = useState([]);
-
-  const selectedProduct = avonproductsData.find((item) => item.id === productId);
+  const selectedProduct = avonproductsData.find((item) => item.id=== productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
@@ -34,14 +37,67 @@ const ProductDetails = ({productId}) => {
   );
 };
 
-const Reviews = () => {
+const Reviews = ({ selectedProduct, productId }) => {
+  const [clickedReviews, setClickedReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
+  const selectedProd = selectedProduct.name;
+
+  const writeReview = (selectedProduct) => {
+    navigate(`/reviewcomponent/${selectedProd}`);
+  };
+
+  useEffect(() => {
+    // Function to fetch reviews based on product name
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${selectedProduct.name}`);
+        console.log('Response from server:', response.data); // Log the response data
+        setReviews(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    // Fetch reviews when selectedProduct changes
+    if (selectedProduct) {
+      fetchReviews();
+    }
+  }, [selectedProduct]);
+
+  const handleItemClick = (item) => {
+    console.log('Clicked item:', item);
+    // Adding the clicked item to the state
+    setClickedReviews([...clickedReviews, item]);
+  };
+
+  // Function to format user email
+  const formatUserEmail = (email) => {
+    const [username, domain] = email.split('@');
+    const truncatedUsername = username.slice(0, 3); // Show only first 3 letters
+    const truncatedEmail = `${truncatedUsername}...@${domain}`;
+    return truncatedEmail;
+  };
+
   return (
     <div className="mt-2">
       <h4>Reviews</h4>
-      <p>User Review</p>
+      {/* Display existing reviews */}
+      <ul>
+        {reviews.map((review, index) => (
+          <li key={index} onClick={() => handleItemClick(review)} style={{ padding: '10px', margin: '10px 0px', borderBottom: '1px solid', width: '250px' }}>
+            <div>
+              <strong>{formatUserEmail(review.email)}</strong>: {review.comments}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <Button style={{ width: "150px", marginTop: "15px" }} onClick={writeReview}> Write a review</Button>
     </div>
   );
 };
+
+
 
 const Shipping = () => {
   return (
@@ -80,7 +136,7 @@ const TabbedComponentAvon = ({productId}) => {
                 <ProductDetails productId={productId}/>
               </Tab.Pane>
               <Tab.Pane eventKey="reviews">
-                <Reviews />
+                <Reviews selectedProduct={avonproductsData.find(product => product.id === productId)} />
               </Tab.Pane>
               <Tab.Pane eventKey="shipping">
                 <Shipping />
@@ -94,3 +150,6 @@ const TabbedComponentAvon = ({productId}) => {
 };
 
 export default TabbedComponentAvon;
+
+
+
