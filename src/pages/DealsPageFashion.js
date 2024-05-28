@@ -17,17 +17,24 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
           <p  style={{paddingLeft:'10px'}}>{'(0)'}</p>
       </div>
         {dealsFashion.map((product) => (
-          <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-            <Card className="w-100">
+          <Col key={product.id} md={3} xs={6} lg={2} className="mb-4">
+          
+           <Card style={{ width:"165px"}} className=" mb-4">
             <Link to={`/clickdealsfashion/${product.id}`}>
-              <Card.Img variant="top" src={product.url} alt={product.name} style={{maxHeight: '200px', objectFit:'cover'}} />
-              </Link>
+            <div  style={{ height: '200px', overflow: 'hidden'}}>
+            <img
+                src={product.url}
+                style={{objectFit: "cover", height: '100%', width: '100%' }}
+                alt={product.name}
+              />
+              </div>
+            </Link>
               <Card.Body>
-                <Card.Title ><h6>{product.name}</h6></Card.Title>
+                <Card.Title style={{ fontSize:"13px" }}>{product.name}</Card.Title>
                 <Card.Text style={{margin:"0px"}}>
                   <span className="text-muted ms-1" ><strike>₱{product.discountedPrice}</strike></span>
-                  <span className="ms-2 "  style={{paddingLeft:"2px", color:"black", fontWeight:"bold", fontSize:"16px"}}>₱{product.price}</span>
-                  <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"16px"}}>{product.percentage}</span>
+                  <span className="ms-2 "  style={{paddingLeft:"2px", color:"black", fontWeight:"bold", fontSize:"13px"}}>₱{product.price}</span>
+                  <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"13px"}}>{product.percentage}</span>
                 </Card.Text>
                 <div className="d-flex flex-column ">
                   <div className="d-flex ">
