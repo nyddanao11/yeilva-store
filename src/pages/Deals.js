@@ -4,9 +4,10 @@ import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import {deals} from '../data/DealsData';
 import { Link } from 'react-router-dom';
 import './LoanForm.css';
+import {wellnessProductData} from'../data/wellnessProductData';
 
 const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
- 
+  let countWellness = wellnessProductData.length;
   return (
     <>
 <Container>
@@ -14,7 +15,7 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
       <div className="d-flex mt-2">
            <h5>Health and Wellness </h5>
           <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-          <p  style={{paddingLeft:'15px'}}>{'(0)'}</p>
+          <p  style={{paddingLeft:'15px'}}>({`${countWellness}`})</p>
       </div>
          {deals.map((product) => (
           <Col key={product.id} md={3} xs={6} lg={2} className="mb-4">
