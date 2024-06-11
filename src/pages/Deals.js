@@ -1,25 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
-import {deals} from '../data/DealsData';
 import { Link } from 'react-router-dom';
 import './LoanForm.css';
-import {wellnessProductData} from'../data/wellnessProductData';
 
-const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
-  let countWellness = wellnessProductData.length;
+
+const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartItems, product}) => {
+ 
   return (
-    <>
-<Container>
-      <Row>
-      <div className="d-flex mt-2">
-           <h5>Health and Wellness </h5>
-          <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-          <p  style={{paddingLeft:'15px'}}>({`${countWellness}`})</p>
-      </div>
-         {deals.map((product) => (
-          <Col key={product.id} md={3} xs={6} lg={2} className="mb-4">
-          
+
            <Card style={{ width:"165px"}} className=" mb-4">
             <Link to={`/clickdeals/${product.id}`}>
             <div  style={{ height: '200px', overflow: 'hidden'}}>
@@ -35,7 +24,7 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
                 <Card.Text style={{margin:"0px"}}>
                   <span className="text-muted ms-1" ><strike>₱{product.discountedPrice}</strike></span>
                   <span className="ms-2 "  style={{paddingLeft:"2px", color:"black", fontWeight:"bold", fontSize:"13px"}}>₱{product.price}</span>
-                  <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"13px"}}>{product.percentage}</span>
+                  <span style={{paddingLeft:"4px", color:"red", fontWeight:"bold", fontSize:"13px"}}>{product.percentage}</span>
                 </Card.Text>
                 <div className="d-flex flex-column ">
                   <div className="d-flex ">
@@ -52,12 +41,6 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
                 </div>
               </Card.Body>
             </Card>
-          </Col>
-        ))}
-      </Row>
-      </Container>
-
-      </>
   );
 };
 

@@ -1,31 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
-import {dealsFashion} from '../data/DealsFashion';
 import { Link } from 'react-router-dom';
 import './LoanForm.css';
-import {mens} from'../components/Fashion/MensData';
-import {womens} from'../components/Fashion/womensData';
-import {mensshoes} from'../components/Fashion/MensShoesData';
-import {womensshoes} from'../components/Fashion/WomensShoesData';
 
-const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
-  let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
- let countFashion = fashionArray.length;
+const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems, product}) => {
  
   return (
-    <>
- <Container>
-      <Row>
-      <div className="d-flex mt-2">
-          <h5>Fashion and Apparel </h5>
-          <Link to="/fashionapparel" style={{paddingLeft:'10px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-          <p  style={{paddingLeft:'10px'}}>({`${countFashion}`})</p>
-      </div>
-        {dealsFashion.map((product) => (
-          <Col key={product.id} md={3} xs={6} lg={2} className="mb-4">
-          
-           <Card style={{ width:"165px"}} className=" mb-4">
+  
+          <Card style={{ width:"165px"}} className=" mb-4">
             <Link to={`/clickdealsfashion/${product.id}`}>
             <div  style={{ height: '200px', overflow: 'hidden'}}>
             <img
@@ -57,12 +40,7 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
                 </div>
               </Card.Body>
             </Card>
-          </Col>
-        ))}
-      </Row>
-       </Container>
-
-      </>
+   
   );
 };
 
