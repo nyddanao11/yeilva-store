@@ -31,7 +31,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
         <div className="d-flex mt-2">
            <h5>Health and Wellness </h5>
           <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
-          <p  style={{paddingLeft:'15px'}}>({`${countWellness}`})</p>
+          <p  style={{paddingLeft:'10px'}}>({`${countWellness}`})</p>
          </div>
          { deals.map((product) => (
               <Col key={product.id} md={3} xs={6} lg={2} >
