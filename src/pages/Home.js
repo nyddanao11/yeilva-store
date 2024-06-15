@@ -38,8 +38,8 @@ let countBeauty = beautyProductsData.length;
            <div className="d-flex justify-content-lg-between " style={{maxWidth:"950px"}}>  
           <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Featured Products</h5>
              <div className="d-flex mt-3 " >
-                <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-              <p  style={{paddingLeft:'5px'}}>({`${countWellness}`})</p>
+                <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All</Link>
+              <p  style={{paddingLeft:'15px'}}>({`${countWellness}`})</p>
             </div>
           </div>
         <Col lg={10} md={10} sm={12} style={{background:'#FFFFFF', padding:'20px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
@@ -53,8 +53,8 @@ let countBeauty = beautyProductsData.length;
          <div className="d-flex justify-content-lg-between " style={{maxWidth:"760px"}}>   
           <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
            <div className="d-flex mt-3 " >
-                <Link to="/beautyproducts" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-              <p  style={{paddingLeft:'5px'}}>({`${countBeauty}`})</p>
+                <Link to="/beautyproducts" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
+              <p  style={{paddingLeft:'15px'}}>({`${countBeauty}`})</p>
            </div>
           </div>
         <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
@@ -68,8 +68,8 @@ let countBeauty = beautyProductsData.length;
            <div className="d-flex justify-content-lg-between " style={{maxWidth:"950px"}}>  
              <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Recommended Products</h5>
                <div className="d-flex mt-3 " >
-                    <Link to="/pcproducts" style={{paddingLeft:'5px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
-                  <p  style={{paddingLeft:'5px'}}>({`${countPc}`})</p>
+                    <Link to="/pcproducts" style={{paddingLeft:'5px', paddingBottom:'5px', textDecoration:'none'}}>All</Link>
+                  <p  style={{paddingLeft:'15px'}}>({`${countPc}`})</p>
                </div>
            </div>
          <Col lg={10} md={10} sm={12} style={{background:'#FFFFFF', padding:'20px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>

@@ -30,7 +30,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
       <Row >
         <div className="d-flex mt-2">
            <h5>Health and Wellness </h5>
-          <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
+          <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
           <p  style={{paddingLeft:'15px'}}>({`${countWellness}`})</p>
          </div>
          { deals.map((product) => (
@@ -47,7 +47,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
       <Row >
         <div className="d-flex mt-2">
           <h5>Fashion & Apparel </h5>
-          <Link to="/fashionapparel" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>Show more </Link>
+          <Link to="/fashionapparel" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
          <p  style={{paddingLeft:'10px'}}>({`${countFashion}`})</p>
          </div>
          {dealsFashion.map((product) => (

@@ -45,9 +45,9 @@ const NeedHelp = () => {
  return (
     <>
     <Container className="mt-4">
-      <Row className="justify-content-center" >
-        <Col sm={12} md={6}>
-           <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
+     <Row className="d-flex justify-content-center ">
+        <Col sm={12} md={6} lg={6}>
+           <div style={{ minWidth: '250px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
           <h3>Need Help?</h3>
 
           {message && (
