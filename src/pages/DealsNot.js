@@ -1,15 +1,18 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './LoanForm.css';
 
-const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems, product}) => {
+
+const DealsNot = ({url, name, price, discountedPrice, rating, product}) => {
  
+
   return (
-  
-          <Card style={{ width:"164px"}} className=" mb-4">
-            <Link to={`/clickdealsfashion/${product.id}`}>
+
+    <>
+           <Card style={{ width:"165px"}} className=" mb-4">
+            <Link to='/login'>
             <div  style={{ height: '200px', overflow: 'hidden'}}>
             <img
                 src={product.url}
@@ -23,7 +26,7 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
                 <Card.Text style={{margin:"0px"}}>
                   <span className="text-muted ms-1" ><strike>₱{product.discountedPrice}</strike></span>
                   <span className="ms-2 "  style={{paddingLeft:"2px", color:"black", fontWeight:"bold", fontSize:"13px"}}>₱{product.price}</span>
-                  <span style={{paddingLeft:"6px", color:"red", fontWeight:"bold", fontSize:"13px"}}>{product.percentage}</span>
+                  <span style={{paddingLeft:"4px", color:"red", fontWeight:"bold", fontSize:"13px"}}>{product.percentage}</span>
                 </Card.Text>
                 <div className="d-flex flex-column ">
                   <div className="d-flex ">
@@ -34,14 +37,15 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
                     </span>
                     <span className="text-muted">{product.rating}</span>
                   </div>
-                  <Button variant="primary" size="sm" onClick={() => addToCart(product)} className='w-100' >
+                  <Button variant="primary" size="sm" className='w-100' >
                     <FaShoppingCart className="me-1" /> Add to Cart
                   </Button>
                 </div>
               </Card.Body>
             </Card>
-   
+       </>
+    
   );
 };
 
-export default DealsPageFashion;
+export default DealsNot;

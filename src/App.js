@@ -79,6 +79,7 @@ import NeedHelp from'./pages/NeedHelp';
 import OfflineIndicator from'./pages/OfflineIndicator';
 import ReviewComponent from'./components/ReviewComponent';
 import Footer from './components/Footer';
+import DealsNotLoggin from './pages/DealsNotLoggin';
 
 
 function App() {
@@ -283,7 +284,7 @@ const handleLogout = () => {
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
-             <Route path="/dealsofday" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+              <Route path="/dealsnotloggin" element={<DealsNotLoggin/>} />
               <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
               <Route path="/myaccount" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                <Route path="/groceryitemspage" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
@@ -401,7 +402,7 @@ const handleLogout = () => {
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/privacypolicy" element={<PrivacyPolicyPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
-             <Route path="/dealsofday" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+             <Route path="/dealsnotloggin" element={<DealsNotLoggin/>} />
               <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
               <Route path="/myaccount" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                <Route path="/groceryitemspage" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import DealsPage from'./Deals';
-import DealsPageFashion from'./DealsPageFashion';
-import FeaturedProduct from'../components/FeaturedProduct';
+import DealsNot from'./DealsNot';
+import FeaturedNot from'../components/FeaturedNot';
 import {wellnessProductData} from'../data/wellnessProductData';
 import {dealsFashion} from '../data/DealsFashion';
 import {deals} from '../data/DealsData';
@@ -13,7 +12,7 @@ import {mensshoes} from'../components/Fashion/MensShoesData';
 import {womensshoes} from'../components/Fashion/WomensShoesData';
 
 
-const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartItems,product}) => {
+const DealsNotLoggin = ({url, name, price, discountedPrice, rating ,product}) => {
    let countWellness = wellnessProductData.length;
     let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
  let countFashion = fashionArray.length;
@@ -30,14 +29,14 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
       <Row >
         <div className="d-flex mt-2">
            <h5>Health and Wellness </h5>
-          <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
+          <Link to="/" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
           <p  style={{paddingLeft:'10px'}}>({`${countWellness}`})</p>
          </div>
          { deals.map((product) => (
               <Col key={product.id} md={3} xs={6} lg={2} className="g-1">
                 <div className="d-flex justify-content-center align-items-center " style={{flexWrap:"wrap"}}>
                
-                  <DealsPage  url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product} />
+                  <DealsNot url={product.url} name={product.name} price={product.price} product={product}  />
                  
                 </div>              
               </Col>
@@ -46,17 +45,16 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
 
       <Row >
         <div className="d-flex mt-2">
-          <h5>Fashion & Apparel </h5>
-          <Link to="/fashionapparel" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
+           <h5>Fashion & Apparel </h5>
+          <Link to="/" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
          <p  style={{paddingLeft:'10px'}}>({`${countFashion}`})</p>
          </div>
          {dealsFashion.map((product) => (
-              <Col key={product.id} md={3} xs={6} lg={2} className="g-1" >
+              <Col key={product.id} md={3} xs={6} lg={2} className="g-1">
                 <div className="d-flex justify-content-center align-items-center " style={{flexWrap:"wrap"}}>
                
-                  <DealsPageFashion url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product}/>
-
-                 
+                  <DealsNot url={product.url} name={product.name} price={product.price} product={product}  />
+ 
                 </div>              
               </Col>
          ))}
@@ -67,7 +65,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>
       </div>
-     <FeaturedProduct addToCart={addToCart}/>
+     <FeaturedNot />
       </Row>
 
     </Container>
@@ -76,4 +74,4 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
   );
 };
 
-export default DealsOfDay;
+export default DealsNotLoggin;

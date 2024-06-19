@@ -9,7 +9,7 @@ const DealsPage = ({url, name, price, discountedPrice, rating, addToCart, cartIt
  
   return (
 
-           <Card style={{ width:"165px"}} className=" mb-4">
+           <Card style={{ width:"164px"}} className=" mb-4">
             <Link to={`/clickdeals/${product.id}`}>
             <div  style={{ height: '200px', overflow: 'hidden'}}>
             <img

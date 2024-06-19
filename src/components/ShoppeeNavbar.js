@@ -66,12 +66,16 @@ return (
 	          {/* Add more category links as needed */}
 	      
 	      </NavDropdown>
-	     
+	  
+		  <Nav>  
+		 {isLoggedIn? (
 
-		 <Nav.Link as={NavLink} to="/dealsofday"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
-		 
-  
+        <Nav.Link as={NavLink} to="/dealsofday"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
+		 	):(
+        <Nav.Link as={NavLink} to="/dealsnotloggin"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
 
+		 	)}
+		 	</Nav>
 		
 		 <Nav.Link as={NavLink} to="/myaccount"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active">
         {isLoggedIn ? (
