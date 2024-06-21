@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import Footer from './Footer';
 import{Link} from 'react-router-dom';
 import NeedHelp from '../pages/NeedHelp';
 
@@ -71,9 +70,6 @@ const Brochure = () => {
           </Col>
         </Row>
       </Container>
-        <div className="mt-4" >
-            <Footer />
-        </div>
     </div>
   );
 };
