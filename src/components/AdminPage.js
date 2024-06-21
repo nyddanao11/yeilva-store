@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Tab, Tabs} from 'react-bootstrap';
-
 import DeactivateUser from './DeactivateUser';
 import LoanHistory from './Loanhistory';
 import InstallmentHistory from'./installment';
+import CreateVoucher from'../pages/VoucherForm';
+import GenerateVouchers from'../pages/MultiVoucher';
 
 
 const AdminPage = () => {
@@ -29,6 +30,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
         return renderDeactivateUserTab();
       case 'InstallmentHistory':
         return renderInstallmentHistoryTab();
+       case 'CreateVoucher':
+        return renderCreateVoucherTab();
+        case 'GenerateVouchers':
+        return renderGenerateVouchersTab();
       // Add more cases for additional tabs
       default:
         return null;
@@ -44,6 +49,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
       // Fetch user data for deactivation
       // ...
     }else if (activeTab === 'InstallmentHistory'){
+    // Add more cases for additional tabs
+    }else if (activeTab === 'CreateVoucher'){
+    // Add more cases for additional tabs
+    }else if (activeTab === 'GenerateVouchers'){
     // Add more cases for additional tabs
   };
 };
@@ -66,6 +75,14 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
 
   const renderInstallmentHistoryTab = () => {
     return <InstallmentHistory />;
+  };
+
+ const renderCreateVoucherTab = () => {
+    return <CreateVoucher />;
+  };
+
+   const renderGenerateVouchersTab = () => {
+    return <GenerateVouchers />;
   };
 
   const handleSearch = async () => {
@@ -103,11 +120,16 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
           {/* Content for the 'InstallmentHistory' tab */}
           {renderInstallmentHistoryTab()}
         </Tab>
+          <Tab eventKey="CreateVoucher" title="CreateVoucher">
+          {/* Content for the 'InstallmentHistory' tab */}
+          {renderCreateVoucherTab()}
+        </Tab>
+           <Tab eventKey="GenerateVouchers" title="GenerateVouchers">
+          {/* Content for the 'InstallmentHistory' tab */}
+          {renderGenerateVouchersTab()}
+        </Tab>
         {/* Add more Tab components for additional tabs */}
       </Tabs>
-
-     
-
      
     </Container>
   );
