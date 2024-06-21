@@ -3,6 +3,7 @@ import ShoppingCart from '../components/ShoppingCart';
 import { Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
+import FeaturedProduct from'../components/FeaturedProduct';
 
 const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
  handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems}) => {
@@ -45,7 +46,11 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
         cartCount={cartCount}
 
       />
-
+         <div className="line" style={{marginBottom:'30px', marginTop:"40px"}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
+   
       <div className="sticky-footer">
         <h2>Total Price: {formattedPrice}</h2>
     

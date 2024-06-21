@@ -4,6 +4,7 @@ import { Button, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 import VoucherForm from './Voucher';
+import FeaturedProduct from'../components/FeaturedProduct';
 
 const CheckoutPage = ({
   cartItems,
@@ -106,6 +107,10 @@ const CheckoutPage = ({
           />
         )}
       </Container>
+       <div className="line" style={{marginBottom:'30px', marginTop:"40px"}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+     <FeaturedProduct addToCart={addToCart}/>
     </>
   );
 };
