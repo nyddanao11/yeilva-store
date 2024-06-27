@@ -11,12 +11,7 @@
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,             
+          
 },
 {
   id: 91,
@@ -30,12 +25,7 @@
          `${process.env.PUBLIC_URL}/beauty/teatree.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+ 
 },
 {
   id: 92,
@@ -49,12 +39,7 @@
          `${process.env.PUBLIC_URL}/beauty/ionnapkin.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+ 
 },
 {
   id: 93,
@@ -69,12 +54,7 @@
         `${process.env.PUBLIC_URL}/beauty/kojic.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+ 
 },
 {
   id: 94,
@@ -88,12 +68,7 @@
          `${process.env.PUBLIC_URL}/beauty/collagen.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+
 },
 {
   id: 95,
@@ -107,12 +82,7 @@
         `${process.env.PUBLIC_URL}/beauty/clarifyingtoner.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+  
 },
 {
   id: 96,
@@ -126,12 +96,7 @@
         `${process.env.PUBLIC_URL}/beauty/poretoner.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,  
+    
 },
 {
   id: 97,
@@ -145,12 +110,7 @@
         `${process.env.PUBLIC_URL}/beauty/rejuvenating.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,  
+  
 },
 {
   id: 98,
@@ -164,12 +124,7 @@
          `${process.env.PUBLIC_URL}/beauty/sbfplacenta.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,  
+  
 },
 {
   id: 99,
@@ -183,12 +138,7 @@
         `${process.env.PUBLIC_URL}/beauty/obagiset.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,  
+  
 },
 {
   id: 100,
@@ -202,12 +152,7 @@
          `${process.env.PUBLIC_URL}/beauty/toothpaste.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+   
 },
 
 {
@@ -222,11 +167,6 @@
         `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+  
 },
 ];

@@ -8,7 +8,6 @@ export const deals = [
   discountedPrice: 230,
   percentage:"-13%",
   weight:120,
-  rating: 4.5,
   thumbnails:
       [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
@@ -16,12 +15,7 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-},
+ },
 {
   id: 2,
   name: "Acai Berry 1000ml",
@@ -31,19 +25,13 @@ export const deals = [
   discountedPrice: 2000,
   percentage:"-10%",
   weight:1000,
-  rating: 4.2,
-   thumbnails:
+    thumbnails:
      [`${process.env.PUBLIC_URL}/images/acai1.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai2.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
    productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
-    reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
- },
+   },
  {
   id: 3,
   name: "Arctic C",
@@ -52,8 +40,7 @@ export const deals = [
   discountedPrice: 750,
   percentage:"-20%",
    weight:35,
-   rating: 4.2,
-  description:"blend of omega 3,6 and 9 which contains essential fatty acids EPA and DHA derived from the tissues of oily fish that can contributes to the healthy function of the heart and normal the maintenance of the brain",
+   description:"blend of omega 3,6 and 9 which contains essential fatty acids EPA and DHA derived from the tissues of oily fish that can contributes to the healthy function of the heart and normal the maintenance of the brain",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/artic c.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/arcticc1.png`,
@@ -61,12 +48,7 @@ export const deals = [
        
       ],
   productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-},
+  },
 {
   id: 5,
   name: "Absorbent Cee",
@@ -75,7 +57,6 @@ export const deals = [
   discountedPrice: 750,
   percentage:"-20%",
    weight:120,
-   rating: 4.2,
   description:"Vitamin Cee for strong immune system and prevent cardio vascular disease",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/absorbent c.png`,
@@ -84,11 +65,6 @@ export const deals = [
        
       ],
   productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-},
+  },
 
 ];

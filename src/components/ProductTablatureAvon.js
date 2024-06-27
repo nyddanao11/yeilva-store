@@ -4,6 +4,7 @@ import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
 import{avonproductsData} from'../data/AvonProductsData';
 import ReviewComponent from'./ReviewComponent';
 import {useNavigate} from'react-router-dom';
+import { FiUser } from 'react-icons/fi';
 
 
 const ProductDetails = ({productId}) => {
@@ -79,15 +80,32 @@ const Reviews = ({ selectedProduct, productId }) => {
     return truncatedEmail;
   };
 
+   // Function to convert rating to stars
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<span key={i}>&#9733;</span>); // Filled star
+      } else {
+        stars.push(<span key={i}>&#9734;</span>); // Empty star
+      }
+    }
+    return stars;
+  };
+
   return (
     <div className="mt-2">
       <h4>Reviews</h4>
       {/* Display existing reviews */}
       <ul>
         {reviews.map((review, index) => (
-          <li key={index} onClick={() => handleItemClick(review)} style={{ padding: '10px', margin: '10px 0px', borderBottom: '1px solid', width: '250px' }}>
+          <li key={index} onClick={() => handleItemClick(review)} style={{ padding: '10px', margin: '10px 0px', borderBottom: '1px solid', width: '250px', listStyle:"none" }}>
             <div>
+              <FiUser style={{ marginRight: '0.5rem' }} />
               <strong>{formatUserEmail(review.email)}</strong>: {review.comments}
+            </div>
+             <div className="text-warning me-1 mb-1">
+              {renderStars(review.rating)}
             </div>
           </li>
         ))}

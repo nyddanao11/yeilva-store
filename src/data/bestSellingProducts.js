@@ -11,12 +11,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/barley.png`,
           ],
       productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
-      reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+    
     },
     {
       id: 2,
@@ -30,12 +25,7 @@ export const bestSellingProducts = [
              `${process.env.PUBLIC_URL}/images/product2.png`,
           ],
      productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
-     reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+    
     },
     {
       id: 3,
@@ -49,14 +39,9 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/acai1.png`,
           ],
         productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
-    reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5, 
+    
     },
-     {
+    {
       id: 38,
       name: "Tuff pld 1",
       url:  `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
@@ -68,13 +53,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
           ],
        productdetails:"Personal Collection Products",
-       reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-            "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-            "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-            "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-            "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
-         ],
-       rating: 5.0,
+      
     },
     {
       id: 4,
@@ -88,12 +67,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/turmeric.png`,
           ],
        productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-    reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+  
     },
     {
       id: 5,
@@ -107,12 +81,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/primeshape.jpg`,
           ],
       productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+  
     },
     {
       id: 6,
@@ -126,12 +95,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/Buah merah.png`,
           ],
       productdetails:"Net wt 30g,  BFAD#1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+  
     },
     {
       id: 7,
@@ -147,11 +111,7 @@ export const bestSellingProducts = [
            
           ],
       productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+   
     },
+
   ];

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
-import{bestSellingProducts} from'../data/bestSellingProducts';
+import {dealsFashion} from'../data/DealsFashion';
 import ReviewComponent from'./ReviewComponent';
 import {useNavigate} from'react-router-dom';
 import axios from'axios';
@@ -10,7 +10,7 @@ const ProductDetails = ({productId}) => {
 
   const [clickedTabs, setClickedTabs] = useState([]);
 
-  const selectedProduct = bestSellingProducts.find((item) => item.id === productId);
+  const selectedProduct = dealsFashion.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
@@ -185,7 +185,7 @@ const TabbedComponent = ({productId}) => {
                 <ProductDetails productId={productId}/>
               </Tab.Pane>
               <Tab.Pane eventKey="reviews">
-                 <Reviews selectedProduct={bestSellingProducts.find(product => product.id === productId)} />
+                 <Reviews selectedProduct={dealsFashion.find(product => product.id === productId)} />
               </Tab.Pane>
               <Tab.Pane eventKey="shipping">
                 <Shipping />

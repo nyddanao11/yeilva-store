@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { Tab, Nav, Row, Col } from 'react-bootstrap';
+import React, { useState,useEffect} from 'react';
+import axios from 'axios';
+import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
 import { beautyProductsData} from '../data/BeautyProductsData';
 import ReviewComponent from'./ReviewComponent';
+import {useNavigate} from'react-router-dom';
+import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
 
 const ProductDetails = ({productId}) => {
 
@@ -36,44 +39,114 @@ const ProductDetails = ({productId}) => {
 };
 
 
-
 const Reviews = ({ selectedProduct }) => {
   const [clickedReviews, setClickedReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [statusReview, setStatusReview] = useState(null);
+
+  const navigate = useNavigate();
+  const selectedProd = selectedProduct.name;
+
+   const storedUserEmail = localStorage.getItem('email')?.replace(/^"|"$/g, ''); // Remove quotes if present
+  // console.log("email from localStorage:", storedUserEmail);
+  // console.log("selectedProd:", selectedProd);
+
+  useEffect(() => {
+    const reviewStatus = async () => {
+      try {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
+          params: {
+            userEmail: storedUserEmail,
+            productName: selectedProd
+          }
+        });
+        console.log('Response from serverStatus:', response.data); // Log the response data
+        setStatusReview(response.data);
+      } catch (error) {
+        console.error('Error fetching review status:', error);
+      }
+    };
+
+    if (storedUserEmail && selectedProd) {
+      reviewStatus();
+    }
+  }, [storedUserEmail, selectedProd]);
+
+  const writeReview = () => {
+    if (statusReview?.reviewed) {
+      alert('You have already reviewed this product.');
+    } else if (statusReview === null) {
+      alert('Checking review status...');
+    } else {
+      navigate(`/reviewcomponent/${selectedProd}`);
+    }
+  };
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews`, {
+          params: {
+            productName: selectedProd
+          }
+        });
+        console.log('Response from server:', response.data); // Log the response data
+        setReviews(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    if (selectedProduct) {
+      fetchReviews();
+    }
+  }, [selectedProduct, selectedProd]);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
-    // Adding the clicked item to the state
     setClickedReviews([...clickedReviews, item]);
+  };
+
+  const formatUserEmail = (email) => {
+    const [username, domain] = email.split('@');
+    const truncatedUsername = username.slice(0, 3);
+    const truncatedEmail = `${truncatedUsername}...@${domain}`;
+    return truncatedEmail;
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<span key={i}>&#9733;</span>); // Filled star
+      } else {
+        stars.push(<span key={i}>&#9734;</span>); // Empty star
+      }
+    }
+    return stars;
   };
 
   return (
     <div className="mt-2">
       <h4>Reviews</h4>
-      {/* Display existing reviews */}
       <ul>
-        {clickedReviews.map((item, index) => (
-          <li key={index} onClick={() => handleItemClick(item)}>
-            {item}
+        {reviews.map((review, index) => (
+          <li key={index} onClick={() => handleItemClick(review)} style={{ padding: '10px', margin: '10px 0px', borderBottom: '1px solid', width: '250px', listStyle: "none" }}>
+            <div>
+              <PersonCircleIcon style={{ marginRight: '0.5rem' }}/>
+              <strong>{formatUserEmail(review.email)}</strong>: {review.comments}
+            </div>
+            <div className="text-warning me-1 mb-1">
+              {renderStars(review.rating)}
+            </div>
           </li>
         ))}
       </ul>
-
-      {selectedProduct && (
-        <ul>
-          {selectedProduct.reviews.map((review, index) => (
-            <li key={index} onClick={() => handleItemClick(review)}>
-              {review}
-            </li>
-          ))}
-        </ul>
-      )}
-        <div style={{maxWidth:"500px", border:"1px solid", borderRadius:"10px", padding:"10px"}}>
-          <span>Write a review</span> 
-          <ReviewComponent />
-        </div>
+      <Button style={{ width: "150px", marginTop: "15px" }} onClick={writeReview}>Write a review</Button>
     </div>
   );
 };
+
 
 
 

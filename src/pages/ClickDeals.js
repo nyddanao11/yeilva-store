@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button,Image } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdDeals from '../data/findProductByIdDeals';
@@ -6,14 +6,41 @@ import './ClickProductPage.css';
 import FeaturedProduct from '../components/FeaturedProduct';
 import BreadCrumbDeals from '../components/BreadCrumbDeals';
 import TabbedComponent from '../components/ProductTablatureDeals';
-import { FaStar } from 'react-icons/fa';
+import axios from 'axios';
 
 const ClickDeals = ({ addToCart }) => {
   const { id } = useParams();
-  const [selectedThumbnails, setSelectedThumbnails] = useState({});
+  
+ const [selectedThumbnails, setSelectedThumbnails] = useState({});
+  const [reviewData, setReviewData] = useState([]);
   const navigate = useNavigate();
 
- 
+  const product = findProductByIdDeals(id);
+  console.log("product items:", product);
+
+  useEffect(() => {
+    // Function to fetch reviews based on product name
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${product.name}`);
+        console.log('Response from server:', response.data); // Log the response data
+        setReviewData(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    fetchReviews();
+  }, [product.name]);
+
+  console.log("reviewData:", reviewData);
+
+  // Calculate the average rating
+  const averageRating = reviewData.length > 0
+    ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
+    : 0;
+
+  console.log("averageRating:", averageRating);
+
   const handleThumbnailClick = (itemId, imageUrl) => {
     setSelectedThumbnails((prev) => ({
       ...prev,
@@ -26,8 +53,6 @@ const ClickDeals = ({ addToCart }) => {
     navigate(`/checkout`);
   };
 
-  const product = findProductByIdDeals(id);
-
   if (!product) {
     return (
       <Container>
@@ -39,6 +64,19 @@ const ClickDeals = ({ addToCart }) => {
       </Container>
     );
   }
+
+  // Function to convert rating to stars
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<span key={i}>&#9733;</span>); // Filled star
+      } else {
+        stars.push(<span key={i}>&#9734;</span>); // Empty star
+      }
+    }
+    return stars;
+  };
 
   return (
     <Container className="mt-3">
@@ -77,13 +115,11 @@ const ClickDeals = ({ addToCart }) => {
 
           <div className="d-flex flex-column mb-3">
             <div className="d-flex">
-              <span className="text-warning me-1 mb-2">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <FaStar key={index} />
-                ))}
-              </span>
-              <span className="text-muted">{product.rating}</span>
-              <span className="mx-3"> Number of Reviews: {product.reviews.length} </span>
+              <div className="text-warning me-1 mb-1" style={{ fontSize: "18px" }}>
+                {renderStars(averageRating)}
+              </div>
+              <span>{averageRating}</span>
+              <span className="mx-3"> Number of Reviews: {reviewData.length} </span>
             </div>
           </div>
 
