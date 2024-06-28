@@ -63,13 +63,18 @@ const [userData, setUserData] = useState({
     const parsedValue = name === 'quantity' ? parseInt(value, 10) : value;
     setFormData({ ...formData, [name]: parsedValue });
   };
-
-
  
+const cleanProductName = (productName) => {
+    return productName.replace(/[{}"]/g, '').trim();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoading(true);
+
+ const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
+     
     // Calculate the "name" field by mapping cart items to a formatted string
     const itemName = cartItems.map((item) => `
       <div>
@@ -82,12 +87,13 @@ const [userData, setUserData] = useState({
       </div>
     `).join('<br>');
 
-    const formData = {
+     const formData = {
       ...userData,
       name: itemName,
       quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
       total: formattedGrandTotal,
       paymentOption: selectedPayment,
+      productNames: cleanedProductNames, // Pass product names as a separate array
     };
 
     // Check if the selected payment option is 'Installment'

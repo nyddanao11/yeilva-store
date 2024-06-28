@@ -11,12 +11,7 @@ export const homeProducts = [
         `${process.env.PUBLIC_URL}/images/mangosteen.png`,
       ],
        productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+
     },
     {
       id: 51,
@@ -30,12 +25,7 @@ export const homeProducts = [
          `${process.env.PUBLIC_URL}/images/barley.png`,
       ],
        productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
-  reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+  
     },
     {
     id: 52,
@@ -49,12 +39,7 @@ export const homeProducts = [
          `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ],
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,
+  
    },
    {
     id: 53,
@@ -68,31 +53,20 @@ export const homeProducts = [
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-   reviews:["Excellent product! Noticed a significant improvement in my overall well-being since using it. Will definitely buy again!",
-           "Amazing results! Feeling more energized and healthier after just a few days of use.",
-          "Impressed with the quality! This product has become a staple in my daily routine.",
-          "Highly recommend! Noticed a difference in my mood and vitality. Will continue to purchase.",
-    ],
-  rating: 4.5,             
+              
     },
     {
       id: 54,
       name: "Blue wave",
       url: `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       price: 220,
-         weight:800,
-        description:'laundry detergent net weight 800g',
+     weight:800,
+     description:'laundry detergent net weight 800g',
          thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
         `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       ],
        productdetails:"Personal Collection Products",
-   reviews:["Love this hand soap! Leaves my hands feeling clean and soft, with a refreshing scent.",
-        "Great laundry detergent! Gets rid of stains and odors effectively, even on tough fabrics.",
-        "Fantastic bathroom cleaner! Easily removes grime and leaves surfaces sparkling clean.",
-        "Impressed with this dish soap! Tough on grease yet gentle on my hands, plus it smells amazing.",
-        "Highly recommend this air freshener! Instantly freshens up my home with a long-lasting fragrance.",
-     ],
-   rating: 5.0,
+  
     },
   ];

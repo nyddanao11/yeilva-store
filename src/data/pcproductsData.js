@@ -11,8 +11,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste.png`,
       ],
    productdetails:"Personal Collection Products",
-    rating: 5.0,
-},
+   },
 {
   id: 21,
   name: "Alert Toothpaste 02",
@@ -25,8 +24,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 22,
   name: "Alert Toothpaste 03",
@@ -39,8 +37,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste2.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 23,
  name: "Alert Toothpaste 04",
@@ -53,8 +50,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste3.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 24,
   name: "Alert Toothpaste 05",
@@ -67,8 +63,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/alertpaste4.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 25,
   name: "Blue wave 01",
@@ -81,8 +76,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 26,
    name: "Blue wave 02",
@@ -95,8 +89,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/bluwave1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 27,
   name: "Check papaya",
@@ -109,8 +102,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/check.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 28,
   name: "Check soap 02",
@@ -123,8 +115,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/check1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 29,
   name: "Check soap 03",
@@ -137,8 +128,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/check2.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 30,
   name: "Cool its 01",
@@ -151,8 +141,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/coolits.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+ },
 {
   id: 31,
   name: "Cool its 02",
@@ -165,8 +154,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/coolits1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 32,
   name: "Cool its 03",
@@ -179,8 +167,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/coolits2.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 33,
   name: "Gluta 01",
@@ -193,8 +180,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/gluta.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 34,
   name: "Gluta 02",
@@ -207,8 +193,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/gluta1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 35,
   name: "Gluta 03",
@@ -221,8 +206,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/gluta2.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 36,
   name: "Mouthwash",
@@ -235,8 +219,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/mwash.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 37,
   name: "Tuff",
@@ -249,8 +232,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/pctuff.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 38,
   name: "Tuff pld 1",
@@ -263,8 +245,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 39,
   name: "Tuff pld 2",
@@ -277,8 +258,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/pctuffpld1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 40,
   name: "Tuff pld 3",
@@ -291,8 +271,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/pctuffpld2.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 41,
   name: "Tuff pld 4",
@@ -305,8 +284,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/pctuffpld3.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 42,
   name: "Tuff pld 4",
@@ -319,8 +297,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/sof.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 43,
   name: "Target 01",
@@ -333,8 +310,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/target.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 44,
   name: "Target 02",
@@ -347,8 +323,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/target1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 45,
   name: "Tuff clean 01",
@@ -361,8 +336,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/tuffclean.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 46,
   name: "Tuff clean 02",
@@ -375,8 +349,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/tuffclean1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 47,
   name: "Tuff clean 03",
@@ -389,8 +362,7 @@ export const pcproductsData = [
          `${process.env.PUBLIC_URL}/imgpc/tuffclean2.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 48,
   name: "Tuff dishwashing 01",
@@ -403,8 +375,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/tuffdish.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 49,
   name: "Tuff dishwashing 02",
@@ -417,8 +388,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/tuffdish1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+   },
 {
   id: 50,
   name: "Tuff dwl 01",
@@ -431,8 +401,7 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/tuffdwl.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 {
   id: 51,
   name: "Tuff dwl 02",
@@ -445,7 +414,6 @@ export const pcproductsData = [
         `${process.env.PUBLIC_URL}/imgpc/tuffdwl1.png`,
       ],
    productdetails:"Personal Collection Products",
-   rating: 5.0,
-},
+  },
 
 ];

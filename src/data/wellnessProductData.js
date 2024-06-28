@@ -13,8 +13,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
- 
+  
 },
 {
   id: 2,
@@ -28,9 +27,8 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai2.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
-   productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
-  rating: 4.5, 
-},
+   productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000", 
+  },
 {
   id: 3,
   name: "Barley Grass Juice",
@@ -44,8 +42,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/barley2.png`,
       ],
   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
-  rating: 4.5,
-},
+ },
 {
   id: 4,
   name: "Acai Berry 500ml",
@@ -59,8 +56,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
   productdetails:"1 plastic Bottle of 500ml acaiberry juice, BFAD#1009889000",
-  rating: 4.5,
-},
+  },
 {
   id: 5,
   name: "Absorbent Cee",
@@ -75,8 +71,7 @@
        
       ],
   productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
-  rating: 4.5,
-},
+ },
 {
   id: 6,
   name: "Primeshape",
@@ -91,8 +86,7 @@
       
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+ },
 {
   id: 7,
   name: "Arctic C",
@@ -107,8 +101,7 @@
        
       ],
   productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
-  rating: 4.5,
-},
+  },
 {
   id: 8,
   name: "Garcinia Cambogia",
@@ -123,8 +116,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 10 sachets sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+ },
 {
   id: 9,
   name: "Gleam",
@@ -139,8 +131,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+ },
 {
   id: 10,
   name: "Turmeric",
@@ -155,8 +146,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+  },
 {
   id: 11,
   name: "Energy Bracelet",
@@ -171,8 +161,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/bracele641.jpg`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+  },
 {
   id: 12,
   name: "Buah Merah",
@@ -187,8 +176,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"Net wt 30g,  BFAD#1009889000",
-  rating: 4.5,
-},
+ },
 {
   id: 13,
   name: "Mangosteen choco",
@@ -203,8 +191,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+  },
 {
   id: 14,
   name: "Detox",
@@ -219,8 +206,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  rating: 4.5,
-},
+  },
 {
   id: 15,
   name: "L-Glutathione",
@@ -235,6 +221,5 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-  rating: 4.5,
-},
+  },
 ];

@@ -11,8 +11,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/babycare01.jpg`,
       ],
    productdetails:"Avon Products", 
-    rating: 4.5,
-},
+    },
 {
   id: 62,
   name: "Body Spray",
@@ -39,8 +38,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/bodyspray02.jpg`,
       ],
    productdetails:"Avon Products",
-    rating: 4.5,
-},
+ },
 {
   id: 64,
  name: "Body Spray",
@@ -53,8 +51,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/bodyspray03.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+ },
 {
   id: 65,
   name: "Body Spray",
@@ -67,8 +64,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/bodyspray04.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 66,
   name: "Body Spray",
@@ -81,8 +77,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/bodyspray05.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 67,
    name: "Cologne",
@@ -95,8 +90,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/colon01.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+ },
 {
   id: 68,
   name: "Cologne",
@@ -109,8 +103,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/colon02.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+ },
 {
   id: 69,
   name: "Cologne",
@@ -123,8 +116,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+   },
 {
   id: 70,
   name: "Cologne",
@@ -137,8 +129,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/colon04.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 71,
   name: "Cologne",
@@ -151,8 +142,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/colon05.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 72,
   name: "Cologne",
@@ -165,8 +155,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/colon06.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 73,
   name: "Cologne",
@@ -179,8 +168,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/colon07.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+   },
 {
   id: 74,
   name: "Cologne",
@@ -193,8 +181,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/colon08.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+   },
 {
   id: 75,
   name: "Cologne",
@@ -207,8 +194,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/colon09.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 76,
   name: "Lotion",
@@ -221,8 +207,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/lotion01.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+   },
 {
   id: 77,
   name: "Lotion",
@@ -235,8 +220,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/lotion02.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+   },
 {
   id: 78,
   name: "Cologne",
@@ -249,8 +233,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 79,
   name: "Moisturizing lotion",
@@ -263,8 +246,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/moist01.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 80,
   name: "Wash and Shampoo",
@@ -277,8 +259,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/moist02.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+   },
 {
   id: 81,
   name: "Wash and Shampoo",
@@ -291,8 +272,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/moist03.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 82,
   name: "Cologne",
@@ -305,8 +285,7 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/moist04.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 83,
   name: "Shampoo&Conditioner",
@@ -319,8 +298,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/shampoo01.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 84,
   name: "Shampoo&Conditioner",
@@ -333,8 +311,9 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/shampoo02.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},{
+  
+},
+{
   id: 85,
   name: "Disinfectant",
   url:  `${process.env.PUBLIC_URL}/imgavon/disinfect01.jpg`,
@@ -346,8 +325,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/disinfect01.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 86,
   name: "Disinfectant",
@@ -360,8 +338,7 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/disinfect02.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 {
   id: 87,
   name: "Disinfectant",
@@ -374,6 +351,5 @@ export const avonproductsData = [
         `${process.env.PUBLIC_URL}/imgavon/disinfect03.jpg`,
       ],
   productdetails:"Avon Products",
-   rating: 4.5,
-},
+  },
 ];
