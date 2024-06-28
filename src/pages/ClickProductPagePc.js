@@ -78,8 +78,7 @@ const ClickProductPagePc = ({ addToCart }) => {
     }
     return stars;
   };
-  }
-
+  
   return (
     <Container className="mt-3">
       <Row className="justify-content-center">
