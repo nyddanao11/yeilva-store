@@ -1,0 +1,16 @@
+.card-image-container {
+  position: relative;
+}
+
+.share-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+.share-icon:hover{
+  background-color: #F4F4F4;
+}

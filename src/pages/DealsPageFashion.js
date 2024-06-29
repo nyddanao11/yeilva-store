@@ -1,12 +1,14 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { FaStar, FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaShareAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './LoanForm.css';
 import useFetchReviews from '../components/useFetchReviews';
+import useShare from'../components/useShare';
 
 const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems, product}) => {
    const { reviewData, loading, error } = useFetchReviews(product?.name);
+    const handleShare = useShare(); // Use the custom hook
 
   const averageRating = reviewData.length > 0
     ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
@@ -38,6 +40,7 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
                 style={{objectFit: "cover", height: '100%', width: '100%' }}
                 alt={product.name}
               />
+             <FaShareAlt className="share-icon fs-4" onClick={() => handleShare(product)} />
               </div>
             </Link>
               <Card.Body>
