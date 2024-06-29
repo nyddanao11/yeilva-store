@@ -3,8 +3,6 @@ import { Card } from 'react-bootstrap';
 import {Link} from'react-router-dom';
 import './ImageCircleCard.css';
 
-
-
 const ProductCard = ({ image, name, category, link }) => {
    
   return (
