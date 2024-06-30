@@ -34,7 +34,7 @@ const [userData, setUserData] = useState({
 
    const [showModal, setShowModal] = useState(false); //
 
-    const [selectedPayment, setSelectedPayment] = useState(''); // State to manage selected payment method
+ const [selectedPayment, setSelectedPayment] = useState('Cash on Delivery');
 
   const handleEwalletsClick = (e) => {
     setSelectedPayment(e.target.value); // Update the selected payment method
