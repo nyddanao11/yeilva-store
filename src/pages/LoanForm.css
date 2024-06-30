@@ -1,3 +1,27 @@
+/* LoanForm.css */
+.card-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-image-container img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.share-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card-image-container:hover .share-icon {
+  opacity: 1;
+}
 
  .line::before,
  .line::after {

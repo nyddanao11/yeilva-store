@@ -34,7 +34,7 @@ const ImageCardFeaturedProduct = ({ addToCart, product }) => {
  <>
     <Card style={{ width: '10rem' }} className="product-card"  >
       <Link to={`/clickproductpagefeaturedproduct/${product.id}`}>
-        <div style={{ height: '200px', overflow: 'hidden' }}>
+        <div className="card-image-container" style={{ height: '200px', overflow: 'hidden' }}>
           <img
             src={product.url}
             alt={product.name}

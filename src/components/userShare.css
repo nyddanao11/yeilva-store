@@ -1,16 +1,24 @@
+/* LoanForm.css */
 .card-image-container {
   position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-image-container img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .share-icon {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  padding: 5px;
-  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-.share-icon:hover{
-  background-color: #F4F4F4;
+
+.card-image-container:hover .share-icon {
+  opacity: 1;
 }

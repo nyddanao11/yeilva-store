@@ -34,14 +34,14 @@ const ImageProductAvon = ({ product, addToCart }) => {
   <>
     <Card style={{ width:"165px"}} className="product-card mb-4">
       <Link to={`/clickproductpageavon/${product.id}`}>
-          <div  style={{ height: '200px', overflow: 'hidden'}}>
-      <img
-          src={product.url}
-          style={{objectFit: "cover", height: '100%', width: '100%' }}
-          alt={product.name}
-        />
-        <FaShareAlt className="share-icon fs-3" onClick={() => handleShare(product)} />
-        </div>
+          <div className="card-image-container" style={{ height: '200px', overflow: 'hidden'}}>
+          <img
+              src={product.url}
+              style={{objectFit: "cover", height: '100%', width: '100%' }}
+              alt={product.name}
+            />
+            <FaShareAlt className="share-icon fs-3" onClick={() => handleShare(product)} />
+            </div>
       </Link>
        <Card.Body className="d-flex flex-column align-items-center justify-content-center p-2">
         <Card.Title style={{ fontSize: "13px", margin: 0, fontWeight:'400' }}>{product.name}</Card.Title>

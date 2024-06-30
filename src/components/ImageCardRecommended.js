@@ -33,7 +33,7 @@ const ImageCardRecommended = ({ addToCart, product }) => {
   <>
     <Card style={{ width: '10rem', margin: '10px' }} className="product-card">
       <Link to={`/clickproductpagerecommended/${product.id}`}>
-        <div style={{ height: '200px', overflow: 'hidden' }}>
+        <div className="card-image-container" style={{ height: '200px', overflow: 'hidden' }}>
           <img
             src={product.url}
             alt={product.name}

@@ -34,7 +34,7 @@ const ImageProductPc1 = ({ product, addToCart }) => {
     <>
      <Card style={{ width:"165px"}} className="product-card mb-4">
       <Link to={`/clickproductpagepc/${product.id}`}>
-        <div  style={{ height: '200px', overflow: 'hidden'}}>
+        <div className="card-image-container" style={{ height: '200px', overflow: 'hidden'}}>
       <img
           src={product.url}
           style={{objectFit: "cover", height: '100%', width: '100%' }}
