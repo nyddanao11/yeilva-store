@@ -39,7 +39,7 @@ const ImageCard = ({ addToCart, product }) => {
             alt={product.name}
             style={{ objectFit: 'cover', height: '100%', width: '100%' }}
           />
-        <FaShareAlt className="share-icon fs-4" onClick={() => handleShare(product)} />
+        <FaShareAlt className="share-icon fs-3" onClick={() => handleShare(product)} />
         </div>
       </Link>
      <Card.Body className="d-flex flex-column align-items-center justify-content-center p-2">
