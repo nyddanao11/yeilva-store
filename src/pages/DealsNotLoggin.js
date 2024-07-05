@@ -5,6 +5,7 @@ import DealsNot from'./DealsNot';
 import FeaturedNot from'../components/FeaturedNot';
 import {wellnessProductData} from'../data/wellnessProductData';
 import {dealsFashion} from '../data/DealsFashion';
+import {dealsElectronicData} from'../data/DealsElectronicData';
 import {deals} from '../data/DealsData';
 import {mens} from'../components/Fashion/MensData';
 import {womens} from'../components/Fashion/womensData';
@@ -16,6 +17,7 @@ const DealsNotLoggin = ({url, name, price, discountedPrice, rating ,product}) =>
    let countWellness = wellnessProductData.length;
     let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
  let countFashion = fashionArray.length;
+   let countElectronic = dealsElectronicData.length;
  
   return (
     <>
@@ -59,6 +61,24 @@ const DealsNotLoggin = ({url, name, price, discountedPrice, rating ,product}) =>
               </Col>
          ))}
         </Row>
+
+        
+           <Row >
+        <div className="d-flex mt-2">
+           <h5>Electronics </h5>
+          <Link to="/" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
+         <p  style={{paddingLeft:'10px'}}>({`${countElectronic}`})</p>
+         </div>
+         {dealsElectronicData.map((product) => (
+              <Col key={product.id} md={3} xs={6} lg={2} className="g-1">
+                <div className="d-flex justify-content-center align-items-center " style={{flexWrap:"wrap"}}>
+               
+                  <DealsNot url={product.url} name={product.name} price={product.price} product={product}  />
+ 
+                </div>              
+              </Col>
+         ))}
+     </Row>
 
        <Row style={{marginTop:"25px"}}>
 

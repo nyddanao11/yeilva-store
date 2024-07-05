@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {ballpen} from './BallpenMarkerData';
+import { Breadcrumb } from 'react-bootstrap'; // Import Breadcrumb from react-bootstrap
 
 const BreadCrumbBallpen = ({ productId}) => {
   const [clickedItems, setClickedItems] = useState([]);
@@ -14,22 +15,18 @@ const BreadCrumbBallpen = ({ productId}) => {
   };
 
   return (
-   
-       <div className="d-flex" style={{textDecoration:"none", fontSize:"12px", marginBottom:"5px"}}>
-        <Link to="/schoolsupplies" style={{textDecoration:"none"}}>Ballpen&Marker > </Link>
-       
-        {clickedItems.map((item, index) => (
-          <span key={index} onClick={() => handleItemClick(item)}>
-            {item.name}
-          </span>
-        ))}
-        {selectedProduct && (
-          <span onClick={() => handleItemClick(selectedProduct)}>
-            {selectedProduct.name}
-          </span>
-        )}
-      </div>
+    <Breadcrumb style={{fontSize:"12px"}}>
+      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/schoolsupplies' }}>Ballpen&Marke</Breadcrumb.Item>
       
+     {clickedItems.map((item, index) => (
+        <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>{item.name}</Breadcrumb.Item>
+      ))}
+      {selectedProduct && (
+        <Breadcrumb.Item>{selectedProduct.name}</Breadcrumb.Item>
+      )}
+    </Breadcrumb>
+  
   );
 };
 

@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import PcProducts from './pages/PcProducts';
 import AvonProducts from'./pages/AvonProducts';
 import Home from './pages/Home';
+import ConsumerElectronic from'./pages/ConsumerElectronic';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Search from './pages/Search';
@@ -55,6 +56,7 @@ import ChangePassword from './pages/ChangePassword';
 import ClickMarker from'./components/SchoolSupplies/ClickBallpenMarker';
 import ClickPaper from'./components/SchoolSupplies/ClickBondPaper';
 import ClickNote from'./components/SchoolSupplies/ClickNotebook';
+import ClickEarphone from'./components/Electronics/ClickEarphone';
 import ClickDeals from'./pages/ClickDeals';
 import ClickDealsFashion from'./pages/ClickDealsFashion';
 import ClickWomens from './components/Fashion/ClickWomens';
@@ -207,7 +209,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-             <Route path="/consumerelectronics" element={<NotFoundPage/>}/>
+             <Route path="/consumerelectronics" element={<ConsumerElectronic  addToCart={addToCart}/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} />} />
              <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} />} />
              <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} />} />
@@ -242,6 +244,7 @@ const handleLogout = () => {
               <Route path="/clickballpen/:id" element={<ClickMarker addToCart={addToCart} />} />
               <Route path="/clickbondpaper/:id" element={<ClickPaper addToCart={addToCart} />} />
                <Route path="/clicknotebook/:id" element={<ClickNote addToCart={addToCart} />} />
+               <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart} />} />
                 <Route path="/clickwomens/:id" element={<ClickWomens addToCart={addToCart} />} />
                   <Route path="/clickmens/:id" element={<ClickMens addToCart={addToCart} />} />
                    <Route path="/clickmensshoes/:id" element={<ClickMensShoes addToCart={addToCart} />} />
@@ -323,6 +326,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
+            <Route path="/consumerelectronics" element={<ConsumerElectronic  addToCart={addToCart}/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} />} />
              <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} />} />
              <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} />} />
@@ -357,6 +361,7 @@ const handleLogout = () => {
               <Route path="/clickballpen/:id" element={<ClickMarker addToCart={addToCart} />} />
               <Route path="/clickbondpaper/:id" element={<ClickPaper addToCart={addToCart} />} />
                <Route path="/clicknotebook/:id" element={<ClickNote addToCart={addToCart} />} />
+                <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart} />} />
                 <Route path="/clickwomens/:id" element={<ClickWomens addToCart={addToCart} />} />
                   <Route path="/clickmens/:id" element={<ClickMens addToCart={addToCart} />} />
                    <Route path="/clickmensshoes/:id" element={<ClickMensShoes addToCart={addToCart} />} />

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdDealsFashion from '../data/findProductByIdDealsFashion';
 import './ClickProductPage.css';
 import FeaturedProduct from'../components/FeaturedProduct';
-import BreadCrumbDeals from'../components/BreadCrumbDeals';
+import BreadCrumbDealsFashion from '../components/BreadCrumbDealsFashion';
 import TabbedComponent from'../components/ProductTablatureDealsFashion';
 import axios from 'axios';
 

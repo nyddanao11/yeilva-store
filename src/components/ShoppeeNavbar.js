@@ -57,7 +57,7 @@ return (
 	            <Dropdown.Item as={Link} to="/avonproducts">Avon Collection</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/beautyproducts">Beauty and Personal Care</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/fashionapparel">Fashion and Apparel</Dropdown.Item>
-	             <Dropdown.Item as={Link} to="/consumerelectronics">Consumer Electornics</Dropdown.Item>
+	             <Dropdown.Item as={Link} to="/consumerelectronics">Electronics</Dropdown.Item>
 	           <Dropdown.Item as={Link} to="/homekitchen">Home and Kitchen Appliances</Dropdown.Item>
 	           <Dropdown.Item as={Link} to="/homeimprovement">Home Improvement and DIY Tools</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/outdoorsports">Outdoor and Sports Equipment</Dropdown.Item> 
