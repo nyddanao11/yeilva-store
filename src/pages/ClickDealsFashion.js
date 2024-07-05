@@ -82,7 +82,7 @@ const ClickDealsFashion= ({ addToCart }) => {
   return (
     <Container className="mt-3">
              <Row className="justify-content-center">
-        <BreadCrumbDeals productId={product.id} />
+         <BreadCrumbDealsFashion  productId={product.id} />
 
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
