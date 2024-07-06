@@ -35,7 +35,12 @@ export const cans = [
       category: 'Avon Collection',
       link:'/avonproducts',
    }, 
+    { id: 45, 
+    name:'jblt110',
+      image:`${process.env.PUBLIC_URL}/electronics/jblt110.png`,
+      category: 'Electronics',
+      link:'/consumerelectronics',
+   }, 
  
-  
-    // Add more canned goods as needed
+     // Add more canned goods as needed
   ];
