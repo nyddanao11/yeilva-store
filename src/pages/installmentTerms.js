@@ -56,7 +56,7 @@ const InstallemntTerms = () => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <strong>6. Ownership of Goods</strong>
-                  <p>Ownership of the products remains with [Your Online Store Name] until all installment payments are made in full. [Your Online Store Name] reserves the right to reclaim the products if installment payments are not completed.</p>
+                  <p>Ownership of the products remains with YeilvaStore until all installment payments are made in full. YeilvaStore reserves the right to reclaim the products if installment payments are not completed.</p>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <strong>7. Account Information</strong>
