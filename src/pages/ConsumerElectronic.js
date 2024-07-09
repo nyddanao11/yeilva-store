@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Nav,  Navbar} from 'react-bootstrap';
 import Earphone from '../components/Electronics/Earphone';
+import Speaker from '../components/Electronics/Speaker';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
 import FeaturedProduct from'../components/FeaturedProduct';
@@ -27,7 +28,7 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const electronic = [
     { id: 'earphones', title: 'Headphones & Earphones', component: <Earphone addToCart={addToCart} cartItems={cartItems} product={Earphone} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
     { id: 'chargers', title: 'Chargers & cables', component: <Earphone addToCart={addToCart} cartItems={cartItems} product={Earphone} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
-    { id: 'speakers', title: 'Speakers', component: <Earphone addToCart={addToCart} cartItems={cartItems} product={Earphone} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
+    { id: 'speakers', title: 'Speakers', component: <Speaker addToCart={addToCart} cartItems={cartItems} product={Speaker} isProdcutSoldOut={isProductSoldOut}   currentPage={currentPage} setCurrentPage={setCurrentPage}/> },
   
     ];
    

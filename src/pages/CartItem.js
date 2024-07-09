@@ -34,11 +34,11 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
   };
 
   return (
-     <div className='d-flex justify-content-center align-items-center'>
-    <Card className="mb-3 " style={{maxWidth:'650px'}}>
+    <>
+    <Card className=" mb-3">
       <Card.Body>
-        <Row >
-          <Col md={6} xs={4} className='mb-3 d-flex justify-content-center align-items-center'>
+        <Row  className="d-flex justify-content-center align-items-center ">
+          <Col lg={6} md={6} xs={4} className="mb-3 d-flex justify-content-center align-items-center ">
 
           {isSmallScreen ? (
               <img
@@ -46,18 +46,19 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
                 alt={item.name}
                 style={{ maxWidth: '100px', height: 'auto' }}
               />
-            ) :  <img
+            ) : ( <img
                 src={item.url}
                 alt={item.name}
                 style={{ maxWidth: '50%', height: 'auto' }}
-              />}
+              />)}
         </Col>
-          <Col md={6} xs={8} >
+
+          <Col lg={6} md={6} xs={8} className="mb-3 ">
             <h5> {item.name}</h5>
             <h6>₱{item.price}</h6>
             <p>Quantity: {item.quantity}</p>
-            <div className="d-flex mb-3">
-              <Form.Group controlId={`sizeSelect_${item.id}`} style={{ width: '70px'}}>
+            <div className="mb-3" style={{display:'flex', flexWrap:'wrap'}}>
+              <Form.Group controlId={`sizeSelect_${item.id}`} style={{ width: '70px' }}>
                 <Form.Label>Size:</Form.Label>
                 <Form.Control
                   as="select"
@@ -75,7 +76,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
               <Form.Group
                 controlId={`colorSelect_${item.id}`}
-                style={{ width: '70px', marginLeft:'20px' }}
+                style={{ width: '70px', marginLeft: '15px' }}
               >
                 <Form.Label>Color:</Form.Label>
                 <Form.Control
@@ -95,12 +96,12 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
                 </Form.Control>
               </Form.Group>
             </div>
-
          <div className='d-flex' style={{marginTop:"20px"}}>
             <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
-           <Button
+            <Button
               variant="outline-secondary"
               className="mx-4"
+              
               onClick={() => {
                 removeFromCart(item.id);
               }}
@@ -113,8 +114,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
         </Row>
       </Card.Body>
     </Card>
-    </div>
-
+  </>
   );
 };
 

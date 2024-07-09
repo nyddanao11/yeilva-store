@@ -53,6 +53,7 @@ const CircleCard = ({ addToCart }) => {
             price={product.price}
             category={product.category}
             link={product.link}
+            count={product.count}
           />
         </div>
       ))}

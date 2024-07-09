@@ -13,14 +13,16 @@ import {womens} from'../components/Fashion/womensData';
 import {mensshoes} from'../components/Fashion/MensShoesData';
 import {womensshoes} from'../components/Fashion/WomensShoesData';
 import {dealsElectronicData} from'../data/DealsElectronicData';
+import {speakerData}from'../components/Electronics/SpeakerData';
 
 
 const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartItems,product}) => {
    let countWellness = wellnessProductData.length;
     let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
  let countFashion = fashionArray.length;
-  let countElectronic = dealsElectronicData.length;
- 
+  let ElectronicsArray = [...dealsElectronicData, ...speakerData];
+  let countElectronic = ElectronicsArray.length;
+  
   return (
     <>
       <div className="d-flex flex-column justify-content-center aligned-items-center bg-primary" >

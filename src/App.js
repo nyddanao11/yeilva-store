@@ -17,6 +17,7 @@ import {wellnessProductData} from'./data/wellnessProductData';
 import {pcproductsData} from './data/pcproductsData';
 import {avonproductsData} from './data/AvonProductsData';
 import {beautyProductsData} from './data/BeautyProductsData';
+import {dealsElectronicData} from './data/DealsElectronicData';
 import CombinedNavbar from './components/CombinedNavbar';
 import DealsOfDay from'./pages/DealsOfDay';
 import LoanForm from './pages/LoanForm';
@@ -57,6 +58,7 @@ import ClickMarker from'./components/SchoolSupplies/ClickBallpenMarker';
 import ClickPaper from'./components/SchoolSupplies/ClickBondPaper';
 import ClickNote from'./components/SchoolSupplies/ClickNotebook';
 import ClickEarphone from'./components/Electronics/ClickEarphone';
+import ClickSpeaker from'./components/Electronics/ClickSpeaker';
 import ClickDeals from'./pages/ClickDeals';
 import ClickDealsFashion from'./pages/ClickDealsFashion';
 import ClickDealsElectronic from'./pages/ClickDealsElectronic';
@@ -83,7 +85,7 @@ import OfflineIndicator from'./pages/OfflineIndicator';
 import ReviewComponent from'./components/ReviewComponent';
 import Footer from './components/Footer';
 import DealsNotLoggin from './pages/DealsNotLoggin';
-
+import InstallmentTerms from'./pages/installmentTerms';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -217,7 +219,7 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} addToCart={addToCart} />} />
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData}  addToCart={addToCart} />} />
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
@@ -246,6 +248,7 @@ const handleLogout = () => {
               <Route path="/clickbondpaper/:id" element={<ClickPaper addToCart={addToCart} />} />
                <Route path="/clicknotebook/:id" element={<ClickNote addToCart={addToCart} />} />
                <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart} />} />
+               <Route path="/clickspeaker/:id" element={<ClickSpeaker addToCart={addToCart} />} />
                 <Route path="/clickwomens/:id" element={<ClickWomens addToCart={addToCart} />} />
                   <Route path="/clickmens/:id" element={<ClickMens addToCart={addToCart} />} />
                    <Route path="/clickmensshoes/:id" element={<ClickMensShoes addToCart={addToCart} />} />
@@ -261,7 +264,7 @@ const handleLogout = () => {
                     <Route path="/grocerysidebar" element={<GrocerySidebar />} />
                     <Route path ="/adminloginpage" element={<LoginPage />}/>
                       <Route path="/installmenthistorypage" element={<InstallmentHistoryPage />} />
-                    
+                      <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
@@ -336,7 +339,7 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
              <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} addToCart={addToCart} />} />
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData}  dealsElectronicData={dealsElectronicData} addToCart={addToCart} />} />
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
@@ -365,6 +368,7 @@ const handleLogout = () => {
               <Route path="/clickbondpaper/:id" element={<ClickPaper addToCart={addToCart} />} />
                <Route path="/clicknotebook/:id" element={<ClickNote addToCart={addToCart} />} />
                 <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart} />} />
+               <Route path="/clickspeaker/:id" element={<ClickSpeaker addToCart={addToCart} />} />
                 <Route path="/clickwomens/:id" element={<ClickWomens addToCart={addToCart} />} />
                   <Route path="/clickmens/:id" element={<ClickMens addToCart={addToCart} />} />
                    <Route path="/clickmensshoes/:id" element={<ClickMensShoes addToCart={addToCart} />} />
@@ -380,7 +384,7 @@ const handleLogout = () => {
                     <Route path="/grocerysidebar" element={<GrocerySidebar />} />
                     <Route path ="/adminloginpage" element={<LoginPage />}/>
                       <Route path="/installmenthistorypage" element={<InstallmentHistoryPage />} />
-                    
+                    <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />

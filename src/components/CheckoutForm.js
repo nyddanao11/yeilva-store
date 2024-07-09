@@ -327,6 +327,16 @@ useEffect(() => {
             </Button>
           )}
 
+            {selectedPayment === 'Installment' && (
+            <Button
+              variant="primary"
+              onClick={handleEwalletsClick}
+              style={{ marginTop: "15px", marginBottom: "10px", marginRight: "15px" }}
+            >
+               <Link to='/installmentterms' style={{textDecoration:'none', color:'white'}}>Terms & Conditions</Link>
+            </Button>
+          )}
+
 
           {errorMessage && selectedPayment === 'Installment' && (
             <div style={{ color: 'red', marginTop: '10px' }}>

@@ -11,13 +11,14 @@ import {mens} from'../components/Fashion/MensData';
 import {womens} from'../components/Fashion/womensData';
 import {mensshoes} from'../components/Fashion/MensShoesData';
 import {womensshoes} from'../components/Fashion/WomensShoesData';
-
+import {speakerData}from'../components/Electronics/SpeakerData';
 
 const DealsNotLoggin = ({url, name, price, discountedPrice, rating ,product}) => {
    let countWellness = wellnessProductData.length;
     let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
  let countFashion = fashionArray.length;
-   let countElectronic = dealsElectronicData.length;
+   let ElectronicsArray = [...dealsElectronicData, ...speakerData];
+  let countElectronic = ElectronicsArray.length;
  
   return (
     <>
