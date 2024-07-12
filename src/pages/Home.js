@@ -10,6 +10,7 @@ import ImageSlider from '../components/ImageSlider';
 import {wellnessProductData} from'../data/wellnessProductData';
 import {pcproductsData} from '../data/pcproductsData';
 import {beautyProductsData} from '../data/BeautyProductsData';
+import Announcement from'../components/Announcement';
 
 const Home = ({ addToCart, product}) => {
 let countWellness = wellnessProductData.length;
@@ -32,6 +33,12 @@ let countBeauty = beautyProductsData.length;
           
              <CircleCard addToCart={addToCart} product={product}/>
           </Col> 
+      </Row>
+
+        <Row className="d-flex justify-content-center align-items-center " style={{marginBottom:'10px', marginTop:"13px"}} >
+      <Col lg={8} md={8} sm={12}>
+        <Announcement />
+        </Col>
       </Row>
 
         <Row className="d-flex justify-content-center align-items-center" >

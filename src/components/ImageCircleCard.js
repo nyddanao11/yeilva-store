@@ -11,7 +11,7 @@ const ProductCard = ({ image, name, category, link, count}) => {
       </Link>
       <Card.Body>
         <Card.Title style={{fontSize:"12px"}} >{category}</Card.Title>
-        <p>{count} Products</p>
+        <p style={{fontSize:"10px"}}>{count} Products</p>
       </Card.Body>
     </Card>
   );
