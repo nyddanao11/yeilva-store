@@ -14,8 +14,7 @@ const Announcement = () => {
               <p className="tabs_title">
                 <FaShippingFast className="icons"/> Free Shipping
               </p>
-              <p className="tabs_title_01">Danao to Compostela</p>
-              <p className="tabs_title_02">Order above ₱300</p>
+              <p className="tabs_title_02">Order above ₱2500</p>
             </div>
 
             <div className="tabs_item">

@@ -18,6 +18,7 @@ const CheckoutPage = ({
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
   const [shippingRate, setShippingRate] = useState(0);
   const [voucherCode, setVoucherCode] = useState(0);
+  const [isFreeShipping, setIsFreeShipping] = useState(false); // New state for free shipping
 
   const navigate = useNavigate();
 
@@ -29,14 +30,20 @@ const CheckoutPage = ({
     setTotalItemsPrice(itemsPrice);
   }, [cartItems]);
 
-  useEffect(() => {
-    const calculatedShippingRate = (
-      cartItems.reduce((total, item) => total + item.weight * 0.145, 0) + 30
-    ).toFixed(2);
-
-    setShippingRate(Number(calculatedShippingRate));
+   useEffect(() => {
+    const FREE_SHIPPING_THRESHOLD = 1000; // Set your free shipping threshold here
+    if (totalItemsPrice > FREE_SHIPPING_THRESHOLD) {
+      setShippingRate(0);
+      setIsFreeShipping(true);
+    } else {
+      const calculatedShippingRate = (
+        cartItems.reduce((total, item) => total + item.weight * 0.145, 0) + 30
+      ).toFixed(2);
+      setShippingRate(Number(calculatedShippingRate));
+      setIsFreeShipping(false);
+    }
   }, [cartItems, totalItemsPrice]);
-
+   
   const handleVoucherCode = (code) => {
     setVoucherCode(code / 100); // Convert to a decimal for discount calculation
   };
@@ -87,7 +94,7 @@ const CheckoutPage = ({
             </div>
 
             <p>Total Items Price: ₱{totalItemsPrice}</p>
-            <p>Shipping Rate: ₱{shippingRate}</p>
+            <p>Shipping Rate: ₱{isFreeShipping ? 'Free' : shippingRate}</p>
             <VoucherForm onVoucherValidate={handleVoucherCode} />
             <h4 style={{ paddingBottom: '10px', marginTop: '15px' }}>Grand Total: {formattedGrandTotal}</h4>
             <Button onClick={handleProceedToCheckout}>Continue to Shipping</Button>
