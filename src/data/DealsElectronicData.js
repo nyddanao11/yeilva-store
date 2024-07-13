@@ -9,6 +9,7 @@ export const dealsElectronicData = [
   percentage:"-20%",
   rating:5,
   weight:25,
+  stock:0,
   thumbnails:
       [`${process.env.PUBLIC_URL}/electronics/jblt110.png`,
       `${process.env.PUBLIC_URL}/electronics/jblt110_01.png`,
