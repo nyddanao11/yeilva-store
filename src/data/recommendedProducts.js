@@ -6,6 +6,7 @@ export const recommendedProducts = [
       description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
       price:800,
          weight:120,
+            stock: 10,
         thumbnails:
       [`${process.env.PUBLIC_URL}/images/barley.png`,
         `${process.env.PUBLIC_URL}/images/barley.png`,
@@ -18,6 +19,7 @@ export const recommendedProducts = [
       url:  `${process.env.PUBLIC_URL}/imgpc/target.png`,
       price: 369,
        weight:250,
+          stock: 10,
        description:'multi insect killer, killing made easy',
        thumbnails:
           [`${process.env.PUBLIC_URL}/imgpc/target.png`,
@@ -31,6 +33,7 @@ export const recommendedProducts = [
      url:  `${process.env.PUBLIC_URL}/images/bracelet.png`,
      price: 3800,
         weight:150,
+           stock: 10,
      description:"100% authentic quantum bracelet with scalar energy and is available for both men and woman to improves stamina, endurance and strength. it also calms the mind and restores balance and harmony to the body.",
        thumbnails:
       [ `${process.env.PUBLIC_URL}/images/bracelet.png`,
@@ -45,6 +48,7 @@ export const recommendedProducts = [
       description:"Vitamin Cee for strong immune system and prevent cardio vascular disease",
       price: 800,
          weight:120,
+            stock: 10,
        thumbnails:
       [`${process.env.PUBLIC_URL}/images/product2.png`,
         `${process.env.PUBLIC_URL}/images/product2.png`,
@@ -58,6 +62,7 @@ export const recommendedProducts = [
       description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",
       price: 220,
          weight:120,
+            stock: 10,
        thumbnails:
       [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
         `${process.env.PUBLIC_URL}/images/mangosteen.png`,

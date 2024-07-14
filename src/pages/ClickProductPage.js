@@ -16,8 +16,10 @@ const ClickProductPage = ({ addToCart }) => {
   const navigate = useNavigate();
 
   const product = findProductById(id);
-  console.log("product items:", product);
-
+      const stockState = product.stock;
+ const stockStatus = () => {
+  return stockState <= 0;
+};
   useEffect(() => {
     // Function to fetch reviews based on product name
     const fetchReviews = async () => {
@@ -112,7 +114,7 @@ const ClickProductPage = ({ addToCart }) => {
         
           <p>Description: {product.description}</p>
            <h6>₱{product.price}</h6>
-             <div className="d-flex flex-column mb-3">
+             <div className="d-flex flex-column mb-1">
             <div className="d-flex">
               <div className="text-warning me-1 mb-1" style={{ fontSize: "18px" }}>
                 {renderStars(averageRating)}
@@ -122,12 +124,13 @@ const ClickProductPage = ({ addToCart }) => {
             </div>
           </div>
 
-          <Button variant="primary" onClick={() => addToCart(product)}>
-            Add to Cart
-          </Button>
-          <Button variant="primary" onClick={handleCheckoutClick} className="mx-3">
-            Buy Now
-          </Button>
+                       <p>In stock: {product.stock}</p>
+        <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
+      Add to Cart
+    </Button>
+    <Button variant="primary" onClick={handleCheckoutClick} className="mx-3" disabled={stockStatus()}>
+      Buy Now
+    </Button>
         </Col>
       </Row>
 

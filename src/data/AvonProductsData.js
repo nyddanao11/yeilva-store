@@ -5,6 +5,7 @@ export const avonproductsData = [
   url: `${process.env.PUBLIC_URL}/imgavon/babycare01.jpg`,
   price: 120,
   weight:250,
+     stock: 10,
   description:'Happy Baby Day and Night set',
    thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/babycare01.jpg`,
@@ -18,6 +19,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/bodyspray01.jpg`,
   price: 149,
     weight:250,
+       stock: 10,
     description:'Peony and pear fruity romance',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/bodyspray01.jpg`,
@@ -32,6 +34,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/bodyspray02.jpg`,
   price: 149,
     weight:250,
+       stock: 10,
      description:'Apple and honey suckle fresh indulgence',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/bodyspray02.jpg`,
@@ -45,6 +48,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/bodyspray03.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Grapefruit and Apricot sunny moments',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/bodyspray03.jpg`,
@@ -58,6 +62,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/bodyspray04.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Orchid and Blueberry Vibrant cheer',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/bodyspray04.jpg`,
@@ -71,6 +76,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/bodyspray05.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Strawberry and Yugort Luscious dreams',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/bodyspray05.jpg`,
@@ -84,6 +90,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon01.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'calming lavender colonge gentle and mild',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/colon01.jpg`,
@@ -97,6 +104,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon02.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/colon02.jpg`,
@@ -110,6 +118,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
     description:'heaven scent family colonge',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
@@ -123,6 +132,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon04.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/colon04.jpg`,
@@ -136,6 +146,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon05.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/colon05.jpg`,
@@ -149,6 +160,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon06.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/colon06.jpg`,
@@ -162,6 +174,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon07.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/colon07.jpg`,
@@ -175,6 +188,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon08.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/colon08.jpg`,
@@ -188,6 +202,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon09.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/colon09.jpg`,
@@ -201,6 +216,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/lotion01.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Avocado oil replenishing hand and body lotion 24h',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/lotion01.jpg`,
@@ -214,6 +230,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/lotion02.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Royal jelly intensely moisturizing hand and body lotion 24h',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/lotion02.jpg`,
@@ -227,6 +244,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'heaven scent family colonge',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/colon03.jpg`,
@@ -240,6 +258,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/moist01.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'moisturizing lotion simply softens',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/moist01.jpg`,
@@ -253,6 +272,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/moist02.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Wash and Shampoo tear-free',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/moist02.jpg`,
@@ -266,6 +286,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/moist03.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'calming lavender baby wash and shampoo',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/moist03.jpg`,
@@ -279,6 +300,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/moist04.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Colonge Alcohol free',
   thumbnails:
       [ `${process.env.PUBLIC_URL}/imgavon/moist04.jpg`,
@@ -292,6 +314,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/shampoo01.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Ultimate moisture Coconut oil and amino protein 2in1 shampoo and Conditioner',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/shampoo01.jpg`,
@@ -305,6 +328,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/shampoo02.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Aloevera and Grapeseed 2in1 shampoo and Conditioner',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/shampoo02.jpg`,
@@ -319,6 +343,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/disinfect01.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Antibacterial moisturizing sanitizing gel',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/disinfect01.jpg`,
@@ -332,6 +357,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/disinfect02.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
      description:'Antibacterial Ethyl alcohol moisture lock',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/disinfect02.jpg`,
@@ -345,6 +371,7 @@ export const avonproductsData = [
   url:  `${process.env.PUBLIC_URL}/imgavon/disinfect03.jpg`,
   price: 220,
     weight:250,
+       stock: 10,
     description:'Antibacterial Ethyl alcohol moisture lock',
   thumbnails:
       [`${process.env.PUBLIC_URL}/imgavon/disinfect03.jpg`,

@@ -6,7 +6,7 @@ import useFetchReviews from '../components/useFetchReviews';
 import useShare from'./useShare';
 import'./userShare.css';
 
-const ImageProductPc1 = ({ product, addToCart }) => {
+const ImageProductPc1 = ({ product}) => {
   
   const { reviewData, loading, error } = useFetchReviews(product?.name);
     const handleShare = useShare(); // Use the custom hook
@@ -54,14 +54,7 @@ const ImageProductPc1 = ({ product, addToCart }) => {
             <span>{averageRating}</span>
           </div>
         </div>
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={() => addToCart(product)}
-          style={{ fontSize: "12px", width: "100%" }}
-        >
-          <FaShoppingCart className="me-1" /> Add to Cart
-        </Button>
+      
       </Card.Body>
     </Card>
     </>
