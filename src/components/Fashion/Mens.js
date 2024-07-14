@@ -4,7 +4,7 @@ import {mens} from'./MensData';
 import {Link} from'react-router-dom';
 import'../Groceries/SoldOutLabel.css';
 
-const Mens= ({ addToCart, cartItems,  currentPage, setCurrentPage, product}) => {
+const Mens= ({ cartItems,  currentPage, setCurrentPage, product}) => {
 
   const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
@@ -42,10 +42,7 @@ const handlePageChange = (newPage) => {
 
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
-                   
-
- 
-                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
+               
                   </Card.Body>
                 </Card>
               </Col>

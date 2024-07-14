@@ -6,7 +6,7 @@ import './LoanForm.css';
 import useFetchReviews from '../components/useFetchReviews';
 import useShare from'../components/useShare';
 
-const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart, cartItems, product}) => {
+const DealsPageFashion = ({url, name, price, discountedPrice, rating, cartItems, product}) => {
    const { reviewData, loading, error } = useFetchReviews(product?.name);
     const handleShare = useShare(); // Use the custom hook
 
@@ -59,9 +59,7 @@ const DealsPageFashion = ({url, name, price, discountedPrice, rating, addToCart,
                 <span>{averageRating}</span>
               </div>
             </div>
-            <Button variant="primary" size="sm" onClick={() => addToCart(product)} className='w-100'>
-              <FaShoppingCart className="me-1" /> Add to Cart
-            </Button>
+           
           </div>
         </Card.Body>
       </Card>
