@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import { recommendedProducts } from '../data/recommendedProducts';
 import ImageCardRecommended from '../components/ImageCardRecommended';
 import { useMediaQuery } from 'react-responsive';
-import './BestSelling.css'; // Import your custom CSS for the slider
+// import './BestSelling.css'; // Import your custom CSS for the slider
 
 const FeaturedProduct = ({ addToCart }) => {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -45,7 +45,6 @@ const FeaturedProduct = ({ addToCart }) => {
  
 
   return (
-    <div className="best-selling-slider"> {/* Add a container div */}
       <Slider {...settings}>
         {recommendedProducts.map((product) => (
           <div key={product.id}>
@@ -59,7 +58,6 @@ const FeaturedProduct = ({ addToCart }) => {
           </div>
         ))}
       </Slider>
-        </div>
 
   );
 };

@@ -140,14 +140,15 @@ const MyAccountPage = ({addToCart}) => {
         </Col>
       </Row>
 
-        <Row style={{marginTop:"25px"}}>
+       <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
 
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>
       </div>
-     <FeaturedProduct addToCart={addToCart}/>
+  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
+            <FeaturedProduct  />
+          </Col> 
       </Row>
-
     </Container>
 
       </>
