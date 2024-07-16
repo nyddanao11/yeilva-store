@@ -15,10 +15,10 @@
       [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen3.png`,
         `${process.env.PUBLIC_URL}/schoolsupplies/ballpen3.png`,
       ],},
-    { id: 4, name: 'marker2', price: 8,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:0, page:1, 
+    { id: 4, name: 'marker2', price: 8,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:0, page:1, 
            thumbnails:
-      [`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`,
-        `${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`,
+      [`${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`,
       ],},
      { id: 5, name: 'Panda', price: 5,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:10 , page:1, 
         thumbnails:
@@ -35,10 +35,10 @@
       [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen3.png`,
         `${process.env.PUBLIC_URL}/schoolsupplies/ballpen3.png`,
       ],},
-    { id: 8, name: 'marker2', price: 8,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:0, page:1, 
+    { id: 8, name: 'marker2', price: 8,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:0, page:1, 
         thumbnails:
-      [`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`,
-        `${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`,
+      [`${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`,
       ],},
 
      { id: 11, name: 'Panda', price: 5,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/ballpen1.png`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:10 , page:2, 
@@ -56,10 +56,10 @@
       [`${process.env.PUBLIC_URL}/schoolsupplies/ballpen3.png`,
         `${process.env.PUBLIC_URL}/schoolsupplies/ballpen3.png`,
       ],},
-    { id: 44, name: 'marker2', price: 8,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:0, page:2, 
+    { id: 44, name: 'marker2', price: 8,  weight:12, url:`${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`, category: 'School Supplies', description:'Flavored Barbecue Corn Chips 200g', stock:0, page:2, 
       thumbnails:
-      [`${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`,
-        `${process.env.PUBLIC_URL}/schoolsupplies/rebisco2.jpg`,
+      [`${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`,
+        `${process.env.PUBLIC_URL}/schoolsupplies/pencil01.png`,
       ],},
     
     // Add more canned goods as needed

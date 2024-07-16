@@ -1,12 +1,10 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {notebook} from'./NotebookData';
 import {Link} from'react-router-dom';
 import'../Groceries/SoldOutLabel.css';
 
-
-
-const NoteBook = ({ addToCart, cartItems, product, currentPage, setCurrentPage}) => {
+const NoteBook = ({ cartItems, product, currentPage, setCurrentPage}) => {
 
   const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
@@ -54,10 +52,7 @@ const handlePageChange = (newPage) => {
 
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
-
-
                    
-                    <Button variant="primary" style={{fontSize:"10px", maxWidth:"100%"}} onClick={() => addToCart(product)}>AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>

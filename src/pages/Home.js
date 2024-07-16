@@ -41,11 +41,11 @@ let countBeauty = beautyProductsData.length;
       </Row>
 
         <Row className="d-flex justify-content-center align-items-center" >
-           <div className="d-flex justify-content-lg-between " style={{maxWidth:"950px"}}>  
+           <div className="d-flex  " style={{maxWidth:"950px"}}>  
           <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Featured Products</h5>
              <div className="d-flex mt-3 " >
-                <Link to="/products" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
-              <p  style={{paddingLeft:'15px'}}>({`${countWellness}`})</p>
+                <Link to="/products" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
+              <p  style={{paddingLeft:'5px'}}>({`${countWellness}`})</p>
             </div>
           </div>
         <Col lg={10} md={10} sm={12} style={{ padding:'5px 10px ', marginBottom:'15px'}}>
@@ -56,11 +56,11 @@ let countBeauty = beautyProductsData.length;
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
        <Row className="d-flex justify-content-center align-items-center" >
-         <div className="d-flex justify-content-lg-between " style={{maxWidth:"760px"}}>   
+         <div className="d-flex " style={{maxWidth:"760px"}}>   
           <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
            <div className="d-flex mt-3 " >
-                <Link to="/beautyproducts" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
-              <p  style={{paddingLeft:'15px'}}>({`${countBeauty}`})</p>
+                <Link to="/beautyproducts" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
+              <p  style={{paddingLeft:'5px'}}>({`${countBeauty}`})</p>
            </div>
           </div>
         <Col lg={8} md={8} sm={12} style={{padding: '5px 10px', marginBottom:'15px'}}>
@@ -71,11 +71,11 @@ let countBeauty = beautyProductsData.length;
 
 
       <Row className="d-flex justify-content-center align-items-center" >
-           <div className="d-flex justify-content-lg-between " style={{maxWidth:"950px"}}>  
+           <div className="d-flex " style={{maxWidth:"950px"}}>  
              <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Recommended Products</h5>
                <div className="d-flex mt-3 " >
-                    <Link to="/pcproducts" style={{paddingLeft:'5px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
-                  <p  style={{paddingLeft:'15px'}}>({`${countPc}`})</p>
+                    <Link to="/pcproducts" style={{paddingLeft:'20px', textDecoration:'none'}}> All </Link>
+                  <p  style={{paddingLeft:'5px'}}>({`${countPc}`})</p>
                </div>
            </div>
          <Col lg={10} md={10} sm={12} style={{padding:'5px 10px', marginBottom:'15px'}}>

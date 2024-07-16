@@ -1,11 +1,10 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {ballpen} from'./BallpenMarkerData';
 import {Link} from'react-router-dom';
 import'../Groceries/SoldOutLabel.css';
 
-
-const BallpenMarker= ({ addToCart, cartItems,  currentPage, setCurrentPage, product}) => {
+const BallpenMarker= ({ cartItems,  currentPage, setCurrentPage, product}) => {
 
   const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
@@ -27,7 +26,7 @@ const handlePageChange = (newPage) => {
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
-            <div className="d-flex justify-content-center align-items-center mb-2">
+           <div className="d-flex justify-content-center align-items-center mb-2">
            <h6> Ballpen&Marker</h6>
            </div>
             {/* Display Grocery Items */}
@@ -43,10 +42,7 @@ const handlePageChange = (newPage) => {
 
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
-                   
-
- 
-                    <Button variant="primary" style={{fontSize:"12px"}} onClick={() => addToCart(product)}>AddToCart</Button>
+                  
                   </Card.Body>
                 </Card>
               </Col>

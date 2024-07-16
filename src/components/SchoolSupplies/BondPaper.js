@@ -1,12 +1,10 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {bondpaper} from'./BondPaperData';
 import {Link} from'react-router-dom';
 import'../Groceries/SoldOutLabel.css';
 
-
-
-const BondPaper = ({ addToCart, cartItems, product, currentPage, setCurrentPage}) => {
+const BondPaper = ({ cartItems, product, currentPage, setCurrentPage}) => {
 
   const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
@@ -32,7 +30,7 @@ const handlePageChange = (newPage) => {
         {/* Main Content Area for Grocery Items */}
         <Col sm={10}>
           <Row className="mt-4">
-              <div className="d-flex justify-content-center align-items-center mb-2">
+             <div className="d-flex justify-content-center align-items-center mb-2">
            <h6> Bondpaper</h6>
            </div>
             {/* Display Grocery Items */}
@@ -55,9 +53,7 @@ const handlePageChange = (newPage) => {
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
 
-
                    
-                    <Button variant="primary" style={{fontSize:"10px", maxWidth:"100%"}} onClick={() => addToCart(product)}>AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>

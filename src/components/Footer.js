@@ -4,7 +4,7 @@ import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
 import {Link} from'react-router-dom';
 import HoverButton2 from'./HoverButton2';
-
+import BackToTopButton from'./BackToTopButton';
 
 const Footer = () => {
   return (
@@ -49,6 +49,7 @@ const Footer = () => {
           </Col>
         </Row>
       </Container>
+        <BackToTopButton /> {/* Add the BackToTopButton here */}
     </footer>
   );
 };
