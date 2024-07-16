@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { FaShoppingCart, FaShareAlt } from 'react-icons/fa';
+import { Card} from 'react-bootstrap';
+import { FaShareAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import useFetchReviews from '../components/useFetchReviews';
 import useShare from'./useShare';

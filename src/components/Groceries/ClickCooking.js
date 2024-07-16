@@ -34,6 +34,10 @@ const ClickCooking = ({ addToCart }) => {
 
   // Find the product by ID
   const product = findProductByIdCooking(id);
+         const stockState = product.stock;
+ const stockStatus = () => {
+  return stockState <= 0;
+};
 
   if (!product) {
     // Handle the case where the product with the specified ID is not found
@@ -82,12 +86,13 @@ const ClickCooking = ({ addToCart }) => {
           <p>Description: {product.description}</p>
 
           {/* Add to Cart Button */}
-          <Button variant="primary" onClick={() => addToCart(product)}>
-            Add to Cart
-          </Button>
-           <Button variant="primary" onClick={handleCheckoutClick} className="mx-3">
-            Buy Now
-          </Button>
+                      <p>In stock: {product.stock}</p>
+        <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
+      Add to Cart
+    </Button>
+    <Button variant="primary" onClick={handleCheckoutClick} className="mx-3" disabled={stockStatus()}>
+      Buy Now
+    </Button>
         </Col>
       </Row>
 

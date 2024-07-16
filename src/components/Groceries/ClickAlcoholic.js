@@ -35,6 +35,10 @@ const ClickAlcoholic = ({ addToCart }) => {
 
   // Find the product by ID
   const product = findProductByIdAlcoholic(id);
+     const stockState = product.stock;
+ const stockStatus = () => {
+  return stockState <= 0;
+};
 
   if (!product) {
     // Handle the case where the product with the specified ID is not found
@@ -54,7 +58,7 @@ const ClickAlcoholic = ({ addToCart }) => {
        <Row className="justify-content-center ">
         <BreadCrumbAlcoholic productId={product.id} />
 
-        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3 " 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
 
           <div className="main-image-container">
@@ -84,12 +88,13 @@ const ClickAlcoholic = ({ addToCart }) => {
           <p>Description: {product.description}</p>
 
           {/* Add to Cart Button */}
-          <Button variant="primary" onClick={() => addToCart(product)}>
-            Add to Cart
-          </Button>
-           <Button variant="primary" onClick={handleCheckoutClick} className="mx-3">
-            Buy Now
-          </Button>
+              <p>In stock: {product.stock}</p>
+        <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
+      Add to Cart
+    </Button>
+    <Button variant="primary" onClick={handleCheckoutClick} className="mx-3" disabled={stockStatus()}>
+      Buy Now
+    </Button>
         </Col>
       </Row>
 

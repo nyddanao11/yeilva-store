@@ -1,9 +1,11 @@
 .main-image-container {
   position: relative;
+  
 }
 
 .main-image {
   height: 250px; /* Adjust as needed */
+
 }
 
 .thumbnails {

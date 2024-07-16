@@ -125,7 +125,7 @@ const ClickDealsElectronic = ({ addToCart }) => {
                 {renderStars(averageRating)}
               </div>
               <span>{averageRating}</span>
-              <span className="mx-3"> Number of Reviews: {reviewData.length} </span>
+              <span className="mx-3"> Reviews: {reviewData.length} </span>
             </div>
           </div>
 

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {rice} from'./RiceData';
 import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
-import { FaShoppingCart } from 'react-icons/fa';
 
-const Rice = ({addToCart, cartItems, product}) => {
+const Rice = ({cartItems, product}) => {
 
    const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
@@ -42,7 +41,6 @@ const Rice = ({addToCart, cartItems, product}) => {
                     <Card.Title style={{fontSize:"14px"}}>{product.name}</Card.Title>
                     <Card.Text style={{margin:"0px"}}> ₱{product.price}</Card.Text>
                    
-                     <Button variant="primary" size="sm" style={{fontSize:"10px", width:"100%"}} onClick={() => addToCart(product)}> <FaShoppingCart style={{fontSize:'10px'}} />AddToCart</Button>
                   </Card.Body>
                 </Card>
               </Col>

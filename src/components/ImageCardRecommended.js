@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { FaShoppingCart, FaShareAlt } from 'react-icons/fa';
+import { Card} from 'react-bootstrap';
+import { FaShareAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import useFetchReviews from '../components/useFetchReviews';
 import useShare from'./useShare';
@@ -31,7 +31,7 @@ const ImageCardRecommended = ({ product }) => {
 
   return (
   <>
-    <Card style={{ width: '10rem', margin: '10px' }} className="product-card">
+    <Card style={{ width: '10rem', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)' }} >
       <Link to={`/clickproductpagerecommended/${product.id}`}>
         <div className="card-image-container" style={{ height: '200px', overflow: 'hidden' }}>
           <img

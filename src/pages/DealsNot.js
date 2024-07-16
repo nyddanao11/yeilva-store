@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { FaStar, FaShoppingCart } from 'react-icons/fa';
+import { Card} from 'react-bootstrap';
+import { FaStar} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './LoanForm.css';
 
@@ -37,9 +37,7 @@ const DealsNot = ({url, name, price, discountedPrice, rating, product}) => {
                     </span>
                     <span className="text-muted">{product.rating}</span>
                   </div>
-                  <Button variant="primary" size="sm" className='w-100' >
-                    <FaShoppingCart className="me-1" /> Add to Cart
-                  </Button>
+                
                 </div>
               </Card.Body>
             </Card>

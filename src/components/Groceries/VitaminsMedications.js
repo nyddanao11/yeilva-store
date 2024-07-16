@@ -1,12 +1,10 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {vitamins} from'./VitaminsMedicationsData';
 import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
-import { FaShoppingCart } from 'react-icons/fa';
 
-
-const VitaminsMedications = ({addToCart, cartItems, product,  currentPage, setCurrentPage}) => {
+const VitaminsMedications = ({ cartItems, product,  currentPage, setCurrentPage}) => {
 
    const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out

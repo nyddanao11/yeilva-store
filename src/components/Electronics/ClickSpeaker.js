@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdSpeaker from './findProductByIdSpeaker';
@@ -6,17 +6,17 @@ import './ClickElectronic.css';
 import '../LoanForm.css';
 import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbSpeaker from'./BreadCrumbSpeaker';
-
+import axios from 'axios';
+import TabbedComponent from'./ProductTablatureSpeaker';
 
 const ClickSpeaker = ({ addToCart }) => {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
-
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
+  const [reviewData, setReviewData] = useState([]);
 
- 
-  const handleThumbnailClick = (itemId, imageUrl) => {
+   const handleThumbnailClick = (itemId, imageUrl) => {
     // Update the selected thumbnail for the specific item
     setSelectedThumbnails((prevSelectedThumbnails) => ({
       ...prevSelectedThumbnails,
@@ -40,6 +40,26 @@ const ClickSpeaker = ({ addToCart }) => {
   return stockState <= 0;
 };
 
+useEffect(() => {
+    // Function to fetch reviews based on product name
+    const fetchReviews = async () => {
+      try {
+    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${product.name}`);
+        console.log('Response from server:', response.data); // Log the response data
+        setReviewData(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    fetchReviews();
+  }, [product.name]);
+
+    // Calculate the average rating
+  const averageRating = reviewData.length > 0
+    ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
+    : 0;
+
+
   if (!product) {
     // Handle the case where the product with the specified ID is not found
     return (
@@ -52,6 +72,19 @@ const ClickSpeaker = ({ addToCart }) => {
       </Container>
     );
   }
+
+    // Function to convert rating to stars
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<span key={i}>&#9733;</span>); // Filled star
+      } else {
+        stars.push(<span key={i}>&#9734;</span>); // Empty star
+      }
+    }
+    return stars;
+  };
 
   return (
     <Container  className="mt-3">
@@ -86,8 +119,18 @@ const ClickSpeaker = ({ addToCart }) => {
           <p>Price: ₱{product.price}</p>
           <p>Description: {product.description}</p>
 
+           <div className="d-flex flex-column mb-1">
+            <div className="d-flex">
+              <div className="text-warning me-1 mb-1" style={{ fontSize: "18px" }}>
+                {renderStars(averageRating)}
+              </div>
+              <span>{averageRating}</span>
+              <span className="mx-3"> Reviews: {reviewData.length} </span>
+            </div>
+          </div>
+
           {/* Add to Cart Button */}
-                   <p>In stock: {product.stock}</p>
+                 <p>In stock: {product.stock}</p>
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>
@@ -97,7 +140,12 @@ const ClickSpeaker = ({ addToCart }) => {
         </Col>
       </Row>
 
-     
+         <Row style={{marginBottom:'60px', marginTop:'60px'}}>
+        <Col>
+        <TabbedComponent  productId={product.id} />
+        </Col>
+      </Row>
+
         <Row style={{marginTop:"40px"}}>
 
       <div className="line" style={{marginBottom:'30px'}}>

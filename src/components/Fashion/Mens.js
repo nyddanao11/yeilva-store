@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {mens} from'./MensData';
 import {Link} from'react-router-dom';
 import'../Groceries/SoldOutLabel.css';

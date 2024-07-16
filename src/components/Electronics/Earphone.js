@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import {earphoneData} from'./EarphoneData';
 import {Link} from'react-router-dom';
 import'../Groceries/SoldOutLabel.css';
-
 
 const Earphone = ({ cartItems,  currentPage, setCurrentPage, product}) => {
 
