@@ -28,7 +28,7 @@ let countBeauty = beautyProductsData.length;
              <div className="d-flex justify-content-center align-items-center ">  
           <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Categories</h5>
           </div> 
-        <Col lg={8} md={8} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
+        <Col lg={10} md={10} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
        
           <CircleCard addToCart={addToCart} product={product}/>
           </Col> 
@@ -48,7 +48,7 @@ let countBeauty = beautyProductsData.length;
               <p  style={{paddingLeft:'5px'}}>({`${countWellness}`})</p>
             </div>
           </div>
-        <Col lg={10} md={10} sm={12} style={{ padding:'5px 10px ', marginBottom:'15px'}}>
+        <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
               <FeaturedProducts addToCart={addToCart} product={product}/>
           </Col> 
       </Row>
@@ -56,14 +56,14 @@ let countBeauty = beautyProductsData.length;
 
       {/* Best Selling Products (You can follow a similar structure for other sections) */}
        <Row className="d-flex justify-content-center align-items-center" >
-         <div className="d-flex " style={{maxWidth:"760px"}}>   
+         <div className="d-flex " style={{maxWidth:"950px"}}>   
           <h5  style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
            <div className="d-flex mt-3 " >
                 <Link to="/beautyproducts" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
               <p  style={{paddingLeft:'5px'}}>({`${countBeauty}`})</p>
            </div>
           </div>
-        <Col lg={8} md={8} sm={12} style={{padding: '5px 10px', marginBottom:'15px'}}>
+        <Col lg={10} md={10} sm={12} style={{padding: '5px 0px', marginBottom:'15px'}}>
               
              <BestSelling addToCart={addToCart} product={product}/>
           </Col> 
@@ -78,7 +78,7 @@ let countBeauty = beautyProductsData.length;
                   <p  style={{paddingLeft:'5px'}}>({`${countPc}`})</p>
                </div>
            </div>
-         <Col lg={10} md={10} sm={12} style={{padding:'5px 10px', marginBottom:'15px'}}>
+         <Col lg={10} md={10} sm={12} style={{padding:'5px 0px', marginBottom:'15px'}}>
             <RecommendedProd addToCart={addToCart} product={product}/>    
         </Col> 
       </Row>

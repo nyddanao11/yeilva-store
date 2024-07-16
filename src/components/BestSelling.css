@@ -1,0 +1,19 @@
+/* Default styling for larger screens */
+.slick-slide {
+  padding: 0 20px; /* Gap for larger screens */
+}
+
+.slick-list {
+  margin: 0 -20px; /* Compensate for the padding on larger screens */
+}
+
+/* Styling for small screens */
+@media (max-width: 767px) {
+  .slick-slide {
+    padding: 0 2px; /* Gap for small screens */
+  }
+
+  .slick-list {
+    margin: 0 8px; /* Compensate for the padding on small screens */
+  }
+}
