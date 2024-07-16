@@ -81,13 +81,16 @@ const DealsNotLoggin = ({url, name, price, discountedPrice, rating ,product}) =>
          ))}
      </Row>
 
-       <Row style={{marginTop:"25px"}}>
+    <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
 
       <div className="line" style={{marginBottom:'30px'}}>
       <h4 className="text">You May also Like</h4>
       </div>
-     <FeaturedNot />
+  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
+            <FeaturedNot />
+          </Col> 
       </Row>
+
 
     </Container>
      
