@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, FloatingLabel} from 'react-bootstrap';
 import { fetchUserData } from '../components/userService';
 import { Link} from 'react-router-dom';
-import FeaturedProduct from'../components/FeaturedProduct';
 import './LoanForm.css';
 import HoverButton1 from'../components/HoverButton1'
-
+import YouMayLike from'../components/YouMayLike';
 
 const MyAccountPage = ({addToCart}) => {
   const [userData, setUserData] = useState({
@@ -140,15 +139,7 @@ const MyAccountPage = ({addToCart}) => {
         </Col>
       </Row>
 
-       <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
-          </Col> 
-      </Row>
+        <YouMayLike />
     </Container>
 
       </>

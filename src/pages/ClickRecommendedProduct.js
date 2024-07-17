@@ -3,10 +3,10 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdRecommended from '../data/findProductByIdRecommended';
 import './ClickProductPage.css';
-import FeaturedProduct from'../components/FeaturedProduct';
 import BreadCrumbRecommended from'../components/BreadCrumbRecommended';
 import TabbedComponent from'../components/ProductTablatureRecommended';
 import axios from 'axios';
+import YouMayLike from'../components/YouMayLike';
 
 const ClickRecommendedProduct= ({ addToCart }) => {
   const { id } = useParams();
@@ -142,13 +142,8 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
 
       </Row>
 
-       <Row style={{marginTop:"25px"}}>
+         <YouMayLike />
 
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
     </Container>
   );
 };

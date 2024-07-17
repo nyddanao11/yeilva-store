@@ -4,9 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdMarker from './findProductByIdMarker';
 import './ClickBallpenMarker.css';
 import '../LoanForm.css';
-import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbBallpen from'./BreadCrumbBallpen'
-
+import YouMayLike from'../YouMayLike';
 
 const ClickMarker = ({ addToCart }) => {
   const { id } = useParams();
@@ -96,15 +95,8 @@ const ClickMarker = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
+  <YouMayLike />
 
-     
-        <Row style={{marginTop:"40px"}}>
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
      </Container>
   );
 };

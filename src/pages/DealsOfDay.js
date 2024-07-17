@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import DealsPage from'./Deals';
 import DealsPageFashion from'./DealsPageFashion';
 import DealsElectronic from './DealsElectronic';
-import FeaturedProduct from'../components/FeaturedProduct';
 import {wellnessProductData} from'../data/wellnessProductData';
 import {dealsFashion} from '../data/DealsFashion';
 import {deals} from '../data/DealsData';
@@ -14,7 +13,7 @@ import {mensshoes} from'../components/Fashion/MensShoesData';
 import {womensshoes} from'../components/Fashion/WomensShoesData';
 import {dealsElectronicData} from'../data/DealsElectronicData';
 import {speakerData}from'../components/Electronics/SpeakerData';
-
+import YouMayLike from'../components/YouMayLike';
 
 const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartItems,product}) => {
    let countWellness = wellnessProductData.length;
@@ -83,16 +82,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
               </Col>
          ))}
      </Row>
-
-          <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
-          </Col> 
-      </Row>
+     <YouMayLike />
 
     </Container>
      

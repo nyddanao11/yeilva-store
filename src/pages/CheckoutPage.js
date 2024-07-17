@@ -4,7 +4,7 @@ import { Button, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 import VoucherForm from './Voucher';
-import FeaturedProduct from'../components/FeaturedProduct';
+import YouMayLike from'../components/YouMayLike';
 
 const CheckoutPage = ({
   cartItems,
@@ -113,19 +113,9 @@ const CheckoutPage = ({
             fetchUserData={fetchUserData}
           />
         )}
-
-
-       <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"40px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
-          </Col> 
-      </Row>
+       
       </Container>
-     
+        <YouMayLike />
     </>
   );
 };

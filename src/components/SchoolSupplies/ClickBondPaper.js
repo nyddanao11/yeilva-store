@@ -4,16 +4,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdBondPaper from './findProductByIdBondPaper';
 import './ClickBallpenMarker.css';
 import '../LoanForm.css';
-import FeaturedProduct from'../FeaturedProduct';
-import BreadCrumbBondpaper from'./BreadCrumbBondpaper'
+import BreadCrumbBondpaper from'./BreadCrumbBondpaper';
+import YouMayLike from'../YouMayLike';
 
 const ClickPaper = ({ addToCart }) => {
   const { id } = useParams();
-  console.log('ID from URL:', id);
-
 
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
-
  
   const handleThumbnailClick = (itemId, imageUrl) => {
     // Update the selected thumbnail for the specific item
@@ -96,13 +93,8 @@ const ClickPaper = ({ addToCart }) => {
         </Col>
       </Row>
 
-       <Row style={{marginTop:"40px"}}>
+      <YouMayLike />
 
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
      </Container>
   );
 };

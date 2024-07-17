@@ -4,10 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdEarphone from './findProductByIdEarphone';
 import './ClickElectronic.css';
 import '../LoanForm.css';
-import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbElectronic from'./BreadCrumbElectronic'
 import axios from 'axios';
 import TabbedComponent from'./ProductTablatureEarphone';
+import YouMayLike from'../YouMayLike';
 
 const ClickEarphone = ({ addToCart }) => {
   const { id } = useParams();
@@ -152,14 +152,7 @@ const ClickEarphone = ({ addToCart }) => {
 
       </Row>
 
-     
-        <Row style={{marginTop:"40px"}}>
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
+   <YouMayLike />
      </Container>
   );
 };

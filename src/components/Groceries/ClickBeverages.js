@@ -4,9 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdBeverages from './findProductByIdBeverages';
 import './ClickBeverages.css';
 import '../LoanForm.css';
-import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbBeverages from'./BreadCrumbBeverages';
-
+import YouMayLike from'../YouMayLike';
 
 const ClickBeverages = ({ addToCart }) => {
   const { id } = useParams();
@@ -97,14 +96,8 @@ const ClickBeverages = ({ addToCart }) => {
         </Col>
       </Row>
 
-      
-        <Row style={{marginTop:"40px"}}>
+      <YouMayLike />
 
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
     </Container>
   );
 };

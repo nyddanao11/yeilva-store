@@ -23,7 +23,7 @@ import { cooking } from '../components/Groceries/CookingItemsData';
 import { vitamins } from '../components/Groceries/VitaminsMedicationsData';
 import { rice } from '../components/Groceries/RiceData';
 import { useMediaQuery } from 'react-responsive';
-import FeaturedProduct from'../components/FeaturedProduct';
+import YouMayLike from'../components/YouMayLike';
 
 const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
@@ -106,15 +106,7 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
           </div>
         </Col>
       </Row>
-      <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"40px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
-          </Col> 
-      </Row>
+           <YouMayLike />
     </Container>
      
       </>

@@ -11,7 +11,7 @@ import {bondpaper} from'../components/SchoolSupplies/BondPaperData';
 import {notebook} from'../components/SchoolSupplies/NotebookData';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
-import FeaturedProduct from'../components/FeaturedProduct';
+import YouMayLike from'../components/YouMayLike';
 
 const SchoolSupplies = ({ addToCart, cartItems, isProductSoldOut  }) => {
   const [activeNavItem, setActiveNavItem] = useState('ballpenmarker');
@@ -92,16 +92,8 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
           </div>
         </Col>
       </Row>
-
-            <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"40px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
-          </Col> 
-      </Row>
+      
+         <YouMayLike />
      
     </Container>
  

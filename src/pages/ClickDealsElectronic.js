@@ -3,10 +3,10 @@ import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdElectronic from '../data/findProductByIdElectronic';
 import './ClickProductPage.css';
-import FeaturedProduct from '../components/FeaturedProduct';
 import BreadCrumbElectro from '../components/BreadCrumbElectro';
 import TabbedComponent from '../components/ProductTablatureElectro';
 import axios from 'axios';
+import YouMayLike from'../components/YouMayLike';
 
 const ClickDealsElectronic = ({ addToCart }) => {
   const { id } = useParams();
@@ -144,14 +144,8 @@ const ClickDealsElectronic = ({ addToCart }) => {
           <TabbedComponent productId={product.id} />
         </Col>
       </Row>
+     <YouMayLike />
 
-      <Row style={{ marginTop: '25px' }}>
-        <div className="line" style={{ marginBottom: '30px' }}>
-          <h4 className="text">You May also Like</h4>
-        </div>
-
-        <FeaturedProduct addToCart={addToCart} />
-      </Row>
     </Container>
   );
 };

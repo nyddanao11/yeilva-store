@@ -2,11 +2,10 @@ import React,{useState} from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdMensShoes from './findProductByIdMensShoes';
-import FeaturedProduct from'../FeaturedProduct';
 import './ClickWomens.css';
 import '../LoanForm.css';
 import BreadCrumbMensShoes from'./BreadCrumbMensShoes'
-
+import YouMayLike from'../YouMayLike';
 
 const ClickMensShoes = ({ addToCart }) => {
   const { id } = useParams();
@@ -97,15 +96,7 @@ const ClickMensShoes = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
-
-     
-        <Row style={{marginTop:"40px"}}>
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-     <FeaturedProduct addToCart={addToCart}/>
-      </Row>
+         <YouMayLike />
      </Container>
   );
 };

@@ -4,10 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdNotebook from './findProductByIdNotebook';
 import './ClickBallpenMarker.css';
 import '../LoanForm.css';
-import FeaturedProduct from'../FeaturedProduct';
 import BreadCrumbNotebook from'./BreadCrumbNotebook';
-
-
+import YouMayLike from'../YouMayLike';
 
 const ClickNote = ({ addToCart }) => {
   const { id } = useParams();
@@ -98,11 +96,8 @@ const ClickNote = ({ addToCart }) => {
         </Col>
       </Row>
 
-       <Row style={{marginTop:"25px"}}>
-      <hr></hr>
-      <h3 className='d-flex justify-content-center mb-3'>You May also Like</h3>
-     <FeaturedProduct addToCart={addToCart} />
-      </Row>
+          <YouMayLike />
+
      </Container>
   );
 };

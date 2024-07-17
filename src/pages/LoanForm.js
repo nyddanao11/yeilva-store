@@ -5,10 +5,10 @@ import axios from'axios';
 import LoanFormModal from '../components/modalLoanForm';
 import {useNavigate} from'react-router-dom';
 import LoanTable from '../components/LoanTable'; // Import the LoanTable component
-import FeaturedProduct from'../components/FeaturedProduct';
 import LoanAccordion from '../components/LoanAccordion';
 import './LoanForm.css';
 import HoverButton from'../components/HoverButton'
+import YouMayLike from'../components/YouMayLike';
 
 
 const LoanForm = ({addToCart}) => {
@@ -277,15 +277,7 @@ useEffect(() => {
       <h2 className='mb-3 mt-3'>FAQ</h2>
       <LoanAccordion />
       </Row>
-      <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"40px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
-          </Col> 
-      </Row>
+     <YouMayLike />
     </Container>
 
       </>
