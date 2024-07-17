@@ -139,9 +139,8 @@ const MyAccountPage = ({addToCart}) => {
         </Col>
       </Row>
 
-        <YouMayLike />
     </Container>
-
+     <YouMayLike />
       </>
   );
 };

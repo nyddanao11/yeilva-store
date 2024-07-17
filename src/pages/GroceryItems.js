@@ -106,9 +106,9 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
           </div>
         </Col>
       </Row>
-           <YouMayLike />
+         
     </Container>
-     
+       <YouMayLike />
       </>
   );
 };

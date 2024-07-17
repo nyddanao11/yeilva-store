@@ -53,6 +53,7 @@ const ClickNote = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbNotebook productId={product.id} />
@@ -95,10 +96,9 @@ const ClickNote = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
-
-          <YouMayLike />
-
-     </Container>
+  </Container>
+     <YouMayLike />
+     </>
   );
 };
 

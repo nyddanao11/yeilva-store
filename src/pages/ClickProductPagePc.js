@@ -83,6 +83,7 @@ const ClickProductPagePc = ({ addToCart }) => {
   };
   
   return (
+    <>
     <Container className="mt-3">
       <Row className="justify-content-center">
          <BreadCrumbPc productId={product.id} />
@@ -142,9 +143,10 @@ const ClickProductPagePc = ({ addToCart }) => {
         </Col>
 
       </Row>
-          <YouMayLike />
-   
+            
     </Container>
+     <YouMayLike />
+    </>
   );
 };
 

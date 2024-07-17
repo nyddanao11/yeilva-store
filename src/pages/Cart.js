@@ -3,7 +3,7 @@ import ShoppingCart from '../components/ShoppingCart';
 import { Button, Container,Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
-import YouMayLike from'../components/YouMayLike';
+import FeaturedProduct from'../components/FeaturedProduct';
 
 const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
  handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems}) => {
@@ -46,7 +46,14 @@ const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
         cartCount={cartCount}
 
       />
-         <YouMayLike />
+        <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
+      <div className="line" style={{marginBottom:'30px'}}>
+      <h4 className="text">You May also Like</h4>
+      </div>
+  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
+            <FeaturedProduct />
+          </Col> 
+      </Row>
 
       <div className="sticky-footer">
         <h2>Total Price: {formattedPrice}</h2>

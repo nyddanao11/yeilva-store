@@ -82,6 +82,7 @@ const ClickDeals = ({ addToCart }) => {
   };
 
   return (
+    <>
     <Container className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbDeals productId={product.id} />
@@ -141,9 +142,9 @@ const ClickDeals = ({ addToCart }) => {
           <TabbedComponent productId={product.id} />
         </Col>
       </Row>
-     <YouMayLike />
-
-    </Container>
+     </Container>
+       <YouMayLike />
+   </>
   );
 };
 

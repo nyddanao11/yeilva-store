@@ -91,6 +91,7 @@ const ClickEarphone = ({ addToCart }) => {
   };
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbElectronic productId={product.id} />
@@ -151,9 +152,9 @@ const ClickEarphone = ({ addToCart }) => {
         </Col>
 
       </Row>
-
-   <YouMayLike />
-     </Container>
+      </Container>
+        <YouMayLike />
+     </>
   );
 };
 

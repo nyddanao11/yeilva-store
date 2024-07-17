@@ -53,6 +53,7 @@ const ClickMarker = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbBallpen productId={product.id} />
@@ -95,9 +96,9 @@ const ClickMarker = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
-  <YouMayLike />
-
-     </Container>
+   </Container>
+     <YouMayLike />
+     </>
   );
 };
 

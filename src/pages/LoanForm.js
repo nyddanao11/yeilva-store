@@ -10,7 +10,6 @@ import './LoanForm.css';
 import HoverButton from'../components/HoverButton'
 import YouMayLike from'../components/YouMayLike';
 
-
 const LoanForm = ({addToCart}) => {
   const [loanAmount, setLoanAmount] = useState('3000');
   const [firstName, setFirstName] = useState('');
@@ -277,9 +276,9 @@ useEffect(() => {
       <h2 className='mb-3 mt-3'>FAQ</h2>
       <LoanAccordion />
       </Row>
-     <YouMayLike />
+  
     </Container>
-
+   <YouMayLike />
       </>
 
   );

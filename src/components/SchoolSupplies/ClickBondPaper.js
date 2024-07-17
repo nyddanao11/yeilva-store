@@ -50,6 +50,7 @@ const ClickPaper = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container className="mt-3">
         <Row className="justify-content-center">
         <BreadCrumbBondpaper productId={product.id} />
@@ -93,9 +94,9 @@ const ClickPaper = ({ addToCart }) => {
         </Col>
       </Row>
 
-      <YouMayLike />
-
-     </Container>
+      </Container>
+     <YouMayLike />
+     </>
   );
 };
 

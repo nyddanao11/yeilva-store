@@ -52,6 +52,7 @@ const ClickSnacks = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbSnacks productId={product.id} />
@@ -96,9 +97,9 @@ const ClickSnacks = ({ addToCart }) => {
         </Col>
       </Row>
 
-   <YouMayLike />
-
     </Container>
+     <YouMayLike />
+     </>
   );
 };
 

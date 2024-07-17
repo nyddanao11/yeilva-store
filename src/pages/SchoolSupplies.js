@@ -92,11 +92,9 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
           </div>
         </Col>
       </Row>
-      
-         <YouMayLike />
-     
+              
     </Container>
- 
+    <YouMayLike />
       </>
   );
 };

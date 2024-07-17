@@ -83,6 +83,7 @@ const ClickDealsElectronic = ({ addToCart }) => {
   };
 
   return (
+    <>
     <Container className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbElectro productId={product.id} />
@@ -144,9 +145,9 @@ const ClickDealsElectronic = ({ addToCart }) => {
           <TabbedComponent productId={product.id} />
         </Col>
       </Row>
-     <YouMayLike />
-
-    </Container>
+      </Container>
+         <YouMayLike />
+    </>
   );
 };
 

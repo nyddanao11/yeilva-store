@@ -83,6 +83,7 @@ const ClickBestSelling= ({ addToCart }) => {
   };
 
   return (
+    <>
     <Container className="mt-3">
        <Row className="justify-content-center">
         <BreadCrumbBest productId={product.id} />
@@ -141,10 +142,9 @@ const ClickBestSelling= ({ addToCart }) => {
         </Col>
 
       </Row>
-
-          <YouMayLike />
-
     </Container>
+          <YouMayLike />
+    </>
   );
 };
 

@@ -82,10 +82,9 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
               </Col>
          ))}
      </Row>
-     <YouMayLike />
-
+   
     </Container>
-     
+       <YouMayLike />
    </>
   );
 };

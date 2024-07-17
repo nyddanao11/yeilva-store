@@ -87,6 +87,7 @@ useEffect(() => {
   };
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbSpeaker productId={product.id} />
@@ -145,9 +146,9 @@ useEffect(() => {
         <TabbedComponent  productId={product.id} />
         </Col>
       </Row>
+       </Container>
        <YouMayLike />
-
-     </Container>
+     </>
   );
 };
 

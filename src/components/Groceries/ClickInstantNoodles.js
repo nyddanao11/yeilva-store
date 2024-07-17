@@ -52,6 +52,7 @@ const ClickInstantNoodles = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbNoodles productId={product.id} />
@@ -94,9 +95,9 @@ const ClickInstantNoodles = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
-    <YouMayLike />
-
-    </Container>
+     </Container>
+     <YouMayLike />
+     </>
   );
 };
 

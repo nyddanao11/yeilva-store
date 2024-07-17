@@ -53,6 +53,7 @@ const ClickMens = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container  className="mt-3">
        <Row className="justify-content-center">
         <BreadCrumbMens productId={product.id} />
@@ -95,9 +96,9 @@ const ClickMens = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
-
-   <YouMayLike />
      </Container>
+     <YouMayLike />
+     </>
   );
 };
 

@@ -53,6 +53,7 @@ const ClickVitamins = ({ addToCart }) => {
   }
 
   return (
+    <>
     <Container  className="mt-3">
       <Row className="justify-content-center">
         <BreadCrumbVitamins productId={product.id} />
@@ -96,10 +97,9 @@ const ClickVitamins = ({ addToCart }) => {
     </Button>
         </Col>
       </Row>
-
-      <YouMayLike />
-
-    </Container>
+  </Container>
+     <YouMayLike />
+     </>
   );
 };
 

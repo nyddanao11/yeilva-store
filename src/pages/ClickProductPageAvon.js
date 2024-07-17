@@ -84,6 +84,7 @@ const ClickProductPageAvon = ({ addToCart }) => {
 
 
   return (
+    <>
     <Container className="mt-3">
         <Row className="justify-content-center">
            <BreadCrumbAvon productId={product.id} />
@@ -142,8 +143,10 @@ const ClickProductPageAvon = ({ addToCart }) => {
         </Col>
 
       </Row>
-  <YouMayLike />
+ 
     </Container>
+     <YouMayLike />
+    </>
   );
 };
 

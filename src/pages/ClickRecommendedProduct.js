@@ -83,6 +83,7 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
   };
 
   return (
+    <>
     <Container className="mt-3">
              <Row className="justify-content-center">
         <BreadCrumbRecommended productId={product.id} />
@@ -142,9 +143,9 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
 
       </Row>
 
+       </Container>
          <YouMayLike />
-
-    </Container>
+         </>
   );
 };
 
