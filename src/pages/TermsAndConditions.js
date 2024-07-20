@@ -98,7 +98,7 @@ const TermsAndConditionsPage = () => {
       <p>
         If you have any questions or concerns regarding these terms and
         conditions, you can contact us at{' '}
-        <a href="mailto:yeilvastore@gmail.com">yeilvastore@gmail.com</a>.
+         <Link to="/needhelp"> Customer Support </Link>
       </p>
     </Container>
   );

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CheckoutForm from '../components/CheckoutForm';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 import VoucherForm from './Voucher';
-import YouMayLike from'../components/YouMayLike';
+import YouMayLike from '../components/YouMayLike';
+import './CheckoutPage.css';
+import AlertFreeShipping from '../components/AlertFreeShipping';
+import AlertEmptyCart from '../components/AlertEmptyCart';
 
 const CheckoutPage = ({
   cartItems,
@@ -19,6 +22,8 @@ const CheckoutPage = ({
   const [shippingRate, setShippingRate] = useState(0);
   const [voucherCode, setVoucherCode] = useState(0);
   const [isFreeShipping, setIsFreeShipping] = useState(false); // New state for free shipping
+  const [showFreeShippingAlert, setShowFreeShippingAlert] = useState(false);
+  const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,20 +35,22 @@ const CheckoutPage = ({
     setTotalItemsPrice(itemsPrice);
   }, [cartItems]);
 
-   useEffect(() => {
-    const FREE_SHIPPING_THRESHOLD = 1000; // Set your free shipping threshold here
+  useEffect(() => {
+    const FREE_SHIPPING_THRESHOLD = 2500; // Set your free shipping threshold here
     if (totalItemsPrice > FREE_SHIPPING_THRESHOLD) {
       setShippingRate(0);
       setIsFreeShipping(true);
+      setShowFreeShippingAlert(true);
     } else {
       const calculatedShippingRate = (
         cartItems.reduce((total, item) => total + item.weight * 0.145, 0) + 30
       ).toFixed(2);
       setShippingRate(Number(calculatedShippingRate));
       setIsFreeShipping(false);
+      setShowFreeShippingAlert(false);
     }
   }, [cartItems, totalItemsPrice]);
-   
+
   const handleVoucherCode = (code) => {
     setVoucherCode(code / 100); // Convert to a decimal for discount calculation
   };
@@ -62,16 +69,27 @@ const CheckoutPage = ({
 
   useEffect(() => {
     if (cartItems.length === 0) {
-      navigate('/');
-      window.alert('Your Cart is Empty');
+      setShowEmptyCartAlert(true);
+      const timer = setTimeout(() => {
+        navigate('/');
+      }, 4000); // 4000 milliseconds = 4 seconds
+
+      // Cleanup the timer if the component unmounts before the timer completes
+      return () => clearTimeout(timer);
     }
   }, [cartItems, navigate]);
 
+
   return (
     <>
-      <Container
-        className="mb-4 d-flex justify-content-center aligned-items-center flex-column"
-        style={{ maxWidth: '650px' }}
+      {showFreeShippingAlert && (
+        <AlertFreeShipping onClose={() => setShowFreeShippingAlert(false)} />
+      )}
+      {showEmptyCartAlert && (
+        <AlertEmptyCart onClose={() => setShowEmptyCartAlert(false)} />
+      )}
+      <Container className="mb-4 d-flex justify-content-center aligned-items-center flex-column"
+        style={{ maxWidth: "767px" }}
       >
         <div className="d-flex justify-content-center aligned-items-center">
           <h4 className="text-center mb-2" style={{ padding: '10px', marginBottom: '15px' }}>
@@ -92,17 +110,26 @@ const CheckoutPage = ({
                 />
               ))}
             </div>
-
-            <p>Total Items Price: ₱{totalItemsPrice}</p>
-            <p>Shipping Rate: ₱{isFreeShipping ? 'Free' : shippingRate}</p>
-            <VoucherForm onVoucherValidate={handleVoucherCode} />
-            <h4 style={{ paddingBottom: '10px', marginTop: '15px' }}>Grand Total: {formattedGrandTotal}</h4>
-            <Button onClick={handleProceedToCheckout}>Continue to Shipping</Button>
-            <Link to="/cart">
-              <Button variant="primary" className="ms-2">
-                Back to Cart
-              </Button>
-            </Link>
+            <div className="checkout_section">
+              <div className="checkout_details">
+                <div className="voucher">
+                  <VoucherForm onVoucherValidate={handleVoucherCode} />
+                </div>
+                <div style={{ paddingLeft: "6px" }}>
+                  <p className="items_details">Total Items Price: ₱{totalItemsPrice}</p>
+                  <p className="items_details">Shipping Rate: ₱{isFreeShipping ? 'Free' : shippingRate}</p>
+                </div>
+              </div>
+              <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
+              <div className="d-flex">
+                <Button onClick={handleProceedToCheckout}>Continue to Shipping</Button>
+                <Link to="/cart">
+                  <Button variant="primary" className="ms-2">
+                    Back to Cart
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         ) : (
           <CheckoutForm
@@ -113,9 +140,8 @@ const CheckoutPage = ({
             fetchUserData={fetchUserData}
           />
         )}
-       
       </Container>
-        <YouMayLike />
+      <YouMayLike />
     </>
   );
 };

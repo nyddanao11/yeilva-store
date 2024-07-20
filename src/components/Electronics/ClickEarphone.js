@@ -121,10 +121,8 @@ const ClickEarphone = ({ addToCart }) => {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p>Price: ₱{product.price}</p>
-          <p>Description: {product.description}</p>
-
-
+           <p>Description: {product.description}</p>
+           <h6>₱{product.price}</h6>
            <div className="d-flex flex-column mb-1">
             <div className="d-flex">
               <div className="text-warning me-1 mb-1" style={{ fontSize: "18px" }}>

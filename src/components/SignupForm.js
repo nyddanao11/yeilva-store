@@ -47,7 +47,7 @@ const SignUpForm = () => {
  
            <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
 
-         <div className="text-left" style={{ color: 'green' }}>
+         <div className="text-left" style={{ color: 'green', marginBottom:"15px" }}>
          <h1>CREATE <br />NEW ACCOUNT</h1>
          <p style={{ color: 'black' }}>Already have an Account? Login</p>
            <Link to="/needhelp" style={{textDecoration:'none'}}> Need help?</Link>
