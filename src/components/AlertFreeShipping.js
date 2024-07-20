@@ -17,9 +17,9 @@ const AlertFreeShipping = ({ onClose }) => {
         <Alert.Heading>YeilvaSTORE</Alert.Heading>
         <p>You have reached the Free Shipping Threshold!</p>
       </div>
-      <div style={{marginLeft:"15px"}}>
+  
       <Button variant="outline-success" size="sm"  onClick={onClose}>X</Button>
-      </div>
+  
     </Alert>
   );
 };

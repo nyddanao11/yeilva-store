@@ -17,8 +17,8 @@ const VoucherForm = ({ onVoucherValidate }) => {
     }
   };
 
-  return (
-    <div style={{ width: '200px' }}>
+ return (
+    <div style={{ width: '150px' }}>
       <Form onSubmit={handleSubmit}>
         <Form.Label>Enter voucher code</Form.Label>
         <Form.Control
@@ -26,7 +26,7 @@ const VoucherForm = ({ onVoucherValidate }) => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
-        <Button type="submit" variant="outline-secondary" style={{ marginTop: '10px' }}>
+        <Button type="submit" variant="outline-secondary" style={{ marginTop: '10px',width:"150px"}}>
           Validate Voucher
         </Button>
       </Form>
