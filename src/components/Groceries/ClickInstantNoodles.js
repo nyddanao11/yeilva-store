@@ -86,7 +86,7 @@ const ClickInstantNoodles = ({ addToCart }) => {
           <p>Description: {product.description}</p>
 
           {/* Add to Cart Button */}
-           <p>In stock: {product.stock}</p>
+      <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "450" }}>In stock: {product.stock}</p>
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>
