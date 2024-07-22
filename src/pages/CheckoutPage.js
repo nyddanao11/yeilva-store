@@ -117,7 +117,7 @@ const CheckoutPage = ({
                 </div>
                 <div style={{ paddingLeft: "6px" }}>
                   <p className="items_details">Total Items Price: ₱{totalItemsPrice}</p>
-                  <p className="items_details">Shipping Rate: ₱{isFreeShipping ? 'Free' : shippingRate}</p>
+                  <p style={{color:isFreeShipping? "#067d62" : "black", fontSize:"14px", fontWeight:"500"}}>Shipping Rate: ₱{isFreeShipping ? 'Free' : shippingRate}</p>
                 </div>
               </div>
               <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
