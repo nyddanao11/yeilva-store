@@ -111,6 +111,8 @@ navigate ('/');
                 </div>
               </div>
 
+              <h6 style={{marginTop:'4px'}}>Subtotal: ₱{`${cartItem.price * cartItem.quantity}`}</h6>
+
                   </Col>
                   </Row>
                 </Card.Body>
