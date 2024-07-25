@@ -66,6 +66,7 @@ import ClickWomens from './components/Fashion/ClickWomens';
 import ClickMens from './components/Fashion/ClickMens';
 import ClickMensShoes from './components/Fashion/ClickMensShoes';
 import ClickWomensShoes from './components/Fashion/ClickWomensShoes';
+import ClickYouMayLike from './pages/ClickYouMayLike';
 import CheckoutHistoryPage from './components/CheckoutHistoryPage';
 import LoanFormHistoryPage from './components/LoanFormHistoryPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -256,6 +257,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={<ClickDeals addToCart={addToCart} />} />
                   <Route path="/clickdealsfashion/:id" element={<ClickDealsFashion  addToCart={addToCart} />} />
                       <Route path="/clickdealselectronic/:id" element={<ClickDealsElectronic  addToCart={addToCart} />} />
+                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart} />} />
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage />} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
@@ -376,6 +378,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={<ClickDeals addToCart={addToCart} />} />
                   <Route path="/clickdealsfashion/:id" element={<ClickDealsFashion  addToCart={addToCart} />} />
                   <Route path="/clickdealselectronic/:id" element={<ClickDealsElectronic  addToCart={addToCart} />} />
+                  <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart} />} />
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage />} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />

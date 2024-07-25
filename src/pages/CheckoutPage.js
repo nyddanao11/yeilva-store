@@ -141,7 +141,7 @@ const CheckoutPage = ({
           />
         )}
       </Container>
-      <YouMayLike />
+      <YouMayLike addToCart={addToCart}/>
     </>
   );
 };

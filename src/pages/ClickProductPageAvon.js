@@ -148,7 +148,7 @@ const ClickProductPageAvon = ({ addToCart }) => {
       </Row>
  
     </Container>
-     <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
     </>
   );
 };

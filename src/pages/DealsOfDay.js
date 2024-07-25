@@ -84,7 +84,7 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
      </Row>
    
     </Container>
-       <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
    </>
   );
 };

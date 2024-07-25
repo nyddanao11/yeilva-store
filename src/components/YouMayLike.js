@@ -1,8 +1,8 @@
   import React from'react';
-  import FeaturedProduct from './FeaturedProduct';
+  import YouMayLikeProduct from './YouMayLikeProduct';
   import { Container, Row, Col} from 'react-bootstrap';
 
-const YouMayLike =()=>{
+const YouMayLike =({addToCart})=>{
 return (
   <Container>
    <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"40px"}} >
@@ -11,7 +11,7 @@ return (
       <h4 className="text">You May also Like</h4>
       </div>
   <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct  />
+            <YouMayLikeProduct addToCart={addToCart}/>
           </Col> 
       </Row>
       </Container>

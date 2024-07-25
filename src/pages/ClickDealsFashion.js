@@ -148,7 +148,7 @@ const ClickDealsFashion= ({ addToCart }) => {
 
       </Row>
       </Container>
-      <YouMayLike />
+      <YouMayLike addToCart={addToCart}/>
     </>
   );
 };

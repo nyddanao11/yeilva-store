@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button,Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import findProductByIdDeals from '../data/findProductByIdDeals';
+import findProductByIdYouMayLike from '../data/findProductByIdYouMayLike';
 import './ClickProductPage.css';
-import BreadCrumbDeals from '../components/BreadCrumbDeals';
-import TabbedComponent from '../components/ProductTablatureDeals';
-import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
+import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
+import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
+import axios from 'axios';
 
-const ClickDeals = ({ addToCart }) => {
+
+const ClickYouMayLike = ({ addToCart }) => {
   const { id } = useParams();
+   console.log('ID from URL:', id);
   
  const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
   const navigate = useNavigate();
 
-   const product = findProductByIdDeals(id);
-   const stockState = product.stock;
+  const product = findProductByIdYouMayLike (id);
+     const stockState = product.stock;
  const stockStatus = () => {
   return stockState <= 0;
 };
@@ -84,40 +86,39 @@ const ClickDeals = ({ addToCart }) => {
   return (
     <>
     <Container className="mt-3">
-      <Row className="justify-content-center">
-        <BreadCrumbDeals productId={product.id} />
-
-        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" style={{ border: '1px #d3d4d5 solid', paddingTop: '10px' }}>
-            <div className="main-image-container">
+     <Row className="justify-content-center">
+           <BreadCrumbFeatured productId={product.id} />
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
+        style={{border:'1px #d3d4d5 solid', paddingTop:'10px', paddingBottom:'10px'}}>
+          
+              <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
                           alt={product.name}
                           className="main-image"
                         />
                       </div>
-          <div className="thumbnails mb-2">
-            {product.thumbnails.map((thumb, idx) => (
-              <img
-                key={idx}
-                src={thumb}
-                alt={`Thumbnail ${idx}`}
-                onClick={() => handleThumbnailClick(product.id, thumb)}
-                className="thumbnail-image"
-              />
-            ))}
-          </div>
+                      <div className="thumbnails">
+                        {product.thumbnails.map((thumb, id) => (
+                          <img
+                            key={id}
+                            src={thumb}
+                            alt={`Thumbnail ${id}`}
+                            onClick={() => handleThumbnailClick(product.id, thumb)}
+                            className="thumbnail-image"
+                          />
+                        ))}
+                      </div>
         </Col>
 
+        {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
+       
           <p>Description: {product.description}</p>
-          <div>
-            <span className="text-muted ms-1"><strike>₱{product.discountedPrice}</strike></span>
-            <span className="ms-2" style={{ paddingLeft: '2px', color: 'black', fontWeight: 'bold', fontSize: '16px' }}>₱{product.price}</span>
-            <span style={{ paddingLeft: '6px', color: 'red', fontWeight: 'bold', fontSize: '16px' }}>{product.percentage}</span>
-          </div>
-
-          <div className="d-flex flex-column mb-1">
+           <h6>₱{product.price}</h6>
+           
+         <div className="d-flex flex-column mb-1">
             <div className="d-flex">
               <div className="text-warning me-1 mb-1" style={{ fontSize: "18px" }}>
                 {renderStars(averageRating)}
@@ -126,8 +127,6 @@ const ClickDeals = ({ addToCart }) => {
               <span className="mx-3"> Reviews: {reviewData.length} </span>
             </div>
           </div>
-
-
 <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400" }}>
   {product.stock === 0 ? "Out of stock" : "In stock"}
 </p>
@@ -140,15 +139,17 @@ const ClickDeals = ({ addToCart }) => {
         </Col>
       </Row>
 
-      <Row style={{ marginBottom: '60px', marginTop: '60px' }}>
+       <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
-          <TabbedComponent productId={product.id} />
+        <TabbedComponentYouMayLike  productId={product.id} />
         </Col>
+
       </Row>
-     </Container>
-      <YouMayLike addToCart={addToCart}/>
+
+      </Container>
+    <YouMayLike addToCart={addToCart}/>
    </>
   );
 };
 
-export default ClickDeals;
+export default ClickYouMayLike;

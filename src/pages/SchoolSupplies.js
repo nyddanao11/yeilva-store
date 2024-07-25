@@ -94,7 +94,7 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
       </Row>
               
     </Container>
-    <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
       </>
   );
 };

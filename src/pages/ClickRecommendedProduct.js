@@ -147,7 +147,7 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
       </Row>
 
        </Container>
-         <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
          </>
   );
 };

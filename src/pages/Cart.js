@@ -3,7 +3,7 @@ import ShoppingCart from '../components/ShoppingCart';
 import { Button, Container,Row, Col} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
-import FeaturedProduct from'../components/FeaturedProduct';
+import YouMayLikeProduct from'../components/YouMayLikeProduct';
 import AlertEmptyCart from '../components/AlertEmptyCart';
 
 
@@ -57,7 +57,7 @@ const formattedPrice = new Intl.NumberFormat('fil-PH', {
       <h4 className="text">You May also Like</h4>
       </div>
   <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <FeaturedProduct />
+            <YouMayLikeProduct addToCart={addToCart}/>
           </Col> 
       </Row>
       

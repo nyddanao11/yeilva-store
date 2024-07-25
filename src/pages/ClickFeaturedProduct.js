@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdFeatured from '../data/findProductByIdFeatured';
 import './ClickProductPage.css';
-import BestSelling from '../components/BestSelling';
+import YouMayLike from'../components/YouMayLike';
 import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponentFeatured from'../components/ProductTablatureFeatured';
 import axios from 'axios';
@@ -83,6 +83,7 @@ const ClickFeaturedProduct= ({ addToCart }) => {
   };
 
   return (
+    <>
     <Container className="mt-3">
      <Row className="justify-content-center">
            <BreadCrumbFeatured productId={product.id} />
@@ -145,16 +146,10 @@ const ClickFeaturedProduct= ({ addToCart }) => {
         </Col>
 
       </Row>
- <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
-
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <BestSelling  />
-          </Col> 
-      </Row>
+ 
     </Container>
+        <YouMayLike addToCart={addToCart}/>
+    </>
   );
 };
 

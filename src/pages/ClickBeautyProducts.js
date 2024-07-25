@@ -146,7 +146,7 @@ const ClickBeautyProducts = ({ addToCart }) => {
       </Row>
 
      </Container>
-      <YouMayLike />
+      <YouMayLike addToCart={addToCart}/>
       </>
   );
 };

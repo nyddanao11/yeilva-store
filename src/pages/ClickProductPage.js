@@ -146,7 +146,7 @@ const ClickProductPage = ({ addToCart }) => {
       </Row>
 
      </Container>
-       <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
     </>
   );
 };

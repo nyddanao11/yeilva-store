@@ -108,7 +108,7 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
       </Row>
          
     </Container>
-       <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
       </>
   );
 };

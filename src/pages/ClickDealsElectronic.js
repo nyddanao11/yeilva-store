@@ -149,7 +149,7 @@ const ClickDealsElectronic = ({ addToCart }) => {
         </Col>
       </Row>
       </Container>
-         <YouMayLike />
+      <YouMayLike addToCart={addToCart}/>
     </>
   );
 };

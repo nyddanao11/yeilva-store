@@ -146,7 +146,7 @@ const ClickBestSelling= ({ addToCart }) => {
 
       </Row>
     </Container>
-          <YouMayLike />
+      <YouMayLike addToCart={addToCart}/>
     </>
   );
 };

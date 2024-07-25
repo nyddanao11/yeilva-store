@@ -140,7 +140,7 @@ const MyAccountPage = ({addToCart}) => {
       </Row>
 
     </Container>
-     <YouMayLike />
+        <YouMayLike addToCart={addToCart}/>
       </>
   );
 };
