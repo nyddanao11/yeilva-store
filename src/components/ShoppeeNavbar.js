@@ -61,13 +61,15 @@ return (
 	           <Dropdown.Item as={Link} to="/homekitchen">Home and Kitchen Appliances</Dropdown.Item>
 	           <Dropdown.Item as={Link} to="/homeimprovement">Home Improvement and DIY Tools</Dropdown.Item>
 	            <Dropdown.Item as={Link} to="/outdoorsports">Outdoor and Sports Equipment</Dropdown.Item> 
-	             {isLoggedIn ? ( <Dropdown.Item as={Link} to="/loanform">Loan Form</Dropdown.Item>
-	            ):(
-                 <Dropdown.Item as={Link} to="/loanform">Services</Dropdown.Item>
-	            )} 
-	            
-	          {/* Add more category links as needed */}
-	      
+	        
+	            <NavDropdown title="Services" id="services-nav-dropdown" style={{paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}>
+					      {isLoggedIn ? (
+					        <Dropdown.Item as={Link} to="/loanform">Loan Form</Dropdown.Item>
+					      ) : (
+					        <Dropdown.Item as={Link} to="/loanform">Services</Dropdown.Item>
+					      )}
+					    </NavDropdown>
+	        	      
 	      </NavDropdown>
 	  
 		  <Nav>  
