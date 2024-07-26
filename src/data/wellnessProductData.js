@@ -14,7 +14,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
 },
 {
   id: 2,
@@ -30,6 +30,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
    productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000", 
+      sizecolor:false,
   },
 {
   id: 3,
@@ -45,6 +46,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/barley2.png`,
       ],
   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
+     sizecolor:false,
  },
 {
   id: 4,
@@ -60,6 +62,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
   productdetails:"1 plastic Bottle of 500ml acaiberry juice, BFAD#1009889000",
+     sizecolor:false,
   },
 {
   id: 5,
@@ -76,6 +79,7 @@
        
       ],
   productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
+     sizecolor:false,
  },
 {
   id: 6,
@@ -92,6 +96,7 @@
       
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
  },
 {
   id: 7,
@@ -108,6 +113,7 @@
        
       ],
   productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
+     sizecolor:false,
   },
 {
   id: 8,
@@ -124,6 +130,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 10 sachets sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
  },
 {
   id: 9,
@@ -140,6 +147,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
  },
 {
   id: 10,
@@ -156,6 +164,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
   },
 {
   id: 11,
@@ -172,6 +181,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/bracele641.jpg`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+     sizecolor:true,
   },
 {
   id: 12,
@@ -188,6 +198,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"Net wt 30g,  BFAD#1009889000",
+     sizecolor:false,
  },
 {
   id: 13,
@@ -204,6 +215,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
   },
 {
   id: 14,
@@ -220,6 +232,7 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
   },
 {
   id: 15,
@@ -236,5 +249,6 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
+     sizecolor:false,
   },
 ];

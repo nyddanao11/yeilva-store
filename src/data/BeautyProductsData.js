@@ -12,7 +12,7 @@
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-          
+     sizecolor:false,      
 },
 {
   id: 91,
@@ -20,14 +20,14 @@
   url:  `${process.env.PUBLIC_URL}/beauty/teatree.png`,
   price: 150,
     weight:250,
-      stock: 10,
+      stock: 20,
   description:"Skin medicated herbal soap. It is a plant based soap with added tea tree oil. A natural antibacterial that can be used as a cleanser and medication for individuals who do not want to use synthetic or chemical treatments for skin problems.  ",
   thumbnails:
       [ `${process.env.PUBLIC_URL}/beauty/teatree.png`,
          `${process.env.PUBLIC_URL}/beauty/teatree.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
- 
+    sizecolor:false,
 },
 {
   id: 92,
@@ -42,7 +42,7 @@
          `${process.env.PUBLIC_URL}/beauty/ionnapkin.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
- 
+    sizecolor:false,
 },
 {
   id: 93,
@@ -57,7 +57,7 @@
         `${process.env.PUBLIC_URL}/beauty/kojic.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
- 
+    sizecolor:false,
 },
 {
   id: 94,
@@ -72,7 +72,7 @@
          `${process.env.PUBLIC_URL}/beauty/collagen.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-
+   sizecolor:false,
 },
 {
   id: 95,
@@ -87,7 +87,7 @@
         `${process.env.PUBLIC_URL}/beauty/clarifyingtoner.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
 },
 {
   id: 96,
@@ -102,7 +102,7 @@
         `${process.env.PUBLIC_URL}/beauty/poretoner.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-    
+     sizecolor:false,
 },
 {
   id: 97,
@@ -117,7 +117,7 @@
         `${process.env.PUBLIC_URL}/beauty/rejuvenating.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
 },
 {
   id: 98,
@@ -132,7 +132,7 @@
          `${process.env.PUBLIC_URL}/beauty/sbfplacenta.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
 },
 {
   id: 99,
@@ -147,7 +147,7 @@
         `${process.env.PUBLIC_URL}/beauty/obagiset.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
 },
 {
   id: 100,
@@ -162,7 +162,7 @@
          `${process.env.PUBLIC_URL}/beauty/toothpaste.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-   
+     sizecolor:false,
 },
 
 {
@@ -178,6 +178,6 @@
         `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
 },
 ];

@@ -16,5 +16,6 @@ export const dealsElectronicData = [
       `${process.env.PUBLIC_URL}/electronics/jblt110_02.png`,
       ],
    productdetails:" Lightweight and comfortable design: the sleek, flat, durable cable helps you say tangle-free, so you can focus on listening to the music you love, not on untangling knots Convenient single-button remote: the JBL T110 includes a practical hands-free microphone, so you can conveniently answer incoming calls and control music playback on the fly",
+  sizecolor:false,
  },
 ];

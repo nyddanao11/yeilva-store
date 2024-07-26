@@ -6,9 +6,7 @@ import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css';
 
-
 function ShopeeNavbar({cartItems, isLoggedIn, handleLogout, handleLogin}) {
-
 
 	 const [userData, setUserData] = useState({
     firstname: '',
@@ -34,84 +32,94 @@ useEffect(() => {
     fetchUser();
   }, [isLoggedIn]); // Add isLoggedIn as a dependency to the useEffect
 
+ return (
+    <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
+      <Container>
+        <Navbar.Brand as={Link} to="/" className="home text-dark" style={{ borderRadius: '5px' }}>
+          <FaHome size={24} />
+        </Navbar.Brand>
 
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav" className="justify-content-lg-between">
+          <Nav className="ml-auto">
+          <Nav>
+            <NavDropdown title="Product Category" id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}>
+              <Dropdown.Item as={Link} to="/groceryitemspage">Food & Beverages/Grocery Items</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/schoolsupplies">School and Office Supplies</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/products">Health & Wellness</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/pcproducts">Personal Collection</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/avonproducts">Avon Collection</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/beautyproducts">Beauty and Personal Care</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/fashionapparel">Fashion and Apparel</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/consumerelectronics">Electronics</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/homekitchen">Home and Kitchen Appliances</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/homeimprovement">Home Improvement and DIY Tools</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/outdoorsports">Outdoor and Sports Equipment</Dropdown.Item>
 
+            </NavDropdown>
 
-return (
- <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
-   <Container>
-			 	<Navbar.Brand as={Link} to="/" className="home text-dark" style={{  borderRadius:'5px'}}>
-			<FaHome size={24} />
-			 </Navbar.Brand>
+         </Nav>
+            <Nav>
+            	 <NavDropdown title="Services" id="services-nav-dropdown" autoClose="outside" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
+                {isLoggedIn ? (
+                 <>
+		                   <NavDropdown title="Other Services" id="services-basic-dropdown" autoClose="outside" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
+		                 
+		                    <Dropdown.Item>Loading phone/games</Dropdown.Item>
+		                    <Dropdown.Item>ID printing</Dropdown.Item>
+		                    <Dropdown.Item>Photo printing</Dropdown.Item>
+		                    <Dropdown.Item>Document printing</Dropdown.Item>
+		                    <Dropdown.Item>Scan</Dropdown.Item>
+		                    <Dropdown.Item>Xerox</Dropdown.Item>
+		                    <Dropdown.Item>Plastic Laminate</Dropdown.Item>
+		                    <Dropdown.Item>Internet</Dropdown.Item>
+		                 
+		                    </NavDropdown>
+		                 
+		                   <Dropdown.Item as={Link} to="/loanform">Loan Form</Dropdown.Item>
+		                   <Dropdown.Item >Domestic/International Ticketing</Dropdown.Item>
+		                   <Dropdown.Item >Travel and Tours</Dropdown.Item>
+		                   <Dropdown.Item >Hotel Booking</Dropdown.Item>
+		                </>
+                ) : (
+                  <Dropdown.Item as={Link} to="/loanform">All Services</Dropdown.Item>
+                )}
+              </NavDropdown>
 
-     <Navbar.Toggle aria-controls="navbar-nav" />
-		 <Navbar.Collapse id="navbar-nav"  className="justify-content-lg-between">
-		 <Nav className="ml-auto" >
+            </Nav>
+            <Nav>
+              {isLoggedIn ? (
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><strong>Deals</strong></Nav.Link>
+              ) : (
+                <Nav.Link as={NavLink} to="/dealsnotloggin" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><strong>Deals</strong></Nav.Link>
+              )}
+            </Nav>
 
-			<NavDropdown title="Product Category" id="basic-nav-dropdown" style={{paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}>
-	      
-	            <Dropdown.Item as={Link} to="/groceryitemspage" >Food&Beverages/GroceryItems</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/schoolsupplies">School and Office Supplies</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/products">Health & Wellness</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/pcproducts">Personal Collection</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/avonproducts">Avon Collection</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/beautyproducts">Beauty and Personal Care</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/fashionapparel">Fashion and Apparel</Dropdown.Item>
-	             <Dropdown.Item as={Link} to="/consumerelectronics">Electronics</Dropdown.Item>
-	           <Dropdown.Item as={Link} to="/homekitchen">Home and Kitchen Appliances</Dropdown.Item>
-	           <Dropdown.Item as={Link} to="/homeimprovement">Home Improvement and DIY Tools</Dropdown.Item>
-	            <Dropdown.Item as={Link} to="/outdoorsports">Outdoor and Sports Equipment</Dropdown.Item> 
-	        
-	            <NavDropdown title="Services" id="services-nav-dropdown" style={{paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}>
-					      {isLoggedIn ? (
-					        <Dropdown.Item as={Link} to="/loanform">Loan Form</Dropdown.Item>
-					      ) : (
-					        <Dropdown.Item as={Link} to="/loanform">Services</Dropdown.Item>
-					      )}
-					    </NavDropdown>
-	        	      
-	      </NavDropdown>
-	  
-		  <Nav>  
-		 {isLoggedIn? (
-
-        <Nav.Link as={NavLink} to="/dealsofday"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
-		 	):(
-        <Nav.Link as={NavLink} to="/dealsnotloggin"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active"><strong>Deals</strong></Nav.Link>
-
-		 	)}
-		 	</Nav>
-		
-		 <Nav.Link as={NavLink} to="/myaccount"   style={{ paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active">
-        {isLoggedIn ? (
-          <>
-            <FiUser style={{ marginRight: '0.5rem' }} />
-            {`Hello, ${userData.firstname ?? 'loading...'}`}
-          </>
-        ) : (
-          'My Account'
-        )}
-      </Nav.Link>
-
-  </Nav>
-  <Nav className='ml-3'>
-			  {isLoggedIn ? (
-			    <Nav.Link as={NavLink} to="/" onClick={handleLogout}  style={{paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}}  activeClassName="active">
-			      Logout
-			    </Nav.Link>
-			  ) : (
-			    <Nav.Link as={NavLink} to="/login"   style={{paddingLeft:'10px', paddingRight:'10px', borderRadius:'5px'}} activeClassName="active">Login</Nav.Link>
-			  )}
-
-    </Nav>
-
- 	</Navbar.Collapse>
-
- </Container>
-
-</Navbar>
-);
-
-};
+            <Nav.Link as={NavLink} to="/myaccount" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">
+              {isLoggedIn ? (
+                <>
+                  <FiUser style={{ marginRight: '0.5rem' }} />
+                  {`Hello, ${userData.firstname ?? 'loading...'}`}
+                </>
+              ) : (
+                'My Account'
+              )}
+            </Nav.Link>
+        </Nav>
+    
+          <Nav className='ml-3'>
+            {isLoggedIn ? (
+              <Nav.Link as={NavLink} to="/" onClick={handleLogout} style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">
+                Logout
+              </Nav.Link>
+            ) : (
+              <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">Login</Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+}
 
 export default ShopeeNavbar;

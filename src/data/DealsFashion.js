@@ -6,7 +6,7 @@ export const dealsFashion = [
   price:324.5,
   discountedPrice: 649,
  percentage:"-50%",
- rating:5,
+ rating:4,
    weight:120,
    stock:1,
     description:"Jag Jeans shirt for women, available in maroon color and medium size only",
@@ -17,7 +17,7 @@ export const dealsFashion = [
        
       ],
   productdetails:"for women, available in maroon color and medium size only, only one left",
-  
+   sizecolor:true,
 },
 {
   id: 8,
@@ -26,7 +26,7 @@ export const dealsFashion = [
   price: 299.5,
   discountedPrice: 599,
   percentage:"-50%",
-  rating:5,
+  rating:4,
    weight:120,
    stock:1,
     description:"J&G shirt for women, available in orange color and medium size only, only one left",
@@ -37,7 +37,7 @@ export const dealsFashion = [
        
       ],
   productdetails:"J&G shirt for women, available in orange color and medium size only, only one left",
- 
+    sizecolor:true,
 },
 
 ];

@@ -7,7 +7,7 @@ export const deals = [
   description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",               
   discountedPrice: 230,
   percentage:"-13%",
-  rating:5,
+  rating:4,
   weight:120,
   stock:5,
   thumbnails:
@@ -17,6 +17,7 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+   sizecolor:false,
  },
 {
   id: 2,
@@ -35,6 +36,7 @@ export const deals = [
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
    productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
+    sizecolor:false,
     },
  {
   id: 3,
@@ -54,6 +56,7 @@ export const deals = [
        
       ],
   productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
+   sizecolor:false,
  },
 {
   id: 5,
@@ -62,7 +65,7 @@ export const deals = [
   price: 600,
   discountedPrice: 750,
   percentage:"-20%",
-  rating:5,
+  rating:4,
    weight:120,
      stock:5,
    description:"Vitamin Cee for strong immune system and prevent cardio vascular disease",
@@ -73,6 +76,7 @@ export const deals = [
        
       ],
   productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
+   sizecolor:false,
   },
 
 ];

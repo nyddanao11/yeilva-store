@@ -12,7 +12,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/barley.png`,
           ],
       productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
-    
+       sizecolor:false,
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export const bestSellingProducts = [
              `${process.env.PUBLIC_URL}/images/product2.png`,
           ],
      productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
-    
+       sizecolor:false,
     },
     {
       id: 3,
@@ -42,7 +42,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/acai1.png`,
           ],
         productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
-    
+       sizecolor:false,
     },
     {
       id: 38,
@@ -57,7 +57,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/imgpc/pctuffpld.png`,
           ],
        productdetails:"Personal Collection Products",
-      
+        sizecolor:false,
     },
     {
       id: 4,
@@ -72,7 +72,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/turmeric.png`,
           ],
        productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
     },
     {
       id: 5,
@@ -87,7 +87,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/primeshape.jpg`,
           ],
       productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-  
+     sizecolor:false,
     },
     {
       id: 6,
@@ -102,7 +102,7 @@ export const bestSellingProducts = [
             `${process.env.PUBLIC_URL}/images/Buah merah.png`,
           ],
       productdetails:"Net wt 30g,  BFAD#1009889000",
-  
+     sizecolor:false,
     },
     {
       id: 7,
@@ -119,7 +119,7 @@ export const bestSellingProducts = [
            
           ],
       productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
-   
+      sizecolor:false,
     },
 
   ];

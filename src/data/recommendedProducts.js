@@ -12,6 +12,7 @@ export const recommendedProducts = [
         `${process.env.PUBLIC_URL}/images/barley.png`,
       ],
          productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
+            sizecolor:false,
       },
      {
       id: 45,
@@ -26,6 +27,7 @@ export const recommendedProducts = [
             `${process.env.PUBLIC_URL}/imgpc/target.png`,
           ],
        productdetails:"Personal Collection Products",
+          sizecolor:false,
       },
     {
      id: 11,
@@ -40,6 +42,7 @@ export const recommendedProducts = [
          `${process.env.PUBLIC_URL}/images/bracelet.png`,
       ],
        productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+          sizecolor:true,
      },
     {
       id: 2,
@@ -54,6 +57,7 @@ export const recommendedProducts = [
         `${process.env.PUBLIC_URL}/images/product2.png`,
       ],
        productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
+          sizecolor:false,
        },
      {
       id: 3,
@@ -68,6 +72,7 @@ export const recommendedProducts = [
         `${process.env.PUBLIC_URL}/images/mangosteen.png`,
       ],
       productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+         sizecolor:false,
      },
     
     { id: 15, 
@@ -83,6 +88,7 @@ export const recommendedProducts = [
         `${process.env.PUBLIC_URL}/groceries/beverages/SanMiguel3In1.jpg`, 
       ],
       productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+         sizecolor:false,
      },
 
     { id: 16, 
@@ -98,5 +104,6 @@ export const recommendedProducts = [
           `${process.env.PUBLIC_URL}/groceries/beverages/TangOrange.jpg`, 
         ],
         productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+           sizecolor:false,
      },
     ];

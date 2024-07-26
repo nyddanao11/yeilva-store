@@ -13,7 +13,7 @@ export const youMayLikeData = [
         `${process.env.PUBLIC_URL}/images/mangosteen.png`,
       ],
        productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-
+   sizecolor:false,
     },
     {
       id: 51,
@@ -29,7 +29,7 @@ export const youMayLikeData = [
          `${process.env.PUBLIC_URL}/images/barley.png`,
       ],
        productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
-  
+     sizecolor:false,
     },
     {
     id: 52,
@@ -45,7 +45,7 @@ export const youMayLikeData = [
          `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ],
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-  
+     sizecolor:false,
    },
    {
     id: 53,
@@ -61,7 +61,7 @@ export const youMayLikeData = [
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-              
+        sizecolor:false,
     },
     {
       id: 54,
@@ -77,6 +77,6 @@ export const youMayLikeData = [
         `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       ],
        productdetails:"Personal Collection Products",
-  
+     sizecolor:false,
     },
   ];

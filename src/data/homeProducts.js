@@ -7,12 +7,13 @@ export const homeProducts = [
       price: 220,
          weight:120,
             stock: 10,
+            rating:4,
         thumbnails:
       [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
         `${process.env.PUBLIC_URL}/images/mangosteen.png`,
       ],
        productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-
+   sizecolor:false,
     },
     {
       id: 51,
@@ -22,12 +23,13 @@ export const homeProducts = [
       price: 800,
          weight:120,
             stock: 10,
+              rating:5,
          thumbnails:
       [ `${process.env.PUBLIC_URL}/images/barley.png`,
          `${process.env.PUBLIC_URL}/images/barley.png`,
       ],
        productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
-  
+    sizecolor:false,
     },
     {
     id: 52,
@@ -36,13 +38,14 @@ export const homeProducts = [
     price: 2895,
        weight:120,
           stock: 10,
+            rating:5,
     description: "Gluta dietary Supplement capsule that consist of one glutathione with an added Sulfhydryl group. It improves the immune system and protects the body from free radical damage. it can also flush out liver toxins that can achieve whiter skin.",
        thumbnails:
       [ `${process.env.PUBLIC_URL}/images/glutathione.png`,
          `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ],
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-  
+     sizecolor:false,
    },
    {
     id: 53,
@@ -51,13 +54,14 @@ export const homeProducts = [
     price: 150,
        weight:150,
           stock: 10,
+            rating:4,
     description: "Whitening Soap",
        thumbnails:
       [ `${process.env.PUBLIC_URL}/beauty/gluta.png`,
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-              
+      sizecolor:false,  
     },
     {
       id: 54,
@@ -66,12 +70,13 @@ export const homeProducts = [
       price: 220,
      weight:800,
         stock: 10,
+          rating:4,
      description:'laundry detergent net weight 800g',
          thumbnails:
       [`${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
         `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       ],
        productdetails:"Personal Collection Products",
-  
+     sizecolor:false,
     },
   ];
