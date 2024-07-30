@@ -1,5 +1,4 @@
 import React from 'react';
-import FreebiesEbook from './FreebiesEbook';
 import NewUserDiscount from './NewUserDiscount';
 import YouMayLike from'./YouMayLike';
 
