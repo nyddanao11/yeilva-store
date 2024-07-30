@@ -87,6 +87,7 @@ import ReviewComponent from'./components/ReviewComponent';
 import Footer from './components/Footer';
 import DealsNotLoggin from './pages/DealsNotLoggin';
 import InstallmentTerms from'./pages/installmentTerms';
+import Freebies from './components/Freebies';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -273,6 +274,7 @@ const handleLogout = () => {
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
+                            <Route path="/freebies" element={<Freebies  addToCart={addToCart}/>} />
 
                    
                  <Route component={NotFoundPage} />
@@ -309,7 +311,8 @@ const handleLogout = () => {
                   <Route path="/cart" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                    <Route path="/search" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>    
                       <Route path="/needhelp" element={<NeedHelp />} />
-          
+                       <Route path="/freebies" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+         
             <Route component={NotFoundPage} /> 
 
           </Routes>
@@ -394,7 +397,7 @@ const handleLogout = () => {
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
-
+                            <Route path="/freebies" element={<Freebies  addToCart={addToCart}/>} />
                    
 
                  <Route component={NotFoundPage} />
@@ -431,6 +434,7 @@ const handleLogout = () => {
                   <Route path="/cart" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                    <Route path="/search" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                     <Route path="/needhelp" element={<NeedHelp />} />
+                      <Route path="/freebies" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
              
           
             <Route component={NotFoundPage} />

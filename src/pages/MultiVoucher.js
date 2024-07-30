@@ -11,11 +11,11 @@ const GenerateVouchers = () => {
   const [message, setMessage] = useState('');
 
   const generateVouchers = async () => {
-    const discounts = [10, 15, 20, 30];
+    const discounts = [10, 15];
     const voucherPromises = [];
 
     discounts.forEach((discount) => {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 50; i++) {
         const code = generateVoucherCode();
         const expirationDate = new Date();
         expirationDate.setMonth(expirationDate.getMonth() + 1); // Set expiration date 1 month from now

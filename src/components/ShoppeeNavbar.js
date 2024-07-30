@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, NavDropdown } from 'react-bootstrap';
 import { Link, NavLink} from 'react-router-dom';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaGift } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css';
@@ -60,10 +60,10 @@ useEffect(() => {
 
          </Nav>
             <Nav>
-            	 <NavDropdown title="Services" id="services-nav-dropdown" autoClose="outside" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
+            	 <NavDropdown title="Services" id="services-nav-dropdown" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
                 {isLoggedIn ? (
                  <>
-		                   <NavDropdown title="Other Services" id="services-basic-dropdown" autoClose="outside" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
+		                   <NavDropdown title="Other Services" id="services-basic-dropdown"  style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
 		                 
 		                    <Dropdown.Item>Loading phone/games</Dropdown.Item>
 		                    <Dropdown.Item>ID printing</Dropdown.Item>
@@ -93,6 +93,11 @@ useEffect(() => {
               ) : (
                 <Nav.Link as={NavLink} to="/dealsnotloggin" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><strong>Deals</strong></Nav.Link>
               )}
+            </Nav>
+
+              <Nav>
+              <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><span><FaGift /> Get your Freebies</span></Nav.Link>
+             
             </Nav>
 
             <Nav.Link as={NavLink} to="/myaccount" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">

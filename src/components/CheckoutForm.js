@@ -9,6 +9,10 @@ const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
 
    const [errorMessage, setErrorMessage] = useState('');
    const [loading, setLoading] = useState(false);
+    const [address, setAddress] = useState('');
+   const [province, setProvince] = useState('');
+   const [phone,setPhone] = useState('');
+   const [checkoutData, setCheckoutData] = useState('');
 
 const [userData, setUserData] = useState({
     firstname: '',
@@ -149,6 +153,31 @@ useEffect(() => {
   const storedUserEmail = localStorage.getItem('email');
   if (storedUserEmail) {
     fetchUserData(storedUserEmail.replace(/"/g, ''), setUserData);
+  } else {
+    console.log('Email is missing in local storage');
+  }
+}, []);
+
+  const fetchCheckoutData = async (email, setCheckoutData)  => {
+  if (!email) {
+    console.error('Email is undefined');
+    return;
+  }
+
+  try {
+    const response = await axios.get(`http://localhost:3001/api/checkoutdata?email=${encodeURIComponent(email)}`);
+    const user = response.data;
+   setCheckoutData(user);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+
+
+useEffect(() => {
+  const storedUserEmail = localStorage.getItem('email');
+  if (storedUserEmail) {
+    fetchCheckoutData(storedUserEmail.replace(/"/g, ''), setCheckoutData);
   } else {
     console.log('Email is missing in local storage');
   }
