@@ -165,7 +165,7 @@ useEffect(() => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:3001/api/checkoutdata?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/checkoutdata?email=${encodeURIComponent(email)}`);
     const user = response.data;
    setCheckoutData(user);
   } catch (error) {
