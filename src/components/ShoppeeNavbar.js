@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, NavDropdown } from 'react-bootstrap';
-import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink, useNavigate} from 'react-router-dom';
 import { FaHome, FaGift } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
@@ -12,6 +12,8 @@ function ShopeeNavbar({cartItems, isLoggedIn, handleLogout, handleLogin}) {
     firstname: '',
    
   });
+     const navigate = useNavigate();
+
 
 useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
