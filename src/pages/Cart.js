@@ -8,7 +8,7 @@ import AlertEmptyCart from '../components/AlertEmptyCart';
 
 
 const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
- handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems}) => {
+ handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems, isLoggedIn}) => {
   
   const navigate = useNavigate();
    const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
@@ -26,19 +26,19 @@ const formattedPrice = new Intl.NumberFormat('fil-PH', {
 
 
   // Function to handle the checkout button click
-const handleCheckoutClick = ({ isLoggedIn }) => {
-  if (cartItems.length === 0) {
-    setShowEmptyCartAlert(true);
-    return; // Exit the function if the cart is empty
-  }
+  const handleCheckoutClick = () => {
+    if (cartItems.length === 0) {
+      setShowEmptyCartAlert(true);
+      return; // Exit the function if the cart is empty
+    }
 
-  if (isLoggedIn) {
-    navigate('/checkout');
-  } else {
-    alert('Please log in to continue'); // Correct use of alert
-    navigate('/login'); // Redirect to login instead of checkout
-  }
-};
+    if (isLoggedIn) {
+      navigate('/checkout');
+    } else {
+      alert('Please log in to continue'); // Correct use of alert
+      navigate('/login'); // Redirect to login instead of checkout
+    }
+  };
  
   return (
     <> 
