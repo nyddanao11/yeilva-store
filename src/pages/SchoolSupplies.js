@@ -12,6 +12,7 @@ import {notebook} from'../components/SchoolSupplies/NotebookData';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
 import YouMayLike from'../components/YouMayLike';
+import { MdAnnouncement } from 'react-icons/md';
 
 const SchoolSupplies = ({ addToCart, cartItems, isProductSoldOut  }) => {
   const [activeNavItem, setActiveNavItem] = useState('ballpenmarker');
@@ -87,6 +88,11 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
         </Col>
 
         <Col sm={12} md={9}>
+
+       <div style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red', marginTop: '15px' }}>
+            <MdAnnouncement style={{ marginRight: '5px' }} />
+            <p style={{ margin: 0 }}>Maslog Danao Residence Only For Now</p>
+        </div>
           <div className="d-flex flex-column align-items-center p-3">
             {schoolsupplies.find((item) => item.id === activeNavItem)?.component}
           </div>

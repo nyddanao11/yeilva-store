@@ -18,15 +18,15 @@ export const homeProducts = [
     {
       id: 51,
       name: "Barley Grass Juice",
-      url: `${process.env.PUBLIC_URL}/images/barley.png`,
+      url: `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
       description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
-      price: 800,
+      price: 960,
          weight:120,
             stock: 10,
               rating:5,
          thumbnails:
-      [ `${process.env.PUBLIC_URL}/images/barley.png`,
-         `${process.env.PUBLIC_URL}/images/barley.png`,
+      [ `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
+         `${process.env.PUBLIC_URL}/images/barley.jpg`,
       ],
        productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
     sizecolor:false,
@@ -63,6 +63,22 @@ export const homeProducts = [
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
       sizecolor:false,  
     },
+    {
+     id: 14,
+     name: "Flushout",
+     url:  `${process.env.PUBLIC_URL}/images/flushout.jpg`,
+     price: 960,
+      weight:120,
+         stock: 10,
+     description: "It detoxifies the body, helps fight obesity promotes weight loss, increases the metabolism, supports the immmune system, lowers blood sugar and helps to prevent and fight cancer.",
+       thumbnails:
+         [`${process.env.PUBLIC_URL}/images/flushout.jpg`,
+          `${process.env.PUBLIC_URL}/images/detox.png`,
+         
+         ],
+     productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
+        sizecolor:false,
+     },
     {
       id: 54,
       name: "Blue wave",

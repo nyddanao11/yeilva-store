@@ -32,6 +32,15 @@ useEffect(() => {
     fetchUser();
   }, [isLoggedIn]); // Add isLoggedIn as a dependency to the useEffect
 
+ const handleAlertAndNavigate = (path) => {
+    if (!isLoggedIn) {
+      alert('Please log in to continue');
+      navigate('/login');
+    } else {
+      navigate(path);
+    }
+  };
+
  return (
     <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
       <Container>
@@ -82,17 +91,16 @@ useEffect(() => {
 		                   <Dropdown.Item >Hotel Booking</Dropdown.Item>
 		                </>
                 ) : (
-                  <Dropdown.Item as={Link} to="/loanform">All Services</Dropdown.Item>
+                  <>
+                    <Dropdown.Item onClick={() => handleAlertAndNavigate('/loanform')}>All Services</Dropdown.Item>
+                  </>
                 )}
               </NavDropdown>
 
             </Nav>
+            
             <Nav>
-              {isLoggedIn ? (
                 <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><strong>Deals</strong></Nav.Link>
-              ) : (
-                <Nav.Link as={NavLink} to="/dealsnotloggin" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><strong>Deals</strong></Nav.Link>
-              )}
             </Nav>
 
               <Nav>
@@ -100,7 +108,13 @@ useEffect(() => {
              
             </Nav>
 
-            <Nav.Link as={NavLink} to="/myaccount" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">
+           <Nav.Link
+              as={NavLink}
+              to={isLoggedIn ? "/myaccount" : "#"}
+              style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
+              activeClassName="active"
+              onClick={!isLoggedIn ? () => handleAlertAndNavigate('/myaccount') : undefined}
+            >
               {isLoggedIn ? (
                 <>
                   <FiUser style={{ marginRight: '0.5rem' }} />
@@ -110,6 +124,7 @@ useEffect(() => {
                 'My Account'
               )}
             </Nav.Link>
+            
         </Nav>
     
           <Nav className='ml-3'>

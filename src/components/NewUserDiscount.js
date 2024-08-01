@@ -16,8 +16,9 @@ const NewUserDiscount = () => {
     return (
         <Container>
             <Row className="mt-2 mb-4 form-group d-flex flex-column justify-content-center align-items-center">
-                <Col lg={6} md={6} xs={12} className="mt-2" style={{ width: "300px" }}>
-                    <h4>Register to Get Your Discount Voucher</h4>
+                <Col lg={6} md={6} xs={12} className="mt-2" style={{ width: "300px", padding:"15px", backgroundColor:"white", borderRadius:"5px" }}>
+                    <h4>Register to Get Your 15% Discount Voucher</h4>
+                     <p>(Valid until August 31, 2024)</p>
                     <Formik
                         initialValues={{ email: '' }}
                         validationSchema={validationSchema}

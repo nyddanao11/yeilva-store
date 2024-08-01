@@ -2,14 +2,14 @@ export const bestSellingProducts = [
     {
       id: 1,
       name: "Barley grass juice",
-      url: `${process.env.PUBLIC_URL}/images/barley.png`,
-      price: 800,
+      url: `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
+      price: 960,
          weight:120,
             stock: 10,
       description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
         thumbnails:
-          [`${process.env.PUBLIC_URL}/images/barley.png`,
-            `${process.env.PUBLIC_URL}/images/barley.png`,
+          [`${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
+            `${process.env.PUBLIC_URL}/images/barley.jpg`,
           ],
       productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
        sizecolor:false,

@@ -24,12 +24,14 @@ const Announcement = () => {
               <p className="tabs_title_01">Order above ₱500</p>
             </div>
 
+               <Link to="/freebies" style={{ textDecoration: "none" }}>
             <div className="tabs_item">
-              <p className="tabs_title">
+             <p className="tabs_title">
                 <FaTags className="icons"/> Discount Voucher
               </p>
-              <p className="tabs_title_01">(5)</p>
+              <p className="tabs_title_01">(1)</p>
             </div>
+              </Link>
 
             <Link to="/needhelp" style={{ textDecoration: "none" }}>
               <div className="tabs_item">

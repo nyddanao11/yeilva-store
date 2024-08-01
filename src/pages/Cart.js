@@ -26,14 +26,19 @@ const formattedPrice = new Intl.NumberFormat('fil-PH', {
 
 
   // Function to handle the checkout button click
+const handleCheckoutClick = ({ isLoggedIn }) => {
+  if (cartItems.length === 0) {
+    setShowEmptyCartAlert(true);
+    return; // Exit the function if the cart is empty
+  }
 
-  const handleCheckoutClick = () => {
-    if (cartItems.length === 0) {
-      setShowEmptyCartAlert(true);
-    } else {
-      navigate('/checkout');
-    }
-  };
+  if (isLoggedIn) {
+    navigate('/checkout');
+  } else {
+    alert('Please log in to continue'); // Correct use of alert
+    navigate('/login'); // Redirect to login instead of checkout
+  }
+};
  
   return (
     <> 
