@@ -349,7 +349,6 @@ const handleLogout = () => {
                   <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
                     <Route path="/grocerysidebar" element={<GrocerySidebar />} />
                     <Route path ="/adminloginpage" element={<LoginPage />}/>
-                     <Route path ="/adminregisterpage" element={<RegisterPage />}/>
                       <Route path="/installmenthistorypage"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
@@ -521,7 +520,6 @@ const handleLogout = () => {
                   <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
                     <Route path="/grocerysidebar" element={<GrocerySidebar />} />
                     <Route path ="/adminloginpage" element={<LoginPage />}/>
-                     <Route path ="/adminregisterpage" element={<RegisterPage />}/>
                       <Route path="/installmenthistorypage"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
