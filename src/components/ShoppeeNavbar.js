@@ -94,7 +94,7 @@ useEffect(() => {
 		                </>
                 ) : (
                   <>
-                    <Dropdown.Item onClick={() => handleAlertAndNavigate('/loanform')}>All Services</Dropdown.Item>
+                  <Dropdown.Item onClick={isLoggedIn ? () => handleAlertAndNavigate('/loanform') : () => alert('Please log in to continue')}>All Services</Dropdown.Item>
                   </>
                 )}
               </NavDropdown>

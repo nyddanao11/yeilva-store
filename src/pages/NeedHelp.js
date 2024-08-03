@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Container, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { Form, Container, Row, Col, Button, Spinner, Card} from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,11 +44,12 @@ const NeedHelp = () => {
 
  return (
     <>
-    <Container className="mt-4">
-     <Row className="d-flex justify-content-center ">
-        <Col sm={12} md={6} lg={6}>
-           <div style={{ minWidth: '250px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
-          <h3>Need Help?</h3>
+    <Container >
+      <Row className="mt-4 d-flex justify-content-center align-items-center ">
+        <Col sm={12} md={6} lg={6} style={{ maxWidth: '400px'}}>
+           <Card className="mx-auto mt-4">
+              <Card.Body className="p-4 shadow">
+          <h3 className="text-center">Need Help?</h3>
 
           {message && (
             <p
@@ -91,7 +92,8 @@ const NeedHelp = () => {
               {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
             </Button>
           </Form>
-          </div>
+          </Card.Body>
+          </Card>
         </Col>
       </Row>
      

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
+import {Form, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Field, ErrorMessage} from 'formik';
@@ -55,14 +55,11 @@ const SignUpForm = () => {
 
      
         </Col>
+         <Col xs={12} md={6}  style={{ maxWidth: '400px'}}>
+            <Card className="mx-auto mt-4">
+              <Card.Body className="p-4 shadow">
 
-
-           <Col xs={12} md={6}>
-            <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
-
-                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h2>
-
-
+                <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h4>
 
           {/* Conditionally render the server response message */}
           {isLoginSuccessful ? (
@@ -180,7 +177,7 @@ const SignUpForm = () => {
                 )}
               </Formik>
 
-            </div>
+          
 
           <div style={{ maxWidth: '400px' }}>
 
@@ -195,7 +192,8 @@ const SignUpForm = () => {
             </Link></p>    
 
         </div>
-            
+            </Card.Body>
+          </Card> 
           </Col>
         </Row>
     </Container>

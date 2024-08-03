@@ -1,6 +1,6 @@
 // Import necessary modules
 import React, { useState} from 'react';
-import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './loginContext';
@@ -98,9 +98,11 @@ const Login = ({ handleLogin }) => {
         
      
         </Col>
-          <Col xs={12} md={6}>
-            <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
-              <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h2>
+           <Col xs={12} md={6}  style={{ maxWidth: '400px'}}>
+             <Card className="mx-auto mt-4">
+              <Card.Body className="p-4 shadow">
+             
+                <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h4>
 
               {/* Conditional rendering of loading spinner */}
               {loading && <Spinner animation="border" variant="primary" />}
@@ -137,7 +139,7 @@ const Login = ({ handleLogin }) => {
                   {loading ? 'Logging in...' : 'Log In'}
                 </Button>
               </Form>
-            </div>
+         
 
             <div  style={{maxWidth:'400px', marginTop:'15px'}}>
               {!isLoginSuccessful && (
@@ -151,7 +153,8 @@ const Login = ({ handleLogin }) => {
                 </p>
               )}
             </div>
-          
+           </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>

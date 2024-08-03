@@ -1,6 +1,6 @@
 export const homeProducts = [
     {
-      id: 50,
+      id: 1,
       name: "Mangosteen Coffee",
       url: `${process.env.PUBLIC_URL}/images/mangosteen.png`,
       description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn" ,
@@ -16,7 +16,7 @@ export const homeProducts = [
    sizecolor:false,
     },
     {
-      id: 51,
+      id: 3,
       name: "Barley Grass Juice",
       url: `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
       description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
@@ -32,7 +32,7 @@ export const homeProducts = [
     sizecolor:false,
     },
     {
-    id: 52,
+    id: 15,
     name: "L-Glutathione",
     url:  `${process.env.PUBLIC_URL}/images/glutathione.png`,
     price: 2895,

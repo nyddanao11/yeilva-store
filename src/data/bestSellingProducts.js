@@ -1,6 +1,6 @@
 export const bestSellingProducts = [
     {
-      id: 1,
+      id: 3,
       name: "Barley grass juice",
       url: `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
       price: 960,
@@ -15,7 +15,7 @@ export const bestSellingProducts = [
        sizecolor:false,
     },
     {
-      id: 2,
+      id: 5,
       name: "Absorbent Cee",
       url: `${process.env.PUBLIC_URL}/images/product2.png`,
       price: 800,
@@ -30,7 +30,7 @@ export const bestSellingProducts = [
        sizecolor:false,
     },
     {
-      id: 3,
+      id: 2,
       name: "Acai berry",
       url: `${process.env.PUBLIC_URL}/images/acai1.png`,
       price: 2300,
@@ -60,7 +60,7 @@ export const bestSellingProducts = [
         sizecolor:false,
     },
     {
-      id: 4,
+      id: 10,
       name: "Turmeric",
       url: `${process.env.PUBLIC_URL}/images/turmeric.png`,
       price: 350,
@@ -75,7 +75,7 @@ export const bestSellingProducts = [
      sizecolor:false,
     },
     {
-      id: 5,
+      id: 6,
       name: "Primeshape",
       url: `${process.env.PUBLIC_URL}/images/primeshape.jpg`,
       price: 143,
@@ -90,7 +90,7 @@ export const bestSellingProducts = [
      sizecolor:false,
     },
     {
-      id: 6,
+      id: 12,
       name: "Buah merah",
       url: `${process.env.PUBLIC_URL}/images/Buah merah.png`,
       price: 220,
