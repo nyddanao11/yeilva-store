@@ -226,7 +226,7 @@ useEffect(() => {
     <Form.Control
       as="textarea" rows={3}
       name="address"
-      value={userData.address}
+      value={checkoutData.address}
       onChange={handleUserChange}
       required
     />
@@ -236,7 +236,7 @@ useEffect(() => {
     <Form.Control
       type="text"
       name="province"
-      value={userData.province}
+      value={checkoutData.province}
       onChange={handleUserChange}
       required
     />
@@ -246,7 +246,7 @@ useEffect(() => {
     <Form.Control
       type="text"
       name="phone"
-      value={userData.phone}
+      value={checkoutData.phone}
       onChange={handleUserChange}
       required
     />
