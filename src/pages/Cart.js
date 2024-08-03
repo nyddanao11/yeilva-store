@@ -25,20 +25,22 @@ const formattedPrice = new Intl.NumberFormat('fil-PH', {
 }).format(total);
 
 
-  // Function to handle the checkout button click
-  const handleCheckoutClick = () => {
-    if (cartItems.length === 0) {
-      setShowEmptyCartAlert(true);
-      return; // Exit the function if the cart is empty
-    }
+ 
+// Function to handle the checkout button click
+const handleCheckoutClick = () => {
+  if (cartItems.length === 0) {
+    setShowEmptyCartAlert(true); // Show alert for empty cart
+    return; // Exit the function if the cart is empty
+  } 
 
-    if (isLoggedIn) {
-      navigate('/checkout');
-    } else {
-      alert('Please log in to continue'); // Correct use of alert
-      navigate('/login'); // Redirect to login instead of checkout
-    }
-  };
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }else{
+      navigate('/checkout'); // Redirect to checkout
+  }
+
+};
  
   return (
     <> 
