@@ -160,7 +160,7 @@ const TabbedComponent = ({ productId }) => {
   const [key, setKey] = useState('details');
  
   const [clickedTabs, setClickedTabs] = useState([]);
-  const selectedProduct = homeProducts.find((item) => item.id === productId);
+  const selectedProduct = dealsFashion.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
