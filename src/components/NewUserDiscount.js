@@ -9,9 +9,33 @@ const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email address').required('Email is required')
 });
 
+
 const NewUserDiscount = () => {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState(null);
+      const [timeRemaining, setTimeRemaining] = useState('');
+
+       // Set the voucher expiry
+  const voucherExpiry = new Date('August 31, 2024 00:00:00');
+
+ useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date();
+      const difference = voucherExpiry - now;
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeRemaining(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+    };
+
+    updateCountdown();
+    const intervalId = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
     return (
         <Container fluid className="d-flex justify-content-center align-items-center " style={{ backgroundColor: "#f8f9fa" }}>
@@ -19,9 +43,11 @@ const NewUserDiscount = () => {
                 <Col lg={4} md={6} xs={12} className="mx-auto mt-4">
                     <Card className="p-4 shadow">
                         <Card.Body>
-                             <div style={{lineHeight:"5px", marginBottom:"30px"}}>
+                          <div style={{lineHeight:"5px", marginBottom:"30px"}}>
                             <h4 className="text-center">Register to Get Your 15% Discount Voucher</h4>
                             <p className="text-center">(Expires on August 31, 2024)</p>
+                             <h5 className="text-center">Time Remaining:</h5>
+                             <p className="text-center">{timeRemaining}</p>
                             </div>
                             <Formik
                                 initialValues={{ email: '' }}
