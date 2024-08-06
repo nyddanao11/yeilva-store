@@ -15,6 +15,7 @@
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
 },
 {
   id: 2,
@@ -30,7 +31,8 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
    productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000", 
-      sizecolor:false,
+   sizecolor:false,
+    shipping:'1bottle, size: 1L',
   },
 {
   id: 3,
@@ -47,6 +49,7 @@
       ],
   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
      sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
  },
 {
   id: 4,
@@ -63,6 +66,7 @@
       ],
   productdetails:"1 plastic Bottle of 500ml acaiberry juice, BFAD#1009889000",
      sizecolor:false,
+     shipping:'1bottle, size: 500ml',
   },
 {
   id: 5,
@@ -80,6 +84,7 @@
       ],
   productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
      sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
  },
 {
   id: 6,
@@ -96,7 +101,9 @@
       
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
  },
 {
   id: 7,
@@ -113,7 +120,9 @@
        
       ],
   productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1 plastic bottle, size: 150ml',
+
   },
 {
   id: 8,
@@ -130,7 +139,9 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 10 sachets sweetened with stevia,  BFAD#1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
  },
 {
   id: 9,
@@ -147,7 +158,9 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
  },
 {
   id: 10,
@@ -165,6 +178,8 @@
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+       shipping:'1plastic bottle, size:250ml',
+
   },
 {
   id: 11,
@@ -181,7 +196,9 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/bracele641.jpg`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-     sizecolor:true,
+  sizecolor:true,
+  shipping:'1 cardboard box, size: L-10cm x W-50cm x H-60cm',
+
   },
 {
   id: 12,
@@ -199,6 +216,8 @@
       ],
   productdetails:"Net wt 30g,  BFAD#1009889000",
      sizecolor:false,
+    shipping:'1plastic bottle, size: 150ml',
+
  },
 {
   id: 13,
@@ -215,7 +234,9 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
   },
 {
   id: 14,
@@ -231,7 +252,9 @@
          
          ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
   },
 {
   id: 15,
@@ -248,6 +271,8 @@
        `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
       ],
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-     sizecolor:false,
+  sizecolor:false,
+  shipping:'1plastic bottle, size: 150ml',
+
   },
 ];

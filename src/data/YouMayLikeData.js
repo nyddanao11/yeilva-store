@@ -14,6 +14,8 @@ export const youMayLikeData = [
       ],
        productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
    sizecolor:false,
+    shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
     },
     {
       id: 3,
@@ -30,7 +32,8 @@ export const youMayLikeData = [
       ],
        productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
      sizecolor:false,
-    },
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+   },
     {
     id: 15,
     name: "L-Glutathione",
@@ -46,6 +49,7 @@ export const youMayLikeData = [
       ],
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
      sizecolor:false,
+     shipping:'1plastic bottle, size: 150ml',
    },
    {
     id: 53,
@@ -62,6 +66,7 @@ export const youMayLikeData = [
       ], 
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
         sizecolor:false,
+       shipping:'1bar soap, size: ',
     },
     {
       id: 54,
@@ -78,5 +83,7 @@ export const youMayLikeData = [
       ],
        productdetails:"Personal Collection Products",
      sizecolor:false,
+       shipping:'1 sachet, size: ',
+
     },
   ];

@@ -13,6 +13,8 @@ export const bestSellingProducts = [
           ],
       productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
        sizecolor:false,
+    shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
     },
     {
       id: 5,
@@ -28,10 +30,12 @@ export const bestSellingProducts = [
           ],
      productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
        sizecolor:false,
+    shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
     },
     {
       id: 2,
-      name: "Acai berry",
+      name: "Acai Berry 1000ml",
       url: `${process.env.PUBLIC_URL}/images/acai1.png`,
       price: 2300,
          weight:1000,
@@ -43,6 +47,7 @@ export const bestSellingProducts = [
           ],
         productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
        sizecolor:false,
+           shipping:'1bottle, size: 1L',
     },
     {
       id: 38,
@@ -58,6 +63,8 @@ export const bestSellingProducts = [
           ],
        productdetails:"Personal Collection Products",
         sizecolor:false,
+         shipping:'1sachet, size: ',
+
     },
     {
       id: 10,
@@ -73,6 +80,7 @@ export const bestSellingProducts = [
           ],
        productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+    shipping:'1plastic bottle, size:250ml',
     },
     {
       id: 6,
@@ -88,6 +96,7 @@ export const bestSellingProducts = [
           ],
       productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+       shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
     },
     {
       id: 12,
@@ -103,6 +112,7 @@ export const bestSellingProducts = [
           ],
       productdetails:"Net wt 30g,  BFAD#1009889000",
      sizecolor:false,
+         shipping:'1plastic bottle, size: 150ml',
     },
     {
       id: 7,
@@ -120,6 +130,7 @@ export const bestSellingProducts = [
           ],
       productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
       sizecolor:false,
+        shipping:'1 plastic bottle, size: 150ml',
     },
 
   ];

@@ -13,6 +13,8 @@ export const avonproductsData = [
       ],
    productdetails:"Avon Products", 
   sizecolor:false,
+   shipping:'1bottle, size: ',
+
     },
 {
   id: 62,
@@ -28,6 +30,7 @@ export const avonproductsData = [
       ],
      productdetails:"Avon Products",
     sizecolor:false,
+      shipping:'1bottle, size: ',
 },
 {
   id: 63,
@@ -43,6 +46,7 @@ export const avonproductsData = [
       ],
    productdetails:"Avon Products",
       sizecolor:false,
+        shipping:'1bottle, size: ',
 
     },
 {
@@ -59,6 +63,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
 
  },
 {
@@ -75,7 +80,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
-
+  shipping:'1bottle, size: ',
   },
 {
   id: 66,
@@ -91,7 +96,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
-
+  shipping:'1bottle, size: ',
   },
 {
   id: 67,
@@ -107,7 +112,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
-
+  shipping:'1bottle, size: ',
  },
 {
   id: 68,
@@ -123,7 +128,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
-
+  shipping:'1bottle, size: ',
  },
 {
   id: 69,
@@ -139,7 +144,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
-
+  shipping:'1bottle, size: ',
    },
 {
   id: 70,
@@ -154,6 +159,8 @@ export const avonproductsData = [
          `${process.env.PUBLIC_URL}/imgavon/colon04.jpg`,
       ],
   productdetails:"Avon Products",
+    sizecolor:false,
+      shipping:'1bottle, size: ',
   },
 {
   id: 71,
@@ -169,7 +176,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
-
+  shipping:'1bottle, size: ',
   },
 {
   id: 72,
@@ -185,6 +192,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 73,
@@ -200,6 +208,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
    },
 {
   id: 74,
@@ -215,6 +224,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
  },
 {
   id: 75,
@@ -230,6 +240,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 76,
@@ -245,6 +256,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
    },
 {
   id: 77,
@@ -260,6 +272,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
    },
 {
   id: 78,
@@ -275,6 +288,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 79,
@@ -290,6 +304,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 80,
@@ -305,6 +320,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
    },
 {
   id: 81,
@@ -320,6 +336,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 82,
@@ -335,6 +352,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 83,
@@ -350,6 +368,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 84,
@@ -365,6 +384,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
 },
 {
   id: 85,
@@ -380,6 +400,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 86,
@@ -395,6 +416,7 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 {
   id: 87,
@@ -410,5 +432,6 @@ export const avonproductsData = [
       ],
   productdetails:"Avon Products",
      sizecolor:false,
+       shipping:'1bottle, size: ',
   },
 ];

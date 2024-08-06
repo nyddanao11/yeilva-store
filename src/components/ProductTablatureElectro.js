@@ -6,35 +6,21 @@ import {useNavigate} from'react-router-dom';
 import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
 
-const ProductDetails = ({productId}) => {
-
-  const [clickedTabs, setClickedTabs] = useState([]);
-
-  const selectedProduct = dealsElectronicData.find((item) => item.id === productId);
-
-  const handleItemClick = (item) => {
-    console.log('Clicked item:', item);
-    // Adding the clicked item to the state
-    setClickedTabs([...clickedTabs, item]);
-  };
-
+const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProduct }) => {
   return (
-   
-      <div className="d-flex flex-column mt-2">
-
+    <div className="d-flex flex-column mt-2">
       <h4>Product Details</h4>
-        {clickedTabs.map((item, index) => (
-          <span key={index} onClick={() => handleItemClick(item)}>
-            {item.productdetails}
-          </span>
-        ))}
-       {/* Render the product details */}
+      {clickedTabs.map((item, index) => (
+        <span key={index} onClick={() => handleItemClick(item)}>
+          {item.productdetails}
+        </span>
+      ))}
       {selectedProduct && (
         <span onClick={() => handleItemClick(selectedProduct)}>
           {selectedProduct.productdetails}
         </span>
       )}
-      </div>
+    </div>
   );
 };
 
@@ -53,7 +39,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const reviewStatus = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/reviewstatus`, {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
           params: {
             userEmail: storedUserEmail,
             productName: selectedProd
@@ -84,7 +70,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/userreviews`, {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews`, {
           params: {
             productName: selectedProd
           }
@@ -128,9 +114,8 @@ const Reviews = ({ selectedProduct }) => {
   return (
     <div className="mt-2">
       <h4>Reviews</h4>
-      <ul>
-        {reviews.map((review, index) => (
-          <li key={index} onClick={() => handleItemClick(review)} style={{ padding: '10px', margin: '10px 0px', borderBottom: '1px solid', width: '250px', listStyle: "none" }}>
+      {reviews.map((review, index) => (
+          <div key={index} onClick={() => handleItemClick(review)} style={{ padding:'0px 5px',margin: '10px 0px'}}>
             <div>
               <PersonCircleIcon style={{ marginRight: '0.5rem' }}/>
               <strong>{formatUserEmail(review.email)}</strong>: {review.comments}
@@ -138,25 +123,50 @@ const Reviews = ({ selectedProduct }) => {
             <div className="text-warning me-1 mb-1">
               {renderStars(review.rating)}
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
       <Button style={{ width: "150px", marginTop: "15px" }} onClick={writeReview}>Write a review</Button>
     </div>
   );
 };
 
-const Shipping = () => {
+
+
+const Shipping = ({
+  clickedTabs, 
+  handleItemClick, 
+  selectedProduct
+}) => {
   return (
-    <div className="mt-2">
+    <div className="d-flex flex-column mt-2">
       <h4>Shipping</h4>
-      <p>Shipping Content</p>
+      {clickedTabs.map((item, index) => (
+        <span key={index} onClick={() => handleItemClick(item)}>
+          {item.shipping}
+        </span>
+      ))}
+      {/* Render the product shipping details */}
+      {selectedProduct && (
+        <span onClick={() => handleItemClick(selectedProduct)}>
+          {selectedProduct.shipping}
+        </span>
+      )}
     </div>
   );
 };
 
-const TabbedComponent = ({productId}) => {
+
+const TabbedComponent = ({ productId }) => {
   const [key, setKey] = useState('details');
+ 
+  const [clickedTabs, setClickedTabs] = useState([]);
+  const selectedProduct = dealsElectronicData.find((item) => item.id === productId);
+
+  const handleItemClick = (item) => {
+    console.log('Clicked item:', item);
+    // Adding the clicked item to the state
+    setClickedTabs([...clickedTabs, item]);
+  };
 
   return (
     <div>
@@ -180,13 +190,22 @@ const TabbedComponent = ({productId}) => {
           <Col>
             <Tab.Content>
               <Tab.Pane eventKey="details">
-                <ProductDetails productId={productId}/>
+                <ProductDetails 
+                  productId={productId}
+                  clickedTabs={clickedTabs}
+                  handleItemClick={handleItemClick}
+                  selectedProduct={selectedProduct}
+                />
               </Tab.Pane>
               <Tab.Pane eventKey="reviews">
-                 <Reviews selectedProduct={dealsElectronicData.find(product => product.id === productId)} />
+                <Reviews selectedProduct={selectedProduct} />
               </Tab.Pane>
               <Tab.Pane eventKey="shipping">
-                <Shipping />
+                <Shipping 
+                  clickedTabs={clickedTabs} 
+                  handleItemClick={handleItemClick} 
+                  selectedProduct={selectedProduct} 
+                />
               </Tab.Pane>
             </Tab.Content>
           </Col>

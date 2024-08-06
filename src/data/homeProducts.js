@@ -14,6 +14,7 @@ export const homeProducts = [
       ],
        productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
    sizecolor:false,
+    shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
     },
     {
       id: 3,
@@ -30,6 +31,7 @@ export const homeProducts = [
       ],
        productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
     sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
     },
     {
     id: 15,
@@ -46,6 +48,7 @@ export const homeProducts = [
       ],
        productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
      sizecolor:false,
+       shipping:'1plastic bottle, size: 150ml',
    },
    {
     id: 53,
@@ -60,8 +63,9 @@ export const homeProducts = [
       [ `${process.env.PUBLIC_URL}/beauty/gluta.png`,
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
-       productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
-      sizecolor:false,  
+       productdetails:"Whitening soap",
+      sizecolor:false, 
+        shipping:'1bar soap, size: ',
     },
     {
      id: 14,
@@ -78,6 +82,7 @@ export const homeProducts = [
          ],
      productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
         sizecolor:false,
+          shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
      },
     {
       id: 54,
@@ -94,5 +99,6 @@ export const homeProducts = [
       ],
        productdetails:"Personal Collection Products",
      sizecolor:false,
+       shipping:'1 sachet, size: ',
     },
   ];

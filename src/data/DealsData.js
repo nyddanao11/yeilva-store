@@ -18,6 +18,7 @@ export const deals = [
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
    sizecolor:false,
+   shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
  },
 {
   id: 2,
@@ -37,6 +38,7 @@ export const deals = [
       ],
    productdetails:"1 plastic Bottle of 1000ml acaiberry juice, ingredients: Acai Berry, Craneberries, Mangosteen, Green Tea, Roselle, BFAD#1009889000",
     sizecolor:false,
+    shipping:'1bottle, size: 1L',
     },
  {
   id: 3,
@@ -57,6 +59,7 @@ export const deals = [
       ],
   productdetails:"30 softgels , Fish Oil with Omega 3,6 and 9, BFAD# 1009889000",
    sizecolor:false,
+  shipping:'1 plastic bottle, size: 150ml',
  },
 {
   id: 5,
@@ -77,6 +80,7 @@ export const deals = [
       ],
   productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
    sizecolor:false,
+  shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
   },
 
 ];

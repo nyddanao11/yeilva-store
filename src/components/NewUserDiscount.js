@@ -19,8 +19,10 @@ const NewUserDiscount = () => {
                 <Col lg={4} md={6} xs={12} className="mx-auto mt-4">
                     <Card className="p-4 shadow">
                         <Card.Body>
-                            <h4 className="text-center mb-4">Register to Get Your 15% Discount Voucher</h4>
+                             <div style={{lineHeight:"5px", marginBottom:"30px"}}>
+                            <h4 className="text-center">Register to Get Your 15% Discount Voucher</h4>
                             <p className="text-center">(Expires on August 31, 2024)</p>
+                            </div>
                             <Formik
                                 initialValues={{ email: '' }}
                                 validationSchema={validationSchema}

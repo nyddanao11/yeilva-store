@@ -13,6 +13,7 @@ export const recommendedProducts = [
       ],
          productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
          sizecolor:false,
+         shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
       },
      {
       id: 45,
@@ -28,6 +29,7 @@ export const recommendedProducts = [
           ],
        productdetails:"Personal Collection Products",
           sizecolor:false,
+         shipping:'1 cannister, size: ',
       },
     {
      id: 11,
@@ -43,6 +45,7 @@ export const recommendedProducts = [
       ],
        productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
           sizecolor:true,
+          shipping:'1 cardboard box, size: L-10cm x W-50cm x H-60cm',
      },
     {
       id: 5,
@@ -58,6 +61,7 @@ export const recommendedProducts = [
       ],
        productdetails:"100 capsules/ 568.18mg per capsule, Sodium Ascorbate,  BFAD#1009889000",
           sizecolor:false,
+           shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
        },
      {
       id: 1,
@@ -73,6 +77,7 @@ export const recommendedProducts = [
       ],
       productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
          sizecolor:false,
+         shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
      },
     
     { id: 15, 
@@ -89,6 +94,7 @@ export const recommendedProducts = [
       ],
       productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
          sizecolor:false,
+        shipping:'1 sachet, size: ',
      },
 
     { id: 16, 
@@ -105,5 +111,6 @@ export const recommendedProducts = [
         ],
         productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
            sizecolor:false,
+        shipping:'1 sachet, size: ',
      },
     ];

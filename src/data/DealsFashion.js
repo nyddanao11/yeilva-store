@@ -18,6 +18,7 @@ export const dealsFashion = [
       ],
   productdetails:"for women, available in maroon color and medium size only, only one left",
    sizecolor:true,
+   shipping:'1 women shirt',
 },
 {
   id: 8,
@@ -38,6 +39,7 @@ export const dealsFashion = [
       ],
   productdetails:"J&G shirt for women, available in orange color and medium size only, only one left",
     sizecolor:true,
+   shipping:'1 women shirt',
 },
 
 ];

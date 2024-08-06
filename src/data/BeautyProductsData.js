@@ -11,8 +11,10 @@
       [ `${process.env.PUBLIC_URL}/beauty/gluta.png`,
          `${process.env.PUBLIC_URL}/beauty/gluta.png`,
       ], 
-   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
-     sizecolor:false,      
+   productdetails:"Whitening Soap",
+    sizecolor:false, 
+    shipping:'1bar soap, size: ',
+     
 },
 {
   id: 91,
@@ -26,8 +28,10 @@
       [ `${process.env.PUBLIC_URL}/beauty/teatree.png`,
          `${process.env.PUBLIC_URL}/beauty/teatree.png`,
       ], 
-   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+   productdetails:"Skin medicated herbal soap. It is a plant based soap with added tea tree oil. A natural antibacterial that can be used as a cleanser and medication for individuals who do not want to use synthetic or chemical treatments for skin problems.  ",
     sizecolor:false,
+    shipping:'1bar soap, size: ',
+
 },
 {
   id: 92,
@@ -43,6 +47,8 @@
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
     sizecolor:false,
+        shipping:'1box, size: ',
+
 },
 {
   id: 93,
@@ -56,8 +62,10 @@
       [`${process.env.PUBLIC_URL}/beauty/kojic.png`,
         `${process.env.PUBLIC_URL}/beauty/kojic.png`,
       ], 
-   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+   productdetails:"Skin whitening herbal soap to make the skin tone brighter, flawless and young. It also protects the outer skin layer by preventing pigment formulation caused by sun exposure. ",
     sizecolor:false,
+        shipping:'1bar soap, size: ',
+
 },
 {
   id: 94,
@@ -73,6 +81,7 @@
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
    sizecolor:false,
+    shipping:'1bar soap, size: ',
 },
 {
   id: 95,
@@ -88,6 +97,7 @@
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+      shipping:'1bar soap, size: ',
 },
 {
   id: 96,
@@ -103,6 +113,7 @@
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+      shipping:'1bar soap, size: ',
 },
 {
   id: 97,
@@ -118,6 +129,7 @@
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+      shipping:'1bar soap, size: ',
 },
 {
   id: 98,
@@ -133,6 +145,7 @@
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+      shipping:'1bar soap, size: ',
 },
 {
   id: 99,
@@ -148,7 +161,9 @@
       ],
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+      shipping:'1bar soap, size: ',
 },
+
 {
   id: 100,
   name: "Bamboo Charcoal ",
@@ -163,6 +178,7 @@
       ], 
    productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
+      shipping:'1bar soap, size: ',
 },
 
 {
@@ -177,7 +193,9 @@
       [`${process.env.PUBLIC_URL}/images/glutathione.png`,
         `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ], 
-   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+     productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
      sizecolor:false,
+  shipping:'1plastic bottle, size: 150ml',
+
 },
 ];

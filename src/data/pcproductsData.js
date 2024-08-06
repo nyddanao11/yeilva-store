@@ -13,6 +13,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+      shipping:'1box, size:',
    },
 {
   id: 21,
@@ -28,6 +29,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 22,
@@ -43,6 +45,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 23,
@@ -58,6 +61,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 24,
@@ -73,6 +77,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 25,
@@ -88,6 +93,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 26,
@@ -103,6 +109,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 27,
@@ -118,6 +125,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 28,
@@ -133,6 +141,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 29,
@@ -148,6 +157,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 30,
@@ -163,6 +173,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
  },
 {
   id: 31,
@@ -178,6 +189,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 32,
@@ -193,6 +205,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 33,
@@ -208,6 +221,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 34,
@@ -223,6 +237,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 35,
@@ -238,6 +253,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 36,
@@ -253,6 +269,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 37,
@@ -268,6 +285,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 38,
@@ -283,6 +301,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 39,
@@ -298,6 +317,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 40,
@@ -313,6 +333,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 41,
@@ -328,6 +349,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 42,
@@ -343,6 +365,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 43,
@@ -358,6 +381,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 44,
@@ -373,6 +397,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 45,
@@ -388,6 +413,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 46,
@@ -403,6 +429,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 47,
@@ -418,6 +445,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 48,
@@ -433,6 +461,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 49,
@@ -448,6 +477,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
    },
 {
   id: 50,
@@ -463,6 +493,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 {
   id: 51,
@@ -478,6 +509,7 @@ export const pcproductsData = [
       ],
    productdetails:"Personal Collection Products",
       sizecolor:false,
+            shipping:'1box, size:',
   },
 
 ];
