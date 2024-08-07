@@ -8,7 +8,7 @@ import TabbedComponent from '../components/ProductTablatureDeals';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickDeals = ({ addToCart }) => {
+const ClickDeals = ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
   
  const [selectedThumbnails, setSelectedThumbnails] = useState({});
@@ -51,10 +51,16 @@ const ClickDeals = ({ addToCart }) => {
     }));
   };
 
-  const handleCheckoutClick = () => {
-    addToCart(product);
-    navigate(`/checkout`);
-  };
+ 
+const handleCheckoutClick = () => {
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
 
   if (!product) {
     return (

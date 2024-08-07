@@ -9,7 +9,7 @@ import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
 import axios from 'axios';
 
 
-const ClickYouMayLike = ({ addToCart }) => {
+const ClickYouMayLike = ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
    console.log('ID from URL:', id);
   
@@ -54,9 +54,14 @@ const ClickYouMayLike = ({ addToCart }) => {
   };
 
   const handleCheckoutClick = () => {
-    addToCart(product);
-    navigate(`/checkout`);
-  };
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
 
   if (!product) {
     return (

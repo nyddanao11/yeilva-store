@@ -9,7 +9,7 @@ import axios from 'axios';
 import TabbedComponent from'./ProductTablatureEarphone';
 import YouMayLike from'../YouMayLike';
 
-const ClickEarphone = ({ addToCart }) => {
+const ClickEarphone = ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -27,11 +27,14 @@ const ClickEarphone = ({ addToCart }) => {
    const navigate = useNavigate();
 
   const handleCheckoutClick = () => {
-    // Add the product to the cart
-    addToCart(product);
-    // Navigate to checkout and pass the product ID as a URL parameter
-    navigate(`/checkout`);
-  };
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
 
   // Find the product by ID
    const product = findProductByIdEarphone(id);

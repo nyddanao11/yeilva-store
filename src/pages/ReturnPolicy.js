@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 const ReturnPolicyPage = () => {
   return (
@@ -21,10 +22,7 @@ const ReturnPolicyPage = () => {
       <h5>Return Process</h5>
       <ol>
         <li>Contact Customer Support: Before returning any item, please contact
-          our customer support at{' '}
-          <a href="mailto:yeilvastore@gmail.com">
-            customersupport
-          </a>{' '}
+          our customer support at <Link to='/needhelp'>Customer Support </Link>
           to initiate the return process.</li>
         <li>Package Your Item: Please pack the item securely in the original
           packaging, if possible.</li>
@@ -54,20 +52,16 @@ const ReturnPolicyPage = () => {
       <h5>Exchanges</h5>
       <p>
         If you need to exchange an item for a different size or color, please
-        contact our customer support at{' 09497042268'}
-        <a href="mailto:yeilvastore@gmail.com">
-          customersupport
-        </a>{' '}
+        contact our customer support at{' 09497042268 '}
+        <Link to='/needhelp'>Customer Support </Link>
         to arrange for an exchange.
       </p>
 
       <h5>Questions</h5>
       <p>
         If you have any questions about our return policy, please contact our
-        customer support at{'09497042268 '}
-        <a href="mailto:yeilvastore@gmail.com">
-          customersupport
-        </a>.
+        customer support at {' 09497042268 '}
+        <Link to='/needhelp'>Customer Support </Link>
       </p>
     </Container>
   );

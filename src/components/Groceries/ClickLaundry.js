@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbLaundry from'./BreadCrumbLaundry';
 import YouMayLike from'../YouMayLike';
 
-const ClickLaundry = ({ addToCart }) => {
+const ClickLaundry = ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -31,12 +31,15 @@ const ClickLaundry = ({ addToCart }) => {
 
    const navigate = useNavigate();
 
-  const handleCheckoutClick = () => {
-    // Add the product to the cart
-    addToCart(product);
-    // Navigate to checkout and pass the product ID as a URL parameter
-    navigate(`/checkout`);
-  };
+ const handleCheckoutClick = () => {
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
 
   if (!product) {
     // Handle the case where the product with the specified ID is not found

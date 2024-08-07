@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbCanGoods from'./BreadCrumbCanGoods'
 import YouMayLike from'../YouMayLike';
 
-const ClickCanGoods = ({ addToCart }) => {
+const ClickCanGoods = ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -24,13 +24,15 @@ const ClickCanGoods = ({ addToCart }) => {
 
     const navigate = useNavigate();
 
-  const handleCheckoutClick = () => {
-    // Add the product to the cart
-    addToCart(product);
-    // Navigate to checkout and pass the product ID as a URL parameter
-    navigate(`/checkout`);
-  };
-
+ const handleCheckoutClick = () => {
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
   // Find the product by ID
   const product = findProductByIdCanGoods(id);
        const stockState = product.stock;

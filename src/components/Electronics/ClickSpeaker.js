@@ -9,7 +9,7 @@ import axios from 'axios';
 import TabbedComponent from'./ProductTablatureSpeaker';
 import YouMayLike from'../YouMayLike';
 
-const ClickSpeaker = ({ addToCart }) => {
+const ClickSpeaker = ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -26,12 +26,15 @@ const ClickSpeaker = ({ addToCart }) => {
 
    const navigate = useNavigate();
 
-  const handleCheckoutClick = () => {
-    // Add the product to the cart
-    addToCart(product);
-    // Navigate to checkout and pass the product ID as a URL parameter
-    navigate(`/checkout`);
-  };
+ const handleCheckoutClick = () => {
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
 
   // Find the product by ID
    const product = findProductByIdSpeaker(id);

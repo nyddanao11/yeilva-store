@@ -8,7 +8,7 @@ import TabbedComponent from'../components/ProductTablatureBestSel';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickBestSelling= ({ addToCart }) => {
+const ClickBestSelling= ({ addToCart, isLoggedIn }) => {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -52,10 +52,16 @@ const ClickBestSelling= ({ addToCart }) => {
     }));
   };
 
-  const handleCheckoutClick = () => {
-    addToCart(product);
-    navigate(`/checkout`);
-  };
+ 
+const handleCheckoutClick = () => {
+  if (!isLoggedIn) {
+    alert('Please log in to continue'); // Alert user to log in
+    return; // Exit the function if the user is not logged in
+  }
+ addToCart(product);
+  navigate('/checkout'); // Redirect to checkout if the user is logged in
+  
+};
 
   if (!product) {
     return (
