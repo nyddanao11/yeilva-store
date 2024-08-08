@@ -15,7 +15,7 @@ const NewUserDiscount = () => {
     const [status, setStatus] = useState(null);
       const [timeRemaining, setTimeRemaining] = useState('');
 
-       // Set the voucher expiry
+      // Set the raffle date
   const voucherExpiry = new Date('August 31, 2024 00:00:00');
 
  useEffect(() => {
@@ -23,12 +23,16 @@ const NewUserDiscount = () => {
       const now = new Date();
       const difference = voucherExpiry - now;
 
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      if (difference <= 0) {
+        setTimeRemaining('0');
+      } else {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-      setTimeRemaining(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        setTimeRemaining(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      }
     };
 
     updateCountdown();
@@ -40,7 +44,7 @@ const NewUserDiscount = () => {
     return (
         <Container fluid className="d-flex justify-content-center align-items-center " style={{ backgroundColor: "#f8f9fa" }}>
             <Row className="w-100 ">
-                <Col lg={4} md={6} xs={12} className="mx-auto mt-4">
+                <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
                     <Card className="p-4 shadow">
                         <Card.Body>
                           <div style={{lineHeight:"5px", marginBottom:"30px"}}>
@@ -96,9 +100,14 @@ const NewUserDiscount = () => {
                                                 {errors.email}
                                             </Form.Control.Feedback>
                                         </Form.Group>
-                                        <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting}>
-                                            {loading ? <Spinner animation="border" size="sm" /> : 'Register'}
-                                        </Button>
+                                           <Button 
+                                              variant="primary" 
+                                              type="submit" 
+                                              className="w-100 mt-3" 
+                                              disabled={loading || isSubmitting || timeRemaining === '0'}
+                                            >
+                                              {loading ? <Spinner animation="border" size="sm" /> : 'Register'}
+                                            </Button>
                                         {status && (
                                             <div className={`mt-3 ${status.success ? 'text-success' : 'text-danger'}`}>
                                                 {status.success ? 'Registration successful!' : status.error}
