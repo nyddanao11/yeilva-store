@@ -59,11 +59,11 @@ const SignUpForm = () => {
             <Card className="mx-auto mt-4">
               <Card.Body className="p-4 shadow">
 
-                <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h4>
+                <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign up</h4>
 
           {/* Conditionally render the server response message */}
           {isLoginSuccessful ? (
-            <p className="text-success mt-2">Sign-Up successful.</p>
+            <p className="text-success mt-2">Sign up successful.</p>
           ) : (
             <p className="text-danger mt-3">{serverResponse}</p>
           )}
@@ -171,7 +171,7 @@ const SignUpForm = () => {
 
       
         <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting}>
-                      {loading ? <Spinner animation="border" size="sm" /> : 'Sign Up'}
+                      {loading ? <Spinner animation="border" size="sm" /> : 'Sign up'}
                     </Button>
                   </Form>
                 )}
@@ -188,7 +188,7 @@ const SignUpForm = () => {
                 </p>
 
              <p  className=" mt-3" > By signing up you Agree to YeilvaSTORE  <Link to="/termsandconditions" style={{ textDecoration: 'none' }} >
-              Terms of Service & Privacy Policy
+              Terms of service & Privacy policy
             </Link></p>    
 
         </div>

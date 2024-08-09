@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const PrivacyPolicyPage = () => {
   return (
@@ -44,7 +45,7 @@ const PrivacyPolicyPage = () => {
       <h5>Contact Us</h5>
       <p>
         If you have any questions about this Privacy Policy, please contact us at
-         <a href="mailto:yeilvastore@gmail.com">yeilvastore@gmail.com</a>
+           <Link to="/needhelp"> Customer Support </Link>
       </p>
     </Container>
   );

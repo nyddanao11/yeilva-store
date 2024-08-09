@@ -121,7 +121,7 @@ const Raffle = () => {
                   setLoading(true);
                   setStatus(null);
                   try {
-                    const response = await axios.post('http://localhost:3001/raffleregister', {
+                    const response = await axios.post('https://yeilva-store-server.up.railway.app/raffleregister', {
                       fullname: values.fullname,
                       email: values.email,
                       ticket: ticketNumber,

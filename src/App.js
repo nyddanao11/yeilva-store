@@ -288,6 +288,7 @@ const handleLogout = () => {
             <Route path="/changepassword" element={<ChangePassword  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/lockoutpage" element={ <LockoutPage />} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+            <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/products" element={<Products addToCart={addToCart}  />} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
@@ -313,7 +314,7 @@ const handleLogout = () => {
             <Route path="/myaccount"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
-  <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
+            <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -363,7 +364,7 @@ const handleLogout = () => {
           </Routes>
         )}
          <div className="mt-4 " >    
-          <Footer /> 
+      <Footer isLoggedIn={isLoggedIn}/> 
           </div>
       </Container>
 
@@ -399,7 +400,7 @@ const handleLogout = () => {
             <Route path="/myaccount" element={<MyAccountPage addToCart={addToCart}/>} />
             <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
-  <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
+            <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -457,6 +458,7 @@ const handleLogout = () => {
             <Route path="/changepassword" element={<ChangePassword  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/lockoutpage" element={ <LockoutPage />} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
+            <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
             <Route path="/products" element={<Products addToCart={addToCart}  />} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
@@ -532,7 +534,7 @@ const handleLogout = () => {
           </Routes>
         )}
          <div className="mt-4 " >    
-          <Footer /> 
+           <Footer isLoggedIn={isLoggedIn}/> 
           </div>
         </div>
         )}

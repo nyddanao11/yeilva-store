@@ -136,7 +136,7 @@ const Login = ({ handleLogin }) => {
                   />
                 </Form.Group>
                  <Button variant="primary" type="submit" className="w-100 mt-4" disabled={loading}>
-                  {loading ? 'Logging in...' : 'Log In'}
+                  {loading ? 'Logging in...' : 'Log in'}
                 </Button>
               </Form>
          
@@ -144,12 +144,12 @@ const Login = ({ handleLogin }) => {
             <div  style={{maxWidth:'400px', marginTop:'15px'}}>
               {!isLoginSuccessful && (
                 <p>
-                  <Link to="/forgotpassword" style={{ textDecoration: 'none' }}>Forgot Password?</Link>
+                  <Link to="/forgotpassword" style={{ textDecoration: 'none' }}>Forgot password?</Link>
                 </p>
               )}
               {!isLoginSuccessful && (
                 <p>
-                  Don't have an account? <Link to="/signupform" style={{ textDecoration: 'none' }}>Sign Up</Link>
+                  Don't have an account? <Link to="/signupform" style={{ textDecoration: 'none' }}>Sign up</Link>
                 </p>
               )}
             </div>

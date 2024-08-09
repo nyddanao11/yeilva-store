@@ -266,9 +266,8 @@
   description: "Gluta dietary Supplement capsule that consist of one glutathione with an added Sulfhydryl group. It improves the immune system and protects the body from free radical damage. it can also flush out liver toxins that can achieve whiter skin.",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/glutathione.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+       `${process.env.PUBLIC_URL}/images/glutathione.png`,
+       
       ],
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
   sizecolor:false,

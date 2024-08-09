@@ -54,7 +54,7 @@ useEffect(() => {
         <Navbar.Collapse id="navbar-nav" className="justify-content-lg-between">
           <Nav className="ml-auto">
           <Nav>
-            <NavDropdown title="Product Category" id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}>
+            <NavDropdown title="Product category" id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}>
               <Dropdown.Item as={Link} to="/groceryitemspage">Food & Beverages/Grocery Items</Dropdown.Item>
               <Dropdown.Item as={Link} to="/schoolsupplies">School and Office Supplies</Dropdown.Item>
               <Dropdown.Item as={Link} to="/products">Health & Wellness</Dropdown.Item>
@@ -94,7 +94,7 @@ useEffect(() => {
 		                </>
                 ) : (
                   <>
-                  <Dropdown.Item onClick={isLoggedIn ? () => handleAlertAndNavigate('/loanform') : () => alert('Please log in to continue')}>All Services</Dropdown.Item>
+                  <Dropdown.Item onClick={isLoggedIn ? () => handleAlertAndNavigate('/loanform') : () => alert('Please log in to continue')}>All services</Dropdown.Item>
                   </>
                 )}
               </NavDropdown>
@@ -106,7 +106,7 @@ useEffect(() => {
             </Nav>
 
               <Nav>
-              <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><span><FaGift /> Get your Freebies</span></Nav.Link>
+              <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><span><FaGift /> Get your freebies</span></Nav.Link>
              
             </Nav>
 
@@ -123,7 +123,7 @@ useEffect(() => {
                   {`Hello, ${userData.firstname ?? 'loading...'}`}
                 </>
               ) : (
-                'My Account'
+                'My account'
               )}
             </Nav.Link>
             
@@ -135,8 +135,10 @@ useEffect(() => {
                 Logout
               </Nav.Link>
             ) : (
+             <>
               <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">Login</Nav.Link>
-            )}
+              <Nav.Link as={NavLink} to="/signupform" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">Sign up</Nav.Link>
+             </>            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

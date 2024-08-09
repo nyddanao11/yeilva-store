@@ -1,9 +1,9 @@
 import React,{useState} from'react';
 import {Link} from'react-router-dom';
-import NeedHelp from'../pages/NeedHelp';
+import SignUpForm from'./SignupForm';
 
 
-const HoverButton2 =() =>{
+const HoverButton3 =() =>{
 	const [isHovered, setIsHovered] = useState(false);
 
 	const handleMouseEnter =() =>{
@@ -30,8 +30,8 @@ const HoverButton2 =() =>{
 		style={buttonStyle}
 		onMouseEnter={handleMouseEnter}
 		onMouseLeave={handleMouseLeave}>
-		  <Link to='/needhelp' style={{ textDecoration:"none", color: isHovered? 'white':'black'}}>Contact us</Link>
+		  <Link to='/signupform' style={{ textDecoration:"none", color: isHovered? 'white':'black'}}>Sign up</Link>
 		 </button>
 		)
 }
-export default HoverButton2;
+export default HoverButton3;
