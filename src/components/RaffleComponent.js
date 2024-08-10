@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { fetchUserData } from './userService';
-
+import {Link} from 'react-router-dom';
 
 // Validation schema
 const validationSchema = Yup.object().shape({
@@ -181,6 +181,7 @@ const Raffle = () => {
                         <h6>Raffle Tickets</h6>
                         <p>{30 - takenTickets.length} out of 30 remaining</p>
                         <p style={{ fontSize: "18px", fontWeight: "600", color: "#0D6EFD" }}>Your Number: {ticketNumber}</p>
+                        <Link to="/rafflemechanics" style={{marginBottom:"20px"}}> mechanics </Link>
                       </div>
                       <div className="mt-2 mb-2 mx-1 d-flex justify-content-center align-items-center flex-wrap">
                         {[...Array(30)].map((_, index) => (

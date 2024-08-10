@@ -87,6 +87,7 @@ import ReviewComponent from'./components/ReviewComponent';
 import Footer from './components/Footer';
 import InstallmentTerms from'./pages/installmentTerms';
 import Freebies from './components/Freebies';
+import RaffleMechanics from './components/RaffleMechanics';
 
 function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -273,6 +274,7 @@ const handleLogout = () => {
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
                             <Route path="/freebies" element={<Freebies  addToCart={addToCart}/>} />
+                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
 
                    
                  <Route component={NotFoundPage} />
@@ -357,7 +359,7 @@ const handleLogout = () => {
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
                             <Route path="/freebies" element={<Freebies addToCart={addToCart}/>} />
-                   
+                           <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
 
                  <Route component={NotFoundPage} />
                         
@@ -443,7 +445,8 @@ const handleLogout = () => {
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
                             <Route path="/freebies" element={<Freebies  addToCart={addToCart}/>} />
-                   
+                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
+
 
                  <Route component={NotFoundPage} />
                         
@@ -525,9 +528,8 @@ const handleLogout = () => {
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
-                          
                             <Route path="/freebies" element={<Freebies addToCart={addToCart}/>} />
-                   
+                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
 
                  <Route component={NotFoundPage} />
                         
