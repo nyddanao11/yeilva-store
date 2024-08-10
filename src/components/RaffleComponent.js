@@ -101,14 +101,15 @@ const Raffle = () => {
     <Container fluid className="d-flex justify-content-center align-items-center" style={{ backgroundColor: "#f8f9fa" }}>
       <Row className="w-100">
         <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
-          <Card className="p-4 shadow">
+          <Card className="p-3 shadow">
             <Card.Body>
-              <div style={{ lineHeight: "5px", marginBottom: "30px" }}>
-                <h4 className="text-center">Raffle Registration</h4>
-                <h6 className="text-center">Prizes to be Won </h6>
-                <p className="text-center"> 1st - 1box of barley</p>
-                <p className="text-center"> 2nd - 1box of mangosteen coffee </p>
-                <p className="text-center">(Raffle on October 08, 2024)</p>
+           <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign:'center'}}>
+                <h4>Raffle Registration</h4>
+                <h6>Prizes to be Won </h6>
+                <p> 1st - 1box of barley</p>
+                <p> 2nd - 1box of mangosteen coffee </p>
+                <p>(Raffle on October 08, 2024)</p>
+             <Link to="/rafflemechanics"  style={{marginBottom:'5px'}}> mechanics </Link>
               </div>
               <div className="text-center mb-4">
                 <h5>Time Remaining:</h5>
@@ -181,7 +182,6 @@ const Raffle = () => {
                         <h6>Raffle Tickets</h6>
                         <p>{30 - takenTickets.length} out of 30 remaining</p>
                         <p style={{ fontSize: "18px", fontWeight: "600", color: "#0D6EFD" }}>Your Number: {ticketNumber}</p>
-                        <Link to="/rafflemechanics" style={{marginBottom:"20px"}}> mechanics </Link>
                       </div>
                       <div className="mt-2 mb-2 mx-1 d-flex justify-content-center align-items-center flex-wrap">
                         {[...Array(30)].map((_, index) => (
