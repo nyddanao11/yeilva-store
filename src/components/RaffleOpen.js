@@ -88,9 +88,9 @@ const RaffleOpen = () => {
               <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign:'center'}}>
                 <h4>Raffle Registration</h4>
                 <h6>Prizes to be Won </h6>
-                <p> 1st - 1box of barley</p>
-                <p> 2nd - 1box of mangosteen coffee </p>
-                <p>(Raffle on October 08, 2024)</p>
+                <p> 1st - 3boxes of barley</p>
+                <p> 2nd - 3boxes of mangosteen coffee </p>
+                <p>(Raffle on October 31, 2024)</p>
              <Link to="/rafflemechanics"  style={{marginBottom:'5px'}}> mechanics </Link>
               </div>
               <div className="text-center mb-4">
