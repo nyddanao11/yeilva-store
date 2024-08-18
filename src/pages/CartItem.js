@@ -4,8 +4,7 @@ import { FaTrash } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 
 const CartItem = ({ item, removeFromCart }) => {
-  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
-const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
+ 
 const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
   const [selectedSize, setSelectedSize] = useState('none');

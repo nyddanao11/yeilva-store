@@ -6,19 +6,18 @@ import axios from 'axios';
 import { fetchUserData } from './userService';
 import {Link} from 'react-router-dom';
 
+
 // Validation schema
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
 });
 
-const Raffle = () => {
+const RaffleOpen = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
-  const [ticketNumber, setTicketNumber] = useState(null);
-  const [takenTickets, setTakenTickets] = useState([]);
   const [timeRemaining, setTimeRemaining] = useState('');
-  const [winningTicket, setWinningTicket] = useState(null);
+  const [winningEmail, setWinningEmail] = useState(null);
    const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
@@ -26,21 +25,9 @@ const Raffle = () => {
   });
 
   // Set the raffle date
-  const raffleDate = new Date('August 07, 2024 00:00:00');
+  const raffleDate = new Date('August 15, 2024 00:00:00');
 
-  useEffect(() => {
-    const fetchTakenTickets = async () => {
-      try {
-        const response = await axios.get('https://yeilva-store-server.up.railway.app/raffletickets');
-        setTakenTickets(response.data.tickets);
-      } catch (error) {
-        console.error('Error fetching tickets:', error);
-      }
-    };
-
-    fetchTakenTickets();
-  }, []);
-
+ 
   useEffect(() => {
     const updateCountdown = () => {
       const now = new Date();
@@ -82,15 +69,10 @@ const Raffle = () => {
   }, []);
 
 
-  const handleTicketSelection = (ticket) => {
-    setTicketNumber(ticket);
-    alert(`Your Number is ${ticket}`);
-  };
-
   const handleSelectWinner = async () => {
     try {
-      const response = await axios.get('https://yeilva-store-server.up.railway.app/raffle/winner');
-      setWinningTicket(response.data.winningTicket);
+      const response = await axios.get('https://yeilva-store-server.up.railway.app/openraffle/winner');
+      setWinningEmail(response.data.winningEmail);
     } catch (error) {
       console.error('Error selecting winner:', error);
       setStatus({ error: 'Error selecting winner' });
@@ -103,13 +85,12 @@ const Raffle = () => {
         <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
           <Card className="p-3 shadow">
             <Card.Body>
-           <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign:'center'}}>
+              <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign:'center'}}>
                 <h4>Raffle Registration</h4>
-                <h6>Item to be Won </h6>
-                   <p> iPhone 14</p>
-                <p> Ticket price: $</p>
-                <p> Crew only</p>
-                <p>(Raffle on March 12, 2025)</p>
+                <h6>Prizes to be Won </h6>
+                <p> 1st - 1box of barley</p>
+                <p> 2nd - 1box of mangosteen coffee </p>
+                <p>(Raffle on October 08, 2024)</p>
              <Link to="/rafflemechanics"  style={{marginBottom:'5px'}}> mechanics </Link>
               </div>
               <div className="text-center mb-4">
@@ -123,10 +104,10 @@ const Raffle = () => {
                   setLoading(true);
                   setStatus(null);
                   try {
-                    const response = await axios.post('https://yeilva-store-server.up.railway.app/raffleregister', {
+                    const response = await axios.post('https://yeilva-store-server.up.railway.app/openraffle', {
                       fullname: values.fullname,
                       email: values.email,
-                      ticket: ticketNumber,
+                   
                     });
                     setStatus({ success: response.data.success });
                   } catch (error) {
@@ -137,7 +118,7 @@ const Raffle = () => {
                     setTimeout(() => {
                       actions.resetForm();
                       setStatus(null);
-                      setTicketNumber(null);
+                     
                     }, 5000);
                   }
                 }}
@@ -178,29 +159,8 @@ const Raffle = () => {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <div className="mt-3 p-2">
-                      <div className="mt-2 mb-2 d-flex flex-column justify-content-center align-items-center" style={{ lineHeight: "5px" }}>
-                        <h6>Raffle Tickets</h6>
-                        <p>{30 - takenTickets.length} out of 30 remaining</p>
-                        <p style={{ fontSize: "18px", fontWeight: "600", color: "#0D6EFD" }}>Your Number: {ticketNumber}</p>
-                      </div>
-                      <div className="mt-2 mb-2 mx-1 d-flex justify-content-center align-items-center flex-wrap">
-                        {[...Array(30)].map((_, index) => (
-                          <Button
-                            key={index}
-                            variant="primary"
-                            size="sm"
-                            className="mx-1 mb-1"
-                            onClick={() => handleTicketSelection(index + 1)}
-                            disabled={takenTickets.includes(index + 1) || ticketNumber === index + 1 || timeRemaining === '0'} // Disable the button if the ticket is already taken or selected
-                          >
-                            {index + 1 < 10 ? `0${index + 1}` : index + 1}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting || !ticketNumber}>
+                    
+                    <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting || timeRemaining ==='0' }>
                       {loading ? <Spinner animation="border" size="sm" /> : 'Register'}
                     </Button>
                     {status && (
@@ -216,9 +176,9 @@ const Raffle = () => {
                   <Button variant="success" onClick={handleSelectWinner}>
                     Select Winner
                   </Button>
-                  {winningTicket && (
+                  {winningEmail && (
                     <div className="mt-3">
-                      <h5>Winning Ticket: {winningTicket}</h5>
+                      <h5>Winning Email: {winningEmail}</h5>
                     </div>
                   )}
                 </div>
@@ -231,4 +191,4 @@ const Raffle = () => {
   );
 };
 
-export default Raffle;
+export default RaffleOpen;

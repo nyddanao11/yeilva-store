@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
-import {Link} from'react-router-dom';
 import HoverButton2 from'./HoverButton2';
 import HoverButton3 from'./HoverButton3';
 import BackToTopButton from'./BackToTopButton';

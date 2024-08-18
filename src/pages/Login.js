@@ -4,7 +4,6 @@ import { Form, Button, Container, Row, Col, Spinner, Card } from 'react-bootstra
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './loginContext';
-import LockoutPage from'./LockoutPage';
 
 const Login = ({ handleLogin }) => {
   const [formData, setFormData] = useState({

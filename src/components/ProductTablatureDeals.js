@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
 import {deals} from'../data/DealsData';
-import ReviewComponent from'./ReviewComponent';
 import {useNavigate} from'react-router-dom';
 import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';

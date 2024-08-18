@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import VitaminsMedications from '../components/Groceries/VitaminsMedications';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
 import Rice from '../components/Groceries/Rice';
@@ -12,16 +11,6 @@ import AlcoholicDrinks from '../components/Groceries/AlcoholicDrinks';
 import Snacks from '../components/Groceries/Snacks';
 import LaundryPersonalCare from '../components/Groceries/LaundryPersonalCare';
 import CookingItems from '../components/Groceries/CookingItems';
-import { beer } from '../components/Groceries/BeveragesData';
-import { alcoholic } from '../components/Groceries/AlcoholicDrinksData';
-import { canned } from '../components/Groceries/CanGoodsData';
-import { Frozen } from '../components/Groceries/FrozenFoodsData';
-import { snacks } from '../components/Groceries/SnacksData';
-import { Noodles } from '../components/Groceries/InstantNoodlesData';
-import { laundry } from '../components/Groceries/LaundryPersonalCareData';
-import { cooking } from '../components/Groceries/CookingItemsData';
-import { vitamins } from '../components/Groceries/VitaminsMedicationsData';
-import { rice } from '../components/Groceries/RiceData';
 import { useMediaQuery } from 'react-responsive';
 import YouMayLike from'../components/YouMayLike';
 import { MdAnnouncement } from 'react-icons/md';

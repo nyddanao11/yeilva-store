@@ -9,10 +9,7 @@ const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
 
    const [errorMessage, setErrorMessage] = useState('');
    const [loading, setLoading] = useState(false);
-    const [address, setAddress] = useState('');
-   const [province, setProvince] = useState('');
-   const [phone,setPhone] = useState('');
-   const [checkoutData, setCheckoutData] = useState('');
+    const [checkoutData, setCheckoutData] = useState('');
 
 const [userData, setUserData] = useState({
     firstname: '',

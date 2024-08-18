@@ -1,12 +1,11 @@
 import React from 'react';
 import { CarouselImage } from '../data/CarouselImage';
 import { useNavigate } from 'react-router-dom';
-import { Container, Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import {useMediaQuery} from'react-responsive';
 
 const ImageSlider = () => {
- const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
-const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
+
 const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
   const navigate = useNavigate();

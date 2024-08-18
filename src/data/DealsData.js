@@ -1,6 +1,6 @@
 export const deals = [
 {
-  id: 1,
+  id: 13,
   name: "Mangosteen choco",
   url:  `${process.env.PUBLIC_URL}/images/choco.jpg`,
   price: 200,

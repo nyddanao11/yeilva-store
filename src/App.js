@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import { Route, Routes, useNavigate} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useMediaQuery } from 'react-responsive';
 import Products from './pages/Products';
@@ -91,10 +91,8 @@ import RaffleMechanics from './components/RaffleMechanics';
 import BarleyGrassJuice from './components/SqueezePage/SqueezePageBarley';
 
 function App() {
-  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
-const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
-const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
    const { isLoggedIn, login, logout } = useAuth();
   const [cartCount, setCartCount] = useState(0);
 
