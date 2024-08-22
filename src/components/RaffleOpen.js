@@ -4,8 +4,8 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { fetchUserData } from './userService';
-import {Link} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import UAParser from 'ua-parser-js';
 
 // Validation schema
 const validationSchema = Yup.object().shape({
@@ -17,17 +17,16 @@ const RaffleOpen = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState('');
-  const [winningEmail, setWinningEmail] = useState(null);
-   const [userData, setUserData] = useState({
+  const [firstWinner, setFirstWinner] = useState(null);
+  const [secondWinner, setSecondWinner] = useState(null);
+  const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
     email: '',
   });
 
-  // Set the raffle date
-  const raffleDate = new Date('August 15, 2024 00:00:00');
+  const raffleDate = new Date('October 31, 2024 00:00:00');
 
- 
   useEffect(() => {
     const updateCountdown = () => {
       const now = new Date();
@@ -51,16 +50,25 @@ const RaffleOpen = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  
+  const getDeviceInfo = () => {
+    const parser = new UAParser();
+    const result = parser.getResult();
+    return {
+      browser: result.browser.name,
+      browserVersion: result.browser.version,
+      os: result.os.name,
+      osVersion: result.os.version,
+      device: result.device.model || 'Desktop',
+      deviceType: result.device.type || 'Desktop',
+    };
+  };
 
   useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
     if (storedUserEmail) {
       fetchUserData(storedUserEmail.replace(/"/g, ''))
         .then((user) => {
-          // Set user data including joinedDate
-           console.log('User data:', user);
-          setUserData({ ...user});
+          setUserData({ ...user });
         })
         .catch((error) => console.error('Error setting user data:', error));
     } else {
@@ -68,11 +76,11 @@ const RaffleOpen = () => {
     }
   }, []);
 
-
-  const handleSelectWinner = async () => {
+  const handleSelectWinners = async () => {
     try {
-      const response = await axios.get('https://yeilva-store-server.up.railway.app/openraffle/winner');
-      setWinningEmail(response.data.winningEmail);
+      const response = await axios.get('http://localhost:3001/openraffle/winner');
+      setFirstWinner(response.data.firstWinnerName);
+      setSecondWinner(response.data.secondWinnerName);
     } catch (error) {
       console.error('Error selecting winner:', error);
       setStatus({ error: 'Error selecting winner' });
@@ -85,29 +93,41 @@ const RaffleOpen = () => {
         <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
           <Card className="p-3 shadow">
             <Card.Body>
-              <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign:'center'}}>
+              <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign: 'center' }}>
                 <h4>Raffle Registration</h4>
-                <h6>Prizes to be Won </h6>
-                <p> 1st - 3boxes of barley</p>
-                <p> 2nd - 3boxes of mangosteen coffee </p>
+                <h6>Prizes to be Won</h6>
+                <p>1st - 3 boxes of barley</p>
+                <p>2nd - 3 boxes of mangosteen coffee</p>
                 <p>(Raffle on October 31, 2024)</p>
-             <Link to="/rafflemechanics"  style={{marginBottom:'5px'}}> mechanics </Link>
+                <Link to="/rafflemechanics" style={{ marginBottom: '5px' }}>Mechanics</Link>
               </div>
+
+              {timeRemaining === "0" && (
+                <div className="mx-auto text-center mb-4">
+                  <h3 style={{ color: "orange" }}>Congratulations! to our Raffle Winners</h3>
+                  <h6>1st prize - {firstWinner}</h6>
+                  <h6>2nd prize - {secondWinner}</h6>
+                </div>
+              )}
+
               <div className="text-center mb-4">
                 <h5>Time Remaining:</h5>
                 <p>{timeRemaining}</p>
               </div>
+
               <Formik
                 initialValues={{ fullname: '', email: '' }}
                 validationSchema={validationSchema}
                 onSubmit={async (values, actions) => {
                   setLoading(true);
                   setStatus(null);
+                  const deviceInfo = getDeviceInfo();
+
                   try {
-                    const response = await axios.post('https://yeilva-store-server.up.railway.app/openraffle', {
+                    const response = await axios.post('http://localhost:3001/openraffle', {
                       fullname: values.fullname,
                       email: values.email,
-                   
+                      deviceInfo,
                     });
                     setStatus({ success: response.data.success });
                   } catch (error) {
@@ -118,7 +138,6 @@ const RaffleOpen = () => {
                     setTimeout(() => {
                       actions.resetForm();
                       setStatus(null);
-                     
                     }, 5000);
                   }
                 }}
@@ -159,8 +178,7 @@ const RaffleOpen = () => {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    
-                    <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting || timeRemaining ==='0' }>
+                    <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting || timeRemaining === '0'}>
                       {loading ? <Spinner animation="border" size="sm" /> : 'Register'}
                     </Button>
                     {status && (
@@ -171,14 +189,16 @@ const RaffleOpen = () => {
                   </Form>
                 )}
               </Formik>
+
               {userData.email === 'bonifacioamoren@gmail.com' && (
                 <div className="text-center mt-4">
-                  <Button variant="success" onClick={handleSelectWinner}>
+                  <Button variant="success" onClick={handleSelectWinners}>
                     Select Winner
                   </Button>
-                  {winningEmail && (
+                  {firstWinner && secondWinner && (
                     <div className="mt-3">
-                      <h5>Winning Email: {winningEmail}</h5>
+                      <h5>1st Prize Winner: {firstWinner}</h5>
+                      <h5>2nd Prize Winner: {secondWinner}</h5>
                     </div>
                   )}
                 </div>
