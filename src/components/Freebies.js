@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import NewUserDiscount from './NewUserDiscount';
-import Raffle from './RaffleComponent';
 import RaffleOpen from './RaffleOpen';
 import YouMayLike from './YouMayLike';
 import {Link} from 'react-router-dom';
@@ -23,10 +22,10 @@ const Freebies = ({ addToCart }) => {
                              <h3 className="mt-2"><Link to="/barleygrassjuice"> Barley Grass Juice </Link> </h3>
                           </div>
                         </Link>
-                         <RaffleOpen />
+                      
                       </Col>
                     <Col lg={6} md={6} xs={12} className="mb-4">
-                        <Raffle />
+                        <RaffleOpen />
                     </Col>
                 </Row>
             </Container>

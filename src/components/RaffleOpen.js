@@ -97,7 +97,8 @@ const RaffleOpen = () => {
                 <h4>Raffle Registration</h4>
                 <h6>Prizes to be Won</h6>
                 <p>1st - 3 boxes of barley</p>
-                <p>2nd - 3 boxes of mangosteen coffee</p>
+                <p>2nd - 3 boxes of mangosteen</p>
+                <p> coffee </p>
                 <p>(Raffle on October 31, 2024)</p>
                 <Link to="/rafflemechanics" style={{ marginBottom: '5px' }}>Mechanics</Link>
               </div>
