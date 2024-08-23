@@ -78,7 +78,7 @@ const RaffleOpen = () => {
 
   const handleSelectWinners = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/openraffle/winner');
+      const response = await axios.get('https://yeilva-store-server.up.railway.app/openraffle/winner');
       setFirstWinner(response.data.firstWinnerName);
       setSecondWinner(response.data.secondWinnerName);
     } catch (error) {
@@ -95,7 +95,7 @@ const RaffleOpen = () => {
             <Card.Body>
               <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign: 'center' }}>
                 <h4>Raffle Registration</h4>
-                <h6>Prizes to be Won</h6>
+                <h6>Prizes </h6>
                 <p>1st - 3 boxes of barley</p>
                 <p>2nd - 3 boxes of mangosteen</p>
                 <p> coffee </p>
@@ -125,7 +125,7 @@ const RaffleOpen = () => {
                   const deviceInfo = getDeviceInfo();
 
                   try {
-                    const response = await axios.post('http://localhost:3001/openraffle', {
+                    const response = await axios.post('https://yeilva-store-server.up.railway.app/openraffle', {
                       fullname: values.fullname,
                       email: values.email,
                       deviceInfo,
