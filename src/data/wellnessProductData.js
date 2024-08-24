@@ -134,9 +134,8 @@
   description: "reduces blood pressure and the inflammatory process associated with heart disease, prevents heart attack and stroke and neutralizes the damaging effect fo free radicals",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/Garcinia01.jpg`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+      `${process.env.PUBLIC_URL}/images/Garcinia01.jpg`,
+      
       ],
   productdetails:"15g of 10 sachets sweetened with stevia,  BFAD#1009889000",
   sizecolor:false,
@@ -153,9 +152,7 @@
   description:"mixed collagen powdered milk with tremella, rich and powerful antioxidant, reduces signs of aging, boost immune system, supports healthy brain functions, improves blood circulation, promotes heart lungs and digestive health",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/gleam.jpg`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+      `${process.env.PUBLIC_URL}/images/gleam.jpg`,
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
   sizecolor:false,
@@ -172,9 +169,8 @@
   description:"Natural tea and powerful immune booster. it contains high level of antioxidants and inflammatory properties. It is good in our body because it gives 11 natural ingredients to strenghten the body's immune system and keeping the body healthy.",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/turmeric.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+      `${process.env.PUBLIC_URL}/images/turmeric.png`,
+      
       ],
   productdetails:"15g of 5 sachets sweetened with stevia,  BFAD#1009889000",
      sizecolor:false,
@@ -210,9 +206,8 @@
   description:"Helps in boosting body energy and immunity, detoxifying liver, preventing signs of aging, prevents hypertension and diabetes, regulates blood pressure, improves good cholesterol levels and sharpens memory",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/Buah merah.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+       `${process.env.PUBLIC_URL}/images/Buah merah.png`,
+    
       ],
   productdetails:"Net wt 30g,  BFAD#1009889000",
      sizecolor:false,
@@ -229,9 +224,8 @@
   description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",               
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
-       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+      `${process.env.PUBLIC_URL}/images/mangosteen.png`,
+     
       ],
   productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
   sizecolor:false,
@@ -266,8 +260,7 @@
   description: "Gluta dietary Supplement capsule that consist of one glutathione with an added Sulfhydryl group. It improves the immune system and protects the body from free radical damage. it can also flush out liver toxins that can achieve whiter skin.",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/glutathione.png`,
-       `${process.env.PUBLIC_URL}/images/glutathione.png`,
-       
+        `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ],
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
   sizecolor:false,

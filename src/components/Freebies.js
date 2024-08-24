@@ -11,7 +11,12 @@ const Freebies = ({ addToCart }) => {
             <Container fluid>
                 <Row >
                     <Col lg={6} md={6} xs={12} > 
-                        <NewUserDiscount />
+                      <RaffleOpen />
+                    
+                      </Col>
+                    <Col lg={6} md={6} xs={12} className="mb-4">
+                     
+                           <NewUserDiscount />
 
                          <Link to="/barleygrassjuice">
                            <div  className="d-flex flex-column justify-content-center align-items-center mt-4 p-2">
@@ -22,14 +27,11 @@ const Freebies = ({ addToCart }) => {
                              <h3 className="mt-2"><Link to="/barleygrassjuice"> Barley Grass Juice </Link> </h3>
                           </div>
                         </Link>
-                      
-                      </Col>
-                    <Col lg={6} md={6} xs={12} className="mb-4">
-                        <RaffleOpen />
                     </Col>
                 </Row>
+             
             </Container>
-            <YouMayLike addToCart={addToCart} />
+              <YouMayLike addToCart={addToCart} />
         </>
     );
 };
