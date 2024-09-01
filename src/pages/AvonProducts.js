@@ -12,7 +12,7 @@ const AvonProducts = ({ addToCart }) => {
       <Row  className="d-flex justify-content-center align-items-center ">
       
         <div className="d-flex justify-content-center align-items-center mb-2 mt-3">
-          <h4  className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}>Avon Collections</h4>
+          <h4  className="text-center" style={{color:"green", border:"1px solid green", borderRadius:"10px", maxWidth:"530px", padding:"8px"}}>Avon Products</h4>
           </div>
           {avonproductsData.map((product) => (
               <Col key={product.id} md={3} xs={6} lg={2} >
