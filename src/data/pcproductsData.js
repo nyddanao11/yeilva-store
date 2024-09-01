@@ -150,22 +150,7 @@ export const pcproductsData = [
       sizecolor:false,
             shipping:'1box, size:',
    },
-{
-  id: 44,
-  name: "Target 02",
-  url:  `${process.env.PUBLIC_URL}/imgpc/target1.png`,
-  price: 239,
-    weight:200,
-       stock: 10,
-    description:'multi insect killer, killing made easy iwas dengue formula',
-   thumbnails:
-      [ `${process.env.PUBLIC_URL}/imgpc/target1.png`,
-         `${process.env.PUBLIC_URL}/imgpc/target1.png`,
-      ],
-   productdetails:"Personal Collection Products",
-      sizecolor:false,
-            shipping:'1box, size:',
-   },
+
 {
   id: 45,
   name: "Tuff clean 01",
