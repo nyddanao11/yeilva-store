@@ -10,17 +10,14 @@ const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
    const [errorMessage, setErrorMessage] = useState('');
    const [loading, setLoading] = useState(false);
     const [checkoutData, setCheckoutData] = useState('');
+   const [image, setImage] = useState(null);
 
 const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
     email: '',
-    address: '',
-    province: '',
-    phone: '',
     name:'',
   });
-
 
  const [formData, setFormData] = useState({
   name: '', // Add the 'name' field
@@ -28,7 +25,11 @@ const [userData, setUserData] = useState({
   total: formattedGrandTotal,
 
 });
-
+ const [cashOnDelivery, setCashOnDelivery] = useState({
+  name: '', // Add the 'name' field
+  quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
+  total: formattedGrandTotal,
+});
 
   const [isSubmitting, setIsSubmitting] = useState(false); // Add state for form submission
 
@@ -40,6 +41,18 @@ const [userData, setUserData] = useState({
   const handleEwalletsClick = (e) => {
     setSelectedPayment(e.target.value); // Update the selected payment method
   };
+
+  const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file && file.size > 5 * 1024 * 1024) { // 5MB file size limit
+    setErrorMessage('The file size should not exceed 5MB.');
+    setImage(null); // Reset the image if the file is too large
+  } else {
+    setImage(file);
+    setErrorMessage(''); // Clear any previous error messages
+  }
+};
+
 
   const navigate = useNavigate(); // Get the navigate function
 
@@ -88,37 +101,54 @@ const cleanProductName = (productName) => {
       </div>
     `).join('<br>');
 
-     const formData = {
+  const formData = new FormData();
+  formData.append('firstname', userData.firstname);
+  formData.append('lastname', userData.lastname);
+  formData.append('email', userData.email);
+  formData.append('address', checkoutData.address);
+  formData.append('province', checkoutData.province);
+  formData.append('phone', checkoutData.phone);
+  formData.append('name', itemName);  // Adjust as needed
+  formData.append('quantity', cartItems.reduce((acc, item) => acc + item.quantity, 0));
+  formData.append('total', formattedGrandTotal);
+  formData.append('paymentOption', selectedPayment);
+  // console.log('formData',formData);
+
+   const cashOnDelivery = {
       ...userData,
+      ...checkoutData,
       name: itemName,
       quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
       total: formattedGrandTotal,
       paymentOption: selectedPayment,
       productNames: cleanedProductNames, // Pass product names as a separate array
-    };
+     };
+  
+  if (selectedPayment === 'Installment') {
+    formData.append('installmentImage', image);
 
-    // Check if the selected payment option is 'Installment'
-    if (selectedPayment === 'Installment') {
-      try {
-        setIsSubmitting(true); // Disable the form submission
+    if (!image) {
+      setErrorMessage('Please upload your ID to proceed with the installment payment.');
+      setLoading(false);
+      return;
+    }
 
-        // Make the Axios request to the 'installmentuser' endpoint
-        const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData);
-        console.log(response.data);
-
-
-        setShowModal(true);
-      } catch (error) {
-  console.error('Error submitting installment order:', error);
-  setErrorMessage('There was an error submitting your installment order. Please make sure you dont have a pending installment and your total purchases is equal to or above ₱500.');
-}
+    try {
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData);
+      console.log(response.data);
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error submitting installment order:', error);
+      setErrorMessage('There was an error submitting your installment order. Please make sure you don’t have a pending installment and your total purchases are equal to or above ₱500.');
+      setLoading(false);
+    }
 
     } else {
       // Make the Axios request to the 'checkout' endpoint for other payment options
       try {
         setIsSubmitting(true); // Disable the form submission
 
-        const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', formData);
+        const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
         console.log(response.data);
 
         setShowModal(true);
@@ -139,7 +169,9 @@ const cleanProductName = (productName) => {
   try {
     const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
     const user = response.data;
+    console.log('checkoutdata', user);
     setUserData(user);
+
   } catch (error) {
     console.error('Error fetching user data:', error);
   }
@@ -154,6 +186,7 @@ useEffect(() => {
     console.log('Email is missing in local storage');
   }
 }, []);
+
 
   const fetchCheckoutData = async (email, setCheckoutData)  => {
   if (!email) {
@@ -181,8 +214,8 @@ useEffect(() => {
 }, []);
 
 
-  return (    
-     <Row className='d-flex  justify-content-center align-items-center' >
+return (    
+     <Row className='d-flex justify-content-center align-items-center' >
      
       <Col xs={12} md={8} style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
 
@@ -258,6 +291,9 @@ useEffect(() => {
       required
     />
   </FloatingLabel>
+
+
+
 
  <div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding:'0px 15px'}}>
   <h5 className='mt-1'>Items in Cart:</h5>
@@ -351,40 +387,34 @@ useEffect(() => {
             </Button>
           )}
 
-            {selectedPayment === 'Installment' && (
-            <Button
-              variant="primary"
-              onClick={handleEwalletsClick}
-              style={{ marginTop: "15px", marginBottom: "10px", marginRight: "15px" }}
-            >
-               <Link to='/installmentterms' style={{textDecoration:'none', color:'white'}}>Terms & Conditions</Link>
-            </Button>
+        {selectedPayment === 'Installment' && (
+            <>
+              <Form.Group controlId="formImage" style={{ marginTop: '20px', marginBottom: '15px' }} action="/installmentusers" method="post" enctype="multipart/form-data">
+                <FloatingLabel controlId="floatingImage" label="Upload ID">
+                  <Form.Control type="file" accept="image/*"  onChange={handleImageChange} />
+                </FloatingLabel>
+              </Form.Group>
+              {errorMessage && (
+                <div style={{ color: 'red', marginTop: '10px', marginBottom:'10px'}}>
+                  {errorMessage}
+                </div>
+              )}
+              <Button variant="primary" onClick={handleEwalletsClick} style={{ marginBottom: '10px', marginRight: '15px' }}>
+                <Link to="/installmentterms" style={{ textDecoration: 'none', color: 'white' }}>
+                  Terms & Conditions
+                </Link>
+              </Button>
+            </>
           )}
-
-
-          {errorMessage && selectedPayment === 'Installment' && (
-            <div style={{ color: 'red', marginTop: '10px' }}>
-              {errorMessage}
-            </div>
-          )}
-
-
-        
-
-             <h5 style={{color:'black', marginBottom:'15px', marginTop:'15px'}}>Total Price: {formattedGrandTotal}</h5>
-         <Button variant="danger" type="submit" className="mb-2 mt-2"  disabled={loading} style={{ width: '100%' }}>
-           {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'} 
+          <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
+          <Button variant="danger" type="submit" className="mb-2 mt-2" disabled={loading} style={{ width: '100%' }}>
+            {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
           </Button>
-
-        </div>
-        
-       </Form>
-      
-    </Col>
-     
+          </div>
+        </Form>
+      </Col>
     </Row>
   );
-
 };
 
 export default CheckoutForm;
