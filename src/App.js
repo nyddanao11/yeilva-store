@@ -204,7 +204,7 @@ const handleLogout = () => {
         {/* Conditionally render Routes based on login status */}
         {isLoggedIn ? (
           <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} />} />
+            <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
             <Route path="/products" element={<Products addToCart={addToCart}  />} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
@@ -282,7 +282,7 @@ const handleLogout = () => {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} />} />
+            <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
            <Route path="/signupform" element={<SignUpForm handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
             <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
              <Route path="/forgotpassword" element={<ForgotPassword  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -377,7 +377,7 @@ const handleLogout = () => {
         {/* Conditionally render Routes based on login status */}
         {isLoggedIn ? (
           <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} />} />
+            <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
             <Route path="/products" element={<Products addToCart={addToCart}  />} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
@@ -455,7 +455,7 @@ const handleLogout = () => {
           </Routes>
         ) : (
            <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} />} />
+            <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
            <Route path="/signupform" element={<SignUpForm handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
             <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
              <Route path="/forgotpassword" element={<ForgotPassword  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />

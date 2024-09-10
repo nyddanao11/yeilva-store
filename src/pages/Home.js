@@ -12,14 +12,18 @@ import {pcproductsData} from '../data/pcproductsData';
 import {beautyProductsData} from '../data/BeautyProductsData';
 import Announcement from'../components/Announcement';
 import './Home.css';
+import PopUpAdds from '../components/PopUpAdds'; // Fix capitalization here
 
-const Home = ({ product}) => {
+const Home = ({ product, isLoggedIn}) => {
 let countWellness = wellnessProductData.length;
 let countPc = pcproductsData.length;
 let countBeauty = beautyProductsData.length;
 
   return ( 
     <>
+      {/* Popup Component */}
+      <PopUpAdds delay={3000} autoCloseAfter={15000} isLoggedIn={isLoggedIn} />
+
         <div style={{marginBottom:"10px"}}>
           <ImageSlider />
         </div>
