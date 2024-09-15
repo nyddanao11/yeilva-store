@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';  // Make sure to use the correct Link import
 
 const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasClosed, setHasClosed] = useState(false);
+
+  const navigate = useNavigate();  // Only needed if you want to navigate programmatically
 
   // Open popup after delay
   useEffect(() => {
@@ -80,10 +83,12 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
   // Conditionally show popup
   if (!isOpen || hasClosed) return null;
 
-  // Determine popup message based on login status
+  // Determine popup message and link based on login status
   const popupMessage = isLoggedIn
     ? 'Checkout our Deals of the Day to save Big!'
     : 'Sign Up to avail our Services and Product Deals';
+
+  const linkPath = isLoggedIn ? '/dealsofday' : '/signupform';
 
   return (
     <div
@@ -92,9 +97,12 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
       onClick={handleClickOutside}
     >
       <div style={popupStyle} role="dialog" aria-modal="true" aria-labelledby="popup-header">
-        <h4 id="popup-header" className="mb-3">
-          {popupMessage}
-        </h4>
+        {/* Dynamically change the link based on login status */}
+        <Link to={linkPath} style={{ textDecoration: 'none' }}>
+          <h4 id="popup-header" className="mb-3">
+            {popupMessage}
+          </h4>
+        </Link>
         <Button variant="danger" onClick={closePopup} aria-label="Close popup">
           X
         </Button>
