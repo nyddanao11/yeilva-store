@@ -1,28 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, Button } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+const Epayment = () => {
+  const [ewalletStatus, setEwalletStatus] = useState(false); // Assume payment status starts as false
+    const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+
+  const navigate = useNavigate();
+
+  const gcashPayment = () => {
+   
+    if (paymentSuccessful === true) {
+      setEwalletStatus(true);
+      console.log("E-wallet payment status set to true");
+      // Navigate back to checkout with ewalletStatus as true
+      navigate('/checkout', { state: { ewalletStatus: true } });
+    } else {
+      setEwalletStatus(false);
+      console.log("E-wallet payment not completed");
+      alert("E-wallet payment is not completed. Please try again.");
+    }
+  };
 
 
-const Epayment =() =>{
+  return (
+    <div>
+      {ewalletStatus ? (
+      	<>
+        <Alert variant="success">
+          <Alert.Heading>Payment Successful</Alert.Heading>
+          <p>Your payment was successful!</p>
+        </Alert>
 
+         <Button
+        variant="success"
+        style={{ marginTop: '15px', marginBottom: '10px', marginRight: '10px' }}
+        onClick={gcashPayment}
+        disabled ={ewalletStatus}
+      >
+        Confirm Payment Status
+      </Button>
+      </>
+      ) : (
+      <>
+        <Alert variant="danger">
+          <Alert.Heading>Payment Unsuccessful</Alert.Heading>
+          <p> Sorry this Service is not yet Available.</p>
+        </Alert>
 
-	return(
+         <Button
+        variant="danger"
+        style={{ marginTop: '15px', marginBottom: '10px', marginRight: '10px' }}
+        onClick={gcashPayment}
+        disabled ={!ewalletStatus}
+        
+      >
+        Confirm Payment Status
+      </Button>
+      </>
+      )}
 
-	 <div>
-	      <Alert variant="success">
-	        <Alert.Heading>404- Page Not Found</Alert.Heading>
-	        <p>Service not yet Available.</p>
-	      </Alert>
-
-       <Button
-              variant="primary"     
-              style={{ marginTop: "15px", marginBottom: "10px" }}
-            >
-               <Link to='/checkout' style={{textDecoration:'none', color:'white'}}>Back to Checkout</Link>
-            </Button>
-      </div>
-
-		);
+      <Button
+        variant="primary"
+        style={{ marginTop: '15px', marginBottom: '10px' }}
+      >
+        <Link to="/checkout" style={{ textDecoration: 'none', color: 'white' }}>
+          Back to Checkout
+        </Link>
+      </Button>
+    </div>
+  );
 };
 
 export default Epayment;

@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, FloatingLabel, Spinner} from 'react-bootstrap';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
-import {useNavigate, Link} from'react-router-dom';
+import {useNavigate, Link, useLocation} from'react-router-dom';
 
 const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
-  selectedColor}) => {
+  selectedColor, ewalletStatus}) => {
+
+  const location = useLocation(); // Get the state from navigation
+  const passedEwalletStatus = location.state?.ewalletStatus || false; // Get ewalletStatus from location state
+
 
    const [errorMessage, setErrorMessage] = useState('');
    const [loading, setLoading] = useState(false);
     const [checkoutData, setCheckoutData] = useState('');
    const [image, setImage] = useState(null);
-
+ 
 const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
@@ -38,20 +42,40 @@ const [userData, setUserData] = useState({
 
  const [selectedPayment, setSelectedPayment] = useState('Cash on Delivery');
 
-  const handleEwalletsClick = (e) => {
-    setSelectedPayment(e.target.value); // Update the selected payment method
-  };
+ const [paymentErrors, setPaymentErrors] = useState({
+  ewallets: '',
+  installment: '',
+  cashOnDelivery: '',
+});
 
-  const handleImageChange = (e) => {
+ // Update handleEwalletsClick to reset error message for the selected payment method
+const handleEwalletsClick = (e) => {
+  setSelectedPayment(e.target.value); // Update selected payment method
+  setPaymentErrors({
+    ewallets: '',
+    installment: '',
+    cashOnDelivery: '',
+  }); // Clear error messages when switching payment methods
+};
+
+
+ const handleImageChange = (e) => {
   const file = e.target.files[0];
-  if (file && file.size > 5 * 1024 * 1024) { // 5MB file size limit
-    setErrorMessage('The file size should not exceed 5MB.');
-    setImage(null); // Reset the image if the file is too large
+  if (file && file.size > 5 * 1024 * 1024) {
+    // Set specific error for installment
+    setPaymentErrors((prevErrors) => ({
+      ...prevErrors,
+      installment: 'The file size should not exceed 5MB.',
+    }));
+    setImage(null); // Reset image
   } else {
     setImage(file);
-    setErrorMessage(''); // Clear any previous error messages
+    setPaymentErrors((prevErrors) => ({
+      ...prevErrors,
+      installment: '', // Clear error message
+    }));
   }
-};
+}
 
 
   const navigate = useNavigate(); // Get the navigate function
@@ -82,25 +106,28 @@ const cleanProductName = (productName) => {
     return productName.replace(/[{}"]/g, '').trim();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    setLoading(true);
+  // Set loading to true when submitting
+  setLoading(true);
 
- const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
-     
-    // Calculate the "name" field by mapping cart items to a formatted string
-    const itemName = cartItems.map((item) => `
-      <div>
-        <p>Item: ${item.name}</p>
-        <p>Price: ₱${item.price}</p>
-        <p>Quantity: ${item.quantity}</p>
-        <p>Selected Size: ${item.selectedSize}</p>
-        <p>Selected Color: ${item.selectedColor}</p>
-        <img src="${item.url}" alt="${item.name}" width="100" height="100" />
-      </div>
-    `).join('<br>');
+  // Clean the product names for server submission
+  const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
 
+  // Generate a string for cart item details (for display purposes)
+  const itemName = cartItems.map((item) => `
+    <div>
+      <p>Item: ${item.name}</p>
+      <p>Price: ₱${item.price}</p>
+      <p>Quantity: ${item.quantity}</p>
+      <p>Selected Size: ${item.selectedSize}</p>
+      <p>Selected Color: ${item.selectedColor}</p>
+      <img src="${item.url}" alt="${item.name}" width="100" height="100" />
+    </div>
+  `).join('<br>');
+
+  // Prepare the form data
   const formData = new FormData();
   formData.append('firstname', userData.firstname);
   formData.append('lastname', userData.lastname);
@@ -108,57 +135,78 @@ const cleanProductName = (productName) => {
   formData.append('address', checkoutData.address);
   formData.append('province', checkoutData.province);
   formData.append('phone', checkoutData.phone);
-  formData.append('name', itemName);  // Adjust as needed
+  formData.append('name', itemName);  // HTML formatted cart items
   formData.append('quantity', cartItems.reduce((acc, item) => acc + item.quantity, 0));
   formData.append('total', formattedGrandTotal);
   formData.append('paymentOption', selectedPayment);
-  // console.log('formData',formData);
 
-   const cashOnDelivery = {
-      ...userData,
-      ...checkoutData,
-      name: itemName,
-      quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
-      total: formattedGrandTotal,
-      paymentOption: selectedPayment,
-      productNames: cleanedProductNames, // Pass product names as a separate array
-     };
-  
-  if (selectedPayment === 'Installment') {
-    formData.append('installmentImage', image);
+  // For non-FormData submissions, create a JSON payload (e.g., for Cash on Delivery)
+  const cashOnDelivery = {
+    ...userData,
+    ...checkoutData,
+    name: itemName,
+    quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
+    total: formattedGrandTotal,
+    paymentOption: selectedPayment,
+    productNames: cleanedProductNames,  // Cleaned product names array
+  };
 
-    if (!image) {
-      setErrorMessage('Please upload your ID to proceed with the installment payment.');
-      setLoading(false);
-      return;
-    }
+  try {
+    // Handle installment payment logic
+    if (selectedPayment === 'Installment') {
+      formData.append('installmentImage', image);
 
-    try {
+      if (!image) {
+         setPaymentErrors((prevErrors) => ({
+          ...prevErrors,
+          installment: 'Please upload your ID to proceed with the installment payment.',
+        }));
+        setLoading(false);
+        return;
+      }
+
+      // Make the request to the installment endpoint
       const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData);
       console.log(response.data);
       setShowModal(true);
-    } catch (error) {
-      console.error('Error submitting installment order:', error);
-      setErrorMessage('There was an error submitting your installment order. Please make sure you don’t have a pending installment and your total purchases are equal to or above ₱500.');
-      setLoading(false);
+    } 
+    // Handle e-wallet payment
+    else if (selectedPayment === 'E-wallets banks') {
+        if (!passedEwalletStatus) {
+         setPaymentErrors((prevErrors) => ({
+          ...prevErrors,
+          ewallets: 'Sorry, this Service is not yet Available.',
+        }));
+          setLoading(false);
+        return;
+      }
+
+      // E-wallet request using JSON payload
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
+      console.log(response.data);
+
+      setShowModal(true);  // Show success modal
     }
+    // Handle other payments
+    else {
+      // Example: Cash on Delivery or other payment options
+      const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
+      console.log(response.data);
 
-    } else {
-      // Make the Axios request to the 'checkout' endpoint for other payment options
-      try {
-        setIsSubmitting(true); // Disable the form submission
-
-        const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
-        console.log(response.data);
-
-        setShowModal(true);
-      } catch (error) {
-        console.error('Error submitting order:', error);
-      } finally {
-      setLoading(false);
-     }
+      setShowModal(true);
     }
-  };
+  } catch (error) {
+    console.error('Error submitting order:', error);
+    setPaymentErrors((prevErrors) => ({
+      ...prevErrors,
+      [selectedPayment.toLowerCase()]: 'There was an error submitting your order. Please try again later.',
+    }));
+  } finally {
+    setLoading(false);  // Ensure loading is stopped after the request
+    setIsSubmitting(false);  // Enable form submission again
+  }
+};
+
 
  const fetchUserData = async (email, setUserData)  => {
   if (!email) {
@@ -377,15 +425,19 @@ return (
             </div>
           </FloatingLabel>
 
-          {selectedPayment === 'E-wallets banks' && (
-            <Button
-              variant="primary"
-              onClick={handleEwalletsClick}
-              style={{ marginTop: "15px", marginBottom: "10px", marginRight: "15px" }}
-            >
-               <Link to='/epayment' style={{textDecoration:'none', color:'white'}}>Proceed to Payment</Link>
-            </Button>
-          )}
+         {selectedPayment === 'E-wallets banks' && (
+              <>
+                <Button variant="primary" style={{ marginTop: '15px' }}>
+                  <Link to="/epayment" style={{ textDecoration: 'none', color: 'white' }}>
+                    Proceed to Payment
+                  </Link>
+                </Button>
+               {paymentErrors.ewallets && (
+                  <div style={{ color: 'red', marginTop: '10px' }}>{paymentErrors.ewallets}</div>
+                 )}
+              </>
+            )}
+
 
         {selectedPayment === 'Installment' && (
             <>
@@ -394,11 +446,11 @@ return (
                   <Form.Control type="file" accept="image/*"  onChange={handleImageChange} />
                 </FloatingLabel>
               </Form.Group>
-              {errorMessage && (
-                <div style={{ color: 'red', marginTop: '10px', marginBottom:'10px'}}>
-                  {errorMessage}
-                </div>
-              )}
+             {paymentErrors.installment && (
+              <div style={{ color: 'red', marginTop: '10px', marginBottom: '10px' }}>
+                {paymentErrors.installment}
+              </div>
+            )}
               <Button variant="primary" onClick={handleEwalletsClick} style={{ marginBottom: '10px', marginRight: '15px' }}>
                 <Link to="/installmentterms" style={{ textDecoration: 'none', color: 'white' }}>
                   Terms & Conditions
@@ -406,6 +458,7 @@ return (
               </Button>
             </>
           )}
+
           <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
           <Button variant="danger" type="submit" className="mb-2 mt-2" disabled={loading} style={{ width: '100%' }}>
             {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
