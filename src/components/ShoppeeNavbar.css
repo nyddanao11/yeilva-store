@@ -1,4 +1,3 @@
-
 /* ShoppeeNavbar.css */
 
 /* Define the hover effect for nav links */
@@ -7,14 +6,36 @@
   
 }
 .nav-link:hover{
-   background-color: #CFE2FF !important;
+ background-color:#CFE2FF!important;
    color: black !important;
 
   text-decoration: none; /* Remove the default underline */
   }
-/*
-.nav-link.active{
-  background-color: #0D6EFD !important;
-   color: #007bff !important;
+
+  /* ShoppeeNavbar.css */
+
+ #basic-nav-dropdown #services-nav-dropdown{
+  max-height: 150px; /* Adjust this value as needed */
+  overflow-y:  scroll;
 }
-*/
+
+/*css for christmas*/
+.christmas-navbar {
+/*  background-color: #FF0000; */
+  border-bottom: 2px solid #008000; /* Green border */
+}
+
+.navbar-brand {
+  color: #FFFFFF !important; /* White text */
+}
+
+.navbar-nav .nav-link {
+  color: #008000 !important; /* Green links */
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #008000 !important; 
+}
+
+

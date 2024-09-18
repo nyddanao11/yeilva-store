@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, NavDropdown, Offcanvas, Button } from 'react-bootstrap';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaHome, FaServicestack, FaGift, FaBars, FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt  } from 'react-icons/fa';
+import { FaHome,  FaServicestack, FaGift, FaBars, FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt, FaTree, FaSnowflake } from 'react-icons/fa'; // Added FaTree and FaSnowflake
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
-import './ShoppeeNavbar.css';
+import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
 
 function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
   const [userData, setUserData] = useState({ firstname: '' });
@@ -42,10 +42,12 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
 
   return (
     <>
-      <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
+      {/* Navbar with Christmas colors */}
+      <Navbar bg="white" variant="light" expand="lg" className="shadow-sm christmas-navbar">
         <Container>
-          <Navbar.Brand as={Link} to="/" className="home text-dark" style={{ borderRadius: '5px' }}>
-            <FaHome size={24} />
+          {/* Home icon with Christmas tree */}
+          <Navbar.Brand as={Link} to="/" className="home text-dark" >
+            <FaTree size={24} style={{ borderRadius: '5px', color: 'green' }}/>
           </Navbar.Brand>
 
           <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
@@ -54,10 +56,10 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
 
           <Navbar.Collapse id="navbar-nav" className="justify-content-lg-between">
             <Nav className="ml-auto">
+              {/* Product category dropdown */}
               <Nav>
-                <NavDropdown title="Product category"  id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}>
-                  <Dropdown.Item as={Link} to="/groceryitemspage"><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/schoolsupplies"><FaLaptop style={{ marginRight: '5px' }} />School and Office Supplies</Dropdown.Item>
+                <NavDropdown title="Product category" id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'red' }}>
+                   <Dropdown.Item as={Link} to="/groceryitemspage"><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
                   <Dropdown.Item as={Link} to="/products"><FaConciergeBell style={{ marginRight: '5px' }} />Health & Wellness</Dropdown.Item>
                   <Dropdown.Item as={Link} to="/pcproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Personal Collection</Dropdown.Item>
                   <Dropdown.Item as={Link} to="/avonproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Avon Collection</Dropdown.Item>
@@ -69,6 +71,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                   <Dropdown.Item as={Link} to="/outdoorsports"><FaBasketballBall style={{ marginRight: '5px' }} />Outdoor and Sports Equipment</Dropdown.Item>
                 </NavDropdown>
               </Nav>
+
 
               <Nav>
                 <NavDropdown title="Services" id="services-nav-dropdown" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
@@ -95,14 +98,21 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                 </NavDropdown>
               </Nav>
 
+              {/* Christmas Deals section */}
               <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><strong>Deals</strong></Nav.Link>
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green', backgroundColor: '#FFD700', borderRadius: '5px' }}>
+                  <FaGift style={{ marginRight: '5px' }} /> <strong>Christmas Deals</strong>
+                </Nav.Link>
               </Nav>
 
+              {/* Freebies with Snowflake icon */}
               <Nav>
-                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active"><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
+                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green' }}>
+                  <FaSnowflake style={{ marginRight: '5px' }} /> Get your freebies
+                </Nav.Link>
               </Nav>
 
+              {/* Account section */}
               <Nav.Link
                 as={NavLink}
                 to={isLoggedIn ? "/myaccount" : "#"}
@@ -121,15 +131,16 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
               </Nav.Link>
             </Nav>
 
+            {/* Logout/Login buttons */}
             <Nav className="ml-3">
               {isLoggedIn ? (
-                <Nav.Link as={NavLink} to="/" onClick={handleLogout} style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">
+                <Nav.Link as={NavLink} to="/" onClick={handleLogout} style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'red' }} activeClassName="active">
                   Logout
                 </Nav.Link>
               ) : (
                 <>
-                  <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">Login</Nav.Link>
-                  <Nav.Link as={NavLink} to="/signupform" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }} activeClassName="active">Sign up</Nav.Link>
+                  <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green' }} activeClassName="active">Login</Nav.Link>
+                  <Nav.Link as={NavLink} to="/signupform" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green' }} activeClassName="active">Sign up</Nav.Link>
                 </>
               )}
             </Nav>
@@ -137,7 +148,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
         </Container>
       </Navbar>
 
-      {/* Offcanvas for additional menu items */}
+    {/* Offcanvas for additional menu items */}
       <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="end">
         <Offcanvas.Header closeButton style={{ borderBottom: "1px #d3d4d5 solid" }}>
           <Offcanvas.Title>Menu</Offcanvas.Title>
@@ -147,7 +158,6 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
             <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
             <NavDropdown {...`${< FaServicestack />}`} title="Product category" id="product-category-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
               <Dropdown.Item as={Link} to="/groceryitemspage" onClick={handleCloseOffcanvas}><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/schoolsupplies" onClick={handleCloseOffcanvas}><FaLaptop style={{ marginRight: '5px' }} />School and Office Supplies</Dropdown.Item>
               <Dropdown.Item as={Link} to="/products" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Health & Wellness</Dropdown.Item>
               <Dropdown.Item as={Link} to="/pcproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Personal Collection</Dropdown.Item>
               <Dropdown.Item as={Link} to="/avonproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Avon Collection</Dropdown.Item>

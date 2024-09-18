@@ -68,7 +68,7 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
                     onClick={() => handleMenuItemClick(item.id)}
                     className={`py-2  ${activeNavItem === item.id ? 'active' : ''}`}
                     style={{
-                      background: activeNavItem === item.id ? '#0D6EFD' : '#EFEFEF',
+                      background: activeNavItem === item.id ? '#CFE2FF' : '#EFEFEF',
                       color: activeNavItem === item.id ? 'white' : 'black',
                       borderRadius: '2px',
                       margin: '5px',

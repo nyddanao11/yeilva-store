@@ -41,12 +41,8 @@ import PrivacyPolicyPage from'./pages/PrivacyPolicy';
 import ReturnPolicyPage from'./pages/ReturnPolicy';
 import ClickBeverages from './components/Groceries/ClickBeverages';
 import ClickFrozenFoods from'./components/Groceries/ClickFrozenFoods';
-import ClickSnacks from'./components/Groceries/ClickSnacks';
-import ClickAlcoholic from'./components/Groceries/ClickAlcoholic';
 import ClickInstantNoodles from'./components/Groceries/ClickInstantNoodles';
 import ClickCanGoods from'./components/Groceries/ClickCanGoods';
-import ClickLaundry from'./components/Groceries/ClickLaundry';
-import ClickCooking from'./components/Groceries/ClickCooking';
 import ClickVitamins from'./components/Groceries/ClickVitamins';
 import ClickRice from'./components/Groceries/ClickRice';
 import ConfirmPage from'./pages/ConfirmPage';
@@ -234,13 +230,9 @@ const handleLogout = () => {
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/clickbeverages/:id" element={<ClickBeverages addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickfrozenfoods/:id" element={<ClickFrozenFoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicksnacks/:id" element={<ClickSnacks addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickalcoholic/:id" element={<ClickAlcoholic addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickinstantnoodles/:id" element={<ClickInstantNoodles addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickcangoods/:id" element={<ClickCanGoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicklaundry/:id" element={<ClickLaundry addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickcooking/:id" element={<ClickCooking addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
+          <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
            
                 <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -317,13 +309,9 @@ const handleLogout = () => {
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/clickbeverages/:id" element={<ClickBeverages addToCart={addToCart}  isLoggedIn={isLoggedIn} />} />
                <Route path="/clickfrozenfoods/:id" element={<ClickFrozenFoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicksnacks/:id" element={<ClickSnacks addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickalcoholic/:id" element={<ClickAlcoholic addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickinstantnoodles/:id" element={<ClickInstantNoodles addToCart={addToCart}  isLoggedIn={isLoggedIn} />} />
                <Route path="/clickcangoods/:id" element={<ClickCanGoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicklaundry/:id" element={<ClickLaundry addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickcooking/:id" element={<ClickCooking addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
+             <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                 <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                 <Route path="/clickspeaker/:id" element={<ClickSpeaker addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -403,13 +391,9 @@ const handleLogout = () => {
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/clickbeverages/:id" element={<ClickBeverages addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickfrozenfoods/:id" element={<ClickFrozenFoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicksnacks/:id" element={<ClickSnacks addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickalcoholic/:id" element={<ClickAlcoholic addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickinstantnoodles/:id" element={<ClickInstantNoodles addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickcangoods/:id" element={<ClickCanGoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicklaundry/:id" element={<ClickLaundry addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickcooking/:id" element={<ClickCooking addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
+             <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                 <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                 <Route path="/clickspeaker/:id" element={<ClickSpeaker addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -486,12 +470,8 @@ const handleLogout = () => {
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/clickbeverages/:id" element={<ClickBeverages addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickfrozenfoods/:id" element={<ClickFrozenFoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicksnacks/:id" element={<ClickSnacks addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickalcoholic/:id" element={<ClickAlcoholic addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-              <Route path="/clickinstantnoodles/:id" element={<ClickInstantNoodles addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
+          <Route path="/clickinstantnoodles/:id" element={<ClickInstantNoodles addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickcangoods/:id" element={<ClickCanGoods addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clicklaundry/:id" element={<ClickLaundry addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-               <Route path="/clickcooking/:id" element={<ClickCooking addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                <Route path="/clickvitamins/:id" element={<ClickVitamins addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/clickrice/:id" element={<ClickRice addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
                 <Route path="/clickearphone/:id" element={<ClickEarphone addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
