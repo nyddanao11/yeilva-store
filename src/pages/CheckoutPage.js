@@ -16,6 +16,7 @@ const CheckoutPage = ({
   selectedSize,
   selectedColor,
   fetchUserData,
+  setFormattedGrandTotal
 }) => {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
@@ -58,10 +59,18 @@ const CheckoutPage = ({
   const discountMultiplier = 1 - voucherCode; // Example calculation
   const Total = (totalItemsPrice * discountMultiplier + shippingRate).toFixed(2);
   const grandTotal = Number(Total);
+   // Format the grand total
   const formattedGrandTotal = new Intl.NumberFormat('fil-PH', {
     style: 'currency',
     currency: 'PHP',
-  }).format(grandTotal);
+  }).format(Number(grandTotal));
+
+  // Pass the formattedGrandTotal up to the parent component
+  useEffect(() => {
+    if (setFormattedGrandTotal) {
+      setFormattedGrandTotal(formattedGrandTotal); // Update parent's state
+    }
+  }, [formattedGrandTotal, setFormattedGrandTotal]);
 
   const handleProceedToCheckout = () => {
     setShowCheckoutForm(true);

@@ -14,7 +14,7 @@ const Epayment = () => {
       setEwalletStatus(true);
       console.log("E-wallet payment status set to true");
       // Navigate back to checkout with ewalletStatus as true
-      navigate('/checkout', { state: { ewalletStatus: true } });
+      navigate('/checkoutform', { state: { ewalletStatus: true } });
     } else {
       setEwalletStatus(false);
       console.log("E-wallet payment not completed");
@@ -64,7 +64,7 @@ const Epayment = () => {
         variant="primary"
         style={{ marginTop: '15px', marginBottom: '10px' }}
       >
-        <Link to="/checkout" style={{ textDecoration: 'none', color: 'white' }}>
+        <Link to="/checkoutform" style={{ textDecoration: 'none', color: 'white' }}>
           Back to Checkout
         </Link>
       </Button>
