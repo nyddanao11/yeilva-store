@@ -107,6 +107,11 @@ const CheckoutPage = ({
         </div>
         {!showCheckoutForm ? (
           <div>
+            <div className="d-flex justify-content-center aligned-items-center">
+            <h4 className="text-center mb-2" style={{ padding: '10px', marginBottom: '15px' }}>
+              Checkout/Shipping Details
+            </h4>
+           </div>
             <div className="mb-4">
               {cartItems.map((item) => (
                 <CartItem

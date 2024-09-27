@@ -263,7 +263,12 @@ useEffect(() => {
 
 
 return (    
-     <Row className='d-flex justify-content-center align-items-center' >
+     <Row className='d-flex justify-content-center align-items-center ' >
+       <div className="d-flex justify-content-center aligned-items-center">
+            <h4 className="text-center mb-2" style={{ padding: '10px', marginBottom: '15px' }}>
+              Checkout/Shipping Details
+            </h4>
+           </div>
      
       <Col xs={12} md={8} style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
 

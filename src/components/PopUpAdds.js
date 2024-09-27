@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';  // Make sure to use the correct Link import
+import { useNavigate } from 'react-router-dom';  // Make sure to use the correct Link import
 
 const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -89,6 +89,12 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
     : 'Sign Up to avail our Services and Product Deals';
 
   const linkPath = isLoggedIn ? '/dealsofday' : '/signupform';
+ const btnMessage = isLoggedIn? 'Proceed to Deals' : 'Sign up';
+
+  // Redirect function on button click
+  const buttonRedirect = () => {
+    navigate(linkPath); // Correct way to navigate programmatically
+  };
 
   return (
     <div
@@ -98,13 +104,15 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
     >
       <div style={popupStyle} role="dialog" aria-modal="true" aria-labelledby="popup-header">
         {/* Dynamically change the link based on login status */}
-        <Link to={linkPath} style={{ textDecoration: 'none' }}>
+       
           <h4 id="popup-header" className="mb-3">
             {popupMessage}
-          </h4>
-        </Link>
+         </h4>
+         <Button variant="primary" onClick={buttonRedirect} aria-label="popup" style={{marginRight:'10px'}}>
+          {btnMessage}
+        </Button>
         <Button variant="danger" onClick={closePopup} aria-label="Close popup">
-          X
+         Close
         </Button>
       </div>
     </div>

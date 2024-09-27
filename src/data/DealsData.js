@@ -47,7 +47,7 @@ export const deals = [
    discountedPrice: 960,
   percentage:"-45%",
    weight:120,
-      stock: 10,
+      stock: 0,
   description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
