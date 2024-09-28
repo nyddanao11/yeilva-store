@@ -8,6 +8,7 @@ import YouMayLike from '../components/YouMayLike';
 import './CheckoutPage.css';
 import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
+import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
 const CheckoutPage = ({
   cartItems,
@@ -131,8 +132,12 @@ const CheckoutPage = ({
                 </div>
                 <div style={{ paddingLeft: "6px" }}>
                   <p className="items_details">Total Items Price: ₱{totalItemsPrice}</p>
-                  <p style={{color:isFreeShipping? "#067d62" : "black", fontSize:"14px", fontWeight:"500"}}>Shipping Rate: ₱{isFreeShipping ? 'Free' : shippingRate}</p>
-                </div>
+                  {isFreeShipping? (
+                  <p style={{color:"#067d62", fontSize:"14px", fontWeight:"500"}}><FaShippingFast style={{color:"#0D6EFD"}}/>Shipping Rate: ₱Free </p>
+                  ):(
+                  <p style={{color:"black", fontSize:"14px", fontWeight:"500"}}>Shipping Rate: ₱{shippingRate}</p>
+                  )}                
+                  </div>
               </div>
               <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
               <div className="d-flex">

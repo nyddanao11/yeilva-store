@@ -108,7 +108,7 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
           <h4 id="popup-header" className="mb-3">
             {popupMessage}
          </h4>
-         <Button variant="primary" onClick={buttonRedirect} aria-label="popup" style={{marginRight:'10px'}}>
+         <Button variant="success" onClick={buttonRedirect} aria-label="popup" style={{marginRight:'10px'}}>
           {btnMessage}
         </Button>
         <Button variant="danger" onClick={closePopup} aria-label="Close popup">

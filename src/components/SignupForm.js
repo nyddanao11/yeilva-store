@@ -49,7 +49,7 @@ const SignUpForm = () => {
 
          <div className="text-left" style={{ color: 'green', marginBottom:"15px" }}>
          <h1>CREATE <br />NEW ACCOUNT</h1>
-         <p style={{ color: 'black' }}>Already have an Account? Login</p>
+          <p style={{ color: 'black' }}>Already have an Account? <Link to="/login" style={{textDecoration:'none'}}>Login</Link></p>
            <Link to="/needhelp" style={{textDecoration:'none'}}> Need help?</Link>
          </div>
 

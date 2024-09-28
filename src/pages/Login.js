@@ -90,7 +90,7 @@ const Login = ({ handleLogin }) => {
 
          <div className="text-left" style={{ color: 'green', marginBottom:'15px' }}>
          <h1>CREATE <br />NEW ACCOUNT</h1>
-         <p style={{ color: 'black' }}>Already have an Account? Login</p>
+         <p style={{ color: 'black' }}>Don't have an  Account? <Link to="/signupform" style={{textDecoration:'none'}}>Sign up</Link></p>
           <Link to="/needhelp" style={{textDecoration:'none'}}> Need help?</Link>
          </div>
 
