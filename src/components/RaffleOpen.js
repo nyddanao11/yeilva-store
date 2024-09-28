@@ -94,7 +94,7 @@ const RaffleOpen = () => {
           <Card className="p-3 shadow">
             <Card.Body>
               <div style={{ lineHeight: "5px", marginBottom: "30px", textAlign: 'center' }}>
-                <h4>Raffle Registration</h4>
+                <h4>Free Raffle </h4>
                 <h6>Prizes </h6>
                 <p>1st - 3 boxes of barley</p>
                 <p>2nd - 3 boxes of mangosteen</p>
