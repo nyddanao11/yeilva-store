@@ -111,7 +111,7 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
          <Button variant="success" onClick={buttonRedirect} aria-label="popup" style={{marginRight:'10px'}}>
           {btnMessage}
         </Button>
-        <Button variant="danger" onClick={closePopup} aria-label="Close popup">
+        <Button variant="outline-secondary" onClick={closePopup} aria-label="Close popup">
          Close
         </Button>
       </div>
