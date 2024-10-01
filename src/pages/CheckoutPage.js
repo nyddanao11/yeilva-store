@@ -101,11 +101,7 @@ const CheckoutPage = ({
       <Container className="mb-4 d-flex justify-content-center aligned-items-center flex-column"
         style={{ maxWidth: "767px" }}
       >
-        <div className="d-flex justify-content-center aligned-items-center">
-          <h4 className="text-center mb-2" style={{ padding: '10px', marginBottom: '15px' }}>
-            Checkout/Shipping Details
-          </h4>
-        </div>
+       
         {!showCheckoutForm ? (
           <div>
             <div className="d-flex justify-content-center aligned-items-center">
