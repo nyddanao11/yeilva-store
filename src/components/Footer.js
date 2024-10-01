@@ -4,7 +4,9 @@ import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
 import HoverButton2 from'./HoverButton2';
 import HoverButton3 from'./HoverButton3';
+import HoverButton4 from'./HoverButton4';
 import BackToTopButton from'./BackToTopButton';
+
 
 const Footer = ({isLoggedIn}) => {
   return (
@@ -32,7 +34,7 @@ const Footer = ({isLoggedIn}) => {
               <p>&copy; 2024 Yeilva Store. All rights reserved.</p>
             </div>
           </Col>
-            <Col md={4}  className="d-flex flex-column align-items-center justify-content-center mt-2 mb-3" >
+          <Col md={4}  className="d-flex flex-column align-items-center justify-content-center mt-2 mb-3" >
           <div style={{marginBottom:"15px"}}>  
            <HoverButton2 /> 
           </div>
@@ -41,6 +43,9 @@ const Footer = ({isLoggedIn}) => {
            <HoverButton3/> 
           </div>
           )}
+          <div style={{marginBottom:"15px", marginTop:"15px"}}>  
+        <HoverButton4 />
+           </div> 
           </Col>
 
           <Col md={4} className="d-flex flex-column align-items-center justify-content-center mt-2" >
@@ -53,6 +58,7 @@ const Footer = ({isLoggedIn}) => {
           </div>
           </Col>
         </Row>
+      
       </Container>
         <BackToTopButton /> {/* Add the BackToTopButton here */}
     </footer>

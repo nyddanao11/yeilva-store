@@ -5,11 +5,15 @@ import { FaHome,  FaServicestack, FaGift, FaBars, FaAppleAlt, FaLaptop, FaTshirt
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
+import { useMediaQuery } from 'react-responsive';
+
 
 function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
   const [userData, setUserData] = useState({ firstname: '' });
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+
 
   useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
@@ -45,10 +49,39 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
       {/* Navbar with Christmas colors */}
       <Navbar bg="white" variant="light" expand="lg" className="shadow-sm christmas-navbar">
         <Container>
+          {isSmallScreen? (
+
+          <>
           {/* Home icon with Christmas tree */}
           <Navbar.Brand as={Link} to="/" className="home text-dark" >
             <FaTree size={24} style={{ borderRadius: '5px', color: 'green' }}/>
           </Navbar.Brand>
+                  <Nav>
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: 'green', backgroundColor: '#FFD700', borderRadius: '5px' }}>
+                  <FaGift style={{ marginRight: '5px' }} /> <strong>Deals</strong>
+                </Nav.Link>
+              </Nav>
+              {/* Freebies with Snowflake icon */}
+              <Nav>
+                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: 'green' }}>
+                  <FaSnowflake style={{ marginRight: '5px' }} /> FREEstuff
+                </Nav.Link>
+              </Nav>
+              </>
+
+          ):(
+          <>
+          {/* Home icon with Christmas tree */}
+          <Navbar.Brand as={Link} to="/" className="home text-dark" >
+            <FaTree size={24} style={{ borderRadius: '5px', color: 'green' }}/>
+          </Navbar.Brand>
+
+            <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
+            <FaBars />
+          </Button>
+          </>
+
+          )}
 
           <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
             <FaBars />
@@ -149,7 +182,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
       </Navbar>
 
     {/* Offcanvas for additional menu items */}
-      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="end">
+      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="end" >
         <Offcanvas.Header closeButton style={{ borderBottom: "1px #d3d4d5 solid" }}>
           <Offcanvas.Title>Menu</Offcanvas.Title>
         </Offcanvas.Header>
@@ -195,7 +228,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
             </NavDropdown>
           </Nav>
 
-          <Nav className="flex-column">
+          <Nav className="flex-column" >
             <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight:'5px' }}/><strong>Deals</strong></Nav.Link>
             <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px'}} /> Get your freebies</Nav.Link>
             <Nav.Link as={NavLink} to={isLoggedIn ? "/myaccount" : "/login"} onClick={handleCloseOffcanvas}><FiUser style={{ marginRight:'5px' }} /> {isLoggedIn ? ` Hello, ${userData.firstname ?? 'loading...'}` : 'My account'}</Nav.Link>

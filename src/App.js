@@ -83,6 +83,7 @@ import InstallmentTerms from'./pages/installmentTerms';
 import Freebies from './components/Freebies';
 import RaffleMechanics from './components/RaffleMechanics';
 import BarleyGrassJuice from './components/SqueezePage/SqueezePageBarley';
+import NewsletterForm from './components/Newsletter';
 
 
 function App() {
@@ -90,7 +91,7 @@ function App() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
    const { isLoggedIn, login, logout } = useAuth();
   const [cartCount, setCartCount] = useState(0);
-  const [formattedGrandTotal, setFormattedGrandTotal] = useState('₱0.00');
+    const [formattedGrandTotal, setFormattedGrandTotal] = useState('₱0.00');
 
 const [cartItems, setCartItems] = useState(() => {
   // Use a function to get the initial value from localStorage
@@ -217,7 +218,7 @@ const handleLogout = () => {
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
                                               avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} />} />
 
-           <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
            <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn}/>} />
@@ -267,7 +268,8 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies  addToCart={addToCart}/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
-                   
+                           <Route path="/newsletterform" element={<NewsletterForm />} />
+                           
                  <Route component={NotFoundPage} />
                         
           </Routes>
@@ -345,6 +347,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart}/>} />
                              <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                           <Route path="/newsletterform" element={<NewsletterForm />} />
 
 
                  <Route component={NotFoundPage} />
@@ -379,7 +382,7 @@ const handleLogout = () => {
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
                                               avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} />} />
 
-           <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
             <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn}/>} />
@@ -428,6 +431,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart}/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                           <Route path="/newsletterform" element={<NewsletterForm />} />
 
 
                  <Route component={NotFoundPage} />
@@ -507,6 +511,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart}/>} />
                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                           <Route path="/newsletterform" element={<NewsletterForm />} />
 
 
                  <Route component={NotFoundPage} />
