@@ -7,9 +7,9 @@ import {useNavigate, Link, useLocation} from'react-router-dom';
 const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
   selectedColor, ewalletStatus}) => {
 
-  const location = useLocation(); // Get the state from navigation
-  const passedEwalletStatus = location.state?.ewalletStatus || false; // Get ewalletStatus from location state
-
+   const location = useLocation();
+  const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
+  
 
    const [errorMessage, setErrorMessage] = useState('');
    const [loading, setLoading] = useState(false);
@@ -41,6 +41,26 @@ const [userData, setUserData] = useState({
    const [showModal, setShowModal] = useState(false); //
 
  const [selectedPayment, setSelectedPayment] = useState('Cash on Delivery');
+  const [isPaymentDisabled, setIsPaymentDisabled] = useState({
+    cod: false,
+    installment: false,
+  });
+
+// Automatically select GCash and disable other options if `passedEwalletStatus` is true
+  useEffect(() => {
+    if (passedEwalletStatus) {
+      setSelectedPayment('E-wallets banks');
+      setIsPaymentDisabled({
+        cod: true,
+        installment: true,
+      });
+    } else {
+      setIsPaymentDisabled({
+        cod: false,
+        installment: false,
+      });
+    }
+  }, [passedEwalletStatus]);
 
  const [paymentErrors, setPaymentErrors] = useState({
   ewallets: '',
@@ -79,6 +99,10 @@ const handleEwalletsClick = (e) => {
 
 
   const navigate = useNavigate(); // Get the navigate function
+
+   const handleEwalletsNavigation = () => { 
+       navigate('/gcashpayment'); 
+  };
 
   const handleCloseModal = () => {
     setShowModal(false); // Close the modal
@@ -346,8 +370,6 @@ return (
   </FloatingLabel>
 
 
-
-
  <div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding:'0px 15px'}}>
   <h5 className='mt-1'>Items in Cart:</h5>
   <ul style={{padding:'5px'}}>
@@ -404,7 +426,7 @@ return (
             <div>
               <Form.Check
                 type="radio"
-                label="E-wallet/bank transfer"
+                label="GCash"
                 name="paymentMethod"
                 value="E-wallets banks"
                 onChange={(e) => handleEwalletsClick(e, 'E-wallets banks')}
@@ -417,6 +439,7 @@ return (
                 value="Cash on Delivery"
                 onChange={(e) => handleEwalletsClick(e, 'Cash on Delivery')}
                 checked={selectedPayment === 'Cash on Delivery'} // Add checked prop
+                disabled={isPaymentDisabled.cod}
               />
 
                <Form.Check
@@ -426,17 +449,18 @@ return (
                 value="Installment"
                 onChange={(e) => handleEwalletsClick(e, 'Installment')}
                 checked={selectedPayment === 'Installment'} // Add checked prop
+                 disabled={isPaymentDisabled.installment}
               />
             </div>
           </FloatingLabel>
 
          {selectedPayment === 'E-wallets banks' && (
               <>
-                <Button variant="primary" style={{ marginTop: '15px' }}>
-                  <Link to="/epayment" style={{ textDecoration: 'none', color: 'white' }}>
-                    Proceed to Payment
-                  </Link>
-                </Button>
+              <Button variant={ passedEwalletStatus? "success":"primary"} onClick={handleEwalletsNavigation} disabled={ passedEwalletStatus} style={{marginTop:'10px'}}>
+                { passedEwalletStatus ? 'You can now Place your Order' : 'Proceed to GCash Payment'}
+              </Button>
+
+
                {paymentErrors.ewallets && (
                   <div style={{ color: 'red', marginTop: '10px' }}>{paymentErrors.ewallets}</div>
                  )}

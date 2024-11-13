@@ -71,6 +71,7 @@ import PrivateRoute from './pages/PrivateRoute'; // Import your PrivateRoute com
 import LockoutPage from './pages/LockoutPage';
 import InstallmentHistoryPage from './components/InstallmentHistoryPage';
 import Epayment from'./pages/Epayment';
+import GcashPaymentModal from'./pages/GcashPayment';
 import DeleteAccount from './components/DeleteAccount';
 import ScrollToTop from './pages/ScrollToTop';
 import LoanTerms from './pages/LoanTerms';
@@ -260,6 +261,7 @@ const handleLogout = () => {
                       <Route path="/installmenthistorypage" element={<InstallmentHistoryPage />} />
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
+                      <Route path="/gcashpayment" element={<GcashPaymentModal addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal}/>} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
@@ -339,7 +341,6 @@ const handleLogout = () => {
                       <Route path="/installmenthistorypage"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
-                     
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
@@ -423,6 +424,7 @@ const handleLogout = () => {
                       <Route path="/installmenthistorypage" element={<InstallmentHistoryPage />} />
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
+                     <Route path="/gcashpayment" element={<GcashPaymentModal addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal}/>} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
