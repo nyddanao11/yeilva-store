@@ -123,22 +123,31 @@ const addToCart = (product) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
 
   if (existingItem) {
-    // If the item already exists, update the quantity using the functional form
+    // If the item already exists, update the quantity
     setCartItems((prevCartItems) => {
-      return prevCartItems.map((item) =>
+      const updatedItems = prevCartItems.map((item) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       );
-    });
 
-    // Schedule the localStorage update after the state has been updated
-    setTimeout(() => {
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    }, 0);
+      // Schedule the localStorage update after state has been updated
+      setTimeout(() => {
+        localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+      }, 0);
+
+      // Show success alert
+      alert(`Added another ${product.name} to the cart!`);
+      
+      return updatedItems;
+    });
   } else {
-    // If the item is not in the cart, add a new item with a quantity of 1
+    // If the item is new, add it to the cart
     setCartItems((prevCartItems) => {
       const newCartItems = [...prevCartItems, { ...product, quantity: 1 }];
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+
+      // Show success alert
+      alert(`Added ${product.name} to the cart!`);
+
       return newCartItems;
     });
   }
