@@ -23,7 +23,7 @@ const LoanForm = ({addToCart}) => {
   const [error, setError] = useState(null);
 const [image, setImage] = useState(null);
 
-
+const isValidPhone = (phone) => /^\d{10,15}$/.test(phone); // Adjust for your locale
 
     const navigate = useNavigate();
 
@@ -222,13 +222,29 @@ useEffect(() => {
 
 <Form.Group controlId="formPhone" className="mb-3">
   <FloatingLabel controlId="floatingPhone" label="Phone Number">
-    <Form.Control type="tel" placeholder="Enter phone number" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+    <Form.Control
+      type="tel"
+      placeholder="Enter phone number"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      isInvalid={!isValidPhone(phone)} // Highlight the input box if invalid
+      required
+    />
+    <Form.Control.Feedback type="invalid">
+      Please enter a valid phone number (e.g., 10-15 digits).
+    </Form.Control.Feedback>
   </FloatingLabel>
 </Form.Group>
 
+
 <Form.Group controlId="formGcash" className="mb-3">
   <FloatingLabel controlId="floatingGcash" label="Gcash Account">
-    <Form.Control type="text" placeholder="Enter Gcash Account" value={gcash} onChange={(e) => setGcash(e.target.value)} required />
+    <Form.Control type="text" placeholder="Enter Gcash Account" value={gcash} onChange={(e) => setGcash(e.target.value)}   isInvalid={!isValidPhone(phone)} // Highlight the input box if invalid
+      required
+    />
+    <Form.Control.Feedback type="invalid">
+      Please enter a valid phone number (e.g., 10-15 digits).
+    </Form.Control.Feedback>
   </FloatingLabel>
 </Form.Group>
 

@@ -5,13 +5,13 @@ import LoanHistory from './Loanhistory';
 import InstallmentHistory from'./installment';
 import CreateVoucher from'../pages/VoucherForm';
 import GenerateVouchers from'../pages/MultiVoucher';
+import GcashSettlement from'../pages/GcashSettlement';
 
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState('LoanHistory');
   const [loanformHistory, setLoanformHistory] = useState([]);
-  const [loading, setLoading] = useState(false);
-  
+  const [loading, setLoading] = useState(false);  
   const [searchEmail, setSearchEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [searchTimer, setSearchTimer] = useState(null);
@@ -33,7 +33,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
        case 'CreateVoucher':
         return renderCreateVoucherTab();
         case 'GenerateVouchers':
-        return renderGenerateVouchersTab();
+        return renderGenerateVouchersTab();  
+         case 'GcashSettlement':
+        return renderGcashSettlementTab();      
       // Add more cases for additional tabs
       default:
         return null;
@@ -54,7 +56,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
     // Add more cases for additional tabs
     }else if (activeTab === 'GenerateVouchers'){
     // Add more cases for additional tabs
-  };
+    }else if (activeTab === 'GcashSettlement'){
+      // Add more cases for additional tabs
+    };
 };
 
   useEffect(() => {
@@ -83,6 +87,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
 
    const renderGenerateVouchersTab = () => {
     return <GenerateVouchers />;
+  };
+
+   const renderGcashSettlementTab = () => {
+    return <GcashSettlement />;
   };
 
   const handleSearch = async () => {
@@ -127,6 +135,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
            <Tab eventKey="GenerateVouchers" title="GenerateVouchers">
           {/* Content for the 'InstallmentHistory' tab */}
           {renderGenerateVouchersTab()}
+        </Tab>
+          <Tab eventKey="GcashSettlement" title="GcashSettlement">
+          {/* Content for the 'InstallmentHistory' tab */}
+          {renderGcashSettlementTab()}
         </Tab>
         {/* Add more Tab components for additional tabs */}
       </Tabs>

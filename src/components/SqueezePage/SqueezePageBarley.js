@@ -42,6 +42,12 @@ const BarleyGrassJuice = () => {
       <Row className="mt-4">
         <Col md={{ span: 6, offset: 3 }}>
          <NewUserDiscount />
+           <div className="d-flex justify-content-center align-items-center">
+            <Button variant="primary"  className="mt-5" >
+             <a href="https://yeilva-store.up.railway.app/clickproductpage/3" style={{textDecoration:'none', color:'white'}} >Click Here to Buy
+             </a>
+            </Button>
+           </div>
         </Col>
       </Row>
       <Row className="mt-5">

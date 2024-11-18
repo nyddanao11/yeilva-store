@@ -83,6 +83,14 @@ const LoanTerms = () => {
       to be bound by these terms and conditions.
       </p>
 
+       <div>
+        <Button variant='primary' className="btn-sm mt-3 mb-2">
+         <Link to="/loanform" style={{ textDecoration: 'none', color: 'white' }}>
+             Back
+         </Link>
+        </Button>
+      </div>
+
     </Container>
   );
 };
