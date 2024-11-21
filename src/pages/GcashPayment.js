@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { fetchUserData } from '../components/userService';
+import { useMediaQuery } from 'react-responsive';
 
 const GcashPaymentModal = ({ formattedGrandTotal }) => {
   const [showGcash, setShowGcash] = useState(false);
@@ -11,6 +12,7 @@ const GcashPaymentModal = ({ formattedGrandTotal }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -84,22 +86,27 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
           <Card className="p-3 shadow">
             <Card.Body>
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <Button variant="primary" onClick={handleShow} className="p-2">
+              
+               
+                <div className={isSmallScreen ? "w-100" : "w-50"} style={{ marginTop: '25px' }}>
+                <p><strong>Reminder:</strong></p>
+                <p>Please click <mark>Submit</mark> only after completing payment via the GCash app. An email will be sent once your payment is successfully verified.</p>
+               </div>
+
+                 <p style={{fontSize:'20px'}}>Please Pay: <strong>{formattedGrandTotal}</strong></p>
+                   <Button variant="primary" onClick={handleShow} className="p-2 mt-3 mb-3">
                   <img src={`${process.env.PUBLIC_URL}/images/gcashlogo.png`} alt="GCash Logo" style={{ width: '35px', height: '35px' }} /> Pay with GCash
                 </Button>
-                <div style={{ lineHeight: '5px', marginTop: '25px' }}>
-                  <p><strong>Reminder:</strong></p>
-                  <p>Email will be sent after</p>
-                  <p>Successful Payment Verification</p>
-                </div>
-                 <p style={{fontSize:'20px'}}>Please Pay: <strong>{formattedGrandTotal}</strong></p>
-              </div>
 
-              <Button variant="secondary" className="btn-sm mt-4 mb-2">
-                <Link to="/checkoutform" style={{ textDecoration: 'none', color: 'white' }}>
+                 <Button variant="outline-secondary" className="btn-sm mt-4 mb-2">
+                <Link to="/checkoutform" style={{ textDecoration: 'none', color: 'black' }}>
                   Back to Checkout
                 </Link>
               </Button>
+
+              </div>
+
+             
 
               <Modal show={showGcash} onHide={handleClose} centered>
                 <Modal.Header closeButton>
@@ -121,6 +128,10 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                     <p style={{fontSize:'20px'}}>Please Pay: <strong>{formattedGrandTotal}</strong></p>
                     {errorMessage && <p className="text-danger">{errorMessage}</p>}
                   </div>
+                   <div className="w-100"  style={{ marginTop: '15px' }}>
+                <p><strong>Reminder:</strong></p>
+                <p>Please click <mark>Submit</mark> only after completing payment via the GCash app. An email will be sent once your payment is successfully verified.</p>
+               </div>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="success" onClick={submit} disabled={loading}>

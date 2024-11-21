@@ -7,7 +7,7 @@ export const deals = [
    discountedPrice: 143,
   percentage:"-45%",
    weight:120,
-      stock: 10,
+      stock: 0,
   description:"Can help improve our brain functions, lowers the risk of diabetes and it is a good appetite suppressant that helps elemenate free radicals.It can increase blood circulation and increase your stamina. It prevents high blood pressure and it is loaded with antioxidants that helps boosts your immune system",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/primeshape.jpg`,

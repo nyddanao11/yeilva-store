@@ -44,7 +44,7 @@ const BarleyGrassJuice = () => {
          <NewUserDiscount />
            <div className="d-flex justify-content-center align-items-center">
             <Button variant="primary"  className="mt-5" >
-             <a href="https://yeilva-store.up.railway.app/clickproductpage/3" style={{textDecoration:'none', color:'white'}} >Click Here to Buy
+             <a href="https://yeilvastore.com/clickproductpage/3" style={{textDecoration:'none', color:'white'}} >Click Here to Buy
              </a>
             </Button>
            </div>

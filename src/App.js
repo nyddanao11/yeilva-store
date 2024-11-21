@@ -85,7 +85,7 @@ import Freebies from './components/Freebies';
 import RaffleMechanics from './components/RaffleMechanics';
 import BarleyGrassJuice from './components/SqueezePage/SqueezePageBarley';
 import NewsletterForm from './components/Newsletter';
-
+import AirLineBookingForm from'./components/AirLineBookingForm';
 
 function App() {
 
@@ -280,7 +280,8 @@ const handleLogout = () => {
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
-                           
+                          <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
+
                  <Route component={NotFoundPage} />
                         
           </Routes>
@@ -435,7 +436,7 @@ const handleLogout = () => {
                      <Route path="/epayment" element={<Epayment />} />
                      <Route path="/gcashpayment" element={<GcashPaymentModal addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal}/>} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
-                        <Route path="/deleteaccount" element={<DeleteAccount />} />
+                      <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
@@ -443,6 +444,7 @@ const handleLogout = () => {
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
+                          <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
 
 
                  <Route component={NotFoundPage} />

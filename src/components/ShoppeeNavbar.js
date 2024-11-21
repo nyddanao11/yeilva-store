@@ -121,7 +121,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                         <Dropdown.Item>Internet</Dropdown.Item>
                       </NavDropdown>
                       <Dropdown.Item as={Link} to="/loanform">Loan form</Dropdown.Item>
-                      <Dropdown.Item>Domestic/International ticketing</Dropdown.Item>
+                      <Dropdown.Item as={Link} to="/airlinebookingform">Domestic/International ticketing</Dropdown.Item>
                       <Dropdown.Item>Travel and tours</Dropdown.Item>
                       <Dropdown.Item>Hotel booking</Dropdown.Item>
                     </>
@@ -218,7 +218,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                     <Dropdown.Item>Internet</Dropdown.Item>
                   </NavDropdown>
                   <Dropdown.Item as={Link} to="/loanform" onClick={handleCloseOffcanvas}>Loan form</Dropdown.Item>
-                  <Dropdown.Item>Domestic/International ticketing</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/airlinebookingform">Domestic/International ticketing</Dropdown.Item>
                   <Dropdown.Item>Travel and tours</Dropdown.Item>
                   <Dropdown.Item>Hotel booking</Dropdown.Item>
                 </>
