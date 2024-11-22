@@ -15,6 +15,7 @@ const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
    const [loading, setLoading] = useState(false);
     const [checkoutData, setCheckoutData] = useState('');
    const [image, setImage] = useState(null);
+    const [installmentChoice, setInstallmentChoice] = useState(null); // Track installment choice
  
 const [userData, setUserData] = useState({
     firstname: '',
@@ -97,6 +98,18 @@ const handleEwalletsClick = (e) => {
   }
 }
 
+ // Utility to parse numeric value from formatted currency string
+  const parseCurrency = (formattedCurrency) => {
+    if (!formattedCurrency) return 0; // Default to 0 if null or undefined
+    const numericValue = formattedCurrency.replace(/[^\d.-]/g, ''); // Remove non-numeric characters
+    return parseFloat(numericValue); // Convert to number
+  };
+
+  // Calculate installment amounts
+  const calculateInstallment = (formattedGrandTotal, months) => {
+    const total = parseCurrency(formattedGrandTotal); // Extract numeric value
+    return ((total + total * 0.10) / months).toFixed(2); // Perform calculation
+  };
 
   const navigate = useNavigate(); // Get the navigate function
 
@@ -133,8 +146,7 @@ const cleanProductName = (productName) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Set loading to true when submitting
-  setLoading(true);
+  setLoading(true); // Start loading spinner
 
   // Clean the product names for server submission
   const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
@@ -151,7 +163,7 @@ const handleSubmit = async (e) => {
     </div>
   `).join('<br>');
 
-  // Prepare the form data
+  // Prepare form data
   const formData = new FormData();
   formData.append('firstname', userData.firstname);
   formData.append('lastname', userData.lastname);
@@ -164,7 +176,7 @@ const handleSubmit = async (e) => {
   formData.append('total', formattedGrandTotal);
   formData.append('paymentOption', selectedPayment);
 
-  // For non-FormData submissions, create a JSON payload (e.g., for Cash on Delivery)
+  // For non-FormData submissions, create a JSON payload
   const cashOnDelivery = {
     ...userData,
     ...checkoutData,
@@ -172,16 +184,26 @@ const handleSubmit = async (e) => {
     quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
     total: formattedGrandTotal,
     paymentOption: selectedPayment,
-    productNames: cleanedProductNames,  // Cleaned product names array
+    productNames: cleanedProductNames, // Cleaned product names array
   };
 
   try {
-    // Handle installment payment logic
-    if (selectedPayment === 'Installment') {
-      formData.append('installmentImage', image);
+    // Validate Installment payment
+    if (
+      selectedPayment === 'Installment' &&
+      (!installmentChoice || !installmentChoice.plan || !installmentChoice.amount)
+    ) {
+      setPaymentErrors((prevErrors) => ({
+        ...prevErrors,
+        installment: 'Please select an installment plan.',
+      }));
+      setLoading(false);
+      return;
+    }
 
+    if (selectedPayment === 'Installment') {
       if (!image) {
-         setPaymentErrors((prevErrors) => ({
+        setPaymentErrors((prevErrors) => ({
           ...prevErrors,
           installment: 'Please upload your ID to proceed with the installment payment.',
         }));
@@ -189,36 +211,40 @@ const handleSubmit = async (e) => {
         return;
       }
 
-      // Make the request to the installment endpoint
+      // Append installment-specific fields
+      formData.append('installmentPlan', installmentChoice.plan);
+      formData.append('installmentAmount', installmentChoice.amount);
+      formData.append('installmentImage', image);
+
+      // Send Installment request
       const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData);
       console.log(response.data);
       setShowModal(true);
-    } 
-    // Handle e-wallet payment
-    else if (selectedPayment === 'E-wallets banks') {
-        if (!passedEwalletStatus) {
-         setPaymentErrors((prevErrors) => ({
+      return; // End after successful Installment submission
+    }
+
+    // Validate E-wallet payment
+    if (selectedPayment === 'E-wallets banks') {
+      if (!passedEwalletStatus) {
+        setPaymentErrors((prevErrors) => ({
           ...prevErrors,
           ewallets: 'Sorry, this Service is not yet Available.',
         }));
-          setLoading(false);
+        setLoading(false);
         return;
       }
 
-      // E-wallet request using JSON payload
+      // Send E-wallet request
       const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
       console.log(response.data);
-
-      setShowModal(true);  // Show success modal
-    }
-    // Handle other payments
-    else {
-      // Example: Cash on Delivery or other payment options
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
-      console.log(response.data);
-
       setShowModal(true);
+      return; // End after successful E-wallet submission
     }
+
+    // Default case for other payments (e.g., Cash on Delivery)
+    const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
+    console.log(response.data);
+    setShowModal(true);
   } catch (error) {
     console.error('Error submitting order:', error);
     setPaymentErrors((prevErrors) => ({
@@ -226,11 +252,10 @@ const handleSubmit = async (e) => {
       [selectedPayment.toLowerCase()]: 'There was an error submitting your order. Please try again later.',
     }));
   } finally {
-    setLoading(false);  // Ensure loading is stopped after the request
-    setIsSubmitting(false);  // Enable form submission again
+    setLoading(false); // Stop loading spinner
+    setIsSubmitting(false); // Re-enable form submission
   }
 };
-
 
  const fetchUserData = async (email, setUserData)  => {
   if (!email) {
@@ -475,6 +500,29 @@ return (
                   <Form.Control type="file" accept="image/*"  onChange={handleImageChange} />
                 </FloatingLabel>
               </Form.Group>
+
+            <div className="d-flex justify-content-center align-items-center mb-3">
+            <p>Select a Plan:</p>
+             <Button
+                variant={installmentChoice?.plan === 2 ? "primary" : "outline-secondary"}
+                className="btn-sm"
+                onClick={() => setInstallmentChoice({ plan: 2, amount: calculateInstallment(formattedGrandTotal, 2) })}
+                style={{margin:"0 15px"}}
+              >
+                2mth x ₱{calculateInstallment(formattedGrandTotal, 2)}
+              </Button>
+
+              <Button
+                variant={installmentChoice?.plan === 3 ? "primary" : "outline-secondary"} // Highlight button based on selected plan
+                className="btn-sm"
+                onClick={() => setInstallmentChoice({ plan: 3, amount: calculateInstallment(formattedGrandTotal, 3) })} // Store plan and amount
+              >
+                3mth x ₱{calculateInstallment(formattedGrandTotal, 3)}
+              </Button>
+
+            </div>
+
+
              {paymentErrors.installment && (
               <div style={{ color: 'red', marginTop: '10px', marginBottom: '10px' }}>
                 {paymentErrors.installment}

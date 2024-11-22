@@ -23,7 +23,7 @@ const LoanForm = ({addToCart}) => {
   const [error, setError] = useState(null);
 const [image, setImage] = useState(null);
 
-const isValidPhone = (phone) => /^\d{10,15}$/.test(phone); // Adjust for your locale
+const isValidPhone = (phone) => /^\d{11,15}$/.test(phone); // Adjust for your locale
 
     const navigate = useNavigate();
 
@@ -231,7 +231,7 @@ useEffect(() => {
       required
     />
     <Form.Control.Feedback type="invalid">
-      Please enter a valid phone number (e.g., 10-15 digits).
+      Please enter a valid phone number (e.g., 11-15 digits).
     </Form.Control.Feedback>
   </FloatingLabel>
 </Form.Group>
@@ -243,7 +243,7 @@ useEffect(() => {
       required
     />
     <Form.Control.Feedback type="invalid">
-      Please enter a valid phone number (e.g., 10-15 digits).
+      Please enter a valid phone number (e.g., 11-15 digits).
     </Form.Control.Feedback>
   </FloatingLabel>
 </Form.Group>
