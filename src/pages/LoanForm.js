@@ -15,6 +15,7 @@ const LoanForm = ({addToCart}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
    const [gcash, setGcash] = useState('');
@@ -22,6 +23,59 @@ const LoanForm = ({addToCart}) => {
      const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 const [image, setImage] = useState(null);
+  const [installmentChoice, setInstallmentChoice] = useState(null); // Track installment choice
+   const [birthdayError, setBirthdayError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
+
+
+ // Validation function for age
+  const validateAge = (dateString) => {
+    const today = new Date();
+    const birthDate = new Date(dateString);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    // Adjust age if the birthday hasn't occurred this year yet
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1;
+    }
+    return age;
+  };
+
+  const handleBirthdayChange = (e) => {
+    const selectedDate = e.target.value;
+    setBirthday(selectedDate);
+
+    const age = validateAge(selectedDate);
+    if (age < 21) {
+      setBirthdayError('You must be at least 21 years old.');
+      setIsFormValid(false);
+    } else {
+      setBirthdayError('');
+      setIsFormValid(true);
+    }
+  };
+
+
+   // Utility to parse numeric value from formatted currency string
+  const parseCurrency = (formattedCurrency) => {
+    if (!formattedCurrency) return 0; // Default to 0 if null or undefined
+    const numericValue = formattedCurrency.replace(/[^\d.-]/g, ''); // Remove non-numeric characters
+    return parseFloat(numericValue); // Convert to number
+  };
+
+
+  // Calculate installment amounts
+  const calculateInstallmentOne = (loanAmount, months) => {
+    const total = parseCurrency(loanAmount); // Extract numeric value
+    return ((total + total * 0.10) / months).toFixed(2); // Perform calculation
+  };
+
+   // Calculate installment amounts
+  const calculateInstallmentTwo = (loanAmount, months) => {
+    const total = parseCurrency(loanAmount); // Extract numeric value
+    return ((total + total * 0.20) / months).toFixed(2); // Perform calculation
+  };
 
 const isValidPhone = (phone) => /^\d{11,15}$/.test(phone); // Adjust for your locale
 
@@ -40,17 +94,33 @@ const isValidPhone = (phone) => /^\d{11,15}$/.test(phone); // Adjust for your lo
 
   setLoading(true); // Set loading to true when the form is submitted
 
+   
+
    const formData = new FormData();
     formData.append('loanAmount', loanAmount);
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('email', email);
+    formData.append('birthday', birthday);
     formData.append('phone', phone);
     formData.append('gcash', gcash);
     formData.append('address', address);
     formData.append('image', image);
-
+   
 try {
+
+   if (!installmentChoice || !installmentChoice.plan || !installmentChoice.amount)
+     {
+     
+        setError('Please select an installment plan.');
+
+      setLoading(false);
+      return;
+    }
+
+      formData.append('installmentPlan', installmentChoice.plan);
+      formData.append('installmentAmount', installmentChoice.amount);
+
   const response = await axios.post('https://yeilva-store-server.up.railway.app/api/saveLoanForm', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -72,8 +142,6 @@ try {
     }
  
   };
-
-
 
  const fetchUserData = async (email, setUserData)  => {
   if (!email) {
@@ -140,32 +208,24 @@ useEffect(() => {
   }
 }, []);
 
-
-
   // Populate state variables with user data
 useEffect(() => {
   if (loanUserData) {
     setPhone(loanUserData.phone_number);
     setGcash(loanUserData.gcash_account);
-    setAddress(loanUserData.address);
-
-  
+    setAddress(loanUserData.address); 
+    setBirthday(loanUserData.birthday);
     
   }
 }, [loanUserData]);
 
-
-  
-
-
   return (
     <>
     <Container className="mt-4">
-
       <Row className="justify-content-center">
      
         <Col xs={12} md={6} style={{marginBottom:'20px'}}>
-     <div style={{ maxWidth: '400px', padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
+     <div style={{ padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', background: '#fff' }}>
               <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Loan Application</h4>
           
       <Form onSubmit={handleSubmit}>
@@ -220,6 +280,19 @@ useEffect(() => {
   </FloatingLabel>
 </Form.Group>
 
+      <Form.Group controlId="formBirthday" className="mb-3">
+        <FloatingLabel controlId="floatingBirthday" label="Birthday">
+          <Form.Control
+            type="date"
+            placeholder="Enter birthday"
+            value={birthday}
+            onChange={handleBirthdayChange}
+            required
+          />
+        </FloatingLabel>
+        {birthdayError && <p style={{ color: 'red', marginTop: '5px' }}>{birthdayError}</p>}
+      </Form.Group>
+
 <Form.Group controlId="formPhone" className="mb-3">
   <FloatingLabel controlId="floatingPhone" label="Phone Number">
     <Form.Control
@@ -231,7 +304,7 @@ useEffect(() => {
       required
     />
     <Form.Control.Feedback type="invalid">
-      Please enter a valid phone number (e.g., 11-15 digits).
+      Please enter a valid phone number (e.g., 10-15 digits).
     </Form.Control.Feedback>
   </FloatingLabel>
 </Form.Group>
@@ -243,7 +316,7 @@ useEffect(() => {
       required
     />
     <Form.Control.Feedback type="invalid">
-      Please enter a valid phone number (e.g., 11-15 digits).
+      Please enter a valid phone number (e.g., 10-15 digits).
     </Form.Control.Feedback>
   </FloatingLabel>
 </Form.Group>
@@ -256,13 +329,39 @@ useEffect(() => {
 
 <Form.Group controlId="formImage" className="mb-3">
   <FloatingLabel controlId="floatingImage" label="Upload Image">
-    <Form.Control type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+    <Form.Control type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} required/>
   </FloatingLabel>
 </Form.Group>
-        
-          {error && <p style={{ color: 'red', marginTop:'20px' }}>{error}</p>} 
+ 
+       <div className={`d-flex justify-content-center align-items-center mt-4 mb-3 ${error ? 'error-border' : ''}`}>
+            <p>Select a Plan:</p>
+            <Button
+              variant={installmentChoice?.plan === 1 ? "success" : "outline-secondary"}
+              className="btn-sm"
+              onClick={() => setInstallmentChoice({ plan: 1, amount: calculateInstallmentOne(loanAmount, 1) })}
+              style={{ margin: "0 15px" }}
+            >
+              1mth x ₱{calculateInstallmentOne(loanAmount, 1)} 
+              {installmentChoice?.plan === 1 && " ✓ Selected"}
+            </Button>
 
-     <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
+
+             <Button
+              variant={installmentChoice?.plan === 2 ? "success" : "outline-secondary"}
+              className="btn-sm"
+              onClick={() => setInstallmentChoice({ plan: 2, amount: calculateInstallmentTwo(loanAmount, 2) })}
+              style={{ margin: "0 15px" }}
+            >
+              2mth x ₱{calculateInstallmentTwo(loanAmount, 2)} 
+              {installmentChoice?.plan === 2 && " ✓ Selected"}
+            </Button>
+
+        </div>
+
+        
+         {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+     <Button variant="primary" type="submit" className="w-100 mt-3"  disabled={loading || !installmentChoice}>
       {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Submit'}
     </Button>
 
@@ -275,16 +374,11 @@ useEffect(() => {
         )}
 </div>
 
-       <div  style={{marginTop:"40px", paddingLeft:"50px"}}>
+       <div  className= 'd-flex justify-content-center align-items-center mt-4 mb-4'>
            <HoverButton />
        </div>
        
       </Col>
-
-   
-       <Col xs={12} md={5} >   
-       <LoanTable /> 
-       </Col>
        </Row>
 
       <Row className='mb-3 '>

@@ -41,4 +41,10 @@
           display: flex;
           align-items: center;
         }
+.error-border {
+  border: 2px solid red;
+  padding: 10px;
+  border-radius: 5px;
+}
+
     

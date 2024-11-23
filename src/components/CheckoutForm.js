@@ -111,6 +111,14 @@ const handleEwalletsClick = (e) => {
     return ((total + total * 0.10) / months).toFixed(2); // Perform calculation
   };
 
+  const grandTotalToString = (formattedGrandTotal) => {
+    const total = parseCurrency(formattedGrandTotal); // Extract numeric value
+    return total.toFixed(2); // Return as a string with 2 decimal places
+  };
+
+  const isButtonDisabled = loading || grandTotalToString(formattedGrandTotal) === '0.00';
+
+
   const navigate = useNavigate(); // Get the navigate function
 
    const handleEwalletsNavigation = () => { 
@@ -501,26 +509,27 @@ return (
                 </FloatingLabel>
               </Form.Group>
 
-            <div className="d-flex justify-content-center align-items-center mb-3">
+             <div className="d-flex justify-content-center align-items-center mt-4 mb-3">
             <p>Select a Plan:</p>
              <Button
-                variant={installmentChoice?.plan === 2 ? "primary" : "outline-secondary"}
+                variant={installmentChoice?.plan === 2 ? "success" : "outline-secondary"}
                 className="btn-sm"
                 onClick={() => setInstallmentChoice({ plan: 2, amount: calculateInstallment(formattedGrandTotal, 2) })}
                 style={{margin:"0 15px"}}
               >
-                2mth x ₱{calculateInstallment(formattedGrandTotal, 2)}
+                2mth x ₱{calculateInstallment(formattedGrandTotal, 2)} {installmentChoice?.plan === 2 && " ✓ "}
               </Button>
 
               <Button
-                variant={installmentChoice?.plan === 3 ? "primary" : "outline-secondary"} // Highlight button based on selected plan
+                variant={installmentChoice?.plan === 3 ? "success" : "outline-secondary"} // Highlight button based on selected plan
                 className="btn-sm"
                 onClick={() => setInstallmentChoice({ plan: 3, amount: calculateInstallment(formattedGrandTotal, 3) })} // Store plan and amount
               >
-                3mth x ₱{calculateInstallment(formattedGrandTotal, 3)}
+                3mth x ₱{calculateInstallment(formattedGrandTotal, 3)} {installmentChoice?.plan === 3 && " ✓ "}
               </Button>
 
             </div>
+
 
 
              {paymentErrors.installment && (
@@ -528,16 +537,14 @@ return (
                 {paymentErrors.installment}
               </div>
             )}
-              <Button variant="primary" onClick={handleEwalletsClick} style={{ marginBottom: '10px', marginRight: '15px' }}>
-                <Link to="/installmentterms" style={{ textDecoration: 'none', color: 'white' }}>
+               <Link to="/installmentterms" style={{  marginBottom: '10px', marginRight: '15px'  }}>
                   Terms & Conditions
                 </Link>
-              </Button>
             </>
           )}
 
           <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
-          <Button variant="danger" type="submit" className="mb-2 mt-2" disabled={loading} style={{ width: '100%' }}>
+          <Button variant="danger" type="submit" className="mb-2 mt-2" disabled={isButtonDisabled } style={{ width: '100%' }}>
             {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
           </Button>
           </div>
