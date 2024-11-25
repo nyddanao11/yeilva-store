@@ -1,0 +1,33 @@
+.search-suggestions {
+  max-width: 1080px; /* Set maximum width */
+  width: 100%; /* Adjust to the search bar's width */
+  position: absolute;
+  left: 0;
+  z-index: 1050; /* Ensure it appears above other elements */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+.search-suggestions img {
+  max-height: 40px;
+}
+
+.search-suggestions .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add spacing between image and text */
+}
+
+.search-container {
+  position: relative; /* Ensure suggestions align with the search bar */
+}
+
+@media (min-width: 992px) { /* Large screens */
+  .search-form {
+    width: 50%; /* Adjust the width as needed */
+    margin-left: auto; /* Push it to occupy blank space between brand and cart */
+    margin-right: auto; /* Center it horizontally */
+  }
+}
