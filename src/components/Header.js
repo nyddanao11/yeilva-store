@@ -68,7 +68,7 @@ const Header = ({ cartCount, allProducts, addToCart }) => {
         </Navbar.Brand>
 
         <div className="flex-grow-1 d-flex ms-auto align-items-center search-container" ref={dropdownRef}>
-          <Form className="d-flex flex-grow-1 search-form " style={{padding:'15px 8px'}}>
+          <Form className="d-flex flex-grow-1 search-form " style={{padding:'15px 0px'}}>
         <FormControl
           type="search"
           placeholder="Search products..."
