@@ -20,6 +20,7 @@ import {avonproductsData} from './data/AvonProductsData';
 import {beautyProductsData} from './data/BeautyProductsData';
 import {dealsElectronicData} from './data/DealsElectronicData';
 import {rice}from'./components/Groceries/RiceData';
+import {mensshoes} from'./components/Fashion/MensShoesData';
 import CombinedNavbar from './components/CombinedNavbar';
 import DealsOfDay from'./pages/DealsOfDay';
 import LoanForm from './pages/LoanForm';
@@ -201,7 +202,7 @@ const handleLogout = () => {
   };
 
    // Combine products into a single array
-  const allProducts = [...wellnessProductData, ...pcproductsData, ...avonproductsData, ...beautyProductsData, ...dealsElectronicData,...rice];
+  const allProducts = [...wellnessProductData, ...pcproductsData, ...avonproductsData, ...beautyProductsData, ...dealsElectronicData,...rice, ...mensshoes];
 
  return (
     
@@ -230,11 +231,11 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice}/>} />
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice} mensshoes={mensshoes} />} />
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
-            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
+            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} isLoggedIn={isLoggedIn}/>} />
            <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
@@ -314,9 +315,9 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice}/>} />
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice} mensshoes={mensshoes}/>} />
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
+            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} isLoggedIn={isLoggedIn}/>} />
             <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems} isLoggedIn={isLoggedIn}/>} />
              <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
@@ -395,11 +396,11 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} />} rice={rice}/>
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} />} rice={rice} mensshoes={mensshoes}/>
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
-            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
+            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} isLoggedIn={isLoggedIn}/>} />
             <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
@@ -479,9 +480,9 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice}/>} />
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice} mensshoes={mensshoes}/>} />
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />} />
+            <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement} isLoggedIn={isLoggedIn}/>} />
             <Route path="/dealsofday" element={<DealsOfDay addToCart={addToCart} cartItems={cartItems} isLoggedIn={isLoggedIn}/>} />
              <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />

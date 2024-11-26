@@ -75,7 +75,7 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
         </Navbar.Brand>
 
         <div className="flex-grow-1 d-flex ms-auto align-items-center search-container" ref={searchBarRef}>
-          <Form className="d-flex flex-grow-1 search-form" style={{ padding: '15px 0px' }}>
+          <Form className="d-flex flex-grow-1 search-form" style={{ padding: '5px 0px' }}>
             <FormControl
               type="search"
               placeholder="Search products..."
@@ -108,7 +108,7 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
                   </Dropdown.Item>
                 ))
               ) : (
-                <Dropdown.Item className="text-muted"><Link to="/signupform" className="search-link">{!isLoggedIn ? 'Signup to avail our services and deals' : 'No results found'}</Link>
+                <Dropdown.Item className="text-muted"><Link to="/signupform" className="search-link">{!isLoggedIn ? 'Signup to avail our services & deals' : 'No results found'}</Link>
            </Dropdown.Item>
               )}
             </Dropdown.Menu>

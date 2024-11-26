@@ -64,3 +64,6 @@ padding-bottom: 8px;
   object-fit: cover;
   cursor: pointer;
 }
+.hover-white:hover {
+  color: white;
+}

@@ -20,13 +20,13 @@
 {
   id: 2,
   name: "Acai Berry 1000ml",
-  url:  `${process.env.PUBLIC_URL}/images/acai1.png`,
+  url:  `${process.env.PUBLIC_URL}/images/acaiberry.jpg`,
   price: 2300,
    weight:1000,
       stock: 10,
   description:"What are some of ACAI BERRY’s health benefits? The acai berry has numerous health benefits, and has been proven to protect virtually every system in the body. A few of these benefits include: Weight loss: Acai is composed of several vitamins and minerals, and works to suppress hunger, increase energy, and stimulate metabolism. Digestive System Aid: A high level of fiber makes acai berry a natural colon cleanser. Boosts the Immune System: The high concentration of antioxidants in acai berry helps to support the immune system by fortifying cells and fighting off intruders. Acai berry has also been proven to: Regulate sugar level, Prevents Cardio vascular disease, Improves heart function , Maintain Healthy Teeth and Gums, Prevent Cancer. ",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/acai1.png`,
+      [`${process.env.PUBLIC_URL}/images/acaiberry.jpg`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai2.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/acai3.png`,
       ],
@@ -127,13 +127,13 @@
 {
   id: 8,
   name: "Garcinia Cambogia",
-  url:  `${process.env.PUBLIC_URL}/images/Garcinia01.jpg`,
+  url:  `${process.env.PUBLIC_URL}/images/garcinia.jpg`,
   price: 450,
    weight:120,
       stock: 10,
   description: "reduces blood pressure and the inflammatory process associated with heart disease, prevents heart attack and stroke and neutralizes the damaging effect fo free radicals",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/Garcinia01.jpg`,
+      [`${process.env.PUBLIC_URL}/images/garcinia.jpg`,
       `${process.env.PUBLIC_URL}/images/Garcinia01.jpg`,
       
       ],
@@ -253,13 +253,13 @@
 {
   id: 15,
   name: "L-Glutathione",
-  url:  `${process.env.PUBLIC_URL}/images/glutathione.png`,
+  url:  `${process.env.PUBLIC_URL}/images/lglutathione.jpg`,
   price: 2895,
    weight:130,
       stock: 10,
   description: "Gluta dietary Supplement capsule that consist of one glutathione with an added Sulfhydryl group. It improves the immune system and protects the body from free radical damage. it can also flush out liver toxins that can achieve whiter skin.",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/glutathione.png`,
+      [`${process.env.PUBLIC_URL}/images/lglutathione.jpg`,
         `${process.env.PUBLIC_URL}/images/glutathione.png`,
       ],
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",

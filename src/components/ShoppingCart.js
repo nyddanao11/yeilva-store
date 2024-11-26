@@ -12,7 +12,8 @@ const ShoppingCart = ({
   handleIncrement,
   handleDecrement,
   cartItem,
-  cartCount
+  cartCount,
+  isLoggedIn,
 }) => {
 
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
@@ -34,13 +35,28 @@ navigate ('/');
       <ListGroup className="cart-group">
         {cartItems.length === 0 ? (
           <ListGroup.Item className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-          <Card className="image-description d-flex flex-column justify-content-center align-items-center" style={{ border: "none"}}>
-           <Card.Body  className="d-flex flex-column justify-content-center align-items-center" >
-              <h6>Your cart is empty.</h6>
-              <FaShoppingCart size={100} style={{color:'#0D6EFD'}} />
-              <Button style={{width:"180px", marginTop:"10px"}} onClick={backToHome}>Continue Shopping</Button>
-            </Card.Body>
-           </Card>
+       <Card className="image-description border-0" > 
+         <Card.Body> 
+         <Row className="justify-content-center">    
+          <Col lg={4} md={4} xs={6} className="d-flex flex-column justify-content-center align-items-center text-center"> 
+          <h4>Your cart is empty.</h4> 
+          <FaShoppingCart size={100} className="text-primary" />
+           <Button variant="primary" className="mt-3" onClick={backToHome}> Continue Shopping </Button>
+            </Col>
+            {!isLoggedIn &&(
+             <Col  lg={4} md={4} xs={6} className="d-flex flex-column justify-content-center align-items-center text-center" > 
+             <div>
+             <h6>Shop today's deals</h6>
+             </div>
+             <div className="d-flex justify-content-center align-items-center text-center">
+              <Button variant="outline-success" style={{marginRight:'6px'}}> <Link to="/login" className=" text-black text-decoration-none hover-white"> Login </Link> </Button>
+               <Button variant="outline-success"> <Link to="/signupform" className="text-black text-decoration-none hover-white"> Signup </Link> </Button> 
+               </div>
+               </Col>  
+               )}           
+               </Row>
+              </Card.Body> 
+            </Card>
           </ListGroup.Item>
         ) : (
           cartItems.map((cartItem) => (

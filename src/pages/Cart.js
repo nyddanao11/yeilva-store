@@ -57,6 +57,7 @@ const handleCheckoutClick = () => {
         handleSizeChange={handleSizeChange}
         handleColorChange={handleColorChange}
         cartCount={cartCount}
+        isLoggedIn={isLoggedIn}
 
       />
      <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
