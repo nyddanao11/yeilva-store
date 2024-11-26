@@ -4,6 +4,7 @@ import { FaTrash, FaShoppingCart } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
+import {Link} from'react-router-dom';
 
 const ShoppingCart = ({
   cartItems,
