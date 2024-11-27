@@ -5,7 +5,7 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
 
-export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn }) {
+const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -75,17 +75,22 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
         </Navbar.Brand>
 
         <div className="flex-grow-1 d-flex ms-auto align-items-center search-container" ref={searchBarRef}>
-          <Form className="d-flex flex-grow-1 search-form" style={{ padding: '5px 0px' }}>
-            <FormControl
-              type="search"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => handleQueryChange(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className="me-2"
-              onFocus={() => setShowDropdown(true)}
-            />
-          </Form>
+          <Form className="d-flex flex-grow-1 search-form" style={{ padding: '5px 0' }} role="search">
+            <div className="input-group">
+                <span className="input-group-text">
+                    <FaSearch />
+                </span>
+                <FormControl
+                    type="search"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={(e) => handleQueryChange(e.target.value)}
+                    onKeyDown={handleKeyPress} // Updated to onKeyDown
+                    className="form-control me-2"
+                    onFocus={() => setShowDropdown(true)}
+                />
+            </div>
+        </Form>
 
           {showDropdown && (
             <Dropdown.Menu show className="search-suggestions" ref={dropdownRef}>
@@ -95,7 +100,7 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
                     key={product.id}
                     onClick={() => handleSuggestionClick(product)}
                   >
-                    <div className="d-flex align-items-center">                
+                    <div className="d-flex align-items-center">
                       <span>{product.name}</span>
                     </div>
                   </Dropdown.Item>
@@ -159,4 +164,4 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
   );
 };
 
-
+export default Header;

@@ -84,11 +84,11 @@ export default function ClickCanGoods ({ addToCart, isLoggedIn }) {
         {/* Product Information */}
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <p>Price: ₱{product.price}</p>
-          <p>Description: {product.description}</p>
+          <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
+              <h6>₱{product.price}</h6>
 
           {/* Add to Cart Button */}
-<p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400" }}>
+   <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px" }}>
   {product.stock === 0 ? "Out of stock" : "In stock"}
 </p>
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
