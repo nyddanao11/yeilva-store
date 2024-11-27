@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
-const RaffleOpenMechanics = () => {
+export default function RaffleOpenMechanics () {
     return (
         <Container fluid className="d-flex justify-content-center align-items-center my-5">
             <Row className="w-100">
@@ -72,4 +72,3 @@ const RaffleOpenMechanics = () => {
     );
 };
 
-export default RaffleOpenMechanics;

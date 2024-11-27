@@ -26,7 +26,7 @@ export const cans = [
      image:`${process.env.PUBLIC_URL}/groceries/cangoods/cornedbeef1.png`,
        count: 85,
       category: 'Food and Beverages',
-      link:'/groceryitemspage',
+      link:'/groceryitems',
    },
     { id: 45, 
     name:'nike',

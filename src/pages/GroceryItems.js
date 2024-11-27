@@ -17,7 +17,7 @@ import { useMediaQuery } from 'react-responsive';
 import YouMayLike from'../components/YouMayLike';
 import { MdAnnouncement } from 'react-icons/md';
 
-const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
+export default function GroceryItems ({ addToCart, cartItems, isProductSoldOut }) {
   const [activeNavItem, setActiveNavItem] = useState('beverages');
   const [currentPage, setCurrentPage] = useState(1);
   const [collapsed, setCollapsed] = useState(false);
@@ -105,4 +105,3 @@ const GroceryItems = ({ addToCart, cartItems, isProductSoldOut }) => {
   );
 };
 
-export default GroceryItems;

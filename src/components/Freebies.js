@@ -5,7 +5,7 @@ import RaffleOpen from './RaffleOpen';
 import YouMayLike from './YouMayLike';
 import {Link} from 'react-router-dom';
 
-const Freebies = ({ addToCart }) => {
+export default function Freebies ({ addToCart }) {
     return (
         <>
             <Container fluid>
@@ -36,4 +36,3 @@ const Freebies = ({ addToCart }) => {
     );
 };
 
-export default Freebies;

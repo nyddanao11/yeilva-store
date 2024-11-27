@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import{Link} from 'react-router-dom';
 
-const Brochure = () => {
+export default function Brochure () {
   return (
     <div className="brochure" style={{paddingTop:"15px"}}>
       <Container>
@@ -73,5 +73,4 @@ const Brochure = () => {
   );
 };
 
-export default Brochure;
 

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 
-const OfflineIndicator = () => {
+export default function OfflineIndicator () {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   const updateOnlineStatus = () => {
@@ -28,4 +28,3 @@ const OfflineIndicator = () => {
   );
 };
 
-export default OfflineIndicator;

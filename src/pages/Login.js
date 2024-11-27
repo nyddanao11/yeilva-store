@@ -5,7 +5,7 @@ import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './loginContext';
 
-const Login = ({ handleLogin }) => {
+export default function Login ({ handleLogin }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -161,4 +161,3 @@ const Login = ({ handleLogin }) => {
   );
 };
 
-export default Login;

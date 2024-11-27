@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
 
-const RestrictedAccess = () => {
+export default function RestrictedAccess () {
   return (
     <div>
       <Alert variant="danger">
@@ -21,4 +21,3 @@ const RestrictedAccess = () => {
   );
 };
 
-export default RestrictedAccess;

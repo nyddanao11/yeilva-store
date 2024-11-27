@@ -8,7 +8,7 @@ import { fetchUserData } from '../components/userService';
 import { useMediaQuery } from 'react-responsive';
 
 
-const AirlineBookingForm = () => {
+export default function AirlineBookingForm () {
     
    const generateTransactionCode = () => uuidv4().slice(0, 8).toUpperCase();
    const [userData, setUserData] = useState({
@@ -368,4 +368,3 @@ passengers: Yup.number()
   );
 };
 
-export default AirlineBookingForm;

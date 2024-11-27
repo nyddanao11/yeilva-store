@@ -6,7 +6,7 @@ import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
 import {Link} from'react-router-dom';
 
-const ShoppingCart = ({
+export default function ShoppingCart ({
   cartItems,
   removeFromCart,
   addToCart,
@@ -15,7 +15,7 @@ const ShoppingCart = ({
   cartItem,
   cartCount,
   isLoggedIn,
-}) => {
+}) {
 
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
   const navigate = useNavigate();
@@ -155,4 +155,3 @@ ShoppingCart.propTypes = {
   
 };
 
-export default ShoppingCart;

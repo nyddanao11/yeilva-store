@@ -3,9 +3,7 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
-
-const ChangePassword = () => {
+export default function ChangePassword () {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -97,4 +95,3 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;

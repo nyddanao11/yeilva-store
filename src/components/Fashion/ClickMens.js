@@ -7,14 +7,12 @@ import '../LoanForm.css';
 import BreadCrumbMens from'./BreadCrumbMens';
 import YouMayLike from'../YouMayLike';
 
-const ClickMens = ({ addToCart, isLoggedIn }) => {
+export default function ClickMens ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
-
   const [selectedThumbnails, setSelectedThumbnails] =  useState({});
 
- 
   const handleThumbnailClick = (itemId, imageUrl) => {
     // Update the selected thumbnail for the specific item
     setSelectedThumbnails((prevSelectedThumbnails) => ({
@@ -107,4 +105,3 @@ const ClickMens = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickMens;

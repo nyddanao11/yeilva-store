@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbWomens from'./BreadCrumbWomens';
 import YouMayLike from'../YouMayLike';
 
-const ClickWomens = ({ addToCart, isLoggedIn }) => {
+export default function ClickWomens ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -108,4 +108,3 @@ const ClickWomens = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickWomens;

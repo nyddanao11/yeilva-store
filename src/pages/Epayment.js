@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Epayment = () => {
+export default function Epayment () {
   const [ewalletStatus, setEwalletStatus] = useState(false); // Assume payment status starts as false
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
@@ -72,4 +72,3 @@ const Epayment = () => {
   );
 };
 
-export default Epayment;

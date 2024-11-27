@@ -92,7 +92,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
               {/* Product category dropdown */}
               <Nav>
                 <NavDropdown title="Product category" id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'red' }}>
-                   <Dropdown.Item as={Link} to="/groceryitemspage"><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
+                   <Dropdown.Item as={Link} to="/groceryitems"><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
                   <Dropdown.Item as={Link} to="/products"><FaConciergeBell style={{ marginRight: '5px' }} />Health & Wellness</Dropdown.Item>
                   <Dropdown.Item as={Link} to="/pcproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Personal Collection</Dropdown.Item>
                   <Dropdown.Item as={Link} to="/avonproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Avon Collection</Dropdown.Item>
@@ -190,7 +190,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
           <Nav className="flex-column">
             <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
             <NavDropdown {...`${< FaServicestack />}`} title="Product category" id="product-category-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
-              <Dropdown.Item as={Link} to="/groceryitemspage" onClick={handleCloseOffcanvas}><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/groceryitems" onClick={handleCloseOffcanvas}><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
               <Dropdown.Item as={Link} to="/products" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Health & Wellness</Dropdown.Item>
               <Dropdown.Item as={Link} to="/pcproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Personal Collection</Dropdown.Item>
               <Dropdown.Item as={Link} to="/avonproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Avon Collection</Dropdown.Item>

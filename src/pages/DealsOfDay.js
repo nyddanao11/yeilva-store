@@ -15,7 +15,7 @@ import {dealsElectronicData} from'../data/DealsElectronicData';
 import {speakerData}from'../components/Electronics/SpeakerData';
 import YouMayLike from'../components/YouMayLike';
 
-const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartItems,product}) => {
+export default function DealsOfDay ({url, name, price, discountedPrice, rating, addToCart, cartItems,product}) {
    let countWellness = wellnessProductData.length;
     let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
  let countFashion = fashionArray.length;
@@ -89,4 +89,3 @@ const DealsOfDay = ({url, name, price, discountedPrice, rating, addToCart, cartI
   );
 };
 
-export default DealsOfDay;

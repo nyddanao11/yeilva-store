@@ -11,8 +11,7 @@ import {womensshoes} from '../components/Fashion/WomensShoesData';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
 
-
-const FashionApparel = ({ addToCart, cartItems, isProductSoldOut }) => {
+export default function FashionApparel ({ addToCart, cartItems, isProductSoldOut }) {
   const [activeNavItem, setActiveNavItem] = useState('mens');
  const [collapsed, setCollapsed] = useState(false);
 
@@ -94,4 +93,3 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   );
 };
 
-export default FashionApparel;

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header'; // Import your Header component
 import ShopeeNavbar from './ShoppeeNavbar'; // Import your ShopeeNavbar component
 
-const CombinedNavbar = ({ cartItems, isLoggedIn, handleLogout, cartCount,  allProducts, addToCart}) => {
+export default function CombinedNavbar ({ cartItems, isLoggedIn, handleLogout, cartCount,  allProducts, addToCart})  {
   const combinedNavbarStyle = {
     position: 'sticky',
     top: 0, // Stick to the top of the viewport
@@ -21,4 +21,3 @@ const CombinedNavbar = ({ cartItems, isLoggedIn, handleLogout, cartCount,  allPr
   );
 };
 
-export default CombinedNavbar;

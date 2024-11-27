@@ -16,7 +16,7 @@ const NewUserDiscount = () => {
     const [timeRemaining, setTimeRemaining] = useState('');
 
     // Set the raffle date
-    const voucherExpiry = new Date('October 31, 2024 00:00:00');
+    const voucherExpiry = new Date('December 31, 2024 00:00:00');
 
     useEffect(() => {
         const updateCountdown = () => {
@@ -61,7 +61,7 @@ const NewUserDiscount = () => {
                 <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
                     <Card className="p-4 shadow">
                         <Card.Body>
-                          <div style={{lineHeight:"5px", marginBottom:"30px", textAlign:'center'}}>
+                          <div style={{marginBottom:"30px", textAlign:'center'}}>
                             <h4>Register to Get Your 15% Discount Voucher</h4>
                             <p>(Expires on October 31, 2024)</p>
                              <h5>Time Remaining:</h5>

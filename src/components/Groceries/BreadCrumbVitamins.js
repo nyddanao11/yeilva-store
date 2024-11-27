@@ -18,7 +18,7 @@ const BreadCrumbVitamins = ({ productId}) => {
 
       <Breadcrumb style={{fontSize:"12px"}}>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/groceryitemspage' }}>Vitamins&Medications </Breadcrumb.Item>
+      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/groceryitems' }}>Vitamins&Medications </Breadcrumb.Item>
       
        {clickedItems.map((item, index) => (
         <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>{item.name}</Breadcrumb.Item>

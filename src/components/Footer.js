@@ -7,8 +7,7 @@ import HoverButton3 from'./HoverButton3';
 import HoverButton4 from'./HoverButton4';
 import BackToTopButton from'./BackToTopButton';
 
-
-const Footer = ({isLoggedIn}) => {
+export default function Footer ({isLoggedIn}) {
   return (
     <footer className="footer">
       <Container >
@@ -65,4 +64,3 @@ const Footer = ({isLoggedIn}) => {
   );
 };
 
-export default Footer;

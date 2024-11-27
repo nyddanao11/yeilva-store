@@ -8,7 +8,7 @@ import TabbedComponentAvon from'../components/ProductTablatureAvon';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickProductPageAvon = ({ addToCart, isLoggedIn }) => {
+export default function ClickProductPageAvon ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -158,4 +158,3 @@ const ClickProductPageAvon = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickProductPageAvon;

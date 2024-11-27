@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from './Footer';
 import { Container, Row, Col, Card} from 'react-bootstrap';
 
-const ContactUs = () => {
+export default function ContactUs () {
   return (
     <div className="contact-us">
       <Container>
@@ -33,4 +33,3 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;

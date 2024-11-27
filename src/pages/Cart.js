@@ -6,9 +6,8 @@ import './Cart.css';
 import YouMayLikeProduct from'../components/YouMayLikeProduct';
 import AlertEmptyCart from '../components/AlertEmptyCart';
 
-
-const Cart = ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
- handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems, isLoggedIn}) => {
+export default function Cart ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
+ handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems, isLoggedIn}) {
   
   const navigate = useNavigate();
    const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
@@ -84,4 +83,3 @@ const handleCheckoutClick = () => {
   );
 };
 
-export default Cart;

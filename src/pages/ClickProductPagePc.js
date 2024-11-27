@@ -8,7 +8,7 @@ import TabbedComponentPc from'../components/ProductTablaturePc';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickProductPagePc = ({ addToCart, isLoggedIn }) => {
+export default function ClickProductPagePc({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -158,4 +158,3 @@ const ClickProductPagePc = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickProductPagePc;

@@ -1,19 +1,9 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect,Suspense} from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useMediaQuery } from 'react-responsive';
-import Products from './pages/Products';
-import PcProducts from './pages/PcProducts';
-import AvonProducts from'./pages/AvonProducts';
-import Home from './pages/Home';
-import ConsumerElectronic from'./pages/ConsumerElectronic';
-import Cart from './pages/Cart';
-import Login from './pages/Login';
-import Search from './pages/Search';
-import CheckoutPage from './pages/CheckoutPage';
-import CheckoutForm from './components/CheckoutForm';
-import ShoppingCart from'./components/ShoppingCart';
-import SignUpForm  from './components/SignupForm';
+import ErrorBoundary from './pages/ErrorBoundary';
+
 import {wellnessProductData} from'./data/wellnessProductData';
 import {pcproductsData} from './data/pcproductsData';
 import {avonproductsData} from './data/AvonProductsData';
@@ -21,75 +11,90 @@ import {beautyProductsData} from './data/BeautyProductsData';
 import {dealsElectronicData} from './data/DealsElectronicData';
 import {rice}from'./components/Groceries/RiceData';
 import {mensshoes} from'./components/Fashion/MensShoesData';
-import CombinedNavbar from './components/CombinedNavbar';
-import DealsOfDay from'./pages/DealsOfDay';
-import LoanForm from './pages/LoanForm';
-import MyAccountPage from './pages/MyAccount';
-import GroceryItemsPage from './pages/GroceryItems';
-import NewArrival from'./pages/NewArrival';
 import { useAuth} from './pages/loginContext';
-import ClickProductPage from'./pages/ClickProductPage';
-import ClickProductPagePc from'./pages/ClickProductPagePc';
-import ClickProductPageAvon from'./pages/ClickProductPageAvon';
-import Brochure from'./components/BrochureServices';
-import ClickBestSelling from './pages/ClickBestSelling';
-import ClickFeaturedProduct from'./pages/ClickFeaturedProduct';
-import ClickRecommendedProduct from './pages/ClickRecommendedProduct';
-import ContactUs from'./components/ContactUs';
-import BeautyProducts from'./pages/BeautyProducts';
-import ClickBeautyProducts from'./pages/ClickBeautyProducts';
-import FashionApparel from './pages/FashionApparel';
-import TermsAndConditionsPage from'./pages/TermsAndConditions';
-import PrivacyPolicyPage from'./pages/PrivacyPolicy';
-import ReturnPolicyPage from'./pages/ReturnPolicy';
-import ClickBeverages from './components/Groceries/ClickBeverages';
-import ClickFrozenFoods from'./components/Groceries/ClickFrozenFoods';
-import ClickInstantNoodles from'./components/Groceries/ClickInstantNoodles';
-import ClickCanGoods from'./components/Groceries/ClickCanGoods';
-import ClickVitamins from'./components/Groceries/ClickVitamins';
-import ClickRice from'./components/Groceries/ClickRice';
-import ConfirmPage from'./pages/ConfirmPage';
-import ForgotPassword from'./pages/forgotPassword';
-import OTPConfirmation from'./pages/OtpConfirmation';
-import ChangePassword from './pages/ChangePassword';
-import ClickEarphone from'./components/Electronics/ClickEarphone';
-import ClickSpeaker from'./components/Electronics/ClickSpeaker';
-import ClickDeals from'./pages/ClickDeals';
-import ClickDealsFashion from'./pages/ClickDealsFashion';
-import ClickDealsElectronic from'./pages/ClickDealsElectronic';
-import ClickWomens from './components/Fashion/ClickWomens';
-import ClickMens from './components/Fashion/ClickMens';
-import ClickMensShoes from './components/Fashion/ClickMensShoes';
-import ClickWomensShoes from './components/Fashion/ClickWomensShoes';
-import ClickYouMayLike from './pages/ClickYouMayLike';
-import CheckoutHistoryPage from './components/CheckoutHistoryPage';
-import LoanFormHistoryPage from './components/LoanFormHistoryPage';
-import NotFoundPage from './components/NotFoundPage';
-import LoginPage from './pages/AdminLoginPage';
-import AdminPage from './components/AdminPage';
-import RestrictedAccess from'./components/RestrictedAccess';
-import GrocerySidebar from './pages/GrocerySideBar';
-import PrivateRoute from './pages/PrivateRoute'; // Import your PrivateRoute component
-import LockoutPage from './pages/LockoutPage';
-import InstallmentHistoryPage from './components/InstallmentHistoryPage';
-import Epayment from'./pages/Epayment';
-import GcashPaymentModal from'./pages/GcashPayment';
-import DeleteAccount from './components/DeleteAccount';
-import ScrollToTop from './pages/ScrollToTop';
-import LoanTerms from './pages/LoanTerms';
-import NeedHelp from'./pages/NeedHelp';
-import OfflineIndicator from'./pages/OfflineIndicator';
-import ReviewComponent from'./components/ReviewComponent';
-import Footer from './components/Footer';
-import RegisterPage from'./pages/AdminRegisterPage';
-import InstallmentTerms from'./pages/installmentTerms';
-import Freebies from './components/Freebies';
-import RaffleMechanics from './components/RaffleMechanics';
-import BarleyGrassJuice from './components/SqueezePage/SqueezePageBarley';
-import NewsletterForm from './components/Newsletter';
-import AirLineBookingForm from'./components/AirLineBookingForm';
 
-function App() {
+const Home = React.lazy(() => import('./pages/Home'));
+const CheckoutForm = React.lazy(() => import('./components/CheckoutForm'));
+const LoanForm = React.lazy(() => import('./pages/LoanForm'));
+const Products = React.lazy(() => import('./pages/Products'));
+const PcProducts = React.lazy(() => import('./pages/PcProducts'));
+const AvonProducts = React.lazy(() => import('./pages/AvonProducts'));
+const ConsumerElectronic  = React.lazy(() => import('./pages/ConsumerElectronic'));
+const Cart = React.lazy(() => import('./pages/Cart'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Search = React.lazy(() => import('./pages/Search'));
+const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'));
+const ShoppingCart = React.lazy(() => import('./components/ShoppingCart'));
+const SignUpForm  = React.lazy(() => import('./components/SignupForm'));
+const DealsOfDay  = React.lazy(() => import('./pages/DealsOfDay'));
+const MyAccountPage  = React.lazy(() => import('./pages/MyAccount'));
+const NewArrival  = React.lazy(() => import('./pages/NewArrival'));
+const ClickProductPage  = React.lazy(() => import('./pages/ClickProductPage'));
+const ClickProductPagePc  = React.lazy(() => import('./pages/ClickProductPagePc'));
+const ClickProductPageAvon  = React.lazy(() => import('./pages/ClickProductPageAvon'));
+const Brochure  = React.lazy(() => import('./components/BrochureServices'));
+const CombinedNavbar  = React.lazy(() => import('./components/CombinedNavbar'));
+const ClickBestSelling  = React.lazy(() => import('./pages/ClickBestSelling'));
+const ClickFeaturedProduct  = React.lazy(() => import('./pages/ClickFeaturedProduct'));
+const ClickRecommendedProduct  = React.lazy(() => import('./pages/ClickRecommendedProduct'));
+const ContactUs  = React.lazy(() => import('./components/ContactUs'));
+const BeautyProducts  = React.lazy(() => import('./pages/BeautyProducts'));
+const ClickBeautyProducts  = React.lazy(() => import('./pages/ClickBeautyProducts'));
+const FashionApparel  = React.lazy(() => import('./pages/FashionApparel'));
+const TermsAndConditionsPage  = React.lazy(() => import('./pages/TermsAndConditions'));
+const PrivacyPolicyPage  = React.lazy(() => import('./pages/PrivacyPolicy'));
+const ReturnPolicyPage  = React.lazy(() => import('./pages/ReturnPolicy'));
+const ClickBeverages  = React.lazy(() => import('./components/Groceries/ClickBeverages'));
+const ClickFrozenFoods  = React.lazy(() => import('./components/Groceries/ClickFrozenFoods'));
+const ClickInstantNoodles  = React.lazy(() => import('./components/Groceries/ClickInstantNoodles'));
+const ClickCanGoods  = React.lazy(() => import('./components/Groceries/ClickCanGoods'));
+const ClickVitamins  = React.lazy(() => import('./components/Groceries/ClickVitamins'));
+const ClickRice  = React.lazy(() => import('./components/Groceries/ClickRice'));
+const ConfirmPage  = React.lazy(() => import('./pages/ConfirmPage'));
+const ForgotPassword  = React.lazy(() => import('./pages/forgotPassword'));
+const OTPConfirmation  = React.lazy(() => import('./pages/OtpConfirmation'));
+const ChangePassword  = React.lazy(() => import('./pages/ChangePassword'));
+const ClickEarphone  = React.lazy(() => import('./components/Electronics/ClickEarphone'));
+const ClickSpeaker = React.lazy(() => import('./components/Electronics/ClickSpeaker'));
+const ClickDeals = React.lazy(() => import('./pages/ClickDeals'));
+const ClickDealsFashion = React.lazy(() => import('./pages/ClickDealsFashion'));
+const ClickDealsElectronic = React.lazy(() => import('./pages/ClickDealsElectronic'));
+const ClickWomens = React.lazy(() => import('./components/Fashion/ClickWomens'));
+const ClickMens = React.lazy(() => import('./components/Fashion/ClickMens'));
+const ClickMensShoes = React.lazy(() => import('./components/Fashion/ClickMensShoes'));
+const ClickWomensShoes = React.lazy(() => import('./components/Fashion/ClickWomensShoes'));
+const ClickYouMayLike = React.lazy(() => import('./pages/ClickYouMayLike'));
+const GroceryItems = React.lazy(() => import('./pages/GroceryItems'));
+
+const CheckoutHistoryPage = React.lazy(() => import('./components/CheckoutHistoryPage'));
+const LoanFormHistoryPage = React.lazy(() => import('./components/LoanFormHistoryPage'));
+const NotFoundPage = React.lazy(() => import('./components/NotFoundPage'));
+const LoginPage = React.lazy(() => import('./pages/AdminLoginPage'));
+const AdminPage = React.lazy(() => import('./components/AdminPage'));
+const RegisterPage = React.lazy(() => import('./pages/AdminRegisterPage'));
+const RestrictedAccess = React.lazy(() => import('./components/RestrictedAccess'));
+const GrocerySidebar = React.lazy(() => import('./pages/GrocerySideBar'));
+const PrivateRoute = React.lazy(() => import('./pages/PrivateRoute'));
+const LockoutPage = React.lazy(() => import('./pages/LockoutPage'));
+const InstallmentHistoryPage = React.lazy(() => import('./components/InstallmentHistoryPage'));
+const Epayment = React.lazy(() => import('./pages/Epayment'));
+const GcashPaymentModal = React.lazy(() => import('./pages/GcashPayment'));
+const DeleteAccount = React.lazy(() => import('./components/DeleteAccount'));
+const ScrollToTop = React.lazy(() => import('./pages/ScrollToTop'));
+const LoanTerms = React.lazy(() => import('./pages/LoanTerms'));
+const NeedHelp = React.lazy(() => import('./pages/NeedHelp'));
+const OfflineIndicator = React.lazy(() => import('./pages/OfflineIndicator'));
+const ReviewComponent = React.lazy(() => import('./components/ReviewComponent'));
+const Footer = React.lazy(() => import('./components/Footer'));
+const InstallmentTerms = React.lazy(() => import('./pages/installmentTerms'));
+const Freebies = React.lazy(() => import('./components/Freebies'));
+const RaffleMechanics = React.lazy(() => import('./components/RaffleMechanics'));
+const BarleyGrassJuice = React.lazy(() => import('./components/SqueezePage/SqueezePageBarley'));
+const NewsletterForm = React.lazy(() => import('./components/Newsletter'));
+const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookingForm'));
+
+
+ function App() {
 
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
    const { isLoggedIn, login, logout } = useAuth();
@@ -120,6 +125,7 @@ const [cartItems, setCartItems] = useState(() => {
     // Update the cart count on component mount
     setCartCount(storedItems.length);
   }, []);
+
 
 const addToCart = (product) => {
   const existingItem = cartItems.find((item) => item.id === product.id);
@@ -154,6 +160,7 @@ const addToCart = (product) => {
     });
   }
 };
+
 
 const removeFromCart = (itemId) => {
   console.log('Removing item with ID:', itemId);
@@ -201,20 +208,26 @@ const handleLogout = () => {
     navigate('/');
   };
 
-   // Combine products into a single array
+  // Combine products into a single array
   const allProducts = [...wellnessProductData, ...pcproductsData, ...avonproductsData, ...beautyProductsData, ...dealsElectronicData,...rice, ...mensshoes];
 
+
  return (
+  <ErrorBoundary>
     
     <div>
+     <Suspense fallback={<div>Loading...</div>}>
       <OfflineIndicator />
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
-      <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout} allProducts={allProducts}  addToCart={addToCart} />
+      <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout} 
+      allProducts={allProducts}  addToCart={addToCart}/>
+      
    {isLargeScreen?(
       <Container>
         {/* Conditionally render Routes based on login status */}
         {isLoggedIn ? (
+            
           <Routes>
             <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn} />} />
             <Route path="/products" element={<Products addToCart={addToCart}  />} />
@@ -231,7 +244,7 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice} mensshoes={mensshoes} />} />
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice}/>} mensshoes={mensshoes}/>
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
@@ -240,7 +253,7 @@ const handleLogout = () => {
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage addToCart={addToCart}/>} />
-            <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/groceryitems" element={<GroceryItems addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -285,10 +298,12 @@ const handleLogout = () => {
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
-                          <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
+                           <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
+                          <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
 
+                           
                  <Route component={NotFoundPage} />
-                        
+                       
           </Routes>
         ) : (
           <Routes>
@@ -322,7 +337,7 @@ const handleLogout = () => {
              <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
-            <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/groceryitems" element={<GroceryItems addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
@@ -367,8 +382,9 @@ const handleLogout = () => {
 
 
                  <Route component={NotFoundPage} />
-                        
+                
           </Routes>
+
         )}
          <div className="mt-4 " >    
           <Footer isLoggedIn={isLoggedIn}/> 
@@ -396,7 +412,7 @@ const handleLogout = () => {
             <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn}/>}/>
             <Route path="/search" element={<Search wellnessProductData={wellnessProductData} pcproductsData={pcproductsData} 
-                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} />} rice={rice} mensshoes={mensshoes}/>
+                                              avonproductsData={avonproductsData} beautyProductsData={beautyProductsData} dealsElectronicData={dealsElectronicData} addToCart={addToCart} rice={rice} mensshoes={mensshoes}/>} />
 
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
@@ -405,7 +421,7 @@ const handleLogout = () => {
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage addToCart={addToCart}/>} />
-            <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/groceryitems" element={<GroceryItems addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -441,7 +457,7 @@ const handleLogout = () => {
                      <Route path="/epayment" element={<Epayment />} />
                      <Route path="/gcashpayment" element={<GcashPaymentModal addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal}/>} />
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
-                      <Route path="/deleteaccount" element={<DeleteAccount />} />
+                        <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
@@ -449,7 +465,9 @@ const handleLogout = () => {
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
-                          <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
+                             <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
+                        <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+
 
 
                  <Route component={NotFoundPage} />
@@ -487,7 +505,7 @@ const handleLogout = () => {
              <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
-            <Route path="/groceryitemspage" element={<GroceryItemsPage addToCart={addToCart} cartItems={cartItems} />} />
+            <Route path="/groceryitems" element={<GroceryItems addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/brochure" element={<Brochure />} />
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
@@ -536,20 +554,21 @@ const handleLogout = () => {
                         
           </Routes>
         )}
+         
          <div className="mt-4 " >    
      <Footer isLoggedIn={isLoggedIn}/> 
           </div>
         </div>
         )}
-  
+       </Suspense>
       </div>
-         
+     
+  </ErrorBoundary>       
   );
 };
 
+
 export default App;
-
-
 
 
 

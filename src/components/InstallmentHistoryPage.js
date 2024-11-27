@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table,  } from 'react-bootstrap';
 import axios from 'axios';
 
-const InstallmentHistoryPage = () => {
+export default function InstallmentHistoryPage () {
   const [installmentHistory, setInstallmentHistory] = useState([]);
  const [userData, setUserData] = useState({});  // Ensure you have setUserData defined
 
@@ -113,4 +113,3 @@ const removeHtmlTags = (html) => {
   );
 };
 
-export default InstallmentHistoryPage;

@@ -4,7 +4,7 @@ import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import {newarrivalData} from '../data/NewArrivalData';
 
 
-const NewArrival = ({url, name, price, discountedPrice, rating, addToCart, cartItems}) => {
+export default function NewArrival ({url, name, price, discountedPrice, rating, addToCart, cartItems}) {
  
   return (
     <Container className="mt-4">
@@ -42,4 +42,3 @@ const NewArrival = ({url, name, price, discountedPrice, rating, addToCart, cartI
   );
 };
 
-export default NewArrival;

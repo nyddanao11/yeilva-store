@@ -8,7 +8,7 @@ import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponentFeatured from'../components/ProductTablatureFeatured';
 import axios from 'axios';
 
-const ClickFeaturedProduct= ({ addToCart, isLoggedIn }) => {
+export default function ClickFeaturedProduct ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
    console.log('ID from URL:', id);
   
@@ -159,4 +159,3 @@ const handleCheckoutClick = () => {
   );
 };
 
-export default ClickFeaturedProduct;

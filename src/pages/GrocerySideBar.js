@@ -3,7 +3,7 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 
-const GrocerySidebar = ({ menuItems, handleMenuItemClick, activeNavItem }) => {
+export default function GrocerySidebar ({ menuItems, handleMenuItemClick, activeNavItem }) {
   return (
     <div className="d-flex flex-column align-items-center p-3">
       <Nav className="flex-column">
@@ -28,4 +28,3 @@ const GrocerySidebar = ({ menuItems, handleMenuItemClick, activeNavItem }) => {
   );
 };
 
-export default GrocerySidebar;

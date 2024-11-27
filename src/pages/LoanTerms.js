@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const LoanTerms = () => {
+export default function LoanTerms () {
   return (
     <Container>
       <h3 className="mt-3">Terms and Conditions for money Loan</h3>
@@ -95,4 +95,3 @@ const LoanTerms = () => {
   );
 };
 
-export default LoanTerms;

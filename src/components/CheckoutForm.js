@@ -4,8 +4,8 @@ import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link, useLocation} from'react-router-dom';
 
-const CheckoutForm = ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
-  selectedColor, ewalletStatus}) => {
+export default function CheckoutForm ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
+  selectedColor, ewalletStatus}) {
 
    const location = useLocation();
   const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
@@ -554,4 +554,3 @@ return (
   );
 };
 
-export default CheckoutForm;

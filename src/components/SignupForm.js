@@ -6,7 +6,7 @@ import { Formik, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 
-const SignUpForm = () => {
+export default function SignUpForm () {
   const [serverResponse, setServerResponse] = useState('');
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -204,4 +204,3 @@ const SignUpForm = () => {
 
 
 
-export default SignUpForm;

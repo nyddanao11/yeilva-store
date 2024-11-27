@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 
-const CheckoutHistoryPage = () => {
+export default function CheckoutHistoryPage () {
   const [checkoutHistory, setCheckoutHistory] = useState([]);
   const [userData, setUserData] = useState({});  // Ensure you have setUserData defined
 
@@ -83,4 +83,3 @@ const removeHtmlTags = (html) => {
   );
 };
 
-export default CheckoutHistoryPage;

@@ -3,8 +3,7 @@ import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-const ForgotPassword = () => {
+export default function ForgotPassword () {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false); // Added loading state
@@ -71,4 +70,3 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;

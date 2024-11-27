@@ -3,7 +3,7 @@ import { Form, Container, Row, Col, Button, Spinner, Card} from 'react-bootstrap
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const NeedHelp = () => {
+export default function NeedHelp ()  {
   const [email, setEmail] = useState('');
   const [mainMessage, setMainMessage] = useState('');
   const [message, setMessage] = useState('');
@@ -103,4 +103,3 @@ const NeedHelp = () => {
   );
 };
 
-export default NeedHelp;

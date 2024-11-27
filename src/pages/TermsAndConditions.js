@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const TermsAndConditionsPage = () => {
+export default function TermsAndConditionsPage () {
   return (
     <Container>
       <h3>Terms and Conditions</h3>
@@ -104,4 +104,3 @@ const TermsAndConditionsPage = () => {
   );
 };
 
-export default TermsAndConditionsPage;

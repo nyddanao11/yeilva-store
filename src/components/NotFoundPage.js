@@ -2,7 +2,7 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
 
-const NotFoundPage = () => {
+export default function NotFoundPage () {
   return (
     <div className="mt-3">
       <Alert variant="danger">
@@ -22,4 +22,3 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table,  } from 'react-bootstrap';
 import axios from 'axios';
 
-const LoanFormHistoryPage = () => {
+export default function LoanFormHistoryPage () {
   const [loanformHistory, setLoanformHistory] = useState([]);
  const [userData, setUserData] = useState({});  // Ensure you have setUserData defined
 
@@ -103,4 +103,3 @@ const LoanFormHistoryPage = () => {
   );
 };
 
-export default LoanFormHistoryPage;

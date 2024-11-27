@@ -8,7 +8,7 @@ import BreadCrumbWomensShoes from'./BreadCrumbWomensShoes';
 import YouMayLike from'../YouMayLike';
 
 
-const ClickWomensShoes = ({ addToCart, isLoggedIn }) => {
+export default function ClickWomensShoes ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -108,4 +108,3 @@ const ClickWomensShoes = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickWomensShoes;

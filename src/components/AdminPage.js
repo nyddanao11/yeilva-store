@@ -7,8 +7,7 @@ import CreateVoucher from'../pages/VoucherForm';
 import GenerateVouchers from'../pages/MultiVoucher';
 import GcashSettlement from'../pages/GcashSettlement';
 
-
-const AdminPage = () => {
+export default function AdminPage () {
   const [activeTab, setActiveTab] = useState('LoanHistory');
   const [loanformHistory, setLoanformHistory] = useState([]);
   const [loading, setLoading] = useState(false);  
@@ -147,4 +146,3 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
   );
 };
 
-export default AdminPage;

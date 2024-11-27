@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbNoodles from'./BreadCrumbNoodles';
 import YouMayLike from'../YouMayLike';
 
-const ClickInstantNoodles = ({ addToCart, isLoggedIn }) => {
+export default function ClickInstantNoodles ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -105,4 +105,3 @@ const handleCheckoutClick = () => {
   );
 };
 
-export default ClickInstantNoodles;

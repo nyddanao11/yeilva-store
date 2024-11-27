@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
-const PrivateRoute = ({ element }) => {
+export default function PrivateRoute ({ element }) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
@@ -31,4 +31,3 @@ const PrivateRoute = ({ element }) => {
   return isAuthenticated ? element : <Navigate to="/adminloginpage" />;
 };
 
-export default PrivateRoute;

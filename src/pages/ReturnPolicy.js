@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-const ReturnPolicyPage = () => {
+export default function ReturnPolicyPage () {
   return (
     <Container>
       <h3>Return Policy</h3>
@@ -67,4 +67,3 @@ const ReturnPolicyPage = () => {
   );
 };
 
-export default ReturnPolicyPage;

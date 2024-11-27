@@ -9,7 +9,7 @@ import axios from 'axios';
 import TabbedComponent from'./ProductTablatureEarphone';
 import YouMayLike from'../YouMayLike';
 
-const ClickEarphone = ({ addToCart, isLoggedIn }) => {
+export default function ClickEarphone ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -161,4 +161,3 @@ const ClickEarphone = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickEarphone;

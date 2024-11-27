@@ -9,7 +9,7 @@ import axios from 'axios';
 import TabbedComponent from'./ProductTablatureSpeaker';
 import YouMayLike from'../YouMayLike';
 
-const ClickSpeaker = ({ addToCart, isLoggedIn }) => {
+export default function ClickSpeaker ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -157,4 +157,3 @@ useEffect(() => {
   );
 };
 
-export default ClickSpeaker;

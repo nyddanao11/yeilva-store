@@ -8,8 +8,7 @@ import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
 import axios from 'axios';
 
-
-const ClickYouMayLike = ({ addToCart, isLoggedIn }) => {
+export default function ClickYouMayLike ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
    console.log('ID from URL:', id);
   
@@ -157,4 +156,3 @@ const ClickYouMayLike = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickYouMayLike;

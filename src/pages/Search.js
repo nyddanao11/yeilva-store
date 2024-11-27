@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, InputGroup, FormControl, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap';
 
 
-const Search = ({ allProducts, addToCart }) => {
+export default function Search ({ allProducts, addToCart }) {
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
@@ -56,4 +56,3 @@ const Search = ({ allProducts, addToCart }) => {
   );
 };
 
-export default Search;

@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbFrozen from'./BreadCrumbFrozen';
 import YouMayLike from'../YouMayLike';
 
-const ClickBeverages = ({ addToCart, isLoggedIn }) => {
+export default function ClickFrozenFoods ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -108,4 +108,3 @@ const ClickBeverages = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickBeverages;

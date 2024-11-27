@@ -8,7 +8,7 @@ import TabbedComponent from '../components/ProductTablatureElectro';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickDealsElectronic = ({ addToCart, isLoggedIn }) => {
+export default function ClickDealsElectronic ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -160,4 +160,3 @@ const handleCheckoutClick = () => {
   );
 };
 
-export default ClickDealsElectronic;

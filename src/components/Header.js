@@ -5,7 +5,7 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
 
-const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
+export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -95,14 +95,7 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
                     key={product.id}
                     onClick={() => handleSuggestionClick(product)}
                   >
-                    <div className="d-flex align-items-center">
-                      <img
-                        src={product.url}
-                        alt={product.name}
-                        width="30"
-                        height="30"
-                        className="me-2"
-                      />
+                    <div className="d-flex align-items-center">                
                       <span>{product.name}</span>
                     </div>
                   </Dropdown.Item>
@@ -166,4 +159,4 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
   );
 };
 
-export default Header;
+

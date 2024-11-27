@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 import {Link} from'react-router-dom';
 
-const InstallemntTerms = () => {
+export default function InstallemntTerms () {
   return (
     <Container className="my-5">
       <Row className="justify-content-center">
@@ -84,5 +84,4 @@ const InstallemntTerms = () => {
   );
 };
 
-export default InstallemntTerms;
 

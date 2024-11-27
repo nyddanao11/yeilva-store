@@ -10,7 +10,7 @@ import './LoanForm.css';
 import HoverButton from'../components/HoverButton'
 import YouMayLike from'../components/YouMayLike';
 
-const LoanForm = ({addToCart}) => {
+export default function LoanForm ({addToCart}) {
   const [loanAmount, setLoanAmount] = useState('3000');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -394,4 +394,3 @@ useEffect(() => {
   );
 };
 
-export default LoanForm;

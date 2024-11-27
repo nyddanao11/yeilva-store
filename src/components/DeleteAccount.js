@@ -3,8 +3,7 @@ import { Alert , Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from'axios';
 
-
-const DeleteAccount = () => {
+export default function DeleteAccount () {
   const [formData, setFromData] = useState();
   const [serverResponse, setServerResponse] = useState('');
 
@@ -54,4 +53,3 @@ const handleDeleteAccount = async()=>{
   );
 };
 
-export default DeleteAccount;

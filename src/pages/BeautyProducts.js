@@ -3,9 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { beautyProductsData } from '../data/BeautyProductsData';
 import ImageProductBeauty from'../components/ImageProductBeauty';
 
-
-
-const BeautyProducts = ({ addToCart }) => {
+export default function BeautyProducts ({ addToCart }) {
 
  return (
     <>
@@ -32,4 +30,3 @@ const BeautyProducts = ({ addToCart }) => {
   );
 };
 
-export default BeautyProducts;

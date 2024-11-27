@@ -4,7 +4,7 @@ import axios from'axios';
 import { fetchUserData } from '../components/userService';
 import {useNavigate, useParams} from'react-router-dom';
 
-const ReviewComponent = () => {
+export default function ReviewComponent () {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
    const [userData, setUserData] = useState({
@@ -107,4 +107,3 @@ const backToClickProduct =()=>{
   );
 };
 
-export default ReviewComponent;

@@ -10,7 +10,7 @@ import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
-const CheckoutPage = ({
+export default function CheckoutPage ({
   cartItems,
   removeFromCart,
   addToCart,
@@ -18,7 +18,7 @@ const CheckoutPage = ({
   selectedColor,
   fetchUserData,
   setFormattedGrandTotal
-}) => {
+}) {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
   const [shippingRate, setShippingRate] = useState(0);
@@ -161,4 +161,3 @@ const CheckoutPage = ({
   );
 };
 
-export default CheckoutPage;

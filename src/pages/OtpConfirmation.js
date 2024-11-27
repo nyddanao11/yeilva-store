@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const OTPConfirmation = () => {
+export default function OTPConfirmation () {
   const [otp, setOtp] = useState('');
   const [message, setMessage] = useState('');
   
@@ -80,4 +80,3 @@ console.log('Email:', email);
   );
 };
 
-export default OTPConfirmation;

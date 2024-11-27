@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbVitamins from'./BreadCrumbVitamins';
 import YouMayLike from'../YouMayLike';
 
-const ClickVitamins = ({ addToCart, isLoggedIn }) => {
+export default function ClickVitamins ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -108,4 +108,3 @@ const ClickVitamins = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickVitamins;

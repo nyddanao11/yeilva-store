@@ -3,8 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { avonproductsData } from '../data/AvonProductsData';
 import ImageProductAvon from '../components/ImageProductAvon';
 
-
-const AvonProducts = ({ addToCart }) => {
+export default function AvonProducts ({ addToCart }) {
   return (
     <>
     <Container>
@@ -30,4 +29,3 @@ const AvonProducts = ({ addToCart }) => {
   );
 };
 
-export default AvonProducts;

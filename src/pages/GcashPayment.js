@@ -6,7 +6,7 @@ import axios from 'axios';
 import { fetchUserData } from '../components/userService';
 import { useMediaQuery } from 'react-responsive';
 
-const GcashPaymentModal = ({ formattedGrandTotal }) => {
+export default function GcashPaymentModal ({ formattedGrandTotal }) {
   const [showGcash, setShowGcash] = useState(false);
   const [transactionCode, setTransactionCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -114,7 +114,7 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                 </Modal.Header>
                 <Modal.Body>
                   <div className="text-center">
-                    <div style={{ lineHeight: '5px' }}>
+                    <div >
                       <p>Scan the QR code below to pay with GCash</p>
                       <p>or Pay through GCash account <strong>09497042268</strong></p>
                     </div>
@@ -150,4 +150,3 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
   );
 };
 
-export default GcashPaymentModal;

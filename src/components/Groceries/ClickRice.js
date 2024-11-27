@@ -7,7 +7,7 @@ import '../LoanForm.css';
 import BreadCrumbRice from'./BreadCrumbRice';
 import YouMayLike from'../YouMayLike';
 
-const ClickBeverages = ({ addToCart, isLoggedIn }) => {
+export default function ClickRice ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -106,4 +106,3 @@ const ClickBeverages = ({ addToCart, isLoggedIn }) => {
   );
 };
 
-export default ClickBeverages;

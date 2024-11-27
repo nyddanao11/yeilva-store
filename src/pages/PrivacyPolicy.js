@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const PrivacyPolicyPage = () => {
+export default function PrivacyPolicyPage () {
   return (
     <Container>
       <h3>Privacy Policy</h3>
@@ -51,4 +51,3 @@ const PrivacyPolicyPage = () => {
   );
 };
 
-export default PrivacyPolicyPage;

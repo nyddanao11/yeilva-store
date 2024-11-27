@@ -8,7 +8,7 @@ import TabbedComponent from'../components/ProductTablatureRecommended';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickRecommendedProduct= ({ addToCart, isLoggedIn }) => {
+export default function ClickRecommendedProduct ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
@@ -157,4 +157,3 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
   );
 };
 
-export default ClickRecommendedProduct;

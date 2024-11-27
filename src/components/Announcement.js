@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaShippingFast, FaCreditCard, FaTags, FaHeadset } from 'react-icons/fa'; // Import the icons you want to use
 import './Announcement.css';
 
-const Announcement = () => {
+export default function Announcement () {
   return (
     <>
       <Container>
@@ -48,4 +48,3 @@ const Announcement = () => {
   );
 };
 
-export default Announcement;

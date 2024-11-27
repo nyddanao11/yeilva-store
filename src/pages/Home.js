@@ -14,7 +14,7 @@ import Announcement from'../components/Announcement';
 import './Home.css';
 import PopUpAdds from '../components/PopUpAdds'; // Fix capitalization here
 
-const Home = ({ product, isLoggedIn}) => {
+export default function Home({ product, isLoggedIn}) {
 let countWellness = wellnessProductData.length;
 let countPc = pcproductsData.length;
 let countBeauty = beautyProductsData.length;
@@ -100,5 +100,4 @@ let countBeauty = beautyProductsData.length;
   );
 };
 
-export default Home;
 

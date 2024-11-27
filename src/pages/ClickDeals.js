@@ -8,7 +8,7 @@ import TabbedComponent from '../components/ProductTablatureDeals';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 
-const ClickDeals = ({ addToCart, isLoggedIn }) => {
+export default function ClickDeals ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   
  const [selectedThumbnails, setSelectedThumbnails] = useState({});
@@ -157,4 +157,3 @@ const handleCheckoutClick = () => {
   );
 };
 
-export default ClickDeals;

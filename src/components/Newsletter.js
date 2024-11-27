@@ -10,7 +10,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
 });
 
-const NewsLetterForm = () => {
+export default function NewsLetterForm () {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -113,4 +113,3 @@ const NewsLetterForm = () => {
   );
 };
 
-export default NewsLetterForm ;

@@ -6,7 +6,7 @@ import './LoanForm.css';
 import HoverButton1 from'../components/HoverButton1'
 import YouMayLike from'../components/YouMayLike';
 
-const MyAccountPage = ({addToCart}) => {
+export default function MyAccountPage ({addToCart}) {
   const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
@@ -146,4 +146,3 @@ const MyAccountPage = ({addToCart}) => {
 };
 
 
-export default MyAccountPage;

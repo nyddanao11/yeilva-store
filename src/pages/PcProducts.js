@@ -4,10 +4,8 @@ import {Container, Row, Col} from 'react-bootstrap';
 import {pcproductsData} from '../data/pcproductsData';
 import ImageProductPc1 from '../components/ImageProductPc1';
 
+export default function PcProducts ({addToCart}) {
 
-const PcProducts= ({addToCart}) => {
-
-  
  return (
     <>
     <Container>
@@ -33,4 +31,3 @@ const PcProducts= ({addToCart}) => {
   );
 };
 
-export default PcProducts;

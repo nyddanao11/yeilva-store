@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import NewUserDiscount from '../NewUserDiscount';
 
-const BarleyGrassJuice = () => {
+export default function BarleyGrassJuice () {
   return (
     <Container>
       <Row className="mt-5">
@@ -73,7 +73,6 @@ const BarleyGrassJuice = () => {
   );
 };
 
-export default BarleyGrassJuice;
 
 
 

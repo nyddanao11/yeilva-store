@@ -3,7 +3,7 @@ import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginPage = () => {
+export default function LoginPage () {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage]= useState('');
@@ -103,6 +103,5 @@ const handleLogin = async (e) => {
   );
 };
 
-export default LoginPage;
 
 

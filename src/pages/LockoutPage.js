@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 
 
-const LockoutPage =()=>{
+export default function LockoutPage () {
 
 	return(
 		<Container>
@@ -18,4 +18,3 @@ const LockoutPage =()=>{
 		)
 };
 
-export default LockoutPage;

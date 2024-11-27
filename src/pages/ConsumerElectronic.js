@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa'; // Import your custom icon
 import YouMayLike from'../components/YouMayLike';
 
-const ConsumerElectronic = ({ addToCart, cartItems, isProductSoldOut  }) => {
+export default function ConsumerElectronic ({ addToCart, cartItems, isProductSoldOut }) {
   const [activeNavItem, setActiveNavItem] = useState('earphones');
  const [collapsed, setCollapsed] = useState(false);
 
@@ -89,4 +89,3 @@ const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   );
 };
 
-export default ConsumerElectronic ;

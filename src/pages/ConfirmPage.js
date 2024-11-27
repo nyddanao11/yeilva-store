@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Link} from'react-router-dom';
 import axios from 'axios';
 
-const ConfirmPage = () => {
+export default function ConfirmPage () {
   const [confirmationStatus, setConfirmationStatus] = useState('pending');
 
   useEffect(() => {
@@ -55,4 +55,3 @@ const ConfirmPage = () => {
   );
 };
 
-export default ConfirmPage;
