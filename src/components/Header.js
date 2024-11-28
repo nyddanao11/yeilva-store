@@ -63,7 +63,7 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-     <Container >
+     <Container  className=" search-container">
         <Navbar.Brand as={Link} to="/">
           <img
             src={`${process.env.PUBLIC_URL}/logo.png`}
@@ -78,7 +78,7 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
           <Form className=" search-form" style={{ padding: '5px 0' }} role="search">
             <div className="input-group">
                 <span className="input-group-text">
-                    <FaSearch />
+                    <FaSearch size={12}/>
                 </span>
                 <FormControl
                     type="search"
@@ -113,12 +113,12 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
           )}
  
       </div>
-      <Nav.Link as={Link} to="/cart"  className="text-white ">
+     
+      <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
           <FaShoppingCart size={22} />
           <span className="cart-count">{cartCount}</span>
         </Nav.Link>
-      
-        
+  
       </Container>
 
       {selectedProduct && (
