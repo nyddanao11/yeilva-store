@@ -26,7 +26,7 @@
   position: absolute;
   top: 100%; /* Position it directly below the search form */
   left: 50%; /* Align the left edge to the center */
-  transform: translateX(2.5%); /* Shift it back by 50% of its width to center it */
+  transform: translateX(1%); /* Shift it back by 50% of its width to center it */
   z-index: 1050;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -59,7 +59,7 @@
 
 @media (max-width: 640px) {
   .search-suggestions {
-    transform: translateX(1.6%); /* Shift it back by 50% of its width to center it */
+    transform: translateX(0%); /* Shift it back by 50% of its width to center it */
   }
 }
 

@@ -63,16 +63,34 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-     <Container  className=" search-container">
-        <Navbar.Brand as={Link} to="/">
-          <img
-            src={`${process.env.PUBLIC_URL}/logo.png`}
-            alt="YeilvaStore Logo"
-           width = "30px"
-           height = "30px"
-          />{' '}
-          {!isSmallScreen && <strong>YeilvaSTORE</strong>}
+     <Container  >
+       <Navbar.Brand as={Link} to="/">
+
+         
+      {isSmallScreen ? (
+          <>
+            <img
+              src={`${process.env.PUBLIC_URL}/logo.png`}
+              alt="YeilvaStore Logo"
+              width="30px"
+              height="30px"
+            />
+          </>
+        ) : (
+          <>
+            <img
+              src={`${process.env.PUBLIC_URL}/logo.png`}
+              alt="YeilvaStore Logo"
+              width="30px"
+              height="30px"
+            />
+            {' '}
+            <strong>YeilvaSTORE</strong>
+          </>
+        )}
+
         </Navbar.Brand>
+
 
         <div className=" search-container" ref={searchBarRef}>
           <Form className=" search-form" style={{ padding: '5px 0' }} role="search">
@@ -112,13 +130,12 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
             </Dropdown.Menu>
           )}
  
-      </div>
-     
-      <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
+     <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
           <FaShoppingCart size={22} />
           <span className="cart-count">{cartCount}</span>
         </Nav.Link>
-  
+      </div>
+     
       </Container>
 
       {selectedProduct && (
