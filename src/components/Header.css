@@ -1,15 +1,42 @@
+/* Ensure the search container behaves flexibly and prevents wrapping */
+.search-container {
+  position: relative; /* Keeps the dropdown aligned with the search bar */
+  flex: 1 0 auto; /* Allow growth, prevent shrinkage */
+  max-width: 100%; /* Prevent overflowing the parent container */
+  display: flex; /* Align the child elements (like .search-form) horizontally */
+  align-items: center; /* Vertically center the contents */
+  justify-content: center; /* Center the search form and suggestions */
+}
+
+/* Ensure the search form adjusts flexibly */
+.search-form {
+  flex: 1 1 auto; /* Allow it to grow and shrink as necessary */
+  min-width: 250px; /* Set a minimum width to ensure usability */
+  max-width: 90%; /* Prevent it from exceeding the container width */
+  margin: 0 auto; /* Center within the available space */
+  padding: 5px 0; /* Keep the existing padding */
+  position: relative; /* Create positioning context for dropdown alignment */
+  z-index: 2; /* Ensures the form is above other elements */
+  text-align: center; /* Align text and form contents centrally */
+}
+
+/* Styling for the suggestions dropdown */
 .search-suggestions {
-  max-width: 1080px; /* Set maximum width */
-  width: 100%; /* Adjust to the search bar's width */
+  width: 90%; /* Match the width of the search form */
   position: absolute;
-  left: 0;
-  z-index: 1050; /* Ensure it appears above other elements */
+  top: 100%; /* Position it directly below the search form */
+  left: 50%; /* Align the left edge to the center */
+  transform: translateX(3.6%); /* Shift it back by 50% of its width to center it */
+  z-index: 1050;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
-  overflow: hidden; /* Prevent content overflow */
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
 }
 
+
+/* Additional styling for suggestions */
 .search-suggestions img {
   max-height: 40px;
 }
@@ -17,35 +44,40 @@
 .search-suggestions .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 10px; /* Add spacing between image and text */
+  gap: 10px; /* Spacing between image and text */
 }
 
-.search-container {
-  position: relative; /* Ensure suggestions align with the search bar */
-}
-
-@media (min-width: 992px) { /* Large screens */
+/* Adjustments for large screens */
+@media (min-width: 992px) {
   .search-form {
-    width: 50%; /* Adjust the width as needed */
-    margin-left: auto; /* Push it to occupy blank space between brand and cart */
-    margin-right: auto; /* Center it horizontally */
+    width: 50%; /* Use a relative width to avoid wrapping */
+    margin-left: auto; /* Center within the container */
+    margin-right: auto;
   }
 }
 
+
+@media (max-width: 640px) {
+  .search-suggestions {
+    transform: translateX(0%); /* Shift it back by 50% of its width to center it */
+  }
+}
+
+/* Cart count badge styling */
 .cart-count {
   color: white;
-   font-weight: bold;
-    font-size: 12px;
-      background-color: #EE6005;
-        border-radius: 50%;
-         padding: 2px 8px;
-       margin-left: -5px;
-      position: relative;
-    top: 7px;
+  font-weight: bold;
+  font-size: 12px;
+  background-color: #EE6005;
+  border-radius: 50%;
+  padding: 2px 5px;
+  margin-left: -5px;
+  position: relative;
+  top: 7px;
 }
-.search-link{
+
+/* Search link styling */
+.search-link {
   text-decoration: none;
   color: #71777D;
 }
-
-
