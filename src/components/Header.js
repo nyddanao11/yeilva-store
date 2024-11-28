@@ -111,13 +111,12 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
               )}
             </Dropdown.Menu>
           )}
-
-                  <Nav.Link as={Link} to="/cart"  className="text-white ">
+ 
+      </div>
+      <Nav.Link as={Link} to="/cart"  className="text-white ">
           <FaShoppingCart size={22} />
           <span className="cart-count">{cartCount}</span>
         </Nav.Link>
- 
-      </div>
       
         
       </Container>

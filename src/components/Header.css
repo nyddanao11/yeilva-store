@@ -11,7 +11,7 @@
 /* Ensure the search form adjusts flexibly */
 .search-form {
   flex: 1 1 auto; /* Allow it to grow and shrink as necessary */
-  min-width: 250px; /* Set a minimum width to ensure usability */
+  min-width: 200px; /* Set a minimum width to ensure usability */
   max-width: 90%; /* Prevent it from exceeding the container width */
   margin: 0 auto; /* Center within the available space */
   padding: 5px 0; /* Keep the existing padding */
@@ -26,7 +26,7 @@
   position: absolute;
   top: 100%; /* Position it directly below the search form */
   left: 50%; /* Align the left edge to the center */
-  transform: translateX(3.6%); /* Shift it back by 50% of its width to center it */
+  transform: translateX(5.5%); /* Shift it back by 50% of its width to center it */
   z-index: 1050;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -59,7 +59,7 @@
 
 @media (max-width: 640px) {
   .search-suggestions {
-    transform: translateX(0%); /* Shift it back by 50% of its width to center it */
+    transform: translateX(3.4%); /* Shift it back by 50% of its width to center it */
   }
 }
 
