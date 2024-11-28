@@ -35,12 +35,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
 }
 
-
-/* Additional styling for suggestions */
-.search-suggestions img {
-  max-height: 40px;
-}
-
 .search-suggestions .dropdown-item {
   display: flex;
   align-items: center;
@@ -50,9 +44,13 @@
 /* Adjustments for large screens */
 @media (min-width: 640px) {
   .search-form {
-    width: 40%; /* Use a relative width to avoid wrapping */
+    width: 50%; /* Use a relative width to avoid wrapping */
     margin-left: auto; /* Center within the container */
     margin-right: auto;
+    padding: 5px 0; /* Keep the existing padding */
+    position: relative; /* Create positioning context for dropdown alignment */
+    z-index: 2; /* Ensures the form is above other elements */
+    text-align: center; /* Align text and form contents centrally */
   }
 }
 
@@ -80,9 +78,4 @@
 .search-link {
   text-decoration: none;
   color: #71777D;
-}
-.shopping-cart{
-   display: flex; /* Align the child elements (like .search-form) horizontally */
-  align-items: center; /* Vertically center the contents */
-  justify-content: center; /* Center the search form and suggestions */
 }

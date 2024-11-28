@@ -64,30 +64,28 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
      <Container  >
-       <Navbar.Brand as={Link} to="/">
-
-         
-      {isSmallScreen ? (
-          <>
-            <img
-              src={`${process.env.PUBLIC_URL}/logo.png`}
-              alt="YeilvaStore Logo"
-              width="30px"
-              height="30px"
-            />
-          </>
-        ) : (
-          <>
-            <img
-              src={`${process.env.PUBLIC_URL}/logo.png`}
-              alt="YeilvaStore Logo"
-              width="30px"
-              height="30px"
-            />
-            {' '}
-            <strong>YeilvaSTORE</strong>
-          </>
-        )}
+       <Navbar.Brand as={Link} to="/">  
+          {isSmallScreen ? (
+              <>
+                <img
+                  src={`${process.env.PUBLIC_URL}/logo.png`}
+                  alt="YeilvaStore Logo"
+                  width="30px"
+                  height="30px"
+                />
+              </>
+            ) : (
+              <>
+                <img
+                  src={`${process.env.PUBLIC_URL}/logo.png`}
+                  alt="YeilvaStore Logo"
+                  width="30px"
+                  height="30px"
+                />
+                {' '}
+                <strong>YeilvaSTORE</strong>
+              </>
+            )}
 
         </Navbar.Brand>
 
@@ -95,9 +93,7 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
         <div className=" search-container" ref={searchBarRef}>
           <Form className=" search-form" style={{ padding: '5px 0' }} role="search">
             <div className="input-group">
-                <span className="input-group-text">
-                    <FaSearch size={12}/>
-                </span>
+                
                 <FormControl
                     type="search"
                     placeholder="Search products..."
