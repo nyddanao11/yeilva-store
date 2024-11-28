@@ -48,9 +48,9 @@
 }
 
 /* Adjustments for large screens */
-@media (min-width: 992px) {
+@media (min-width: 640px) {
   .search-form {
-    width: 50%; /* Use a relative width to avoid wrapping */
+    width: 40%; /* Use a relative width to avoid wrapping */
     margin-left: auto; /* Center within the container */
     margin-right: auto;
   }
