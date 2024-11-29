@@ -1,13 +1,21 @@
 // ProductPage.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
-import {pcproductsData} from '../data/pcproductsData';
 import ImageProductPc1 from '../components/ImageProductPc1';
 
-export default function PcProducts ({addToCart}) {
 
+export default function PcProducts ({addToCart}) {
+ const [pcproductsData, setPcproductsData] = useState([]);
+
+  useEffect(() => {
+    // Dynamically import the data
+    import('../data/pcproductsData').then((module) => {
+      setPcproductsData(module.pcproductsData);
+    });
+  }, []);
+  
  return (
-    <>
+
     <Container>
      
       <Row  className="d-flex justify-content-center align-items-center ">
@@ -27,7 +35,6 @@ export default function PcProducts ({addToCart}) {
       </Row>
     </Container>
 
-      </>
   );
 };
 

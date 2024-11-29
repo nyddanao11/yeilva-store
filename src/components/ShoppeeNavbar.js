@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, Nav, Container, Dropdown, NavDropdown, Offcanvas, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Dropdown, Modal, NavDropdown, Offcanvas, Button} from 'react-bootstrap';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaHome,  FaServicestack, FaGift, FaBars, FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt, FaTree, FaSnowflake } from 'react-icons/fa'; // Added FaTree and FaSnowflake
 import { FiUser } from 'react-icons/fi';
@@ -8,11 +8,25 @@ import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
 import { useMediaQuery } from 'react-responsive';
 
 
-function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
+export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
   const [userData, setUserData] = useState({ firstname: '' });
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+ const [showModal, setShowModal] = useState(false);
+ const [modalMessage, setModalMessage] = useState('');
+
+  const handleClose = () => setShowModal(false);
+  const handleShowModal = (message) => {
+  setModalMessage(message);
+  setShowModal(true);
+};
+
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+    // Redirect to login page
+    window.location.href = '/login'; // or use navigate('/login') if using react-router
+  };
 
 
   useEffect(() => {
@@ -32,15 +46,7 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
     fetchUser();
   }, [isLoggedIn]);
 
-  const handleAlertAndNavigate = (path) => {
-    if (!isLoggedIn) {
-      alert('Please log in to continue');
-      navigate('/login');
-    } else {
-      navigate(path);
-    }
-  };
-
+  
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
 
@@ -126,7 +132,19 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                       <Dropdown.Item>Hotel booking</Dropdown.Item>
                     </>
                   ) : (
-                    <Dropdown.Item onClick={() => { alert('Please log in to continue'); handleCloseOffcanvas(); }}>All services</Dropdown.Item>
+                    <>
+                        {/* Dropdown Item */}
+                       <Dropdown.Item
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                             handleShowModal('Please log in to view services.');
+                          }
+                          handleCloseOffcanvas(); // Close the offcanvas
+                        }}
+                      >
+                          All Services
+                        </Dropdown.Item>
+                      </>
                   )}
                 </NavDropdown>
               </Nav>
@@ -145,23 +163,47 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                 </Nav.Link>
               </Nav>
 
-              {/* Account section */}
-              <Nav.Link
-                as={NavLink}
-                to={isLoggedIn ? "/myaccount" : "#"}
-                style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
-                activeClassName="active"
-                onClick={!isLoggedIn ? () => handleAlertAndNavigate('/myaccount') : undefined}
-              >
-                {isLoggedIn ? (
-                  <>
-                    <FiUser style={{ marginRight: '0.5rem' }} />
-                    {`Hello, ${userData.firstname ?? 'loading...'}`}
-                  </>
-                ) : (
-                  'My account'
-                )}
-              </Nav.Link>
+                       {/* Account Section */}
+                <Nav.Link
+                  as={NavLink}
+                  to={isLoggedIn ? "/myaccount" : undefined} // Omit "to" if not logged in
+                  style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
+                  activeClassName="active"
+                    onClick={() => {
+                          if (!isLoggedIn) {
+                           handleShowModal('Please log in to access your account.');
+                          }
+                          handleCloseOffcanvas(); // Close the offcanvas
+                        }}
+                      
+                >
+                  {isLoggedIn ? (
+                    <>
+                      <FiUser style={{ marginRight: '0.5rem' }} />
+                      {`Hello, ${userData?.firstname ?? 'loading...'}`}
+                    </>
+                  ) : (
+                    'My Account'
+                  )}
+                </Nav.Link>
+
+              <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Authentication Required</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {modalMessage}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleLoginRedirect}>
+                    Log In
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
             </Nav>
 
             {/* Logout/Login buttons */}
@@ -223,7 +265,19 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
                   <Dropdown.Item>Hotel booking</Dropdown.Item>
                 </>
               ) : (
-                <Dropdown.Item onClick={() => { alert('Please log in to continue'); handleCloseOffcanvas(); }}>All services</Dropdown.Item>
+               <>
+                        {/* Dropdown Item */}
+                       <Dropdown.Item
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                             handleShowModal('Please log in to view services.');
+                          }
+                          handleCloseOffcanvas(); // Close the offcanvas
+                        }}
+                      >
+                          All Services
+                        </Dropdown.Item>
+                      </>
               )}
             </NavDropdown>
           </Nav>
@@ -231,7 +285,47 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
           <Nav className="flex-column" >
             <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight:'5px' }}/><strong>Deals</strong></Nav.Link>
             <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px'}} /> Get your freebies</Nav.Link>
-            <Nav.Link as={NavLink} to={isLoggedIn ? "/myaccount" : "/login"} onClick={handleCloseOffcanvas}><FiUser style={{ marginRight:'5px' }} /> {isLoggedIn ? ` Hello, ${userData.firstname ?? 'loading...'}` : 'My account'}</Nav.Link>
+                    {/* Account Section */}
+                <Nav.Link
+                  as={NavLink}
+                  to={isLoggedIn ? "/myaccount" : undefined} // Omit "to" if not logged in
+                  style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
+                  activeClassName="active"
+                    onClick={() => {
+                          if (!isLoggedIn) {
+                            handleShowModal('Please log in to access your account.');
+                          }
+                          handleCloseOffcanvas(); // Close the offcanvas
+                        }}
+                      
+                >
+                  {isLoggedIn ? (
+                    <>
+                      <FiUser style={{ marginRight: '0.5rem' }} />
+                      {`Hello, ${userData?.firstname ?? 'loading...'}`}
+                    </>
+                  ) : (
+                    'My Account'
+                  )}
+                </Nav.Link>
+
+              <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Authentication Required</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Please log in to continue accessing your account.
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleLoginRedirect}>
+                    Log In
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
             {isLoggedIn ? (
               <Nav.Link as={NavLink} to="/" onClick={() => { handleLogout(); handleCloseOffcanvas(); }}><FaSignOutAlt style={{ marginRight:'5px' }} />Logout</Nav.Link>
             ) : (
@@ -247,4 +341,3 @@ function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
   );
 }
 
-export default ShopeeNavbar;

@@ -5,7 +5,7 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
 
-const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
+export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -179,4 +179,4 @@ const Header = ({ cartCount, allProducts, addToCart, isLoggedIn }) => {
   );
 };
 
-export default Header;
+

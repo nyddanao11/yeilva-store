@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { beautyProductsData } from '../data/BeautyProductsData';
 import ImageProductBeauty from'../components/ImageProductBeauty';
 
 export default function BeautyProducts ({ addToCart }) {
+   const [beautyProductsData, setBeautyProductsData] = useState([]);
+
+  useEffect(() => {
+    // Dynamically import the data
+    import('../data/BeautyProductsData').then((module) => {
+      setBeautyProductsData(module.beautyProductsData);
+    });
+  }, []);
 
  return (
     <>
@@ -29,4 +36,5 @@ export default function BeautyProducts ({ addToCart }) {
       </>
   );
 };
+
 

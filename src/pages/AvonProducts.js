@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { avonproductsData } from '../data/AvonProductsData';
 import ImageProductAvon from '../components/ImageProductAvon';
 
-export default function AvonProducts ({ addToCart }) {
+
+export default function AvonProducts ({ addToCart })  {
+    const [avonproductsData, setAvonProductsData] = useState([]);
+
+  useEffect(() => {
+    // Dynamically import the data
+    import('../data/AvonProductsData').then((module) => {
+      setAvonProductsData(module.avonproductsData);
+    });
+  }, []);
+
   return (
     <>
     <Container>
@@ -28,4 +37,5 @@ export default function AvonProducts ({ addToCart }) {
       </>
   );
 };
+
 
