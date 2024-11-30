@@ -9,8 +9,10 @@ import LoanAccordion from '../components/LoanAccordion';
 import './LoanForm.css';
 import HoverButton from'../components/HoverButton'
 import YouMayLike from'../components/YouMayLike';
+import CameraCapture from'../components/CameraCapture';
 
-export default function LoanForm ({addToCart}) {
+
+export default function LoanForm ({addToCart, capturedImage}) {
   const [loanAmount, setLoanAmount] = useState('3000');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -22,10 +24,22 @@ export default function LoanForm ({addToCart}) {
     const [showModal, setShowModal] = useState(false); 
      const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [errorSelfie, setErrorSelfie] = useState(null);
 const [image, setImage] = useState(null);
   const [installmentChoice, setInstallmentChoice] = useState(null); // Track installment choice
    const [birthdayError, setBirthdayError] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
+    const [selfieImage, setSelfieImage] = useState(null); // Store captured selfie
+
+  const handleSelfieCapture = (capturedImage) => {
+    setSelfieImage(capturedImage);
+  };
+
+   // Convert selfieImage (data URL) to Blob
+  const convertToBlob = async (dataUrl) => {
+    const blob = await fetch(dataUrl).then((res) => res.blob());
+    return blob;
+  };
 
 
  // Validation function for age
@@ -118,8 +132,30 @@ try {
       return;
     }
 
+     if (!selfieImage) {
+      setErrorSelfie('Please upload your Selfie to proceed with the loan transaction.');
+        setLoading(false);
+      return;
+    }
+
+      // Convert selfieImage to Blob
+      let selfieBlob;
+      try {
+        selfieBlob = await convertToBlob(selfieImage);
+      } catch (error) {
+        console.error('Failed to convert selfie image to Blob:', error);
+        setLoading(false);
+        return;
+      }
+
       formData.append('installmentPlan', installmentChoice.plan);
       formData.append('installmentAmount', installmentChoice.amount);
+      formData.append('selfieimage', selfieBlob, 'selfieimage.png'); // Selfie Image
+
+    // Log FormData keys and values for debugging
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
 
   const response = await axios.post('https://yeilva-store-server.up.railway.app/api/saveLoanForm', formData, {
     headers: {
@@ -332,6 +368,25 @@ useEffect(() => {
     <Form.Control type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} required/>
   </FloatingLabel>
 </Form.Group>
+
+   {/* Upload Selfie */}
+          <div style={{ marginTop: '20px', marginBottom: '15px' }}>
+            <p>Take a Selfie:</p>
+           <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
+          </div>
+
+          {selfieImage && (
+            <div>
+              <p>Preview of your selfie:</p>
+              <img
+                src={selfieImage}
+                alt="Captured Selfie"
+                style={{ width: '100%', maxWidth: '300px', borderRadius: '8px' }}
+              />
+            </div>
+          )}
+           {errorSelfie && <p style={{ color: 'red', textAlign: 'center' }}>{errorSelfie}</p>}
+
  
        <div className={`d-flex justify-content-center align-items-center mt-4 mb-3 ${error ? 'error-border' : ''}`}>
             <p>Select a Plan:</p>

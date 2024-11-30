@@ -3,9 +3,10 @@ import { Form, Button, Row, Col, FloatingLabel, Spinner} from 'react-bootstrap';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link, useLocation} from'react-router-dom';
+import CameraCapture from'./CameraCapture';
 
-export default function CheckoutForm ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
-  selectedColor, ewalletStatus}) {
+export default function CheckoutForm  ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
+  selectedColor, ewalletStatus, capturedImage}) {
 
    const location = useLocation();
   const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
@@ -16,6 +17,13 @@ export default function CheckoutForm ({ cartItems, formattedGrandTotal, cartItem
     const [checkoutData, setCheckoutData] = useState('');
    const [image, setImage] = useState(null);
     const [installmentChoice, setInstallmentChoice] = useState(null); // Track installment choice
+    const [selfieImage, setSelfieImage] = useState(null); // Store captured selfie
+
+  const handleSelfieCapture = (capturedImage) => {
+    setSelfieImage(capturedImage);
+  };
+
+  console.log('selfie',handleSelfieCapture);
  
 const [userData, setUserData] = useState({
     firstname: '',
@@ -111,7 +119,7 @@ const handleEwalletsClick = (e) => {
     return ((total + total * 0.10) / months).toFixed(2); // Perform calculation
   };
 
-  const grandTotalToString = (formattedGrandTotal) => {
+ const grandTotalToString = (formattedGrandTotal) => {
     const total = parseCurrency(formattedGrandTotal); // Extract numeric value
     return total.toFixed(2); // Return as a string with 2 decimal places
   };
@@ -151,6 +159,12 @@ const cleanProductName = (productName) => {
     return productName.replace(/[{}"]/g, '').trim();
   };
 
+ // Convert selfieImage (data URL) to Blob
+  const convertToBlob = async (dataUrl) => {
+    const blob = await fetch(dataUrl).then((res) => res.blob());
+    return blob;
+  };
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -183,7 +197,7 @@ const handleSubmit = async (e) => {
   formData.append('quantity', cartItems.reduce((acc, item) => acc + item.quantity, 0));
   formData.append('total', formattedGrandTotal);
   formData.append('paymentOption', selectedPayment);
-
+  
   // For non-FormData submissions, create a JSON payload
   const cashOnDelivery = {
     ...userData,
@@ -219,13 +233,43 @@ const handleSubmit = async (e) => {
         return;
       }
 
+
+    if (!selfieImage) {
+       setPaymentErrors((prevErrors) => ({
+          ...prevErrors,
+          installment: 'Please upload your Selfie to proceed with the installment payment.',
+        }));
+        setLoading(false);
+      return;
+    }
+
+// Convert selfieImage to Blob
+let selfieBlob;
+try {
+  selfieBlob = await convertToBlob(selfieImage);
+} catch (error) {
+  console.error('Failed to convert selfie image to Blob:', error);
+  setLoading(false);
+  return;
+}
       // Append installment-specific fields
       formData.append('installmentPlan', installmentChoice.plan);
       formData.append('installmentAmount', installmentChoice.amount);
       formData.append('installmentImage', image);
+    formData.append('selfie', selfieBlob, 'selfie.png'); // Selfie Image
+
+// Log FormData keys and values for debugging
+for (const [key, value] of formData.entries()) {
+  console.log(key, value);
+}
+
 
       // Send Installment request
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData);
+            const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log(response.data);
       setShowModal(true);
       return; // End after successful Installment submission
@@ -508,8 +552,25 @@ return (
                   <Form.Control type="file" accept="image/*"  onChange={handleImageChange} />
                 </FloatingLabel>
               </Form.Group>
+     
+          {/* Upload Selfie */}
+          <div style={{ marginTop: '20px', marginBottom: '15px' }}>
+            <p>Take a Selfie:</p>
+           <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
+          </div>
 
-             <div className="d-flex justify-content-center align-items-center mt-4 mb-3">
+          {selfieImage && (
+            <div>
+              <p>Preview of your selfie:</p>
+              <img
+                src={selfieImage}
+                alt="Captured Selfie"
+                style={{ width: '100%', maxWidth: '300px', borderRadius: '8px' }}
+              />
+            </div>
+          )}
+
+            <div className="d-flex justify-content-center align-items-center mt-4 mb-3">
             <p>Select a Plan:</p>
              <Button
                 variant={installmentChoice?.plan === 2 ? "success" : "outline-secondary"}
@@ -529,17 +590,18 @@ return (
               </Button>
 
             </div>
-
-
+         
 
              {paymentErrors.installment && (
               <div style={{ color: 'red', marginTop: '10px', marginBottom: '10px' }}>
                 {paymentErrors.installment}
               </div>
             )}
-               <Link to="/installmentterms" style={{  marginBottom: '10px', marginRight: '15px'  }}>
+             
+                <Link to="/installmentterms" style={{  marginBottom: '10px', marginRight: '15px'  }}>
                   Terms & Conditions
                 </Link>
+             
             </>
           )}
 
