@@ -5,43 +5,27 @@ import axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-const GcashSettlement = () => {
+export default function GcashSettlement() {
+  // Generate a new transaction code
+  const generateTransactionCode = () => uuidv4().slice(0, 8).toUpperCase();
+
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required('First Name is required'),
     lastname: Yup.string().required('Last Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     amount: Yup.string().required('Amount is required'),
-    purpose:Yup.string().required('Purpose is required'),
+    purpose: Yup.string().required('Purpose is required'),
+    deadline: Yup.date().required('Deadline is required').nullable(),
     transactionCode: Yup.string().required('Transaction Code is required'),
-    image: Yup.mixed().required('An image is required'),
   });
 
   const [loading, setLoading] = useState(false);
   const [transactionCode, setTransactionCode] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
-  const [initialImageFile, setInitialImageFile] = useState(null); // To store image file in initial values
 
-  const generateTransactionCode = () => uuidv4().slice(0, 8).toUpperCase();
-
+  // Generate transaction code when the component loads
   useEffect(() => {
-  const loadDefaultImage = async () => {
-    try {
-      const response = await fetch(`${process.env.PUBLIC_URL}/images/gcashqrcode.jpg`);
-      const blob = await response.blob();
-      const defaultFile = new File([blob], 'default-image.jpg', { type: blob.type });
-      const imageUrl = URL.createObjectURL(blob);
-      setPreviewImage(imageUrl);
-      setInitialImageFile(defaultFile); // Save the default file
-    } catch (error) {
-      console.error('Error loading default image:', error);
-    }
-  };
-
-  setTransactionCode(generateTransactionCode());
-  loadDefaultImage();
-}, []);
+    setTransactionCode(generateTransactionCode());
+  }, []);
 
   return (
     <Container fluid className="d-flex justify-content-center align-items-center" style={{ backgroundColor: "#f8f9fa" }}>
@@ -49,56 +33,50 @@ const GcashSettlement = () => {
         <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
           <Card className="p-3 shadow">
             <Card.Body>
-               <Formik
-                    enableReinitialize
-                    initialValues={{
-                      firstname: '',
-                      lastname: '',
-                      email: '',
-                      amount: '',
-                      purpose: '',
-                      transactionCode: transactionCode,
-                      image: initialImageFile, // Dynamically set the initial file
-                    }}
-                    validationSchema={validationSchema}
-                    onSubmit={(values, actions) => {
-                      setLoading(true);
-                      const formData = new FormData();
-                      Object.keys(values).forEach((key) => formData.append(key, values[key]));
-                      axios
-                        .post('https://yeilva-store-server.up.railway.app/gcashsettlement', formData, {
-                          headers: { 'Content-Type': 'multipart/form-data' },
-                        })
-                        .then((response) => {
-                          if (response.status === 200) {
-                            alert('Transaction Successfully Recorded!');
-                            actions.resetForm({
-                              values: {
-                                firstname: '',
-                                lastname: '',
-                                email: '',
-                                amount: '',
-                                purpose: '',
-                                transactionCode: generateTransactionCode(),
-                                image: initialImageFile, // Reset to default image
-                              },
-                            });
-                            setPreviewImage(null);
-                              // Refresh the page after successful transaction
-                             window.location.reload();
-                          }
-                        })
-                        .catch((error) => {
-                          console.error('Error submitting form data:', error);
-                          setErrorMessage('Error recording transaction. Please try again.');
-                        })
-                        .finally(() => {
-                          setLoading(false);
-                          actions.setSubmitting(false);
-                        });
-                    }}
-                  >
+              <Formik
+                enableReinitialize
+                initialValues={{
+                  firstname: '',
+                  lastname: '',
+                  email: '',
+                  amount: '',
+                  purpose: '',
+                  deadline: '',
+                  transactionCode: transactionCode, // Initialize with generated code
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(values, actions) => {
+                  setLoading(true);
 
+                  axios
+                    .post('https://yeilva-store-server.up.railway.app/gcashsettlement', values)
+                    .then((response) => {
+                      if (response.status === 200) {
+                        alert('Transaction Successfully Recorded!');
+                        actions.resetForm({
+                          values: {
+                            firstname: '',
+                            lastname: '',
+                            email: '',
+                            amount: '',
+                            purpose: '',
+                            deadline: '',
+                            transactionCode: generateTransactionCode(), // Regenerate code
+                          },
+                        });
+                        setTransactionCode(generateTransactionCode()); // Update state with new code
+                      }
+                    })
+                    .catch((error) => {
+                      console.error('Error submitting form data:', error);
+                      alert('Error recording transaction. Please try again.');
+                    })
+                    .finally(() => {
+                      setLoading(false);
+                      actions.setSubmitting(false);
+                    });
+                }}
+              >
                 {({
                   values,
                   errors,
@@ -107,9 +85,7 @@ const GcashSettlement = () => {
                   handleBlur,
                   handleSubmit,
                   isSubmitting,
-                  setFieldValue,
                 }) => (
-
                   <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="firstname">
                       <Form.Label>First Name</Form.Label>
@@ -120,7 +96,6 @@ const GcashSettlement = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.firstname && !!errors.firstname}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">{errors.firstname}</Form.Control.Feedback>
                     </Form.Group>
@@ -134,7 +109,6 @@ const GcashSettlement = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.lastname && !!errors.lastname}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">{errors.lastname}</Form.Control.Feedback>
                     </Form.Group>
@@ -148,7 +122,6 @@ const GcashSettlement = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.email && !!errors.email}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                     </Form.Group>
@@ -162,12 +135,11 @@ const GcashSettlement = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.amount && !!errors.amount}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">{errors.amount}</Form.Control.Feedback>
                     </Form.Group>
 
-                      <Form.Group controlId="purpose">
+                    <Form.Group controlId="purpose">
                       <Form.Label>Purpose</Form.Label>
                       <Form.Control
                         type="text"
@@ -176,32 +148,22 @@ const GcashSettlement = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.purpose && !!errors.purpose}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">{errors.purpose}</Form.Control.Feedback>
                     </Form.Group>
 
-                      <Form.Group controlId="image">
-                      <Form.Label>Upload GCash QR Code</Form.Label>
+                    <Form.Group controlId="deadline">
+                      <Form.Label>Deadline</Form.Label>
                       <Form.Control
-                        type="file"
-                        name="image"
-                        onChange={(event) => {
-                          const file = event.currentTarget.files[0];
-                          setFieldValue("image", file);
-                          setPreviewImage(URL.createObjectURL(file));
-                        }}
-                        isInvalid={touched.image && !!errors.image}
+                        type="date"
+                        name="deadline"
+                        value={values.deadline}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isInvalid={touched.deadline && !!errors.deadline}
                       />
-                      <Form.Control.Feedback type="invalid">{errors.image}</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid">{errors.deadline}</Form.Control.Feedback>
                     </Form.Group>
-
-                    {/* Preview the loaded or selected image */}
-                    {previewImage && (
-                      <div className="my-3">
-                        <img src={previewImage} alt="Preview" style={{ maxWidth: '200px', height: 'auto' }} />
-                      </div>
-                    )}
 
                     <Form.Group controlId="transactionCode">
                       <Form.Label>Transaction Code</Form.Label>
@@ -229,6 +191,4 @@ const GcashSettlement = () => {
       </Row>
     </Container>
   );
-};
-
-export default GcashSettlement;
+}

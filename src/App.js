@@ -64,6 +64,8 @@ const ClickMens = React.lazy(() => import('./components/Fashion/ClickMens'));
 const ClickMensShoes = React.lazy(() => import('./components/Fashion/ClickMensShoes'));
 const ClickWomensShoes = React.lazy(() => import('./components/Fashion/ClickWomensShoes'));
 const ClickYouMayLike = React.lazy(() => import('./pages/ClickYouMayLike'));
+const YouMayLike = React.lazy(() => import('./components/YouMayLike'));
+const YouMayLikeProduct = React.lazy(() => import('./components/YouMayLikeProduct'));
 const GroceryItems = React.lazy(() => import('./pages/GroceryItems'));
 
 const CheckoutHistoryPage = React.lazy(() => import('./components/CheckoutHistoryPage'));
@@ -92,6 +94,7 @@ const RaffleMechanics = React.lazy(() => import('./components/RaffleMechanics'))
 const BarleyGrassJuice = React.lazy(() => import('./components/SqueezePage/SqueezePageBarley'));
 const NewsletterForm = React.lazy(() => import('./components/Newsletter'));
 const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookingForm'));
+const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
 
 
  function App() {
@@ -299,7 +302,8 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                            <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
-                          <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                        <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                    <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
 
                            
                  <Route component={NotFoundPage} />
@@ -379,6 +383,7 @@ const handleLogout = () => {
                              <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
+                    <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
 
 
                  <Route component={NotFoundPage} />
@@ -466,7 +471,8 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                              <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
-                        <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                          <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                    <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
 
 
 
@@ -548,6 +554,7 @@ const handleLogout = () => {
                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
+                    <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
 
 
                  <Route component={NotFoundPage} />
