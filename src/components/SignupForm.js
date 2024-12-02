@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import {Form, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
+import {Form, Button, Container, Row, Col, Spinner, Card, InputGroup} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function SignUpForm () {
   const [serverResponse, setServerResponse] = useState('');
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
+   const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required('First Name is required'),
@@ -155,19 +161,26 @@ export default function SignUpForm () {
                       <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                     </Form.Group>
 
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        isInvalid={touched.password && !!errors.password}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-                    </Form.Group>
+                  <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={touched.password && !!errors.password}
+                    required
+                  />
+                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </InputGroup.Text>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
 
       
         <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading || isSubmitting}>

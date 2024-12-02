@@ -119,7 +119,7 @@ const isButtonDisabled = !isLoggedIn || isEmptyObject(settlements);
           <Card className="p-3 shadow">
             <Card.Body>
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <p>Please Pay: <strong>{settlements.amount || 'N/A'}</strong></p>
+                <p>Please Pay: <strong>₱{settlements.amount || 'N/A'}</strong></p>
                 <p>Deadline: <strong>{settlements.deadline || 'No deadline specified'}</strong></p>
                 <p>Purpose: <strong>{settlements.purpose || 'No purpose specified'}</strong></p>
                 <p>Transaction Code: <strong>{settlements.transaction_code || 'No code specified'}</strong></p>

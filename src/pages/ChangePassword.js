@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, InputGroup} from 'react-bootstrap';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-export default function ChangePassword () {
+export default function ChangePassword ()  {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   // Retrieve email from location state
   const email = location.state?.email || '';
@@ -61,27 +68,39 @@ export default function ChangePassword () {
         <Col xs={12} md={6}>
           <h2>Change Password</h2>
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="password">
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your new password"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-              />
-            </Form.Group>
+              <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                     placeholder="Enter your new password"
+                    name="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    required
+                  />
+                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
 
-            <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Confirm your new password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                required
-              />
-            </Form.Group>
+               <Form.Group controlId="confirmPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Confirm your new password"
+                    name="password"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    required
+                  />
+                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
 
             <Button variant="primary" type="submit" className="w-100 mt-3">
               Change Password
@@ -94,4 +113,5 @@ export default function ChangePassword () {
     </Container>
   );
 };
+
 

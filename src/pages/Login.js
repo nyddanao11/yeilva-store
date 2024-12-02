@@ -1,9 +1,11 @@
 // Import necessary modules
 import React, { useState} from 'react';
-import { Form, Button, Container, Row, Col, Spinner, Card } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Spinner, Card, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './loginContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login ({ handleLogin }) {
   const [formData, setFormData] = useState({
@@ -16,6 +18,11 @@ export default function Login ({ handleLogin }) {
   const [loading, setLoading] = useState(false);
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [serverResponse, setServerResponse] = useState('');
+ const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const { login } = useAuth();
   const navigate =useNavigate()
@@ -124,16 +131,21 @@ export default function Login ({ handleLogin }) {
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="password">
-                  <Form.Label>Password</Form.Label>
+              <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <InputGroup>
                   <Form.Control
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
                     required
                   />
-                </Form.Group>
+                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
                  <Button variant="primary" type="submit" className="w-100 mt-4" disabled={loading}>
                   {loading ? 'Logging in...' : 'Log in'}
                 </Button>
