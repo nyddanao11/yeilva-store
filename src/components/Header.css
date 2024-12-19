@@ -74,8 +74,15 @@
   top: 7px;
 }
 
-/* Search link styling */
 .search-link {
   text-decoration: none;
   color: #71777D;
 }
+
+.search-link:focus,
+.search-link:active {
+  color: #71777D; /* Keeps the same color as the default state */
+  outline: none;  /* Removes the default focus outline */
+  box-shadow: none; /* Removes any focus-related shadows */
+}
+

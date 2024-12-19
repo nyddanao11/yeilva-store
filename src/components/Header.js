@@ -105,27 +105,57 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
                 />
             </div>
         </Form>
+{showDropdown && (
+  <Dropdown.Menu
+    show
+    className="search-suggestions"
+    ref={dropdownRef}
+    aria-label="Search Suggestions"
+  >
+    {suggestions.length > 0 ? (
+      suggestions.map((product) => (
+        <Dropdown.Item
+          key={product.id}
+          onClick={() => handleSuggestionClick(product)}
+          aria-label={`Suggestion for ${product.name}`}
+        >
+          <div className="d-flex align-items-center">
+            <span>{product.name}</span>
+          </div>
+        </Dropdown.Item>
+      ))
+    ) : (
+      <Dropdown.Item className="text-muted">
+        <Link to="/signupform" className="search-link">
+          {!isLoggedIn
+            ? 'Signup to avail our services & deals'
+            : 'No results found'}
+        </Link>
+      </Dropdown.Item>
+    )}
 
-          {showDropdown && (
-            <Dropdown.Menu show className="search-suggestions" ref={dropdownRef}>
-              {suggestions.length > 0 ? (
-                suggestions.map((product) => (
-                  <Dropdown.Item
-                    key={product.id}
-                    onClick={() => handleSuggestionClick(product)}
-                  >
-                    <div className="d-flex align-items-center">
-                      <span>{product.name}</span>
-                    </div>
-                  </Dropdown.Item>
-                ))
-              ) : (
-                <Dropdown.Item className="text-muted"><Link to="/signupform" className="search-link">{!isLoggedIn ? 'Signup to avail our services & deals' : 'No results found'}</Link>
-           </Dropdown.Item>
-              )}
-            </Dropdown.Menu>
-          )}
- 
+    {/* Static Frequently Searched Section */}
+    <Dropdown.Item>
+      <div className="text-muted mt-2">
+        <p>You may also like:</p>
+        <ul className="list-unstyled">
+          <li>
+            <Link to="/products" className="search-link">
+              Health & Wellness Products
+            </Link>
+          </li>
+          <li>
+            <Link to="/beautyproducts" className="search-link">
+              Beauty Products
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </Dropdown.Item>
+  </Dropdown.Menu>
+)}
+
+
      <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
           <FaShoppingCart size={22} />
           <span className="cart-count">{cartCount}</span>

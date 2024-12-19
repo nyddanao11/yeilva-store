@@ -63,7 +63,7 @@ const NewUserDiscount = () => {
                         <Card.Body>
                           <div style={{marginBottom:"30px", textAlign:'center'}}>
                             <h4>Register to Get Your 15% Discount Voucher</h4>
-                            <p>(Expires on October 31, 2024)</p>
+                            <p>(Expires on December 31, 2024)</p>
                              <h5>Time Remaining:</h5>
                              <p>{timeRemaining}</p>
                             </div>
