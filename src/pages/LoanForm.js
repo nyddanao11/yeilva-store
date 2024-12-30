@@ -416,7 +416,7 @@ useEffect(() => {
         
          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
 
-     <Button variant="primary" type="submit" className="w-100 mt-3"  disabled={loading || !installmentChoice}>
+     <Button style={{backgroundColor:'#E92409', border:'none'}} type="submit" className="w-100 mt-3"  disabled={loading || !installmentChoice}>
       {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Submit'}
     </Button>
 

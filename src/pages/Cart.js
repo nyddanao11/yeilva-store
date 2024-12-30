@@ -72,7 +72,7 @@ const handleCheckoutClick = () => {
       <div className="sticky-footer">
         <h2>Total Price: {formattedPrice}</h2>
     
-        <Button className="w-100" variant="primary" onClick={handleCheckoutClick}>
+        <Button className="w-100" style={{backgroundColor:'#E92409', border:'none'}} onClick={handleCheckoutClick}>
           Proceed to Checkout
         </Button>
       </div>

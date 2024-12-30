@@ -137,7 +137,7 @@ export default function CheckoutPage ({
               </div>
               <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
               <div className="d-flex">
-                <Button onClick={handleProceedToCheckout}>Continue to Shipping</Button>
+                <Button onClick={handleProceedToCheckout} style={{backgroundColor:'#E92409', border:'none'}}>Continue to Shipping</Button>
                 <Link to="/cart">
                   <Button variant="primary" className="ms-2">
                     Back to Cart

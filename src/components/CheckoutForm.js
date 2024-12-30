@@ -484,7 +484,7 @@ return (
   </ul>
 
 
-    <Button variant="primary" onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px', padding:'0px 10px'}}>
+   <Button variant='outline-secondary' onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px', padding:'6px 6px'}}>
             Back to Cart
     </Button>
 </div>
@@ -606,7 +606,7 @@ return (
           )}
 
           <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
-          <Button variant="danger" type="submit" className="mb-2 mt-2" disabled={isButtonDisabled } style={{ width: '100%' }}>
+          <Button type="submit" className="mb-2 mt-2" disabled={isButtonDisabled } style={{ width: '100%', backgroundColor:'#E92409', border:'none'}}>
             {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
           </Button>
           </div>
