@@ -139,7 +139,7 @@ export default function CheckoutPage ({
               <div className="d-flex">
                 <Button onClick={handleProceedToCheckout} style={{backgroundColor:'#E92409', border:'none'}}>Continue to Shipping</Button>
                 <Link to="/cart">
-                  <Button variant="primary" className="ms-2">
+                 <Button variant="outline-secondary" className="ms-2">
                     Back to Cart
                   </Button>
                 </Link>
