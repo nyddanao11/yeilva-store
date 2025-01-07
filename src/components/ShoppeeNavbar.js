@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, Modal, NavDropdown, Offcanvas, Button} from 'react-bootstrap';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaHome,  FaServicestack, FaGift, FaBars, FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt, FaTree, FaSnowflake } from 'react-icons/fa'; // Added FaTree and FaSnowflake
+import { FaHome,  FaServicestack, FaGift, FaBars, FaTags, FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt, FaTree, FaSnowflake } from 'react-icons/fa'; // Added FaTree and FaSnowflake
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
@@ -53,24 +53,24 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
   return (
     <>
       {/* Navbar with Christmas colors */}
-      <Navbar bg="white" variant="light" expand="lg" className="shadow-sm christmas-navbar">
+      <Navbar bg="white" variant="light" expand="lg" className="shadow-sm ">
         <Container>
           {isSmallScreen? (
 
           <>
           {/* Home icon with Christmas tree */}
           <Navbar.Brand as={Link} to="/" className="home text-dark" >
-            <FaTree size={24} style={{ borderRadius: '5px', color: 'green' }}/>
+            <FaHome size={24} style={{ borderRadius: '5px', color:'#5D5D5D' }}/>
           </Navbar.Brand>
                   <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: 'green', backgroundColor: '#FFD700', borderRadius: '5px' }}>
-                  <FaGift style={{ marginRight: '5px' }} /> <strong>Deals</strong>
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700', borderRadius: '5px' }}>
+                  <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>
               {/* Freebies with Snowflake icon */}
               <Nav>
-                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: 'green' }}>
-                  <FaSnowflake style={{ marginRight: '5px' }} /> FREEstuff
+                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D' }}>
+                  <FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> FREEstuff
                 </Nav.Link>
               </Nav>
               </>
@@ -79,7 +79,7 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
           <>
           {/* Home icon with Christmas tree */}
           <Navbar.Brand as={Link} to="/" className="home text-dark" >
-            <FaTree size={24} style={{ borderRadius: '5px', color: 'green' }}/>
+            <FaHome size={24} style={{ borderRadius: '5px', color: '#5D5D5D' }}/>
           </Navbar.Brand>
 
             <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
@@ -151,15 +151,15 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
 
               {/* Christmas Deals section */}
               <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green', backgroundColor: '#FFD700', borderRadius: '5px' }}>
-                  <FaGift style={{ marginRight: '5px' }} /> <strong>Christmas Deals</strong>
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700', borderRadius: '5px' }}>
+                  <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>
 
               {/* Freebies with Snowflake icon */}
               <Nav>
-                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green' }}>
-                  <FaSnowflake style={{ marginRight: '5px' }} /> Get your freebies
+                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D' }}>
+                  <FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> Get your freebies
                 </Nav.Link>
               </Nav>
 
@@ -214,8 +214,8 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
                 </Nav.Link>
               ) : (
                 <>
-                  <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green' }} activeClassName="active">Login</Nav.Link>
-                  <Nav.Link as={NavLink} to="/signupform" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'green' }} activeClassName="active">Sign up</Nav.Link>
+                  <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'black' }} activeClassName="active">Login</Nav.Link>
+                  <Nav.Link as={NavLink} to="/signupform" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'black' }} activeClassName="active">Sign up</Nav.Link>
                 </>
               )}
             </Nav>
@@ -283,8 +283,8 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
           </Nav>
 
           <Nav className="flex-column" >
-            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight:'5px' }}/><strong>Deals</strong></Nav.Link>
-            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px'}} /> Get your freebies</Nav.Link>
+            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight: '5px', color: '#5D5D5D' }}/>Deals</Nav.Link>
+            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> Get your freebies</Nav.Link>
                     {/* Account Section */}
                 <Nav.Link
                   as={NavLink}
