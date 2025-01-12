@@ -158,7 +158,7 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
 
               {/* Freebies with Snowflake icon */}
               <Nav>
-                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D' }}>
+                <Nav.Link as={NavLink} to="/freebies" style={{ marginLeft:'6px', paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D' }}>
                   <FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> Get your freebies
                 </Nav.Link>
               </Nav>
@@ -167,7 +167,7 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
                 <Nav.Link
                   as={NavLink}
                   to={isLoggedIn ? "/myaccount" : undefined} // Omit "to" if not logged in
-                  style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
+                  style={{ marginLeft:'6px', paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
                   activeClassName="active"
                     onClick={() => {
                           if (!isLoggedIn) {

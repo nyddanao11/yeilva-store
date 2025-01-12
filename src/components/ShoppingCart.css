@@ -33,10 +33,11 @@ padding-bottom: 8px;
   margin: 0 0px; /* Adjust the margin as needed */
 }
 
+
 .quantity-value {
-  font-size: 18px; /* Adjust the font size as needed */
+  font-size: 16px; /* Adjust the font size as needed */
   text-align: center; /* Center the quantity input */
-  border: 1px solid;
+  border: 1px solid #5D5D5D;
 
 }
 
@@ -64,6 +65,6 @@ padding-bottom: 8px;
   object-fit: cover;
   cursor: pointer;
 }
-.hover-white:hover {
+.onhover:hover {
   color: white;
 }

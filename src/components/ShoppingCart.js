@@ -22,6 +22,12 @@ export default function ShoppingCart ({
  const backToHome=()=>{  
 navigate ('/');
 }
+const login =()=>{
+  navigate('/login');
+}
+const signup =()=>{
+  navigate('/signupform');
+}
   const handleThumbnailClick = (itemId, imageUrl) => {
     // Update the selected thumbnail for the specific item
     setSelectedThumbnails((prevSelectedThumbnails) => ({
@@ -50,8 +56,8 @@ navigate ('/');
              <h6>Shop today's deals</h6>
              </div>
              <div className="d-flex justify-content-center align-items-center text-center">
-              <Button variant="outline-success" style={{marginRight:'6px'}}> <Link to="/login" className=" text-black text-decoration-none hover-white"> Login </Link> </Button>
-               <Button variant="outline-success"> <Link to="/signupform" className="text-black text-decoration-none hover-white"> Signup </Link> </Button> 
+              <Button variant="outline-success" className=" onhover" style={{marginRight:'6px'}} onClick ={login}> Login </Button>
+               <Button variant="outline-success" className=" onhover" onClick ={signup}> Signup </Button> 
                </div>
                </Col>  
                )}           
