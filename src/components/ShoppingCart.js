@@ -42,7 +42,7 @@ const signup =()=>{
       <ListGroup className="cart-group">
         {cartItems.length === 0 ? (
           <ListGroup.Item className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-       <Card className="image-description border-0" > 
+         <Card className="image-description border-0" > 
          <Card.Body> 
          <Row className="justify-content-center">    
           <Col lg={4} md={4} xs={6} className="d-flex flex-column justify-content-center align-items-center text-center"> 
@@ -56,7 +56,7 @@ const signup =()=>{
              <h6>Shop today's deals</h6>
              </div>
              <div className="d-flex justify-content-center align-items-center text-center">
-              <Button variant="outline-success" className=" onhover" style={{marginRight:'6px'}} onClick ={login}> Login </Button>
+              <Button variant="outline-success" className=" onhover" style={{marginRight:'6px'}} onClick ={login}>  Login </Button>
                <Button variant="outline-success" className=" onhover" onClick ={signup}> Signup </Button> 
                </div>
                </Col>  
@@ -64,6 +64,7 @@ const signup =()=>{
                </Row>
               </Card.Body> 
             </Card>
+           
           </ListGroup.Item>
         ) : (
           cartItems.map((cartItem) => (
