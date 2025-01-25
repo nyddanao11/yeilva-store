@@ -98,11 +98,11 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                   <img src={`${process.env.PUBLIC_URL}/images/gcashlogo.png`} alt="GCash Logo" style={{ width: '35px', height: '35px' }} /> Pay with GCash
                 </Button>
 
-                 <Button variant="outline-secondary" className="btn-sm mt-4 mb-2">
-                <Link to="/checkoutform" style={{ textDecoration: 'none', color: 'black' }}>
-                  Back to Checkout
+                 <Link to="/checkoutform">
+                  <Button variant="outline-secondary" className="btn-sm mt-3 mb-2">
+                    Back to Checkout
+                  </Button>
                 </Link>
-              </Button>
 
               </div>
 

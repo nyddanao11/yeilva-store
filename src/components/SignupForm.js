@@ -173,7 +173,7 @@ export default function SignUpForm () {
                     isInvalid={touched.password && !!errors.password}
                     required
                   />
-                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer", background:'#E8F0FE' }}>
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                   </InputGroup.Text>
                   <Form.Control.Feedback type="invalid">

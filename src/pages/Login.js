@@ -141,7 +141,7 @@ export default function Login ({ handleLogin }) {
                     onChange={handleInputChange}
                     required
                   />
-                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                  <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer", background:'#E8F0FE' }}>
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                   </InputGroup.Text>
                 </InputGroup>
