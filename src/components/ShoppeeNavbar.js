@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, Modal, NavDropdown, Offcanvas, Button} from 'react-bootstrap';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaHome,  FaServicestack, FaGift, FaBars, FaTags, FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt, FaTree, FaSnowflake } from 'react-icons/fa'; // Added FaTree and FaSnowflake
+import { Link, NavLink} from 'react-router-dom';
+import { FaHome,  FaServicestack, FaGift, FaBars,FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt} from 'react-icons/fa'; // Added FaTree and FaSnowflake
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
@@ -11,7 +11,6 @@ import { useMediaQuery } from 'react-responsive';
 export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
   const [userData, setUserData] = useState({ firstname: '' });
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
  const [showModal, setShowModal] = useState(false);
  const [modalMessage, setModalMessage] = useState('');
@@ -283,8 +282,8 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
           </Nav>
 
           <Nav className="flex-column" >
-            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight: '5px', color: '#5D5D5D' }}/>Deals</Nav.Link>
-            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> Get your freebies</Nav.Link>
+            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight: '5px'}}/>Deals</Nav.Link>
+            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px'}} /> Get your freebies</Nav.Link>
                     {/* Account Section */}
                 <Nav.Link
                   as={NavLink}

@@ -1,4 +1,24 @@
 export const deals = [
+  {
+  id: 1,
+  name: "Mangosteen Coffee",
+  url: `${process.env.PUBLIC_URL}/images/mangosteen.png`,
+  price: 161,
+   discountedPrice: 230,
+  percentage:"-30%",
+   weight:120,
+      stock: 10,
+  description: "Mangosteen Coffee with moringa is perfect to start your day for its true coffee taste sweetened by stevia.Mangosteen is a potent source of anti-oxidant blended with Moringa leaf powder that is a remarkable source of nutrition. Mangosteen boosts immune system, Moringa controls blood pressure and Stevia protects the bone and reduces heart burn",               
+    thumbnails:
+      [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen2.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen3.png`,
+       `${process.env.PUBLIC_URL}/images/dealsthumb/mangoesteen4.png`,
+      ],
+  productdetails:"10 Sachets of 12g sweetened with stevia,  BFAD#1009889000",
+     sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+},
 {
   id: 6,
   name: "Primeshape",
