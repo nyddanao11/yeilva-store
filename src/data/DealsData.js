@@ -1,6 +1,6 @@
 export const deals = [
   {
-  id: 1,
+  id: 500,
   name: "Mangosteen Coffee",
   url: `${process.env.PUBLIC_URL}/images/mangosteen.png`,
   price: 161,
@@ -20,7 +20,7 @@ export const deals = [
      shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
 },
 {
-  id: 6,
+  id: 501,
   name: "Primeshape",
   url:  `${process.env.PUBLIC_URL}/images/primeshape.jpg`,
   price: 78,
@@ -41,7 +41,7 @@ export const deals = [
 
  },
 {
-  id: 4,
+  id: 502,
   name: "Acai Berry 500ml",
   url:  `${process.env.PUBLIC_URL}/images/acai.jpg`,
   price: 715,
@@ -60,7 +60,7 @@ export const deals = [
      shipping:'1bottle, size: 500ml',
   },
 {
-  id: 3,
+  id: 503,
   name: "Barley Grass Juice",
   url:  `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
   price: 528,
@@ -79,7 +79,7 @@ export const deals = [
      shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
  },
 {
-  id: 5,
+  id: 504,
   name: "Absorbent Cee",
   url:  `${process.env.PUBLIC_URL}/images/absorbent c.png`,
   price: 412,

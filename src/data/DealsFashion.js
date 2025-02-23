@@ -1,6 +1,6 @@
 export const dealsFashion = [
 {
-  id: 7,
+  id: 530,
   name: "Jag Jeans",
   url:  `${process.env.PUBLIC_URL}/images/jag.jpg`,
   price:324.5,
@@ -21,7 +21,7 @@ export const dealsFashion = [
    shipping:'1 women shirt',
 },
 {
-  id: 8,
+  id: 531,
   name: "J&G",
   url:  `${process.env.PUBLIC_URL}/images/j&g.jpg`,
   price: 299.5,

@@ -38,20 +38,22 @@ export default function CheckoutPage ({
   }, [cartItems]);
 
   useEffect(() => {
-    const FREE_SHIPPING_THRESHOLD = 2500; // Set your free shipping threshold here
-    if (totalItemsPrice > FREE_SHIPPING_THRESHOLD) {
-      setShippingRate(0);
-      setIsFreeShipping(true);
-      setShowFreeShippingAlert(true);
-    } else {
-      const calculatedShippingRate = (
-        cartItems.reduce((total, item) => total + item.weight * 0.145, 0) + 30
-      ).toFixed(2);
-      setShippingRate(Number(calculatedShippingRate));
-      setIsFreeShipping(false);
-      setShowFreeShippingAlert(false);
-    }
-  }, [cartItems, totalItemsPrice]);
+  const FREE_SHIPPING_THRESHOLD = 2500; // Set your free shipping threshold here
+  if (totalItemsPrice > FREE_SHIPPING_THRESHOLD ) {
+    setShippingRate(0);
+    setIsFreeShipping(true);
+    setShowFreeShippingAlert(true);
+  } else {
+    const totalWeight =cartItems.reduce((total, item) => total + item.weight, 0);
+    const newMultiplier = totalWeight > 0 ? (0.145 + 30  / totalWeight) : 0; // Avoid division by zero
+    const calculatedShippingRate = (
+      cartItems.reduce((total, item) => 
+        total + item.weight * newMultiplier, 0)).toFixed(2);
+    setShippingRate(Number(calculatedShippingRate));
+    setIsFreeShipping(false);
+    setShowFreeShippingAlert(false);
+  }
+}, [cartItems, totalItemsPrice]);
 
   const handleVoucherCode = (code) => {
     setVoucherCode(code / 100); // Convert to a decimal for discount calculation

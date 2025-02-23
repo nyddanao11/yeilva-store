@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdVitamins from './findProductByIdVitamins';
@@ -6,13 +6,14 @@ import './ClickBeverages.css';
 import '../LoanForm.css';
 import BreadCrumbVitamins from'./BreadCrumbVitamins';
 import YouMayLike from'../YouMayLike';
+import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
 export default function ClickVitamins ({ addToCart, isLoggedIn }) {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
    const [selectedThumbnails, setSelectedThumbnails] =  useState({});
-
+  const [freeShippingPlace, setFreeShippingPlace] = useState(false);
  
   const handleThumbnailClick = (itemId, imageUrl) => {
     // Update the selected thumbnail for the specific item
@@ -40,7 +41,10 @@ export default function ClickVitamins ({ addToCart, isLoggedIn }) {
  const stockStatus = () => {
   return stockState <= 0;
 };
-
+useEffect(()=>{
+  if(product.place ==='maslog')
+      {setFreeShippingPlace(true)}
+},[])
 
   if (!product) {
     // Handle the case where the product with the specified ID is not found
@@ -86,7 +90,7 @@ export default function ClickVitamins ({ addToCart, isLoggedIn }) {
 
         {/* Product Information */}
         <Col xs={12} md={6}>
-          <h2>{product.name}</h2>
+        <h2>{product.name}</h2>
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
               <h6>₱{product.price}</h6>
 
@@ -94,6 +98,7 @@ export default function ClickVitamins ({ addToCart, isLoggedIn }) {
    <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px" }}>
   {product.stock === 0 ? "Out of stock" : "In stock"}
 </p>
+{freeShippingPlace?(<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p>WithShippingFee</p>)}
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>

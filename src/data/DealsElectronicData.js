@@ -1,6 +1,6 @@
 export const dealsElectronicData = [
 {
-  id: 1,
+  id: 520,
   name: "JBL T110",
   url:  `${process.env.PUBLIC_URL}/electronics/jblt110.png`,
   price: 473,
