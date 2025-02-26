@@ -191,6 +191,7 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
             >
               {selectedProduct.stock === 0 ? 'Out of stock' : 'In stock'}
             </p>
+           {selectedProduct.place === 'maslog'? (<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p>WithShippingFee</p>)}
             <p>
               <strong>Description:</strong> {selectedProduct.description}
             </p>
