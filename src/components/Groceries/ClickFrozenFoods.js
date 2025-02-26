@@ -45,7 +45,7 @@ export default function ClickFrozenFoods ({ addToCart, isLoggedIn }) {
 useEffect(()=>{
   if(product.place ==='maslog')
       {setFreeShippingPlace(true)}
-},[])
+},[product.place])
   
 
   if (!product) {

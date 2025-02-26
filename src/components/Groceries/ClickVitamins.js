@@ -44,7 +44,7 @@ export default function ClickVitamins ({ addToCart, isLoggedIn }) {
 useEffect(()=>{
   if(product.place ==='maslog')
       {setFreeShippingPlace(true)}
-},[])
+},[product.place])
 
   if (!product) {
     // Handle the case where the product with the specified ID is not found

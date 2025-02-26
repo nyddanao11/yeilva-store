@@ -65,8 +65,6 @@ const ClickMens = React.lazy(() => import('./components/Fashion/ClickMens'));
 const ClickMensShoes = React.lazy(() => import('./components/Fashion/ClickMensShoes'));
 const ClickWomensShoes = React.lazy(() => import('./components/Fashion/ClickWomensShoes'));
 const ClickYouMayLike = React.lazy(() => import('./pages/ClickYouMayLike'));
-const YouMayLike = React.lazy(() => import('./components/YouMayLike'));
-const YouMayLikeProduct = React.lazy(() => import('./components/YouMayLikeProduct'));
 const GroceryItems = React.lazy(() => import('./pages/GroceryItems'));
 
 const CheckoutHistoryPage = React.lazy(() => import('./components/CheckoutHistoryPage'));
