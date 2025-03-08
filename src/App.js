@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useMediaQuery } from 'react-responsive';
 import ErrorBoundary from './pages/ErrorBoundary';
+import {Spinner} from 'react-bootstrap';
 
 import {wellnessProductData} from'./data/wellnessProductData';
 import {pcproductsData} from './data/pcproductsData';
@@ -218,7 +219,11 @@ const handleLogout = () => {
   <ErrorBoundary>
     
     <div>
-     <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={ <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>}>
       <OfflineIndicator />
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
