@@ -22,7 +22,7 @@
   name: "Acai Berry 1000ml",
   url:  `${process.env.PUBLIC_URL}/images/acaiberry.jpg`,
   price: 2300,
-   weight:1000,
+   weight:200,
       stock: 10,
   description:"What are some of ACAI BERRY’s health benefits? The acai berry has numerous health benefits, and has been proven to protect virtually every system in the body. A few of these benefits include: Weight loss: Acai is composed of several vitamins and minerals, and works to suppress hunger, increase energy, and stimulate metabolism. Digestive System Aid: A high level of fiber makes acai berry a natural colon cleanser. Boosts the Immune System: The high concentration of antioxidants in acai berry helps to support the immune system by fortifying cells and fighting off intruders. Acai berry has also been proven to: Regulate sugar level, Prevents Cardio vascular disease, Improves heart function , Maintain Healthy Teeth and Gums, Prevent Cancer. ",
     thumbnails:
@@ -265,6 +265,23 @@
   productdetails:"800mg of 60 capsules, Gluta Diatary Supplement, BFAD#1009889000",
   sizecolor:false,
   shipping:'1plastic bottle, size: 150ml',
+
+  },
+  {
+  id: 16,
+  name: "Barley grass",
+  url:  `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+  price: 967,
+   weight:120,
+      stock: 10,
+  description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
+    thumbnails:
+      [`${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+        `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+      ],
+  productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
+     sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
 
   },
 ];

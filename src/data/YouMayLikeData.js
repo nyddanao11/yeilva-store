@@ -35,6 +35,23 @@ export const youMayLikeData = [
      shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
    },
     {
+  id: 16,
+  name: "Barley grass",
+  url:  `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+  price: 967,
+   weight:120,
+      stock: 10,
+  description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
+    thumbnails:
+      [`${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+        `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+      ],
+  productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
+     sizecolor:false,
+     shipping:'1 cartoon box, size: L-10cm x W-50cm x H-60cm',
+
+  },
+    {
    id: 15,
   name: "L-Glutathione",
   url:  `${process.env.PUBLIC_URL}/images/lglutathione.jpg`,
@@ -72,7 +89,7 @@ export const youMayLikeData = [
       name: "Blue wave",
       url: `${process.env.PUBLIC_URL}/imgpc/bluwave.png`,
       price: 220,
-     weight:800,
+     weight:100,
         stock: 10,
           rating:4,
      description:'laundry detergent net weight 800g',
