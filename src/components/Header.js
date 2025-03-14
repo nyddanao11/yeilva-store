@@ -191,7 +191,9 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
             >
               {selectedProduct.stock === 0 ? 'Out of stock' : 'In stock'}
             </p>
-           {selectedProduct.place === 'maslog'? (<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p>WithShippingFee</p>)}
+            {selectedProduct.place === 'maslog'? (<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p></p>)}
+            {selectedProduct.place === 'maslog'? (<p style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red' }}>
+              Not Available outside Danao City</p>):(<p></p>)}
             <p>
               <strong>Description:</strong> {selectedProduct.description}
             </p>
