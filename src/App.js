@@ -103,6 +103,7 @@ const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
    const { isLoggedIn, login, logout } = useAuth();
   const [cartCount, setCartCount] = useState(0);
     const [formattedGrandTotal, setFormattedGrandTotal] = useState('₱0.00');
+     const [currentPage, setCurrentPage] = useState(1);
 
 const [cartItems, setCartItems] = useState(() => {
   // Use a function to get the initial value from localStorage
@@ -219,7 +220,7 @@ const handleLogout = () => {
   <ErrorBoundary>
     
     <div>
-    <Suspense fallback={ <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+     <Suspense fallback={ <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
@@ -237,7 +238,7 @@ const handleLogout = () => {
             
           <Routes>
             <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn} />} />
-            <Route path="/products" element={<Products addToCart={addToCart}  />} />
+            <Route path="/products" element={<Products addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage}/>} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
              <Route path="/fashionapparel" element={<FashionApparel addToCart={addToCart} />} />
@@ -324,7 +325,7 @@ const handleLogout = () => {
             <Route path="/lockoutpage" element={ <LockoutPage />} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
              <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-            <Route path="/products" element={<Products addToCart={addToCart}  />} />
+            <Route path="/products" element={<Products addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage}/>} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
              <Route path="/fashionapparel" element={<FashionApparel addToCart={addToCart} />} />
@@ -407,7 +408,7 @@ const handleLogout = () => {
         {isLoggedIn ? (
           <Routes>
             <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn} />} />
-            <Route path="/products" element={<Products addToCart={addToCart}  />} />
+            <Route path="/products" element={<Products addToCart={addToCart} currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
              <Route path="/fashionapparel" element={<FashionApparel addToCart={addToCart} />} />
@@ -494,7 +495,7 @@ const handleLogout = () => {
             <Route path="/lockoutpage" element={ <LockoutPage />} />
             <Route path="/login" element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-            <Route path="/products" element={<Products addToCart={addToCart}  />} />
+            <Route path="/products" element={<Products addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage}/>} />
             <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
             <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
              <Route path="/fashionapparel" element={<FashionApparel addToCart={addToCart} />} />

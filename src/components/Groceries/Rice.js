@@ -4,13 +4,21 @@ import {rice} from'./RiceData';
 import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
 
-const Rice = ({cartItems, product}) => {
+export default function Rice ({cartItems, product, currentPage, setCurrentPage}) {
 
    const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
     return product.stock <= 0;
   };
  
+ const visibleProducts = rice.filter((product) => product.page === currentPage);
+
+const totalPages = Math.max(...rice.map((product) => product.page));
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+const handlePageChange = (newPage) => {
+  setCurrentPage(newPage);
+};
 
   return (
      <Container fluid >
@@ -48,9 +56,25 @@ const Rice = ({cartItems, product}) => {
           </Row>
         </Col>
       </Row>
+      <div className="pagination">
+        {pageNumbers.map((page) => (
+                   <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={currentPage === page ? 'active-page' : ''}
+            style={{
+              marginRight: "5px",
+              border: "none",
+              background: currentPage === page ? ' #0D6EFD' : '#EFEFEF',
+              color: currentPage === page ? 'white' : 'black',
+            }}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
     </Container>
   );
 };
 
 
-export default Rice;

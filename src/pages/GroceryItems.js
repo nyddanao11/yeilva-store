@@ -7,12 +7,6 @@ import InstantNoodles from '../components/Groceries/InstantNoodles';
 import CannedGoods from '../components/Groceries/CanGoods';
 import Beverages from '../components/Groceries/Beverages';
 import FrozenFoods from '../components/Groceries/FrozenFoods';
-import {beer} from '../components/Groceries/BeveragesData';
-import {canned} from '../components/Groceries/CanGoodsData';
-import {Frozen} from '../components/Groceries/FrozenFoodsData';
-import {Noodles} from '../components/Groceries/InstantNoodlesData';
-import {rice} from '../components/Groceries/RiceData';
-import {vitamins} from '../components/Groceries/VitaminsMedicationsData';
 import { useMediaQuery } from 'react-responsive';
 import YouMayLike from'../components/YouMayLike';
 import { MdAnnouncement } from 'react-icons/md';
@@ -39,11 +33,11 @@ export default function GroceryItems ({ addToCart, cartItems, isProductSoldOut }
 
   const menuItems = [
     { id: 'beverages', title: 'Beverages', component: <Beverages addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage} collapsed={collapsed}/> },
-    { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} collapsed={collapsed}/> },
+    { id: 'frozenfoods', title: 'Frozen Foods', component: <FrozenFoods addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage} collapsed={collapsed}/> },
     { id: 'instantnoodles', title: 'Instant Noodles', component: <InstantNoodles addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage} collapsed={collapsed}/> },
     { id: 'cangoods', title: 'Can Goods', component: <CannedGoods addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage} collapsed={collapsed}/> },
      { id: 'vitamins&medications', title: 'Vitamins&Medications', component: <VitaminsMedications addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage} collapsed={collapsed}/> },
-    { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} /> },
+    { id: 'rice', title: 'Rice', component: <Rice addToCart={addToCart} cartItems={cartItems} isProductSoldOut={isProductSoldOut} currentPage={currentPage} setCurrentPage={setCurrentPage} collapsed={collapsed}/> },
   ];
 
   return (
