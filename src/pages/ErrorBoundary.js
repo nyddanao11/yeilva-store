@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import "./ErrorBoundary.css";
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -20,10 +21,14 @@ class ErrorBoundary extends React.Component {
         window.location.reload();
     };
 
+   
+ 
     render() {
+         const backgroundImage = `${process.env.PUBLIC_URL}/errorlogo.png`;
         if (this.state.hasError) {
             return (
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <div className="error-container">
+                    <img src={backgroundImage} alt="logo" className="image-container"/>
                     <h1>Something went wrong.</h1>
                     <Button 
                         variant="primary" 

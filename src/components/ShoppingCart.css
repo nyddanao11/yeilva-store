@@ -33,7 +33,6 @@ padding-bottom: 8px;
   margin: 0 0px; /* Adjust the margin as needed */
 }
 
-
 .quantity-value {
   font-size: 16px; /* Adjust the font size as needed */
   text-align: center; /* Center the quantity input */
@@ -46,12 +45,20 @@ padding-bottom: 8px;
   position: relative;
 }
 
-
 .main-image {
  max-width: 250px;
   height: 300px; /* Adjust as needed */
 }
 
+.order-tracking{
+  margin-bottom: 15px;
+ 
+}
+
+.image-main {
+  width:100px;
+  height: 100px;
+}
 .thumbnails {
   display: flex;
   flex-wrap: wrap;

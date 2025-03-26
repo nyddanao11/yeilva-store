@@ -95,6 +95,8 @@ const BarleyGrassJuice = React.lazy(() => import('./components/SqueezePage/Squee
 const NewsletterForm = React.lazy(() => import('./components/Newsletter'));
 const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookingForm'));
 const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
+const  Orders = React.lazy(() => import('./pages/YourOrders'));
+const  OrderTracking = React.lazy(() => import('./pages/OrderTracking'));
 
 
  function App() {
@@ -309,6 +311,8 @@ const handleLogout = () => {
                            <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
                         <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                   <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
+                  <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />} />
 
                            
                  <Route component={NotFoundPage} />
@@ -316,7 +320,7 @@ const handleLogout = () => {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
+            <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn}/>} /> 
            <Route path="/signupform" element={<SignUpForm handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
             <Route path="/confirm" element={<ConfirmPage  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
              <Route path="/forgotpassword" element={<ForgotPassword  handleLogin={handleLogin}/>} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -389,7 +393,6 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-
 
                  <Route component={NotFoundPage} />
                 
@@ -478,8 +481,8 @@ const handleLogout = () => {
                              <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
                           <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-
-
+                   <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
+                  <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />} />
 
                  <Route component={NotFoundPage} />
                         

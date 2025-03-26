@@ -3,8 +3,9 @@ import { Container, Row, Col, Card} from 'react-bootstrap';
 import {beer} from'./BeveragesData';
 import {Link} from'react-router-dom';
 import'./SoldOutLabel.css';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
-const Beverages = ({cartItems, product, currentPage, setCurrentPage}) => {
+export default function Beverages ({cartItems, product, currentPage, setCurrentPage})  {
 
   const isProductSoldOut = (product) => {
     // Replace this condition with your own logic for determining if a product is sold out
@@ -58,31 +59,60 @@ const handlePageChange = (newPage) => {
                 </Card>
               </Col>
             ))}
+                      <div className="pagination d-flex justify-content-center align-items-center mt-2 ">
+  <button
+    onClick={() => handlePageChange(currentPage - 1)}
+    disabled={currentPage === 1}
+    style={{
+      marginRight: "5px",
+      border: "none",
+      background: currentPage === 1 ? '#EFEFEF' : '#0D6EFD',
+      color: currentPage === 1 ? 'gray' : 'white',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    <BsChevronLeft />
+  </button>
+
+  {pageNumbers.map((page) => (
+    <button
+      key={page}
+      onClick={() => handlePageChange(page)}
+      className={currentPage === page ? 'active-page' : ''}
+      style={{
+        marginRight: "5px",
+        border: "none",
+        background: currentPage === page ? '#0D6EFD' : '#EFEFEF',
+        color: currentPage === page ? 'white' : 'black',
+      }}
+    >
+      {page}
+    </button>
+  ))}
+
+  <button
+    onClick={() => handlePageChange(currentPage + 1)}
+    disabled={currentPage === totalPages}
+    style={{
+      marginLeft: "5px",
+      border: "none",
+      background: currentPage === totalPages ? '#EFEFEF' : '#0D6EFD',
+      color: currentPage === totalPages ? 'gray' : 'white',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    <BsChevronRight />
+  </button>
+</div>
           </Row>
         </Col>
       </Row>
-
-       <div className="pagination">
-        {pageNumbers.map((page) => (
-          <button
-  key={page}
-  onClick={() => handlePageChange(page)}
-  className={currentPage === page ? 'active-page' : ''}
-  style={{
-    marginRight: "5px",
-    border: "none",
-    background: currentPage === page ? ' #0D6EFD' : '#EFEFEF',
-    color: currentPage === page ? 'white' : 'black',
-  }}
->
-  {page}
-</button>
-
-        ))}
-      </div>
       
     </Container>
   );
 };
 
-export default Beverages;

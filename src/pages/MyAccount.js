@@ -5,6 +5,7 @@ import { Link} from 'react-router-dom';
 import './LoanForm.css';
 import HoverButton1 from'../components/HoverButton1'
 import YouMayLike from'../components/YouMayLike';
+import Orders from'./YourOrders';
 
 export default function MyAccountPage ({addToCart}) {
   const [userData, setUserData] = useState({
@@ -44,6 +45,11 @@ export default function MyAccountPage ({addToCart}) {
       <Row className="justify-content-center">
 
         <Col md={4}>
+        <div className="d-flex mt-2 mb-1 justify-content-between">
+        <h5>Your Orders</h5>
+        <Link to="/checkouthistory"  style={{textDecoration:"none"}}>View All</Link>
+        </div>
+        <Orders />
           <Card>
             <Card.Body>
               <h5>Personal Information</h5>
@@ -102,15 +108,10 @@ export default function MyAccountPage ({addToCart}) {
           </Card>
         </Col>
 
-        <Col md={4} >
-
-         <div className="mt-3">
-            <h4>History </h4>
-            <Link to="/checkouthistory" style={{ textDecoration: 'none' }}>
-              View Checkout History
-            </Link>
-          </div>
-
+        <Col md={4} className="mt-3 ">
+         <Card>
+            <Card.Body >       
+            <h5>History </h5>
           <div className="mt-3">
             <Link to="/loanformhistory" style={{ textDecoration: 'none' }}>
               View Loan Application History
@@ -135,7 +136,8 @@ export default function MyAccountPage ({addToCart}) {
           <div style={{marginTop:"25px"}}>
          <HoverButton1 />
          </div>
-        
+         </Card.Body>
+         </Card>      
         </Col>
       </Row>
 

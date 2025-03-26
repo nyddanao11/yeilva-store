@@ -362,6 +362,10 @@ useEffect(() => {
   }
 }, []);
 
+function ordersToStore() {
+    localStorage.setItem('orders', JSON.stringify(cartItems));
+}
+
 
 return (    
      <Row className='d-flex justify-content-center align-items-center ' >
@@ -606,7 +610,7 @@ return (
           )}
 
           <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
-          <Button type="submit" className="mb-2 mt-2" disabled={isButtonDisabled } style={{ width: '100%', backgroundColor:'#E92409', border:'none'}}>
+          <Button type="submit" className="mb-2 mt-2" disabled={isButtonDisabled }  onClick={ordersToStore} style={{ width: '100%', backgroundColor:'#E92409', border:'none'}}>
             {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
           </Button>
           </div>
