@@ -1,16 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Container, ProgressBar, Card, ListGroup } from 'react-bootstrap';
+import axios from'axios';
 
 export default function OrderTracking() {
-    // Example delivery status data
+        const [checkoutData, setCheckoutData] = useState('');
+     const[orderSteps, setOrderSteps] = useState({steps:["Order Placed", "Dispatched", "Out for Delivery", "Delivered"]})
     const [deliveryStatus, setDeliveryStatus] = useState({
-        orderId: "123456789",
-        estimatedDeliveryDate: "2025-03-30",
-        currentStep: 2, // Step in delivery progress (1-4)
-        steps: ["Order Placed", "Dispatched", "Out for Delivery", "Delivered"]
-    });
+    order_number: 'N/A',
+    orderstatus: 0, // Assuming "orderstatus" is numeric
+    deliverydate: 'Not Available',
+});
+    console.log('deliveryStatus', deliveryStatus);
 
-    const progressPercentage = (deliveryStatus.currentStep / deliveryStatus.steps.length) * 100;
+   
+  const progressPercentage = (parseInt(deliveryStatus.orderstatus, 10) / orderSteps.steps.length) * 100;
+
+   const fetchUserData = async (email) => {
+    if (!email) {
+        console.error('Email is undefined');
+        return;
+    }
+
+    try { 
+       const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/orderdata?email=${encodeURIComponent(email)}`);
+        const user = response.data;
+        console.log('orderdata', user);
+        setDeliveryStatus(user);
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+};
+
+
+useEffect(() => {
+    const storedUserEmail = localStorage.getItem('email');
+    if (storedUserEmail) {
+        fetchUserData(storedUserEmail.replace(/"/g, ''), setDeliveryStatus);
+    } else {
+        console.log('Email is missing in local storage');
+    }
+}, [fetchUserData, setDeliveryStatus]); // Add missing dependencies
+
 
     return (
         <Container className="mt-4">
@@ -18,8 +48,8 @@ export default function OrderTracking() {
                 <Card.Body>
                     <Card.Title>Order Tracking</Card.Title>
                     <Card.Text>
-                        <strong>Order ID:</strong> {deliveryStatus.orderId} <br />
-                        <strong>Estimated Delivery:</strong> {deliveryStatus.estimatedDeliveryDate}
+                        <strong>Order ID:</strong> {deliveryStatus.order_number} <br />
+                        <strong>Estimated Delivery:</strong> {deliveryStatus.deliverydate}
                     </Card.Text>
                 </Card.Body>
             </Card>
@@ -32,10 +62,10 @@ export default function OrderTracking() {
             />
 
             <ListGroup>
-                {deliveryStatus.steps.map((step, index) => (
+                {orderSteps.steps.map((step, index) => (
                     <ListGroup.Item
                         key={index}
-                        className={index < deliveryStatus.currentStep ? "text-success" : ""}
+                        className={index < deliveryStatus.orderstatus ? "text-success" : ""}
                     >
                         {step}
                     </ListGroup.Item>
