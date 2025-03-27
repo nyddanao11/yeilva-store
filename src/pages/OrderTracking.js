@@ -1,8 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import { Container, ProgressBar, Card, ListGroup } from 'react-bootstrap';
 import axios from'axios';
+import YouMayLike from'../components/YouMayLike';
 
-export default function OrderTracking() {
+export default function OrderTracking({addToCart}) {
         const [checkoutData, setCheckoutData] = useState('');
      const[orderSteps, setOrderSteps] = useState({steps:["Order Placed", "Dispatched", "Out for Delivery", "Delivered"]})
     const [deliveryStatus, setDeliveryStatus] = useState({
@@ -43,6 +44,7 @@ useEffect(() => {
 
 
     return (
+        <>
         <Container className="mt-4">
             <Card>
                 <Card.Body>
@@ -72,5 +74,7 @@ useEffect(() => {
                 ))}
             </ListGroup>
         </Container>
+           <YouMayLike addToCart={addToCart}/>
+           </>
     );
 }

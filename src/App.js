@@ -97,6 +97,7 @@ const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookin
 const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
 const  Orders = React.lazy(() => import('./pages/YourOrders'));
 const  OrderTracking = React.lazy(() => import('./pages/OrderTracking'));
+const  UpdateOrder = React.lazy(() => import('./components/OrderStatusUpdate'));
 
 
  function App() {

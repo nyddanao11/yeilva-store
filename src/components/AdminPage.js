@@ -6,6 +6,7 @@ import InstallmentHistory from'./installment';
 import CreateVoucher from'../pages/VoucherForm';
 import GenerateVouchers from'../pages/MultiVoucher';
 import GcashSettlement from'../pages/GcashSettlement';
+import UpdateOrder from'./OrderStatusUpdate';
 
 export default function AdminPage () {
   const [activeTab, setActiveTab] = useState('LoanHistory');
@@ -34,7 +35,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
         case 'GenerateVouchers':
         return renderGenerateVouchersTab();  
          case 'GcashSettlement':
-        return renderGcashSettlementTab();      
+        return renderGcashSettlementTab();  
+         case 'UpdateOrder':
+         return renderUpdateOrderTab();    
       // Add more cases for additional tabs
       default:
         return null;
@@ -56,6 +59,8 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
     }else if (activeTab === 'GenerateVouchers'){
     // Add more cases for additional tabs
     }else if (activeTab === 'GcashSettlement'){
+      // Add more cases for additional tabs
+    }else if (activeTab === 'UpdateOrder'){
       // Add more cases for additional tabs
     };
 };
@@ -90,6 +95,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
 
    const renderGcashSettlementTab = () => {
     return <GcashSettlement />;
+  };
+
+    const renderUpdateOrderTab = () => {
+    return <UpdateOrder />;
   };
 
   const handleSearch = async () => {
@@ -138,6 +147,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
           <Tab eventKey="GcashSettlement" title="GcashSettlement">
           {/* Content for the 'InstallmentHistory' tab */}
           {renderGcashSettlementTab()}
+        </Tab>
+        <Tab eventKey="UpdateOrder" title="UpdateOrder">
+          {/* Content for the 'UpdateOrder' tab */}
+          {renderUpdateOrderTab()}
         </Tab>
         {/* Add more Tab components for additional tabs */}
       </Tabs>
