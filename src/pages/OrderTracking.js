@@ -36,11 +36,20 @@ export default function OrderTracking({addToCart}) {
 useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
     if (storedUserEmail) {
-        fetchUserData(storedUserEmail.replace(/"/g, ''), setDeliveryStatus);
+        (async () => {
+            try {
+                const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/orderdata?email=${encodeURIComponent(storedUserEmail.replace(/"/g, ''))}`);
+                const user = response.data;
+                console.log('orderdata', user);
+                setDeliveryStatus(user);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        })();
     } else {
         console.log('Email is missing in local storage');
     }
-}, [fetchUserData, setDeliveryStatus]); // Add missing dependencies
+}, []); // Empty array ensures single run
 
 
     return (
