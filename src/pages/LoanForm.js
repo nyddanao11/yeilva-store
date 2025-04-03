@@ -369,13 +369,13 @@ useEffect(() => {
 </Form.Group>
 
    {/* Upload Selfie */}
-          <div style={{ marginTop: '20px', marginBottom: '15px' }}>
+          <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
             <p>Take a Selfie:</p>
            <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
           </div>
 
           {selfieImage && (
-            <div>
+            <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '18px', marginBottom: '18px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
               <p>Preview of your selfie:</p>
               <img
                 src={selfieImage}

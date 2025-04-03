@@ -1,20 +1,23 @@
 import React, { useState,useEffect } from 'react';
-import { Container, ProgressBar, Card, ListGroup } from 'react-bootstrap';
+import { Container, ProgressBar, Card, Row, Col } from 'react-bootstrap';
+import { FaBox, FaTruck, FaShippingFast, FaCheckCircle } from "react-icons/fa";
 import axios from'axios';
 import YouMayLike from'../components/YouMayLike';
 
 export default function OrderTracking({addToCart}) {
-        const [checkoutData, setCheckoutData] = useState('');
-     const[orderSteps, setOrderSteps] = useState({steps:["Order Placed", "Dispatched", "Out for Delivery", "Delivered"]})
+       const orderSteps = [
+    { label: "Ordered", icon: <FaBox />, step: 1 },
+    { label: "Shipped", icon: <FaTruck />, step: 2 },
+    { label: "Out for Delivery", icon: <FaShippingFast />, step: 3 },
+    { label: "Delivered", icon: <FaCheckCircle />, step: 4 },
+  ];
     const [deliveryStatus, setDeliveryStatus] = useState({
     order_number: 'N/A',
     orderstatus: 0, // Assuming "orderstatus" is numeric
     deliverydate: 'Not Available',
 });
-    console.log('deliveryStatus', deliveryStatus);
-
    
-  const progressPercentage = (parseInt(deliveryStatus.orderstatus, 10) / orderSteps.steps.length) * 100;
+  const progressPercentage = (parseInt(deliveryStatus.orderstatus, 10) / orderSteps.length) * 100;
 
    const fetchUserData = async (email) => {
     if (!email) {
@@ -54,8 +57,8 @@ useEffect(() => {
 
     return (
         <>
-        <Container className="mt-4">
-            <Card>
+          <Container className="mt-4">
+          <Card>
                 <Card.Body>
                     <Card.Title>Order Tracking</Card.Title>
                     <Card.Text>
@@ -64,25 +67,35 @@ useEffect(() => {
                     </Card.Text>
                 </Card.Body>
             </Card>
-
-            <ProgressBar
-                now={progressPercentage}
-                label={`${progressPercentage}%`}
-                className="my-4"
-                variant="success"
-            />
-
-            <ListGroup>
-                {orderSteps.steps.map((step, index) => (
-                    <ListGroup.Item
-                        key={index}
-                        className={index < deliveryStatus.orderstatus ? "text-success" : ""}
-                    >
-                        {step}
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
-        </Container>
+      <Card className="p-4 shadow">
+        <Row className="text-center mb-3">
+          <Col>
+            <h4>Order Tracking</h4>
+          </Col>
+        </Row>
+        <Row className="align-items-center">
+          {orderSteps.map((step, index) => (
+            <Col key={index} className="text-center" >
+              <div
+                className={`d-inline-flex justify-content-center align-items-center rounded-circle p-3 ${
+                  step.step <= deliveryStatus.orderstatus ? "bg-success text-white" : "bg-light"
+                }`}
+              style={{width:"50px", height:"50px"}}
+              >
+                {step.icon}
+              </div>
+              <p className="mt-2">{step.label}</p>
+            </Col>
+          ))}
+        </Row>
+        <ProgressBar
+          now={(deliveryStatus.orderstatus / orderSteps.length) * 100}
+          className="mt-3"
+          animated
+          striped
+        />
+      </Card>
+    </Container>
            <YouMayLike addToCart={addToCart}/>
            </>
     );
