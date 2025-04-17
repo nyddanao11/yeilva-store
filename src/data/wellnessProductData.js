@@ -75,14 +75,14 @@
 {
   id: 5,
   name: "Absorbent Cee",
-  url:  `${process.env.PUBLIC_URL}/images/absorbent c.png`,
+  url:  `${process.env.PUBLIC_URL}/images/absorbentc.png`,
   price: 750,
    weight:120,
       stock: 10,
        page:1,
   description:"Vitamin Cee for strong immune system and prevent cardio vascular disease",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/absorbent c.png`,
+      [`${process.env.PUBLIC_URL}/images/absorbentc.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/absorbentcee1.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/absorbentcee2.png`,
        
@@ -190,15 +190,15 @@
 {
   id: 12,
   name: "Buah Merah",
-  url:  `${process.env.PUBLIC_URL}/images/Buah merah.png`,
+  url:  `${process.env.PUBLIC_URL}/images/Buahmerah.png`,
   price: 350,
    weight:120,
       stock: 10,
        page:1,
   description:"Helps in boosting body energy and immunity, detoxifying liver, preventing signs of aging, prevents hypertension and diabetes, regulates blood pressure, improves good cholesterol levels and sharpens memory",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/Buah merah.png`,
-       `${process.env.PUBLIC_URL}/images/Buah merah.png`,
+      [`${process.env.PUBLIC_URL}/images/Buahmerah.png`,
+       `${process.env.PUBLIC_URL}/images/Buahmerah.png`,
     
       ],
   productdetails:"Net wt 30g,  BFAD#1009889000",
@@ -264,16 +264,16 @@
   },
   {
   id: 16,
-  name: "Barley grass",
-  url:  `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+  name: "Barley grass ",
+  url:  `${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
   price: 967,
    weight:120,
       stock: 10,
        page:2,
   description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/barley grass.jpg`,
-        `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+      [`${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
+        `${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
       ],
   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
      sizecolor:false,

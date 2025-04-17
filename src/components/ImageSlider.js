@@ -1,20 +1,21 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { CarouselImage } from '../data/CarouselImage';
-import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
+import { ProductContext} from '../pages/ProductContext'; // Import context
 import {useMediaQuery} from'react-responsive';
+import {Link} from'react-router-dom';
 
 const ImageSlider = () => {
+    const { handleItemClickCategory } = useContext(ProductContext); // Use the context
 
 const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const navigate = useNavigate();
 
   return (
     <div>
       <Carousel interval={3000} pause="hover">
         {CarouselImage.map((product) => (
-          <Carousel.Item key={product.id} onClick={() => navigate(`${product.link}`)}>
+          <Carousel.Item key={product.id} onClick={() => handleItemClickCategory(product.category)}   as={Link} to="/productsdata">
           {isSmallScreen ? (
             <div
               style={{

@@ -7,6 +7,7 @@ import CreateVoucher from'../pages/VoucherForm';
 import GenerateVouchers from'../pages/MultiVoucher';
 import GcashSettlement from'../pages/GcashSettlement';
 import UpdateOrder from'./OrderStatusUpdate';
+import AddProduct from'../pages/ProductUpload';
 
 export default function AdminPage () {
   const [activeTab, setActiveTab] = useState('LoanHistory');
@@ -37,7 +38,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
          case 'GcashSettlement':
         return renderGcashSettlementTab();  
          case 'UpdateOrder':
-         return renderUpdateOrderTab();    
+         return renderUpdateOrderTab(); 
+          case 'AddProduct':
+         return renderAddProductTab();       
       // Add more cases for additional tabs
       default:
         return null;
@@ -61,6 +64,8 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
     }else if (activeTab === 'GcashSettlement'){
       // Add more cases for additional tabs
     }else if (activeTab === 'UpdateOrder'){
+      // Add more cases for additional tabs
+    }else if (activeTab === 'AddProduct'){
       // Add more cases for additional tabs
     };
 };
@@ -99,6 +104,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
 
     const renderUpdateOrderTab = () => {
     return <UpdateOrder />;
+  };
+   const renderAddProductTab = () => {
+    return <AddProduct />;
   };
 
   const handleSearch = async () => {
@@ -151,6 +159,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
         <Tab eventKey="UpdateOrder" title="UpdateOrder">
           {/* Content for the 'UpdateOrder' tab */}
           {renderUpdateOrderTab()}
+        </Tab>
+         <Tab eventKey="AddProduct" title="AddProduct">
+          {/* Content for the 'UpdateOrder' tab */}
+          {renderAddProductTab()}
         </Tab>
         {/* Add more Tab components for additional tabs */}
       </Tabs>

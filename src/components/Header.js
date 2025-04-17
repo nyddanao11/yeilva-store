@@ -1,11 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Form, FormControl, Button, Modal, Dropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingCart, FaShippingFast } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
+import axios from'axios';
+import debounce from 'lodash/debounce';
+import { ProductContext} from '../pages/ProductContext'; // Import context
 
-export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn }) {
+export default function Header ({ cartCount, addToCart, isLoggedIn}) {
+  const { allProducts, fetchAllProducts, handleItemClickCategory} = useContext(ProductContext); // Use context
+
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -16,10 +21,12 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
   const searchBarRef = useRef(null);
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({ query: '(max-width: 992px)' });
+const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
 
   const handleQueryChange = (query) => {
     setSearchQuery(query);
-
+    debounceFetch.current(query.trim());
+    
     if (query.trim() && Array.isArray(allProducts)) {
       const filtered = allProducts.filter((product) =>
         product.name?.toLowerCase().includes(query.toLowerCase())
@@ -30,6 +37,10 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
       setSuggestions([]);
       setShowDropdown(false);
     }
+  };
+
+  const handleSearch = async (name) => {
+    await fetchAllProducts(name); // Call fetchAllProducts from context
   };
 
   const handleKeyPress = (e) => {
@@ -47,10 +58,11 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
 
   const handleClickOutside = (event) => {
     if (
-      (dropdownRef.current && !dropdownRef.current.contains(event.target)) &&
-      (searchBarRef.current && !searchBarRef.current.contains(event.target))
+      dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+      searchBarRef.current && !searchBarRef.current.contains(event.target)
     ) {
       setShowDropdown(false);
+    setSearchQuery('');
     }
   };
 
@@ -60,6 +72,7 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
@@ -131,21 +144,22 @@ export default function Header ({ cartCount, allProducts, addToCart, isLoggedIn 
             ? 'Signup to avail our services & deals'
             : 'No results found'}
         </Link>
-      </Dropdown.Item>
+      
+    </Dropdown.Item>
     )}
 
-    {/* Static Frequently Searched Section */}
+ {/* Static Frequently Searched Section */}
     <Dropdown.Item>
       <div className="text-muted mt-2">
         <p>You may also like:</p>
         <ul className="list-unstyled">
-          <li>
-            <Link to="/products" className="search-link">
+          <li onClick={() => handleItemClickCategory('wellness product')}>
+            <Link to="/productsdata" className="search-link">
               Health & Wellness Products
             </Link>
           </li>
-          <li>
-            <Link to="/beautyproducts" className="search-link">
+          <li onClick={() => handleItemClickCategory('beauty and hygiene')}>
+            <Link to="/productsdata" className="search-link">
               Beauty Products
             </Link>
           </li>

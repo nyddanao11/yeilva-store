@@ -8,7 +8,7 @@ import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponentFeatured from'../components/ProductTablatureFeatured';
 import axios from 'axios';
 
-export default function ClickFeaturedProduct ({ addToCart, isLoggedIn }) {
+export default function ClickFeaturedProduct ({ addToCart, isLoggedIn })  {
   const { id } = useParams();
    console.log('ID from URL:', id);
   
@@ -118,7 +118,7 @@ const handleCheckoutClick = () => {
 
         {/* Product Information */}
         <Col xs={12} md={6}>
-        <h2>{product.name}</h2>
+              <h2>{product.name}</h2>
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
            <h6>₱{product.price}</h6>
@@ -157,4 +157,5 @@ const handleCheckoutClick = () => {
     </>
   );
 };
+
 

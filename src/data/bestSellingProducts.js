@@ -102,14 +102,14 @@ export const bestSellingProducts = [
     {
       id: 12,
       name: "Buah merah",
-      url: `${process.env.PUBLIC_URL}/images/Buah merah.png`,
+      url: `${process.env.PUBLIC_URL}/images/Buahmerah.png`,
       price: 220,
          weight:120,
             stock: 10,
       description:"Helps in boosting body energy and immunity, detoxifying liver, preventing signs of aging, prevents hypertension and diabetes, regulates blood pressure, improves good cholesterol levels and sharpens memory",
        thumbnails:
-          [`${process.env.PUBLIC_URL}/images/Buah merah.png`,
-            `${process.env.PUBLIC_URL}/images/Buah merah.png`,
+          [`${process.env.PUBLIC_URL}/images/Buahmerah.png`,
+            `${process.env.PUBLIC_URL}/images/Buahmerah.png`,
           ],
       productdetails:"Net wt 30g,  BFAD#1009889000",
      sizecolor:false,

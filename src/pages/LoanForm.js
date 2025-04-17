@@ -1,6 +1,7 @@
 // LoanForm.js
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Col, Row, FloatingLabel, Spinner } from 'react-bootstrap';
+import { FaCamera } from 'react-icons/fa';
 import axios from'axios';
 import LoanFormModal from '../components/modalLoanForm';
 import {useNavigate} from'react-router-dom';
@@ -370,7 +371,7 @@ useEffect(() => {
 
    {/* Upload Selfie */}
           <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
-            <p>Take a Selfie:</p>
+            <FaCamera style={{ fontSize: '24px', color: 'blue' }} />
            <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
           </div>
 

@@ -7,6 +7,7 @@ export const homeProducts = [
       price: 220,
          weight:120,
             stock: 10,
+            page: 1,
             rating:4,
         thumbnails:
       [`${process.env.PUBLIC_URL}/images/mangosteen.png`,
@@ -24,6 +25,7 @@ export const homeProducts = [
       price: 960,
          weight:120,
             stock: 10,
+            page: 1,
               rating:5,
          thumbnails:
       [ `${process.env.PUBLIC_URL}/images/barleyjuice.jpg`,
@@ -40,6 +42,7 @@ export const homeProducts = [
   price: 2895,
    weight:130,
       stock: 10,
+      page: 1,
   description: "Gluta dietary Supplement capsule that consist of one glutathione with an added Sulfhydryl group. It improves the immune system and protects the body from free radical damage. it can also flush out liver toxins that can achieve whiter skin.",
     thumbnails:
       [`${process.env.PUBLIC_URL}/images/lglutathione.jpg`,
@@ -52,14 +55,15 @@ export const homeProducts = [
     {
   id: 16,
   name: "Barley grass",
-  url:  `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+  url:  `${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
   price: 967,
    weight:120,
       stock: 10,
+      page: 1,
   description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/barley grass.jpg`,
-        `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+      [`${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
+        `${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
       ],
   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
      sizecolor:false,
@@ -73,6 +77,7 @@ export const homeProducts = [
     price: 150,
        weight:150,
           stock: 10,
+          page: 1,
             rating:4,
     description: "Whitening Soap",
        thumbnails:
@@ -90,6 +95,7 @@ export const homeProducts = [
      price: 960,
       weight:120,
          stock: 10,
+         page: 1,
      description: "It detoxifies the body, helps fight obesity promotes weight loss, increases the metabolism, supports the immmune system, lowers blood sugar and helps to prevent and fight cancer.",
        thumbnails:
          [`${process.env.PUBLIC_URL}/images/flushout.jpg`,
@@ -107,6 +113,7 @@ export const homeProducts = [
       price: 220,
      weight:100,
         stock: 10,
+        page: 1,
           rating:4,
      description:'laundry detergent net weight 800g',
          thumbnails:

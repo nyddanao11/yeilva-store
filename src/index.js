@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client'; // Import createRoot from client
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
@@ -7,21 +7,21 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './pages/loginContext';
 import ScrollToTop from './pages/ScrollToTop';
+import { ProductProvider } from './pages/ProductContext';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
 
+root.render( // Use root.render instead of ReactDOM.render
   <React.StrictMode>
- <AuthProvider>
-      <Router>
-      <ScrollToTop />
-        <App /> 
-      </Router> 
-      </AuthProvider>
-  </React.StrictMode> ,
-  document.getElementById('root')
+    <AuthProvider>
+      <ProductProvider>
+        <Router>
+          <ScrollToTop />
+          <App />
+        </Router>
+      </ProductProvider>
+    </AuthProvider>
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -7,8 +7,7 @@ import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
 import { useMediaQuery } from 'react-responsive';
 
-
-export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin }) {
+export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin, handleItemClickCategory}) {
   const [userData, setUserData] = useState({ firstname: '' });
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
@@ -48,6 +47,20 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
   
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
+
+ 
+const categories = [
+  { name: 'Grocery Items', icon: <FaAppleAlt /> ,link:'/productsdata'},
+  { name: 'Wellness Product', icon: <FaConciergeBell />,link:'/productsdata' },
+  { name: 'Personal Collection', icon: <FaConciergeBell /> ,link:'/productsdata'},
+  { name: 'Avon Collection', icon: <FaConciergeBell /> ,link:'/productsdata'},
+  { name: 'Beauty and Hygiene', icon: <FaConciergeBell />,link:'/productsdata' },
+  { name: 'Fashion and Apparel', icon: <FaTshirt /> ,link:'/productsdata'},
+  { name: 'Electronics', icon: <FaLaptop />,link:'/productsdata' },
+  { name: 'Home and Kitchen Appliances', icon: <FaUtensils /> ,link:'/productsdata'},
+  { name: 'Home Improvement and DIY Tools', icon: <FaCogs /> ,link:'/productsdata'},
+  { name: 'Outdoor and Sports Equipment', icon: <FaBasketballBall /> ,link:'/productsdata'},
+];
 
   return (
     <>
@@ -96,17 +109,18 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
             <Nav className="ml-auto">
               {/* Product category dropdown */}
               <Nav>
-                <NavDropdown title="Product category" id="basic-nav-dropdown" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'red' }}>
-                   <Dropdown.Item as={Link} to="/groceryitems"><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/products"><FaConciergeBell style={{ marginRight: '5px' }} />Health & Wellness</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/pcproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Personal Collection</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/avonproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Avon Collection</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/beautyproducts"><FaConciergeBell style={{ marginRight: '5px' }} />Beauty and Personal Care</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/fashionapparel"><FaTshirt style={{ marginRight: '5px' }} />Fashion and Apparel</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/consumerelectronics"><FaLaptop style={{ marginRight: '5px' }} />Electronics</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/homekitchen"><FaUtensils style={{ marginRight: '5px' }} />Home and Kitchen Appliances</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/homeimprovement"><FaCogs style={{ marginRight: '5px' }} />Home Improvement and DIY Tools</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/outdoorsports"><FaBasketballBall style={{ marginRight: '5px' }} />Outdoor and Sports Equipment</Dropdown.Item>
+                <NavDropdown title="Categories" id="basic-nav-dropdown">
+                  {categories.map((cat, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      onClick={() => handleItemClickCategory(cat.name)}
+                      as={Link} to="/productsdata"
+                    >
+                      {cat.icon} {cat.name}
+                    </Dropdown.Item>
+                  ))}
+
+                 
                 </NavDropdown>
               </Nav>
 
@@ -151,7 +165,7 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
               {/* Christmas Deals section */}
               <Nav>
                 <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700', borderRadius: '5px' }}>
-                  <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
+                  <FaPercent style={{ marginRight:'5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>
 
@@ -166,7 +180,7 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
                 <Nav.Link
                   as={NavLink}
                   to={isLoggedIn ? "/myaccount" : undefined} // Omit "to" if not logged in
-                  style={{ marginLeft:'6px', paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
+                  style={{ marginLeft:'6px',paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
                   activeClassName="active"
                     onClick={() => {
                           if (!isLoggedIn) {
@@ -230,17 +244,18 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
         <Offcanvas.Body>
           <Nav className="flex-column">
             <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
-            <NavDropdown {...`${< FaServicestack />}`} title="Product category" id="product-category-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
-              <Dropdown.Item as={Link} to="/groceryitems" onClick={handleCloseOffcanvas}><FaAppleAlt style={{ marginRight: '5px' }} />Food & Beverages/Grocery Items</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/products" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Health & Wellness</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/pcproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Personal Collection</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/avonproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Avon Collection</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/beautyproducts" onClick={handleCloseOffcanvas}><FaConciergeBell style={{ marginRight: '5px' }} />Beauty and Personal Care</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/fashionapparel" onClick={handleCloseOffcanvas}><FaTshirt style={{ marginRight: '5px' }} />Fashion and Apparel</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/consumerelectronics" onClick={handleCloseOffcanvas}><FaLaptop style={{ marginRight: '5px' }} />Electronics</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/homekitchen" onClick={handleCloseOffcanvas}><FaUtensils style={{ marginRight: '5px' }} />Home and Kitchen Appliances</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/homeimprovement" onClick={handleCloseOffcanvas}><FaCogs style={{ marginRight: '5px' }} />Home Improvement and DIY Tools</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/outdoorsports" onClick={handleCloseOffcanvas}><FaBasketballBall style={{ marginRight: '5px' }} />Outdoor and Sports Equipment</Dropdown.Item>
+            <NavDropdown {...`${< FaServicestack />}`} title="Categories" id="product-category-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
+            
+                  {categories.map((cat, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      onClick={() => handleItemClickCategory(cat.name)}
+                      as={Link} to="/productsdata"
+                    >
+                      {cat.icon} {cat.name}
+                    </Dropdown.Item>
+                  ))}
+
             </NavDropdown>
           </Nav>
 
@@ -282,8 +297,8 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
           </Nav>
 
           <Nav className="flex-column" >
-            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight: '5px'}}/>Deals</Nav.Link>
-            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px'}} /> Get your freebies</Nav.Link>
+            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
+            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
                     {/* Account Section */}
                 <Nav.Link
                   as={NavLink}
@@ -339,4 +354,3 @@ export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, hand
     </>
   );
 }
-

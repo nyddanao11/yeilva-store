@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, FloatingLabel, Spinner} from 'react-bootstrap';
+import { FaCamera } from 'react-icons/fa';
 import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link, useLocation} from'react-router-dom';
@@ -558,13 +559,13 @@ return (
               </Form.Group>
      
           {/* Upload Selfie */}
-          <div style={{ marginTop: '20px', marginBottom: '15px' }}>
-            <p>Take a Selfie:</p>
+           <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
+           <FaCamera style={{ fontSize: '24px', color: 'blue' }} />
            <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
           </div>
 
           {selfieImage && (
-            <div>
+            <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '18px', marginBottom: '18px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
               <p>Preview of your selfie:</p>
               <img
                 src={selfieImage}

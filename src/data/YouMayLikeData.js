@@ -37,14 +37,14 @@ export const youMayLikeData = [
     {
   id: 16,
   name: "Barley grass",
-  url:  `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+  url:  `${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
   price: 967,
    weight:120,
       stock: 10,
   description:"Provides a multiwide of essential functions of our body system such as strong immunity absorption of iron growth and repair of all body tissues, prevent cardio vascular problem and maintenance of healthy joints and blood vessels.",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/barley grass.jpg`,
-        `${process.env.PUBLIC_URL}/images/barley grass.jpg`,
+      [`${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
+        `${process.env.PUBLIC_URL}/images/barleygrass.jpg`,
       ],
   productdetails:"10 Sachets of 3g sweetened with stevia, BFAD#1009889000",
      sizecolor:false,

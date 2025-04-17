@@ -1,30 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate} from 'react-router-dom';
-import findProductById from '../data/findProductById';
 import './ClickProductPage.css';
 import BreadCrumbNav from'../components/BreadCrumbNav';
 import TabbedComponent from'../components/ProductTablature';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
+import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
-export default function ClickProductPage ({ addToCart, isLoggedIn })  {
+
+export default function ClickProductPage ({ addToCart, isLoggedIn, storedProducts, allProducts})  {
   const { id } = useParams();
  
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
+     const [freeShippingPlace, setFreeShippingPlace] = useState(false);
+
   const navigate = useNavigate();
 
-  const product = findProductById(id);
+ const product = storedProducts.find(p => p.id === parseInt(id)); // Assuming product IDs are numbers
       const stockState = product.stock;
  const stockStatus = () => {
   return stockState <= 0;
 };
+
+useEffect(()=>{
+  if(product.place ==='maslog')
+      {setFreeShippingPlace(true)}
+},[product.place])
+
   useEffect(() => {
     // Function to fetch reviews based on product name
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${product.name}`);
+        const response = await axios.get(`http://localhost:3001/api/userreviews?productName=${product.name}`);
         console.log('Response from server:', response.data); // Log the response data
         setReviewData(response.data);
       } catch (error) {
@@ -86,12 +95,12 @@ export default function ClickProductPage ({ addToCart, isLoggedIn })  {
   };
 
 
+
   return (
     <>
     <Container className="mt-3">
       <Row className="justify-content-center">
-        <BreadCrumbNav productId={product.id} />
-
+ {product && storedProducts && <BreadCrumbNav productId={product.id} storedProducts={storedProducts} />}
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px'}}>
         
@@ -99,7 +108,7 @@ export default function ClickProductPage ({ addToCart, isLoggedIn })  {
            <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
-                          alt={product.name}
+                          alt={product.name} 
                           className="main-image"
                         />
                       </div>
@@ -134,6 +143,10 @@ export default function ClickProductPage ({ addToCart, isLoggedIn })  {
 <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px"}}>
   {product.stock === 0 ? "Out of stock" : "In stock"}
 </p>
+{freeShippingPlace?(<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p></p>)}
+   {freeShippingPlace? (<p style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red', marginBottom:'12px'}}>
+              Not Available outside Danao City</p>):(<p></p>)}
+          
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>
@@ -145,7 +158,7 @@ export default function ClickProductPage ({ addToCart, isLoggedIn })  {
 
       <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
-        <TabbedComponent  productId={product.id} />
+        <TabbedComponent  productId={product.id} storedProducts={storedProducts}/>
         </Col>
 
       </Row>

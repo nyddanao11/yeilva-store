@@ -1,4 +1,4 @@
-import React from 'react';
+import React from'react';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import FeaturedProduct from '../components/FeaturedProduct';
@@ -7,16 +7,17 @@ import RecommendedProd from'../components/RecommendedProduct';
 import CircleCard from '../components/CircleProductCard';
 import Accordion from '../components/FAQAccordion';
 import ImageSlider from '../components/ImageSlider';
-import {wellnessProductData} from'../data/wellnessProductData';
-import {pcproductsData} from '../data/pcproductsData';
+import {homeProducts} from'../data/homeProducts';
+import {recommendedProducts} from'../data/recommendedProducts';
 import {beautyProductsData} from '../data/BeautyProductsData';
 import Announcement from'../components/Announcement';
 import './Home.css';
 import PopUpAdds from '../components/PopUpAdds'; // Fix capitalization here
 
-export default function Home({ product, isLoggedIn}) {
-let countWellness = wellnessProductData.length;
-let countPc = pcproductsData.length;
+export default function Home ({ product, isLoggedIn, handleItemClickCategory}) {
+
+let countWellness = homeProducts.length;
+let countPc = recommendedProducts.length;
 let countBeauty = beautyProductsData.length;
 
   return ( 
@@ -35,7 +36,7 @@ let countBeauty = beautyProductsData.length;
           </div> 
         <Col lg={10} md={10} sm={12} style={{background:'#FFFFFF', padding: '10px 10px 0px 10px', marginBottom:'20px', boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
        
-          <CircleCard product={product}/>
+          <CircleCard product={product} handleItemClickCategory={handleItemClickCategory}/>
           </Col> 
       </Row>
 
@@ -50,7 +51,7 @@ let countBeauty = beautyProductsData.length;
              <div className="d-flex  " >  
           <h5 className ="title" style={{marginBottom:'7px', marginTop:"15px"}}>Featured Products</h5>
              <div className="d-flex mt-3 " >
-                <Link to="/products" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
+                <Link to="/featuredproduct" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
               <p  style={{paddingLeft:'5px'}}>({`${countWellness}`})</p>
             </div>
           </div>
@@ -99,5 +100,6 @@ let countBeauty = beautyProductsData.length;
    </>
   );
 };
+
 
 
