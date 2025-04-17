@@ -37,7 +37,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const reviewStatus = async () => {
       try {
-        const response = await axios.get(`http://https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
           params: {
             userEmail: storedUserEmail,
             productName: selectedProd
@@ -68,7 +68,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`http://https://yeilva-store-server.up.railway.app/api/userreviews`, {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews`, {
           params: {
             productName: selectedProd
           }

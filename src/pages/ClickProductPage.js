@@ -33,7 +33,7 @@ useEffect(()=>{
     // Function to fetch reviews based on product name
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/userreviews?productName=${product.name}`);
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${product.name}`);
         console.log('Response from server:', response.data); // Log the response data
         setReviewData(response.data);
       } catch (error) {
