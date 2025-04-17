@@ -33,7 +33,7 @@ export const ProductProvider = ({ children }) => {
   async function fetchAllProducts(name) { // Add fetchAllProducts function
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/productsearch?name=${encodeURIComponent(name)}`
+        `http://https://yeilva-store-server.up.railway.app/api/productsearch?name=${encodeURIComponent(name)}`
       );
 
       const data = Array.isArray(response.data)

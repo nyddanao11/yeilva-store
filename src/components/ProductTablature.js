@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
 import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
-import{wellnessProductData} from'../data/wellnessProductData';
 import {useNavigate} from'react-router-dom';
-import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
 
 const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProduct }) => {
@@ -38,7 +37,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const reviewStatus = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
+        const response = await axios.get(`http://https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
           params: {
             userEmail: storedUserEmail,
             productName: selectedProd
@@ -69,7 +68,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews`, {
+        const response = await axios.get(`http://https://yeilva-store-server.up.railway.app/api/userreviews`, {
           params: {
             productName: selectedProd
           }
@@ -113,8 +112,7 @@ const Reviews = ({ selectedProduct }) => {
   return (
     <div className="mt-2">
       <h4>Reviews</h4>
-     
-        {reviews.map((review, index) => (
+      {reviews.map((review, index) => (
           <div key={index} onClick={() => handleItemClick(review)} style={{ padding:'0px 5px',margin: '10px 0px'}}>
             <div>
               <PersonCircleIcon style={{ marginRight: '0.5rem' }}/>
@@ -125,11 +123,11 @@ const Reviews = ({ selectedProduct }) => {
             </div>
           </div>
         ))}
-   
       <Button style={{ width: "150px", marginTop: "15px" }} onClick={writeReview}>Write a review</Button>
     </div>
   );
 };
+
 
 const Shipping = ({
   clickedTabs, 
@@ -155,14 +153,15 @@ const Shipping = ({
 };
 
 
-const TabbedComponent = ({ productId }) => {
+const TabbedComponent = ({ productId, storedProducts}) => {
   const [key, setKey] = useState('details');
+ 
   const [clickedTabs, setClickedTabs] = useState([]);
-
-  const selectedProduct = wellnessProductData.find((item) => item.id === productId);
+  const selectedProduct = storedProducts.find((item) => item.id=== productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
+    // Adding the clicked item to the state
     setClickedTabs([...clickedTabs, item]);
   };
 
