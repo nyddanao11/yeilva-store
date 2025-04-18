@@ -81,7 +81,7 @@ export const deals = [
 {
   id: 504,
   name: "Absorbent Cee",
-  url:  `${process.env.PUBLIC_URL}/images/absorbent c.png`,
+  url:  `${process.env.PUBLIC_URL}/images/absorbentc.png`,
   price: 412,
   discountedPrice: 750,
   percentage:"-45%",
@@ -90,7 +90,7 @@ export const deals = [
      stock:5,
    description:"Vitamin Cee for strong immune system and prevent cardio vascular disease",
     thumbnails:
-      [`${process.env.PUBLIC_URL}/images/absorbent c.png`,
+      [`${process.env.PUBLIC_URL}/images/absorbentc.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/absorbentcee1.png`,
        `${process.env.PUBLIC_URL}/images/dealsthumb/absorbentcee2.png`,
        

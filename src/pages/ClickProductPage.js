@@ -124,7 +124,7 @@ useEffect(()=>{
                         ))}
                       </div>
         </Col>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={6} className='mt-2'>
             <h2>{product.name}</h2>
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
