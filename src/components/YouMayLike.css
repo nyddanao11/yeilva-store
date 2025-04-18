@@ -5,8 +5,16 @@
   width: 100%;
 }
 
+.line::before,
+.line::after {
+  content: '';
+  flex-grow: 1; /* Allows the lines to take up available space */
+  height: 1.5px; /* Adjust the thickness of the line */
+  background-color: #ccc; /* Choose your line color */
+  margin: 0 10px; /* Add some spacing between the line and the text */
+}
+
 .text {
   padding: 0 10px;
   color: #000;
-  
 }

@@ -39,6 +39,10 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
     }
   };
 
+  function clickLink(){
+      setShowDropdown(false);
+  }
+
   const handleSearch = async (name) => {
     await fetchAllProducts(name); // Call fetchAllProducts from context
   };
@@ -152,18 +156,32 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
     <Dropdown.Item>
       <div className="text-muted mt-2">
         <p>You may also like:</p>
-        <ul className="list-unstyled">
-          <li onClick={() => handleItemClickCategory('wellness product')}>
-            <Link to="/productsdata" className="search-link">
-              Health & Wellness Products
-            </Link>
-          </li>
-          <li onClick={() => handleItemClickCategory('beauty and hygiene')}>
-            <Link to="/productsdata" className="search-link">
-              Beauty Products
-            </Link>
-          </li>
-        </ul>
+           <ul className="list-unstyled">
+                <li>
+                  <Link
+                    to="/productsdata"
+                    className="search-link"
+                    onClick={() => {
+                      handleItemClickCategory('wellness product');
+                      clickLink();
+                    }}
+                  >
+                    Health & Wellness Products
+                  </Link>
+                </li>
+                 <li>
+                <Link
+                  to="/productsdata"
+                  className="search-link"
+                  onClick={() => {
+                    handleItemClickCategory('beauty and hygiene');
+                    clickLink();
+                  }}
+                >
+                  Beauty Products
+                </Link>
+              </li>
+              </ul>
       </div>
     </Dropdown.Item>
   </Dropdown.Menu>
