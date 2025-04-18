@@ -249,8 +249,11 @@ const categories = [
                   {categories.map((cat, index) => (
                     <Dropdown.Item
                       key={index}
-                      onClick={() => handleItemClickCategory(cat.name)}
-                      as={Link} to="/productsdata"
+                      onClick={() => {
+                      handleItemClickCategory(cat.name);
+                      handleCloseOffcanvas(); // Call this function to close the offcanvas
+                    }}                     
+                     as={Link} to="/productsdata"
                     >
                       {cat.icon} {cat.name}
                     </Dropdown.Item>
