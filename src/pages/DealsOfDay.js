@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 import DealsPage from'./Deals';
 import DealsPageFashion from'./DealsPageFashion';
 import DealsElectronic from './DealsElectronic';
-import {wellnessProductData} from'../data/wellnessProductData';
 import {dealsFashion} from '../data/DealsFashion';
 import {deals} from '../data/DealsData';
 import {dealsElectronicData} from'../data/DealsElectronicData';
 import YouMayLike from'../components/YouMayLike';
 
 export default function DealsOfDay ({url, name, price, discountedPrice, rating, addToCart, cartItems,product})  {
-   let countWellness = wellnessProductData.length;
+   let countWellness = deals.length;
   let ElectronicsArray = [...dealsElectronicData];
   let countElectronic = ElectronicsArray.length;
   

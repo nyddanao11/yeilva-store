@@ -5,9 +5,6 @@ import { useMediaQuery } from 'react-responsive';
 import ErrorBoundary from './pages/ErrorBoundary';
 import {Spinner} from 'react-bootstrap';
 
-import {pcproductsData} from './data/pcproductsData';
-import {avonproductsData} from './data/AvonProductsData';
-import {beautyProductsData} from './data/BeautyProductsData';
 import {dealsElectronicData} from './data/DealsElectronicData';
 import {homeProducts} from './data/homeProducts';
 
@@ -18,8 +15,6 @@ const Home = React.lazy(() => import('./pages/Home'));
 const CheckoutForm = React.lazy(() => import('./components/CheckoutForm'));
 const LoanForm = React.lazy(() => import('./pages/LoanForm'));
 const FeaturedProduct = React.lazy(() => import('./pages/Products'));
-const PcProducts = React.lazy(() => import('./pages/PcProducts'));
-const AvonProducts = React.lazy(() => import('./pages/AvonProducts'));
 const Cart = React.lazy(() => import('./pages/Cart'));
 const Login = React.lazy(() => import('./pages/Login'));
 const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'));
@@ -29,16 +24,12 @@ const DealsOfDay  = React.lazy(() => import('./pages/DealsOfDay'));
 const MyAccountPage  = React.lazy(() => import('./pages/MyAccount'));
 const NewArrival  = React.lazy(() => import('./pages/NewArrival'));
 const ClickProductPage  = React.lazy(() => import('./pages/ClickProductPage'));
-const ClickProductPagePc  = React.lazy(() => import('./pages/ClickProductPagePc'));
-const ClickProductPageAvon  = React.lazy(() => import('./pages/ClickProductPageAvon'));
 const Brochure  = React.lazy(() => import('./components/BrochureServices'));
 const CombinedNavbar  = React.lazy(() => import('./components/CombinedNavbar'));
 const ClickBestSelling  = React.lazy(() => import('./pages/ClickBestSelling'));
 const ClickFeaturedProduct  = React.lazy(() => import('./pages/ClickFeaturedProduct'));
 const ClickRecommendedProduct  = React.lazy(() => import('./pages/ClickRecommendedProduct'));
 const ContactUs  = React.lazy(() => import('./components/ContactUs'));
-const BeautyProducts  = React.lazy(() => import('./pages/BeautyProducts'));
-const ClickBeautyProducts  = React.lazy(() => import('./pages/ClickBeautyProducts'));
 const TermsAndConditionsPage  = React.lazy(() => import('./pages/TermsAndConditions'));
 const PrivacyPolicyPage  = React.lazy(() => import('./pages/PrivacyPolicy'));
 const ReturnPolicyPage  = React.lazy(() => import('./pages/ReturnPolicy'));
@@ -238,15 +229,10 @@ const handleLogout = () => {
             <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn} handleItemClickCategory={handleItemClickCategory} />} />
           <Route path="/productsdata" element={<ProductsData addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} storedProducts={storedProducts}/>} />
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
-            <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
-            <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
-             <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-             <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-            <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  
                         setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  />}/>                                    
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
@@ -261,7 +247,6 @@ const handleLogout = () => {
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-              <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/contactus" element={<ContactUs />} />
            
                 <Route path="/clickdeals/:id" element={<ClickDeals addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -311,15 +296,10 @@ const handleLogout = () => {
              <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
           <Route path="/productsdata" element={<ProductsData addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} storedProducts={storedProducts}/>} />
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
-            <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
-            <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn}  storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
-             <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-             <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-            <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} 
                           setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  />}/>
      
@@ -334,7 +314,6 @@ const handleLogout = () => {
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-              <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
               <Route path="/contactus" element={<ContactUs />} />
       
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} />} />
@@ -380,15 +359,10 @@ const handleLogout = () => {
             <Route path="/" element={<Home addToCart={addToCart} isLoggedIn={isLoggedIn} handleItemClickCategory={handleItemClickCategory}/>} />
           <Route path="/productsdata" element={<ProductsData addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} storedProducts={storedProducts}/>} />
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
-            <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
-            <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart}  isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
-             <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-             <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-            <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} 
                             setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} />}/>
             
@@ -404,7 +378,6 @@ const handleLogout = () => {
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
-              <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
               <Route path="/contactus" element={<ContactUs />} />
              
                 <Route path="/clickdeals/:id" element={<ClickDeals addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
@@ -453,15 +426,10 @@ const handleLogout = () => {
             <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
           <Route path="/productsdata" element={<ProductsData addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} storedProducts={storedProducts}/>} />
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
-            <Route path="/pcproducts" element={<PcProducts addToCart={addToCart} />} />
-            <Route path="/beautyproducts" element={<BeautyProducts addToCart={addToCart} />} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
-             <Route path="/clickproductpagepc/:id" element={<ClickProductPagePc addToCart={addToCart} isLoggedIn={isLoggedIn} />} />
-             <Route path="/clickproductpageavon/:id" element={<ClickProductPageAvon addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-            <Route path="/avonproducts" element={<AvonProducts addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems} 
                          setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} />}/>
          
@@ -476,7 +444,6 @@ const handleLogout = () => {
             <Route path="/clickproductpagebestselling/:id" element={<ClickBestSelling addToCart={addToCart}  isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagefeaturedproduct/:id" element={<ClickFeaturedProduct addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
              <Route path="/clickproductpagerecommended/:id" element={<ClickRecommendedProduct addToCart={addToCart} isLoggedIn={isLoggedIn}/>} />
-              <Route path="/clickproductpagebeauty/:id" element={<ClickBeautyProducts addToCart={addToCart} isLoggedIn={isLoggedIn} />} />
               <Route path="/contactus" element={<ContactUs />} />
              
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} />} />

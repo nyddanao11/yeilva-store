@@ -1,8 +1,7 @@
 .category-header{
-	text-align: center;
-	color: green;
+	color: #5D5D5D;
 	margin-top:15px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 .pagination button.active-page {
