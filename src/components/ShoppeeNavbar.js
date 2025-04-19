@@ -71,9 +71,10 @@ const categories = [
 
           <>
           {/* Home icon with Christmas tree */}
-          <Navbar.Brand as={Link} to="/" className="home text-dark" >
-            <FaHome size={24} style={{ borderRadius: '5px', color:'#5D5D5D' }}/>
-          </Navbar.Brand>
+        
+          <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
+            <FaBars />
+          </Button>
                   <Nav>
                 <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700', borderRadius: '5px' }}>
                   <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
@@ -94,16 +95,11 @@ const categories = [
             <FaHome size={24} style={{ borderRadius: '5px', color: '#5D5D5D' }}/>
           </Navbar.Brand>
 
-            <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
-            <FaBars />
-          </Button>
+           
           </>
 
           )}
 
-          <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
-            <FaBars />
-          </Button>
 
           <Navbar.Collapse id="navbar-nav" className="justify-content-lg-between">
             <Nav className="ml-auto">
@@ -237,23 +233,23 @@ const categories = [
       </Navbar>
 
     {/* Offcanvas for additional menu items */}
-      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="end" >
+      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas}  placement={isSmallScreen ? 'start' : 'end'} >
         <Offcanvas.Header closeButton style={{ borderBottom: "1px #d3d4d5 solid" }}>
           <Offcanvas.Title>Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
-            <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
-            <NavDropdown {...`${< FaServicestack />}`} title="Categories" id="product-category-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
+            <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}  className='link_style'><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
+            <NavDropdown {...`${< FaServicestack />}`} title="Categories" id="product-category-dropdown"  style={{ paddingRight: '10px', borderRadius: '5px' }}>
             
                   {categories.map((cat, index) => (
                     <Dropdown.Item
                       key={index}
-                      onClick={() => {
+                       onClick={() => {
                       handleItemClickCategory(cat.name);
                       handleCloseOffcanvas(); // Call this function to close the offcanvas
-                    }}                     
-                     as={Link} to="/productsdata"
+                    }}
+                      as={Link} to="/productsdata"
                     >
                       {cat.icon} {cat.name}
                     </Dropdown.Item>
@@ -261,9 +257,9 @@ const categories = [
 
             </NavDropdown>
           </Nav>
-
-          <Nav>
-            <NavDropdown title="Services" id="services-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
+      
+          <Nav >
+            <NavDropdown  title="Services" id="services-dropdown"  style={{ paddingRight: '10px', borderRadius: '5px' }}>
               {isLoggedIn ? (
                 <>
                   <NavDropdown title="Other Services" id="other-services-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
@@ -291,17 +287,19 @@ const categories = [
                           }
                           handleCloseOffcanvas(); // Close the offcanvas
                         }}
+                        
                       >
                           All Services
                         </Dropdown.Item>
                       </>
               )}
             </NavDropdown>
+       
           </Nav>
 
           <Nav className="flex-column" >
-            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
-            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
+            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}  className='link_style'><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
+            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}  className='link_style'><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
                     {/* Account Section */}
                 <Nav.Link
                   as={NavLink}
@@ -314,7 +312,7 @@ const categories = [
                           }
                           handleCloseOffcanvas(); // Close the offcanvas
                         }}
-                      
+                       className='link_style'
                 >
                   {isLoggedIn ? (
                     <>
@@ -344,11 +342,11 @@ const categories = [
               </Modal>
 
             {isLoggedIn ? (
-              <Nav.Link as={NavLink} to="/" onClick={() => { handleLogout(); handleCloseOffcanvas(); }}><FaSignOutAlt style={{ marginRight:'5px' }} />Logout</Nav.Link>
+              <Nav.Link as={NavLink} to="/" onClick={() => { handleLogout(); handleCloseOffcanvas(); }} className='link_style' ><FaSignOutAlt style={{ marginRight:'5px' }} />Logout</Nav.Link>
             ) : (
               <>
-                <Nav.Link as={NavLink} to="/login" onClick={handleCloseOffcanvas}><FaSignInAlt style={{ marginRight:'5px' }} />Login</Nav.Link>
-                <Nav.Link as={NavLink} to="/signupform" onClick={handleCloseOffcanvas}><FaSignInAlt style={{ marginRight:'5px' }} />Sign up</Nav.Link>
+                <Nav.Link as={NavLink} to="/login" onClick={handleCloseOffcanvas}  className='link_style' ><FaSignInAlt style={{ marginRight:'5px', textDecoration:'none', color:'black' }} />Login</Nav.Link>
+                <Nav.Link as={NavLink} to="/signupform" onClick={handleCloseOffcanvas}  className='link_style' ><FaSignInAlt style={{ marginRight:'5px' }} />Sign up</Nav.Link>
               </>
             )}
           </Nav>

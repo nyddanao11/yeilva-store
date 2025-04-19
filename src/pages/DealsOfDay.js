@@ -7,19 +7,12 @@ import DealsElectronic from './DealsElectronic';
 import {wellnessProductData} from'../data/wellnessProductData';
 import {dealsFashion} from '../data/DealsFashion';
 import {deals} from '../data/DealsData';
-import {mens} from'../components/Fashion/MensData';
-import {womens} from'../components/Fashion/womensData';
-import {mensshoes} from'../components/Fashion/MensShoesData';
-import {womensshoes} from'../components/Fashion/WomensShoesData';
 import {dealsElectronicData} from'../data/DealsElectronicData';
-import {speakerData}from'../components/Electronics/SpeakerData';
 import YouMayLike from'../components/YouMayLike';
 
-export default function DealsOfDay ({url, name, price, discountedPrice, rating, addToCart, cartItems,product}) {
+export default function DealsOfDay ({url, name, price, discountedPrice, rating, addToCart, cartItems,product})  {
    let countWellness = wellnessProductData.length;
-    let fashionArray = [...mens, ...womens, ...womensshoes, ...mensshoes];
- let countFashion = fashionArray.length;
-  let ElectronicsArray = [...dealsElectronicData, ...speakerData];
+  let ElectronicsArray = [...dealsElectronicData];
   let countElectronic = ElectronicsArray.length;
   
   return (
@@ -48,23 +41,6 @@ export default function DealsOfDay ({url, name, price, discountedPrice, rating, 
          ))}
         </Row>
 
-      <Row >
-        <div className="d-flex mt-2">
-          <h5>Fashion & Apparel </h5>
-          <Link to="/fashionapparel" style={{paddingLeft:'15px', paddingBottom:'5px', textDecoration:'none'}}>All </Link>
-         <p  style={{paddingLeft:'10px'}}>({`${countFashion}`})</p>
-         </div>
-         {dealsFashion.map((product) => (
-              <Col key={product.id} md={3} xs={6} lg={2} className="g-1" >
-                <div className="d-flex justify-content-center align-items-center " style={{flexWrap:"wrap"}}>
-               
-                  <DealsPageFashion url={product.url} name={product.name} price={product.price} addToCart={addToCart} product={product}/>
-
-                 
-                </div>              
-              </Col>
-         ))}
-        </Row>
 
           <Row >
         <div className="d-flex mt-2">

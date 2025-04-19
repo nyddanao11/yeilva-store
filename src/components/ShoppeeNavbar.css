@@ -40,5 +40,15 @@
 .nav-alert{
   z-index: 100;
 }
-
-
+.link_style{
+  text-decoration: none;
+  color:#5D5D5D;
+}
+#product-category-dropdown{
+  text-decoration: none;
+  color:#5D5D5D;
+}
+#services-dropdown{
+   text-decoration: none;
+  color:#5D5D5D;
+}
