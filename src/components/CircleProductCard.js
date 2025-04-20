@@ -3,7 +3,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import ProductCard from './ImageCircleCard';
-import { cans } from '../data/grocery';
 import { useMediaQuery } from 'react-responsive';
 import axios from'axios';
 import {Link, useNavigate} from'react-router-dom';
