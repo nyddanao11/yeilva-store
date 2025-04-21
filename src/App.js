@@ -5,9 +5,6 @@ import { useMediaQuery } from 'react-responsive';
 import ErrorBoundary from './pages/ErrorBoundary';
 import {Spinner} from 'react-bootstrap';
 
-import {dealsElectronicData} from './data/DealsElectronicData';
-import {homeProducts} from './data/homeProducts';
-
 import { useAuth} from './pages/loginContext';
 import { ProductContext} from './pages/ProductContext'; // Import context
 
@@ -71,8 +68,6 @@ const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookin
 const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
 const  Orders = React.lazy(() => import('./pages/YourOrders'));
 const  OrderTracking = React.lazy(() => import('./pages/OrderTracking'));
-const  UpdateOrder = React.lazy(() => import('./components/OrderStatusUpdate'));
-const  AddProduct = React.lazy(() => import('./pages/ProductUpload'));
 const  ProductsData = React.lazy(() => import('./pages/ProductPageUpdated'));
 const  AddToCartNotification = React.lazy(() => import('./pages/AddToCartNotification'));
 
