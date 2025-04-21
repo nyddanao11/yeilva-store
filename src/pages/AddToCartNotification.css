@@ -71,6 +71,11 @@
   font-size: 0.9rem;
   cursor: pointer;
 }
+.added-successfull{
+  color: green;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
 
 .view-cart-button:hover {
   background-color: #f7dc6f;

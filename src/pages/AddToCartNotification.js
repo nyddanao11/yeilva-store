@@ -23,6 +23,7 @@ const AddToCartNotification = ({ product, onClose }) => {
 
   return (
     <div className="add-to-cart-notification">
+    <p className='added-successfull'>✓ Successfully Added to Cart</p>
       <div className="notification-content-enhanced">
         {product.url && (
           <img
