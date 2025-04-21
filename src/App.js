@@ -209,8 +209,8 @@ const handleLogout = () => {
   <ErrorBoundary>
     
     <div>
-     <Suspense fallback={ <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-          <h6>yeilvastore</h6>
+     <Suspense fallback={ <div style={{ display: "flex", flexDirection:'column', justifyContent: "center", alignItems: "center", height: "100vh" }}>
+          <h6 style={{marginBottom:'15px', color:'#5D5D5D'}}>yeilvastore</h6>
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
