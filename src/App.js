@@ -74,6 +74,7 @@ const  OrderTracking = React.lazy(() => import('./pages/OrderTracking'));
 const  UpdateOrder = React.lazy(() => import('./components/OrderStatusUpdate'));
 const  AddProduct = React.lazy(() => import('./pages/ProductUpload'));
 const  ProductsData = React.lazy(() => import('./pages/ProductPageUpdated'));
+const  AddToCartNotification = React.lazy(() => import('./pages/AddToCartNotification'));
 
 
  function App() {
@@ -83,6 +84,7 @@ const  ProductsData = React.lazy(() => import('./pages/ProductPageUpdated'));
   const [cartCount, setCartCount] = useState(0);
     const [formattedGrandTotal, setFormattedGrandTotal] = useState('₱0.00');
      const [currentPage, setCurrentPage] = useState(1);
+     const [notificationProduct, setNotificationProduct] = useState(null);
 
 const [cartItems, setCartItems] = useState(() => {
   // Use a function to get the initial value from localStorage
@@ -123,39 +125,33 @@ useEffect(() => {
   }, []);
 
 
-const addToCart = (product) => {
-  const existingItem = cartItems.find((item) => item.id === product.id);
+ const addToCart = (product) => {
+    const existingItem = cartItems.find((item) => item.id === product.id);
 
-  if (existingItem) {
-    // If the item already exists, update the quantity
-    setCartItems((prevCartItems) => {
-      const updatedItems = prevCartItems.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
+    if (existingItem) {
+      setCartItems((prevCartItems) => {
+        const updatedItems = prevCartItems.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+        setTimeout(() => {
+          localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+        }, 0);
+        setNotificationProduct(product); // Set the product for the notification
+        return updatedItems;
+      });
+    } else {
+      setCartItems((prevCartItems) => {
+        const newCartItems = [...prevCartItems, { ...product, quantity: 1 }];
+        localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+        setNotificationProduct(product); // Set the product for the notification
+        return newCartItems;
+      });
+    }
+  };
 
-      // Schedule the localStorage update after state has been updated
-      setTimeout(() => {
-        localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-      }, 0);
-
-      // Show success alert
-      alert(`Added another ${product.name} to the cart!`);
-      
-      return updatedItems;
-    });
-  } else {
-    // If the item is new, add it to the cart
-    setCartItems((prevCartItems) => {
-      const newCartItems = [...prevCartItems, { ...product, quantity: 1 }];
-      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
-
-      // Show success alert
-      alert(`Added ${product.name} to the cart!`);
-
-      return newCartItems;
-    });
-  }
-};
+  const handleCloseNotification = () => {
+    setNotificationProduct(null);
+  };
 
 
 const removeFromCart = (itemId) => {
@@ -210,11 +206,19 @@ const handleLogout = () => {
     
     <div>
      <Suspense fallback={ <div style={{ display: "flex", flexDirection:'column', justifyContent: "center", alignItems: "center", height: "100vh" }}>
-          <h6 style={{marginBottom:'15px', color:'#5D5D5D'}}>yeilvastore</h6>
+          <h5 style={{marginBottom:'15px', color:'#5D5D5D'}}>yeilvastore</h5>
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </div>}>
+        {notificationProduct && (
+        <Suspense fallback={<div>Loading notification...</div>}>
+          <AddToCartNotification
+            product={notificationProduct}
+            onClose={handleCloseNotification}
+          />
+        </Suspense>
+      )}
       <OfflineIndicator />
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
@@ -233,7 +237,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  
                         setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  />}/>                                    
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
@@ -300,7 +304,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn}  storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn}  storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} 
                           setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  />}/>
      
@@ -363,7 +367,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart}  isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart}  isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} 
                             setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} />}/>
             
@@ -430,7 +434,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts}/>} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems} 
                          setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} />}/>
          

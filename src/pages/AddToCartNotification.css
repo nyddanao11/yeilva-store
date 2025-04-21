@@ -1,0 +1,79 @@
+.add-to-cart-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #ddd; /* Lighter border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  z-index: 1000;
+  border-radius: 8px; /* More rounded corners */
+  padding: 15px;
+  width: 350px; /* Adjust width as needed */
+}
+
+.notification-content-enhanced {
+  display: flex; /* Arrange items in a row */
+  align-items: center; /* Vertically align items */
+  margin-bottom: 10px; /* Space before actions */
+}
+
+.product-thumbnail {
+  width: 60px; /* Adjust thumbnail size */
+  height: 60px;
+  margin-right: 15px; /* Space between image and text */
+  border-radius: 4px; /* Slightly rounded image */
+  object-fit: cover; /* Ensure image fills the container without distortion */
+}
+
+.product-details {
+  flex-grow: 1; /* Allow details to take up remaining space */
+}
+
+.product-name-enhanced {
+  font-size: 1rem; /* Slightly smaller font */
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.product-price-enhanced {
+  font-size: 0.9rem;
+  color: #555; /* Muted price color */
+}
+
+.close-button-enhanced {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto; /* Push to the right */
+  line-height: 1; /* Adjust line height for better vertical alignment */
+}
+
+.close-button-enhanced:hover {
+  color: #333;
+}
+
+.notification-actions {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.view-cart-button {
+  background-color: #f0c14b; /* Amazon's yellow button color */
+  color: #111;
+  border: 1px solid #a88734;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.view-cart-button:hover {
+  background-color: #f7dc6f;
+}
+
+/* You can add styling for a "Proceed to Checkout" button here */
