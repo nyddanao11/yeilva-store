@@ -52,3 +52,22 @@
    text-decoration: none;
   color:#5D5D5D;
 }
+/* Target the main offcanvas element when shown */
+.offcanvas.show.custom-offcanvas {
+  max-width: 75vw !important;
+}
+
+/* Target the offcanvas-body when the offcanvas is shown */
+.offcanvas.show.custom-offcanvas .offcanvas-body {
+  /* You might want to adjust padding or other styles if needed */
+}
+
+/* Target the offcanvas header when the offcanvas is shown */
+.offcanvas.show.custom-offcanvas .offcanvas-header {
+  max-width: 75vw !important; /* Ensure header also aligns */
+}
+
+/* Optional: Adjust the backdrop if desired */
+.offcanvas-backdrop.show {
+  /* ... your backdrop styles ... */
+}

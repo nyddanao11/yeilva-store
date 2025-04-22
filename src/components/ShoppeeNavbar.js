@@ -76,7 +76,7 @@ const categories = [
             <FaBars />
           </Button>
                   <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700', borderRadius: '5px' }}>
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700' }}>
                   <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>
@@ -160,7 +160,7 @@ const categories = [
 
               {/* Christmas Deals section */}
               <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700', borderRadius: '5px' }}>
+                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700'}}>
                   <FaPercent style={{ marginRight:'5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>
@@ -233,7 +233,7 @@ const categories = [
       </Navbar>
 
     {/* Offcanvas for additional menu items */}
-      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas}  placement={isSmallScreen ? 'start' : 'end'} >
+      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas}  placement={isSmallScreen ? 'start' : 'end'} className='custom-offcanvas' >
         <Offcanvas.Header closeButton style={{ borderBottom: "1px #d3d4d5 solid" }}>
           <Offcanvas.Title>Menu</Offcanvas.Title>
         </Offcanvas.Header>
