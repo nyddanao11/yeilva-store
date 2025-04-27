@@ -19,6 +19,11 @@ class ErrorBoundary extends React.Component {
     handleRefresh = () => {
     // Navigate back to the previous page
     window.history.back();
+    
+    // Refresh the previous page after navigating back
+    setTimeout(() => {
+        window.location.reload();
+    }, 500); // Adjust the delay as needed
 };
 
    
