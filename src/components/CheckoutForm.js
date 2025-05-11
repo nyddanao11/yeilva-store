@@ -12,19 +12,11 @@ export default function CheckoutForm  ({ cartItems, formattedGrandTotal, cartIte
    const location = useLocation();
   const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
   
-
-   const [errorMessage, setErrorMessage] = useState('');
    const [loading, setLoading] = useState(false);
     const [checkoutData, setCheckoutData] = useState('');
    const [image, setImage] = useState(null);
     const [installmentChoice, setInstallmentChoice] = useState(null); // Track installment choice
     const [selfieImage, setSelfieImage] = useState(null); // Store captured selfie
-
-  const handleSelfieCapture = (capturedImage) => {
-    setSelfieImage(capturedImage);
-  };
-
-  console.log('selfie',handleSelfieCapture);
  
 const [userData, setUserData] = useState({
     firstname: '',
@@ -39,13 +31,7 @@ const [userData, setUserData] = useState({
   total: formattedGrandTotal,
 
 });
- const [cashOnDelivery, setCashOnDelivery] = useState({
-  name: '', // Add the 'name' field
-  quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
-  total: formattedGrandTotal,
-});
 
-  const [isSubmitting, setIsSubmitting] = useState(false); // Add state for form submission
 
 
    const [showModal, setShowModal] = useState(false); //
@@ -173,6 +159,8 @@ const handleSubmit = async (e) => {
 
   // Clean the product names for server submission
   const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
+   const cleanedProductPrice = cartItems.map((item) => item.price);
+ const cleanedProductUrl = cartItems.map((item) => cleanProductName(item.url));
 
   // Generate a string for cart item details (for display purposes)
   const itemName = cartItems.map((item) => `
@@ -208,6 +196,8 @@ const handleSubmit = async (e) => {
     total: formattedGrandTotal,
     paymentOption: selectedPayment,
     productNames: cleanedProductNames, // Cleaned product names array
+   productPrice: cleanedProductPrice.length > 0 ? cleanedProductPrice[0] : 0,
+    productUrl: cleanedProductUrl,
   };
 
   try {
@@ -235,33 +225,33 @@ const handleSubmit = async (e) => {
       }
 
 
-    if (!selfieImage) {
-       setPaymentErrors((prevErrors) => ({
-          ...prevErrors,
-          installment: 'Please upload your Selfie to proceed with the installment payment.',
-        }));
-        setLoading(false);
+        if (!selfieImage) {
+           setPaymentErrors((prevErrors) => ({
+              ...prevErrors,
+              installment: 'Please upload your Selfie to proceed with the installment payment.',
+            }));
+            setLoading(false);
+          return;
+        }
+
+    // Convert selfieImage to Blob
+    let selfieBlob;
+    try {
+      selfieBlob = await convertToBlob(selfieImage);
+    } catch (error) {
+      console.error('Failed to convert selfie image to Blob:', error);
+      setLoading(false);
       return;
     }
-
-// Convert selfieImage to Blob
-let selfieBlob;
-try {
-  selfieBlob = await convertToBlob(selfieImage);
-} catch (error) {
-  console.error('Failed to convert selfie image to Blob:', error);
-  setLoading(false);
-  return;
-}
       // Append installment-specific fields
       formData.append('installmentPlan', installmentChoice.plan);
       formData.append('installmentAmount', installmentChoice.amount);
       formData.append('installmentImage', image);
-    formData.append('selfie', selfieBlob, 'selfie.png'); // Selfie Image
+      formData.append('selfie', selfieBlob, 'selfie.png'); // Selfie Image
 
-// Log FormData keys and values for debugging
-for (const [key, value] of formData.entries()) {
-  console.log(key, value);
+  // Log FormData keys and values for debugging
+  for (const [key, value] of formData.entries()) {
+    console.log(key, value);
 }
 
 
@@ -281,7 +271,7 @@ for (const [key, value] of formData.entries()) {
       if (!passedEwalletStatus) {
         setPaymentErrors((prevErrors) => ({
           ...prevErrors,
-          ewallets: 'Sorry, this Service is not yet Available.',
+          ewallets: 'Sorry, Please proceed to Gcash payment first to submit your Order.',
         }));
         setLoading(false);
         return;
@@ -306,7 +296,6 @@ for (const [key, value] of formData.entries()) {
     }));
   } finally {
     setLoading(false); // Stop loading spinner
-    setIsSubmitting(false); // Re-enable form submission
   }
 };
 
@@ -362,11 +351,6 @@ useEffect(() => {
     console.log('Email is missing in local storage');
   }
 }, []);
-
-function ordersToStore() {
-    localStorage.setItem('orders', JSON.stringify(cartItems));
-}
-
 
 return (    
      <Row className='d-flex justify-content-center align-items-center ' >
@@ -489,7 +473,7 @@ return (
   </ul>
 
 
-   <Button variant='outline-secondary' onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px', padding:'6px 6px'}}>
+    <Button variant='outline-secondary' onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px', padding:'6px 6px'}}>
             Back to Cart
     </Button>
 </div>
@@ -557,9 +541,9 @@ return (
                   <Form.Control type="file" accept="image/*"  onChange={handleImageChange} />
                 </FloatingLabel>
               </Form.Group>
-     
+              
           {/* Upload Selfie */}
-           <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
+            <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
            <FaCamera style={{ fontSize: '24px', color: 'blue' }} />
            <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
           </div>
@@ -611,7 +595,7 @@ return (
           )}
 
           <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
-          <Button type="submit" className="mb-2 mt-2" disabled={isButtonDisabled }  onClick={ordersToStore} style={{ width: '100%', backgroundColor:'#E92409', border:'none'}}>
+          <Button  type="submit" className="mb-2 mt-2" disabled={isButtonDisabled } style={{ width: '100%', backgroundColor:'#E92409', border:'none'}}>
             {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
           </Button>
           </div>

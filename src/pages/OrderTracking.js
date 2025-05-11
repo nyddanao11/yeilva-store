@@ -11,92 +11,64 @@ export default function OrderTracking({addToCart}) {
     { label: "Out for Delivery", icon: <FaShippingFast />, step: 3 },
     { label: "Delivered", icon: <FaCheckCircle />, step: 4 },
   ];
-    const [deliveryStatus, setDeliveryStatus] = useState({
-    order_number: 'N/A',
-    orderstatus: 0, // Assuming "orderstatus" is numeric
-    deliverydate: 'Not Available',
-});
+   const [orders, setOrders] = useState([]);
    
-  const progressPercentage = (parseInt(deliveryStatus.orderstatus, 10) / orderSteps.length) * 100;
+  const progressPercentage = (parseInt(orders.orderstatus, 10) / orderSteps.length) * 100;
 
-   const fetchUserData = async (email) => {
+  const fetchUserData = async (email) => {
     if (!email) {
         console.error('Email is undefined');
         return;
     }
 
-    try { 
-       const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/orderdata?email=${encodeURIComponent(email)}`);
-        const user = response.data;
-        console.log('orderdata', user);
-        setDeliveryStatus(user);
+    try {
+        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/orderdata?email=${encodeURIComponent(email)}`);
+        const userOrders = response.data; // Now an array of orders
+        console.log('orderdata', userOrders);
+        setOrders(userOrders);
     } catch (error) {
         console.error('Error fetching user data:', error);
     }
 };
 
-
 useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
     if (storedUserEmail) {
-        (async () => {
-            try {
-                const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/orderdata?email=${encodeURIComponent(storedUserEmail.replace(/"/g, ''))}`);
-                const user = response.data;
-                console.log('orderdata', user);
-                setDeliveryStatus(user);
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        })();
+        fetchUserData(storedUserEmail.replace(/"/g, ''));
     } else {
         console.log('Email is missing in local storage');
     }
-}, []); // Empty array ensures single run
+}, []);
 
 
     return (
         <>
           <Container className="mt-4">
-          <Card>
+         {orders.map((order, orderIndex) => (
+            <Card key={orderIndex} className="p-4 shadow mb-4">
                 <Card.Body>
                     <Card.Title>Order Tracking</Card.Title>
                     <Card.Text>
-                        <strong>Order ID:</strong> {deliveryStatus.order_number} <br />
-                        <strong>Estimated Delivery:</strong> {deliveryStatus.deliverydate}
+                        <strong>Order ID:</strong> {order.order_number} <br />
+                        <strong>Estimated Delivery:</strong> {order.deliverydate}
                     </Card.Text>
                 </Card.Body>
+                <Row className="align-items-center">
+                    {orderSteps.map((step, index) => (
+                        <Col key={index} className="text-center">
+                            <div className={`d-inline-flex justify-content-center align-items-center rounded-circle p-3 ${step.step <= order.orderstatus ? "bg-success text-white" : "bg-light"}`} style={{ width: "50px", height: "50px" }}>
+                                {step.icon}
+                            </div>
+                            <p className="mt-2">{step.label}</p>
+                        </Col>
+                    ))}
+                </Row>
+                <ProgressBar now={(order.orderstatus / orderSteps.length) * 100} className="mt-3" animated striped />
             </Card>
-      <Card className="p-4 shadow">
-        <Row className="text-center mb-3">
-          <Col>
-            <h4>Order Tracking</h4>
-          </Col>
-        </Row>
-        <Row className="align-items-center">
-          {orderSteps.map((step, index) => (
-            <Col key={index} className="text-center" >
-              <div
-                className={`d-inline-flex justify-content-center align-items-center rounded-circle p-3 ${
-                  step.step <= deliveryStatus.orderstatus ? "bg-success text-white" : "bg-light"
-                }`}
-              style={{width:"50px", height:"50px"}}
-              >
-                {step.icon}
-              </div>
-              <p className="mt-2">{step.label}</p>
-            </Col>
-          ))}
-        </Row>
-        <ProgressBar
-          now={(deliveryStatus.orderstatus / orderSteps.length) * 100}
-          className="mt-3"
-          animated
-          striped
-        />
-      </Card>
-    </Container>
+        ))}
+        </Container>
            <YouMayLike addToCart={addToCart}/>
            </>
     );
 }
+
