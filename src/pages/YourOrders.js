@@ -10,17 +10,26 @@ export default function Orders({ isLoggedIn, }) {
  const normalizeOrderData = (order) => {
   // Determine correct name property
   const itemName = order.productname || order.name;
-  const itemUrl = order.url.replace(/[{}"]/g, "").trim(); // Remove brackets and quotes
+  const itemUrl = order.url?.replace(/[{}"]/g, "").trim() || ""; // Remove brackets and quotes, handle undefined
 
-  if (!itemName || !itemUrl) return [order]; // Validate data
+  // Validate data:  Check for *both* name and URL being present.
+  if (!itemName || !itemUrl) return [order];
 
-  return itemName.includes(",")
-    ? itemName.split(",").map((name, index) => ({
-        name: name.trim(),
-        price: order.price,
-        url: itemUrl.split(",")[index]?.trim() || "", // Handle multiple URLs
-      }))
-    : [{ name: itemName.trim(), price: order.price, url: itemUrl }];
+  if (itemName.includes(",")) {
+    // Split names, handle potential missing URLs, and trim
+    const names = itemName.split(",").map(n => n.trim());
+    const urls = itemUrl.split(",").map(u => u.trim()); // Split and trim URLs
+
+    return names.map((name, index) => ({
+      name: name,
+      price: order.price,
+      url: urls[index] || "", // Use corresponding URL or empty string
+    }));
+  } else {
+    //  Remove brackets and quotes, and trim
+    const cleanName = itemName.replace(/[{}"]/g, "").trim();
+    return [{ name: cleanName, price: order.price, url: itemUrl }];
+  }
 };
 
  const fetchUserCheckoutData = async (email) => {
