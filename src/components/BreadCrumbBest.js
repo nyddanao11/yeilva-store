@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'react-bootstrap'; // Import Breadcrumb from react-bootstrap
-import { bestSellingProducts } from '../data/bestSellingProducts';
 
-const BreadCrumbBest = ({ productId }) => {
+const BreadCrumbBest = ({ productId, bestSellingProducts}) => {
   const [clickedItems, setClickedItems] = useState([]);
 
   const selectedProduct = bestSellingProducts.find((item) => item.id === productId);

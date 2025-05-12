@@ -7,8 +7,8 @@ import useShare from'./useShare';
 import'./userShare.css';
 
 
-const ImageCardFeaturedProduct = ({product, url, name, id, price,thumbnails}) => {
-   console.log('Props in ImageProduct:', { url, name, price, id, thumbnails });
+const ImageCardBestSellingProduct = ({product, url, name, id, price,thumbnails}) => {
+   console.log('Props in bestSellingProduct:', { url, name, price, id, thumbnails });
    const { reviewData, loading, error } = useFetchReviews(name);
       const handleShare = useShare(); // Use the custom hook
 
@@ -29,12 +29,12 @@ const ImageCardFeaturedProduct = ({product, url, name, id, price,thumbnails}) =>
   };
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching reviews</div>;
+  if (error) return <div>Error fetching best Selling Products</div>;
 
   return (
  <>
     <Card style={{ width: '10rem' }} className="product-card"  >
-      <Link to={`/clickproductpagefeaturedproduct/${product.id}`}>
+      <Link to={`/clickproductpagebestselling/${product.id}`}>
         <div className="card-image-container" style={{ height: '200px', overflow: 'hidden' }}>
           <img
             src={product.url}
@@ -62,4 +62,4 @@ const ImageCardFeaturedProduct = ({product, url, name, id, price,thumbnails}) =>
   );
 };
 
-export default ImageCardFeaturedProduct;
+export default ImageCardBestSellingProduct;

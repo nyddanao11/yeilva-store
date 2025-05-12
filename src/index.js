@@ -8,6 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './pages/loginContext';
 import ScrollToTop from './pages/ScrollToTop';
 import { ProductProvider } from './pages/ProductContext';
+import {FeaturedProductsProvider} from './pages/FeaturedProductsContext';
+import {BestSellingProvider} from './pages/BestSellingContext';
+import {RecommendedProvider} from './pages/RecommendedProductsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
 
@@ -15,10 +18,16 @@ root.render( // Use root.render instead of ReactDOM.render
   <React.StrictMode>
     <AuthProvider>
       <ProductProvider>
-        <Router>
-          <ScrollToTop />
-          <App />
-        </Router>
+       <FeaturedProductsProvider>
+        <BestSellingProvider>
+         <RecommendedProvider>
+          <Router>
+            <ScrollToTop />
+            <App />
+          </Router>
+          </RecommendedProvider>
+         </BestSellingProvider>
+        </FeaturedProductsProvider>
       </ProductProvider>
     </AuthProvider>
   </React.StrictMode>

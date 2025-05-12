@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import findProductByIdFeatured from '../data/findProductByIdFeatured';
 import './ClickProductPage.css';
 import YouMayLike from'../components/YouMayLike';
 import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponentFeatured from'../components/ProductTablatureFeatured';
 import axios from 'axios';
+import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
-export default function ClickFeaturedProduct ({ addToCart, isLoggedIn })  {
+export default function ClickFeaturedProduct ({ addToCart, isLoggedIn, featuredProducts })  {
+
   const { id } = useParams();
    console.log('ID from URL:', id);
-  
+
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
+  const [freeShippingPlace, setFreeShippingPlace] = useState(false);
+
   const navigate = useNavigate();
 
-  const product = findProductByIdFeatured(id);
-    const stockState = product.stock;
+  const product = featuredProducts.find(p => p.id === parseInt(id)); // Assuming product IDs are numbers
+      const stockState = product.stock;
  const stockStatus = () => {
   return stockState <= 0;
 };
+useEffect(()=>{
+  if(product.place ==='maslog')
+      {setFreeShippingPlace(true)}
+},[product.place])
+
 
   useEffect(() => {
     // Function to fetch reviews based on product name
@@ -92,18 +100,18 @@ const handleCheckoutClick = () => {
     <>
     <Container className="mt-3">
      <Row className="justify-content-center">
-           <BreadCrumbFeatured productId={product.id} />
+      {product && featuredProducts && <BreadCrumbFeatured productId={product.id} featuredProducts={featuredProducts} />}
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px', paddingBottom:'10px'}}>
           
-            <div className="main-image-container">
+             <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
-                          alt={product.name}
+                          alt={product.name} 
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails mb-2">
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -136,6 +144,10 @@ const handleCheckoutClick = () => {
 <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px"}}>
   {product.stock === 0 ? "Out of stock" : "In stock"}
 </p>
+{freeShippingPlace?(<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p></p>)}
+   {freeShippingPlace? (<p style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red', marginBottom:'12px'}}>
+              Not Available outside Danao City</p>):(<p></p>)}
+
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>
@@ -147,7 +159,7 @@ const handleCheckoutClick = () => {
 
        <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
-        <TabbedComponentFeatured  productId={product.id} />
+        <TabbedComponentFeatured  productId={product.id} featuredProducts={featuredProducts}/>
         </Col>
 
       </Row>

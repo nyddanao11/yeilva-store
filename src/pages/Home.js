@@ -1,25 +1,21 @@
 import React from'react';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import FeaturedProduct from '../components/FeaturedProduct';
-import BestSelling from '../components/BestSelling';
-import RecommendedProd from'../components/RecommendedProduct';
+import FeaturedProductSlides from '../components/FeaturedProductSlides';
+import BestSellingProductSlides from '../components/BestSellingProductSlides';
+import RecommendedProductSlides from '../components/RecommendedProductSlides';
 import CircleCard from '../components/CircleProductCard';
 import Accordion from '../components/FAQAccordion';
 import ImageSlider from '../components/ImageSlider';
-import {homeProducts} from'../data/homeProducts';
-import {recommendedProducts} from'../data/recommendedProducts';
-import {beautyProductsData} from '../data/BeautyProductsData';
 import Announcement from'../components/Announcement';
 import './Home.css';
 import PopUpAdds from '../components/PopUpAdds'; // Fix capitalization here
 
-export default function Home ({ product, isLoggedIn, handleItemClickCategory}) {
+export default function Home ({ product, isLoggedIn, handleItemClickCategory,featuredProducts, loading, error, bestSellingProducts, bestLoading, bestError, recommendedProducts, recommendedLoading, recommendedError}) {
 
-let countWellness = homeProducts.length;
+let countWellness = featuredProducts.length;
 let countPc = recommendedProducts.length;
-let countBeauty = beautyProductsData.length;
-
+let countBeauty = bestSellingProducts.length;
   return ( 
     <>
       {/* Popup Component */}
@@ -55,7 +51,7 @@ let countBeauty = beautyProductsData.length;
               <p  style={{paddingLeft:'5px'}}>({`${countWellness}`})</p>
             </div>
           </div>
-              <FeaturedProduct  product={product}/>
+              <FeaturedProductSlides  product={product} featuredProducts={featuredProducts} loading={loading} error={error}/>
           </Col> 
       </Row>
 
@@ -66,11 +62,11 @@ let countBeauty = beautyProductsData.length;
               <div className="d-flex ">   
           <h5 className ="title" style={{marginBottom:'7px', marginTop:"15px"}}>Best Selling Products</h5>
            <div className="d-flex mt-3 " >
-                <Link to="/beautyproducts" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
+                <Link to="/bestsellingproduct" style={{paddingLeft:'20px', textDecoration:'none'}}>All </Link>
               <p  style={{paddingLeft:'5px'}}>({`${countBeauty}`})</p>
            </div>
           </div> 
-             <BestSelling  product={product}/>
+             <BestSellingProductSlides  product={product} bestSellingProducts={bestSellingProducts} bestLoading={bestLoading} bestError={bestError}/>
           </Col> 
       </Row>
 
@@ -80,11 +76,11 @@ let countBeauty = beautyProductsData.length;
            <div className="d-flex " >  
              <h5 className ="title" style={{marginBottom:'7px', marginTop:"15px"}}>Recommended Products</h5>
                <div className="d-flex mt-3 " >
-                    <Link to="/pcproducts" style={{paddingLeft:'20px', textDecoration:'none'}}> All </Link>
+                    <Link to="/recommendedproduct" style={{paddingLeft:'20px', textDecoration:'none'}}> All </Link>
                   <p  style={{paddingLeft:'5px'}}>({`${countPc}`})</p>
                </div>
            </div>
-            <RecommendedProd product={product}/>    
+            <RecommendedProductSlides product={product} recommendedProducts={recommendedProducts} recommendedLoading={recommendedLoading} recommendedError={recommendedError}/>    
         </Col> 
       </Row>
 

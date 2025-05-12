@@ -4,11 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import findProductByIdYouMayLike from '../data/findProductByIdYouMayLike';
 import './ClickProductPage.css';
 import YouMayLike from'../components/YouMayLike';
-import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
+import BreadCrumbYouMayLike from'../components/BreadCrumbYouMayLike';
 import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
 import axios from 'axios';
 
-export default function ClickYouMayLike ({ addToCart, isLoggedIn }) {
+
+export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
   const { id } = useParams();
    console.log('ID from URL:', id);
   
@@ -91,7 +92,7 @@ export default function ClickYouMayLike ({ addToCart, isLoggedIn }) {
     <>
     <Container className="mt-3">
      <Row className="justify-content-center">
-           <BreadCrumbFeatured productId={product.id} />
+           <BreadCrumbYouMayLike productId={product.id} />
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px', paddingBottom:'10px'}}>
           
@@ -117,7 +118,7 @@ export default function ClickYouMayLike ({ addToCart, isLoggedIn }) {
 
         {/* Product Information */}
         <Col xs={12} md={6}>
-            <h2>{product.name}</h2>
+           <h2>{product.name}</h2>
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
            <h6>₱{product.price}</h6>
@@ -156,4 +157,5 @@ export default function ClickYouMayLike ({ addToCart, isLoggedIn }) {
    </>
   );
 };
+
 

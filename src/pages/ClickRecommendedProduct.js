@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import findProductByIdRecommended from '../data/findProductByIdRecommended';
 import './ClickProductPage.css';
 import BreadCrumbRecommended from'../components/BreadCrumbRecommended';
 import TabbedComponent from'../components/ProductTablatureRecommended';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
+import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
-export default function ClickRecommendedProduct ({ addToCart, isLoggedIn }) {
+export default function ClickRecommendedProduct ({ addToCart, isLoggedIn, recommendedProducts, recommendedLoading, recommendedError })  {
   const { id } = useParams();
   console.log('ID from URL:', id);
 
-const [selectedThumbnails, setSelectedThumbnails] = useState({});
+ const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
+   const [freeShippingPlace, setFreeShippingPlace] = useState(false);
+
   const navigate = useNavigate();
 
-  const product = findProductByIdRecommended(id);
-     const stockState = product.stock;
+  const product = recommendedProducts.find(p => p.id === parseInt(id)); // Assuming product IDs are numbers
+      const stockState = product.stock;
  const stockStatus = () => {
   return stockState <= 0;
 };
+useEffect(()=>{
+  if(product.place ==='maslog')
+      {setFreeShippingPlace(true)}
+},[product.place])
 
   useEffect(() => {
     // Function to fetch reviews based on product name
@@ -91,7 +97,7 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
     <>
     <Container className="mt-3">
              <Row className="justify-content-center">
-        <BreadCrumbRecommended productId={product.id} />
+      {product && recommendedProducts && <BreadCrumbRecommended productId={product.id} recommendedProducts={recommendedProducts} />}
 
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px', paddingBottom:'10px'}}>
@@ -117,7 +123,7 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
                       </div>
         </Col>
         <Col xs={12} md={6}>
-              <h2>{product.name}</h2>
+             <h2>{product.name}</h2>
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
            <h6>₱{product.price}</h6>
@@ -132,9 +138,9 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
             </div>
           </div>    
 
-<p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px"}}>
-  {product.stock === 0 ? "Out of stock" : "In stock"}
-</p>
+{freeShippingPlace?(<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p></p>)}
+   {freeShippingPlace? (<p style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red', marginBottom:'12px'}}>
+              Not Available outside Danao City</p>):(<p></p>)}
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>
@@ -146,7 +152,7 @@ const [selectedThumbnails, setSelectedThumbnails] = useState({});
 
      <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
-        <TabbedComponent  productId={product.id} />
+        <TabbedComponent  productId={product.id} recommendedProducts={recommendedProducts}/>
         </Col>
 
       </Row>

@@ -155,11 +155,11 @@ const Shipping = ({
 };
 
 
-const TabbedComponent = ({ productId }) => {
+const TabbedComponent = ({ productId, featuredProducts }) => {
   const [key, setKey] = useState('details');
  
   const [clickedTabs, setClickedTabs] = useState([]);
-  const selectedProduct = homeProducts.find((item) => item.id === productId);
+  const selectedProduct = featuredProducts.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
