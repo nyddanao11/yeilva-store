@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { formatProductData } from '../utils/formatProductData';
+import { FormatProductData } from '../utils/FormatProductData';
 
 export const RecommendedProductsContext = createContext();
 
@@ -14,7 +14,7 @@ export const RecommendedProvider = ({ children }) => {
     setRecommendedError(null);
     try {
       const response = await axios.get('https://yeilva-store-server.up.railway.app/api/recommendedproducts');
-      setRecommendedProducts(response.data.map(formatProductData));
+      setRecommendedProducts(response.data.map(FormatProductData));
     } catch (err) {
       setRecommendedError(err);
     } finally {

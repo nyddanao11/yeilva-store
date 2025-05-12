@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { formatProductData } from '../utils/formatProductData';
+import { FormatProductData } from '../utils/FormatProductData';
 
 export const BestSellingContext = createContext();
 
@@ -14,7 +14,7 @@ export const BestSellingProvider = ({ children }) => {
     setBestError(null);
     try {
       const response = await axios.get('https://yeilva-store-server.up.railway.app/api/bestsellingproducts');
-      setBestSellingProducts(response.data.map(formatProductData));
+      setBestSellingProducts(response.data.map(FormatProductData));
     } catch (err) {
       setBestError(err);
     } finally {

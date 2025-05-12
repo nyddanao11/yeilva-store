@@ -1,7 +1,7 @@
 // ProductContext.js
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
-import {formatProductData} from'../utils/FormatProductData';
+import {FormatProductData} from'../utils/FormatProductData';
 
 export const ProductContext = createContext();
 
@@ -21,7 +21,7 @@ export const ProductProvider = ({ children }) => {
       );
 
       const data = Array.isArray(response.data)
-        ? response.data.map(formatProductData)
+        ? response.data.map(FormatProductData)
         : [];
 
       setStoredProducts(data);
@@ -38,7 +38,7 @@ export const ProductProvider = ({ children }) => {
       );
 
       const data = Array.isArray(response.data)
-        ? response.data.map(formatProductData)
+        ? response.data.map(FormatProductData)
         : [];
 
       setAllProducts(data);

@@ -1,7 +1,7 @@
 // FeaturedProductsContext.js
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { formatProductData } from '../utils/formatProductData';
+import { FormatProductData } from '../utils/FormatProductData';
 
 export const FeaturedProductsContext = createContext();
 
@@ -15,7 +15,7 @@ export const FeaturedProductsProvider = ({ children }) => {
     setError(null);
     try {
       const response = await axios.get('https://yeilva-store-server.up.railway.app/api/featuredproducts');
-      setFeaturedProducts(response.data.map(formatProductData));
+      setFeaturedProducts(response.data.map(FormatProductData));
     } catch (err) {
       setError(err);
     } finally {

@@ -1,5 +1,5 @@
 
-export const formatProductData = (product) => {
+export const FormatProductData = (product) => {
   // ... (Your formatProductData function remains the same)
   return {
     id: product.id || '',
