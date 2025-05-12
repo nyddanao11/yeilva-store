@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
-import{homeProducts} from'../data/homeProducts';
 import {useNavigate} from'react-router-dom';
 import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
@@ -155,7 +154,7 @@ const Shipping = ({
 };
 
 
-const TabbedComponent = ({ productId, featuredProducts }) => {
+const TabbedComponent = ({ productId, featuredProducts}) => {
   const [key, setKey] = useState('details');
  
   const [clickedTabs, setClickedTabs] = useState([]);
