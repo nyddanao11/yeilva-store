@@ -8,6 +8,7 @@ import GenerateVouchers from'../pages/MultiVoucher';
 import GcashSettlement from'../pages/GcashSettlement';
 import UpdateOrder from'./OrderStatusUpdate';
 import AddProduct from'../pages/ProductUpload';
+import ProductDetailsUpdateForm from'./ProductDetailsUpdateForm';
 
 export default function AdminPage () {
   const [activeTab, setActiveTab] = useState('LoanHistory');
@@ -40,7 +41,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
          case 'UpdateOrder':
          return renderUpdateOrderTab(); 
           case 'AddProduct':
-         return renderAddProductTab();       
+         return renderAddProductTab();  
+          case 'ProductDetailsUpdateForm':
+         return ProductDetailsUpdateForm();        
       // Add more cases for additional tabs
       default:
         return null;
@@ -66,6 +69,8 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
     }else if (activeTab === 'UpdateOrder'){
       // Add more cases for additional tabs
     }else if (activeTab === 'AddProduct'){
+      // Add more cases for additional tabs
+    }else if (activeTab === 'ProductDetailsUpdateForm'){
       // Add more cases for additional tabs
     };
 };
@@ -107,6 +112,9 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
   };
    const renderAddProductTab = () => {
     return <AddProduct />;
+  };
+  const renderProductDetailsUpdateFormTab = () => {
+    return <ProductDetailsUpdateForm />;
   };
 
   const handleSearch = async () => {
@@ -163,6 +171,10 @@ const loanHistoryTabContent = <LoanHistory />; // Store the component in a varia
          <Tab eventKey="AddProduct" title="AddProduct">
           {/* Content for the 'UpdateOrder' tab */}
           {renderAddProductTab()}
+        </Tab>
+          <Tab eventKey="ProductDetailsUpdateForm" title="ProductDetailsUpdateForm">
+          {/* Content for the 'ProductDetailsUpdateForm' tab */}
+          {renderProductDetailsUpdateFormTab()}
         </Tab>
         {/* Add more Tab components for additional tabs */}
       </Tabs>
