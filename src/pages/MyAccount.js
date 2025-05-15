@@ -45,9 +45,9 @@ export default function MyAccountPage ({addToCart}) {
       <Row className="justify-content-center">
 
         <Col md={4}>
-        <div className="d-flex mt-2 mb-1 justify-content-between">
+       <div className="d-flex mt-2 mb-1 ">
         <h5>Your Orders</h5>
-        <Link to="/checkouthistory"  style={{textDecoration:"none"}}>View All</Link>
+        <Link to="/checkouthistory"  style={{textDecoration:'none', marginLeft:'15px'}}>( View All )</Link>
         </div>
         <Orders />
           <Card>

@@ -3,18 +3,18 @@ import { Container, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
 const ProductDetailsUpdateForm = () => {
-  const [formData, setFormData] = useState({
-  productId: '', // Initialize properly
-  featured: false,
-  bestselling: false,
-  recommended: false,
-  discount: 0,
-});
+  const initialFormData = {
+    productId: '',
+    featured: false,
+    bestselling: false,
+    recommended: false,
+    discount: 0,
+  };
+  const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState(null);
   const [variant, setVariant] = useState('success');
   const [loading, setLoading] = useState(false);
 
- 
   const handleChange = (e) => {
     const { name, type, checked, value } = e.target;
     setFormData(prevFormData => ({
@@ -23,24 +23,29 @@ const ProductDetailsUpdateForm = () => {
     }));
   };
 
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.productId) {
-    setMessage("Product ID is required.");
-    setVariant("danger");
-    return;
-}
+      setMessage("Product ID is required.");
+      setVariant("danger");
+      return;
+    }
     try {
       setLoading(true);
-        const response = await axios.put(`https://yeilva-store-server.up.railway.app/api/updateProductDetails`, {
-            id: formData.productId, // Send `id` instead of `productId`
-            featured: formData.featured,
-            bestselling: formData.bestselling,
-            recommended: formData.recommended,
-            discount: formData.discount,
-        });
+      const response = await axios.put(`https://yeilva-store-server.up.railway.app/api/updateProductDetails`, {
+        id: formData.productId, // Send `id` instead of `productId`
+        featured: formData.featured,
+        bestselling: formData.bestselling,
+        recommended: formData.recommended,
+        discount: formData.discount,
+      });
       setMessage(response.data.message);
       setVariant('success');
+      resetForm(); // Call the reset function on success
     } catch (error) {
       console.error('Error updating product:', error);
       setMessage(error.response?.data?.error || 'Failed to update the product.');

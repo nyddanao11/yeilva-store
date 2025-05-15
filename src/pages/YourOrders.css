@@ -1,0 +1,19 @@
+/* Add this CSS to your component or a CSS file */
+.page-title{
+text-align: center;
+padding-bottom: 8px;
+}
+
+
+
+.order-tracking{
+  margin-bottom: 15px;
+  width: 100%;
+  margin-top: 10px;
+ 
+}
+
+.image-main {
+  width:100px;
+  height: 100px;
+}

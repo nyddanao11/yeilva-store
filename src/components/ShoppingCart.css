@@ -3,15 +3,7 @@
 text-align: center;
 padding-bottom: 8px;
 }
-/*.item-name{
-  font-size: 25px;
-  font-weight: bold;
-}
 
-.item-price{
-  font-size: 15px;
-   font-weight: bold;
-}*/
 
   .cart-item .quantity{
      display: flex;
@@ -40,7 +32,6 @@ padding-bottom: 8px;
 
 }
 
-
 .main-image-container {
   position: relative;
 }
@@ -50,15 +41,7 @@ padding-bottom: 8px;
   height: 300px; /* Adjust as needed */
 }
 
-.order-tracking{
-  margin-bottom: 15px;
- 
-}
 
-.image-main {
-  width:100px;
-  height: 100px;
-}
 .thumbnails {
   display: flex;
   flex-wrap: wrap;
