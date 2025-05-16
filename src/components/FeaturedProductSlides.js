@@ -46,7 +46,7 @@ export default function FeaturedProductSlides ({ addToCart, featuredProducts, lo
  return (
     <>
       {isSmallScreen ? (
-        <div style={{ paddingLeft: '27px', paddingRight: '27px' }}>
+        <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
           <Slider {...settings}>
             {featuredProducts.map((product) => (
               <div key={product.id}>

@@ -48,7 +48,7 @@ export default function BestSellingProductSlides ({ addToCart, bestSellingProduc
   return (
     <>
       {isSmallScreen ? (
-        <div style={{ paddingLeft: '27px', paddingRight: '27px' }}>
+        <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
           <Slider {...settings}>
             {bestSellingProducts.map((product) => (
               <div key={product.id}>
