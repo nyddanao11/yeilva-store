@@ -4,15 +4,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
 import ImageCardFeaturedProduct from './ImageCardFeaturedProduct';
-// import './BestSelling.css'; // Import your custom CSS for the slider
+// import './BestSelling.css'; // You can still use your custom CSS
 
 export default function FeaturedProductSlides ({ addToCart, featuredProducts, loading, error})  {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
   const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
- 
-    // Custom arrow components
+  // Custom arrow components
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -35,32 +34,52 @@ export default function FeaturedProductSlides ({ addToCart, featuredProducts, lo
     dots: false, // Remove dots
     infinite: true,
     speed: 500,
-      slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+    slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
     slidesToScroll:  isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
-     prevArrow: <CustomPrevArrow />,
+    prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-   
   };
-  
+
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching featured Products</div>;
+  if (error) return <div>Error fetching featuredProducts</div>;
 
-  return (
-    <Slider {...settings}>
-      {featuredProducts.map((product) => (
-        <div key={product.id}>
-          <ImageCardFeaturedProduct
-            url={product.url}
-            name={product.name}
-            price={product.price}
-            thumbnails={product.thumbnails}
-            addToCart={addToCart}
-            product={product}
-          />
+ return (
+    <>
+      {isSmallScreen ? (
+        <div style={{ paddingLeft: '27px', paddingRight: '27px' }}>
+          <Slider {...settings}>
+            {featuredProducts.map((product) => (
+              <div key={product.id}>
+                <ImageCardFeaturedProduct
+                  url={product.url}
+                  name={product.name}
+                  price={product.price}
+                  thumbnails={product.thumbnails}
+                  addToCart={addToCart}
+                  product={product}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
-      ))}
-    </Slider>
+      ) : (
+        <div>
+          <Slider {...settings}>
+            {featuredProducts.map((product) => (
+              <div key={product.id}>
+                <ImageCardFeaturedProduct
+                  url={product.url}
+                  name={product.name}
+                  price={product.price}
+                  thumbnails={product.thumbnails}
+                  addToCart={addToCart}
+                  product={product}
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
+    </>
   );
-};
-
-
+}

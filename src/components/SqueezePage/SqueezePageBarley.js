@@ -3,7 +3,8 @@ import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import NewUserDiscount from '../NewUserDiscount';
 
-export default function BarleyGrassJuice () {
+export default function BarleyGrassJuice ({addToCart, isLoggedIn }) {
+
   return (
     <Container>
       <Row className="mt-5">
@@ -42,13 +43,28 @@ export default function BarleyGrassJuice () {
       <Row className="mt-4">
         <Col md={{ span: 6, offset: 3 }}>
          <NewUserDiscount />
-           <div className="d-flex justify-content-center align-items-center">
-            <Button variant="primary"  className="mt-5" >
-             <a href="https://yeilvastore.com/clickproductpage/3" style={{textDecoration:'none', color:'white'}} >Click Here to Buy
-             </a>
-            </Button>
-           </div>
+      <div className="d-flex justify-content-center align-items-center">
+        <Button variant="primary"  className="mt-5" >
+         <Link to='/productsdata' style={{textDecoration:'none', color:'white'}} >Click Here to Buy
+         </Link>
+        </Button>
+       </div>
+        <div className="d-flex justify-content-center align-items-center mt-2">
+          <iframe
+            src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fzvley%2Fposts%2Fpfbid026y7a4aEs88Zw4rPvzQ1MCoovj77HsuhqZ88nrsdL6m1V1EQFs9MeoPfXJWMSmgP2l&show_text=true&width=500"
+            width="500"
+            height="436"
+            style={{ border: "none", overflow: "hidden" }}
+            scrolling="no"
+            frameBorder="0"
+            allowFullScreen={true}
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          ></iframe>
+        </div>
+
+
         </Col>
+      
       </Row>
       <Row className="mt-5">
         <Col md={{ span: 8, offset: 2 }}>

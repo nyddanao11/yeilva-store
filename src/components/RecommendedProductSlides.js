@@ -46,21 +46,48 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
   if (recommendedError) return <div>Error fetching best selling products</div>;
 
   return (
-    <Slider {...settings}>
-      {recommendedProducts.map((product) => (
-        <div key={product.id}>
-          <ImageCardRecommendedProduct
-            url={product.url}
-            name={product.name}
-            price={product.price}
-            thumbnails={product.thumbnails}
-            addToCart={addToCart}
-            product={product}
-          />
+    <>
+      {isSmallScreen ? (
+        <div style={{ paddingLeft: '27px', paddingRight: '27px' }}>
+          <Slider {...settings}>
+            {recommendedProducts.map((product) => (
+            <div key={product.id}>
+              <ImageCardRecommendedProduct
+                url={product.url}
+                name={product.name}
+                price={product.price}
+                thumbnails={product.thumbnails}
+                addToCart={addToCart}
+                product={product}
+              />
+            </div>
+            ))}
+          </Slider>
         </div>
-      ))}
-    </Slider>
+      ) : (
+        <div>
+          <Slider {...settings}>
+           {recommendedProducts.map((product) => (
+            <div key={product.id}>
+              <ImageCardRecommendedProduct
+                url={product.url}
+                name={product.name}
+                price={product.price}
+                thumbnails={product.thumbnails}
+                addToCart={addToCart}
+                product={product}
+              />
+            </div>
+            ))}
+          </Slider>
+        </div>
+      )}
+    </>
   );
-};
+}
+
+
+
+
 
 
