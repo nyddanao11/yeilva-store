@@ -231,7 +231,19 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="success" onClick={() => addToCart(selectedProduct)} disabled={selectedProduct.stock === 0}>
+            <Button
+              variant="success"
+              onClick={() => {
+                const success = addToCart(selectedProduct); // Assuming addToCart might return a boolean indicating success
+                if (success !== false) { // Only show the alert and close the modal if addToCart was "successful" (adjust condition as needed)
+                  setShowModal(false);
+                } else {
+                  // Optionally handle the case where adding to cart failed (e.g., show an error message)
+                  console.error("Failed to add item to cart.");
+                }
+              }}
+              disabled={selectedProduct.stock === 0}
+            >
               Add to Cart
             </Button>
             <Button variant="secondary" onClick={() => setShowModal(false)}>
