@@ -22,7 +22,7 @@ export default function OrderTracking({addToCart}) {
     }
 
     try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/orderdata?email=${encodeURIComponent(email)}`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/orderdata?email=${encodeURIComponent(email)}`);
         const userOrders = response.data; // Now an array of orders
         console.log('orderdata', userOrders);
         setOrders(userOrders);

@@ -9,7 +9,7 @@ export default function PrivateRoute ({ element }) {
     const checkAuthentication = async () => {
       try {
         // Send a request to a protected endpoint to check authentication
-        const response = await axios.get('https://yeilva-store-server.up.railway.app/api/check-auth', { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/check-auth`, { withCredentials: true });
       //    console.log('Server response:', response.data);
       // console.log('Document cookies:', document.cookie);
 

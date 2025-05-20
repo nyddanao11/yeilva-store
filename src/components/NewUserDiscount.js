@@ -78,7 +78,7 @@ const NewUserDiscount = () => {
                                     const deviceInfo = getDeviceInfo();
 
                                     try {
-                                        const response = await axios.post('https://yeilva-store-server.up.railway.app/registerfreecode', {
+                                        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/registerfreecode`, {
                                             email: values.email,
                                             deviceInfo // Send device info along with the email
                                         });

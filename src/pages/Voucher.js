@@ -9,7 +9,7 @@ const VoucherForm = ({ onVoucherValidate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/vouchers/validate', { code });
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/vouchers/validate`, { code });
       setMessage(`Voucher valid! Discount: ${response.data.discount}`);
       onVoucherValidate(response.data.discount); // Pass the discount to the parent component
     } catch (error) {

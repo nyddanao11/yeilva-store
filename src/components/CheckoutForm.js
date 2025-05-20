@@ -256,7 +256,7 @@ const handleSubmit = async (e) => {
 
 
       // Send Installment request
-            const response = await axios.post('https://yeilva-store-server.up.railway.app/installmentusers', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/installmentusers`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -278,14 +278,14 @@ const handleSubmit = async (e) => {
       }
 
       // Send E-wallet request
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
       console.log(response.data);
       setShowModal(true);
       return; // End after successful E-wallet submission
     }
 
     // Default case for other payments (e.g., Cash on Delivery)
-    const response = await axios.post('https://yeilva-store-server.up.railway.app/checkout', cashOnDelivery);
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
     console.log(response.data);
     setShowModal(true);
   } catch (error) {
@@ -306,7 +306,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user?email=${encodeURIComponent(email)}`);
     const user = response.data;
     console.log('checkoutdata', user);
     setUserData(user);
@@ -334,7 +334,7 @@ useEffect(() => {
   }
 
   try {
-    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/checkoutdata?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/checkoutdata?email=${encodeURIComponent(email)}`);
     const user = response.data;
    setCheckoutData(user);
   } catch (error) {

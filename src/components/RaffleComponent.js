@@ -31,7 +31,7 @@ const Raffle = () => {
   useEffect(() => {
     const fetchTakenTickets = async () => {
       try {
-        const response = await axios.get('https://yeilva-store-server.up.railway.app/raffletickets');
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/raffletickets`);
         setTakenTickets(response.data.tickets);
       } catch (error) {
         console.error('Error fetching tickets:', error);
@@ -89,7 +89,7 @@ const Raffle = () => {
 
   const handleSelectWinner = async () => {
     try {
-      const response = await axios.get('https://yeilva-store-server.up.railway.app/raffle/winner');
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/raffle/winner`);
       setWinningTicket(response.data.winningTicket);
     } catch (error) {
       console.error('Error selecting winner:', error);
@@ -123,7 +123,7 @@ const Raffle = () => {
                   setLoading(true);
                   setStatus(null);
                   try {
-                    const response = await axios.post('https://yeilva-store-server.up.railway.app/raffleregister', {
+                    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/raffleregister`, {
                       fullname: values.fullname,
                       email: values.email,
                       ticket: ticketNumber,

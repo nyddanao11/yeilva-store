@@ -13,7 +13,7 @@ export const BestSellingProvider = ({ children }) => {
     setBestLoading(true);
     setBestError(null);
     try {
-      const response = await axios.get('https://yeilva-store-server.up.railway.app/api/bestsellingproducts');
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/bestsellingproducts`);
       setBestSellingProducts(response.data.map(FormatProductData));
     } catch (err) {
       setBestError(err);

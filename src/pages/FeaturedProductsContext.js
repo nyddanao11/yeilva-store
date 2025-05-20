@@ -14,7 +14,7 @@ export const FeaturedProductsProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('https://yeilva-store-server.up.railway.app/api/featuredproducts');
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/featuredproducts`);
       setFeaturedProducts(response.data.map(FormatProductData));
     } catch (err) {
       setError(err);

@@ -157,7 +157,7 @@ try {
       console.log(key, value);
     }
 
-  const response = await axios.post('https://yeilva-store-server.up.railway.app/api/saveLoanForm', formData, {
+  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/saveLoanForm`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -186,7 +186,7 @@ try {
   }
 
   try {
-    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user?email=${encodeURIComponent(email)}`);
     const user = response.data;
     setUserData(user);
   } catch (error) {
@@ -226,7 +226,7 @@ useEffect(() => {
   }
 
   try {
-    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/loandata?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/loandata?email=${encodeURIComponent(email)}`);
     const user = response.data;
    setLoanUserData(user);
   } catch (error) {

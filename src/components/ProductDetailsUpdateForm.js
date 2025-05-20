@@ -36,7 +36,7 @@ const ProductDetailsUpdateForm = () => {
     }
     try {
       setLoading(true);
-      const response = await axios.put(`https://yeilva-store-server.up.railway.app/api/updateProductDetails`, {
+      const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/updateProductDetails`, {
         id: formData.productId, // Send `id` instead of `productId`
         featured: formData.featured,
         bestselling: formData.bestselling,

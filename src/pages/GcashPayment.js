@@ -67,7 +67,7 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
     console.log('paymentData', paymentData);
   
     try {
-      await axios.post('https://yeilva-store-server.up.railway.app/api/save-transaction-code', paymentData);
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/save-transaction-code`, paymentData);
       setPaymentSuccessful(true);
       alert('Transaction Code Successfully Saved!');
     } catch (error) {

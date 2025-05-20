@@ -40,7 +40,7 @@ const normalizeOrderData = (order) => {
   }
 
   try {
-    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userorderdata?email=${encodeURIComponent(email.replace(/"/g, ""))}`);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userorderdata?email=${encodeURIComponent(email.replace(/"/g, ""))}`);
 
     const formattedData = response.data.flatMap(normalizeOrderData);
     setUserCheckoutData(formattedData);

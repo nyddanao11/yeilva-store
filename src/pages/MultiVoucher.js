@@ -27,7 +27,7 @@ const GenerateVouchers = () => {
         };
 
         voucherPromises.push(
-          axios.post('https://yeilva-store-server.up.railway.app/api/vouchers', voucher)
+          axios.post(`${process.env.REACT_APP_SERVER_URL}/api/vouchers`, voucher)
         );
       }
     });

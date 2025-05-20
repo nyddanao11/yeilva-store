@@ -13,7 +13,7 @@ export const RecommendedProvider = ({ children }) => {
     setRecommendedLoading(true);
     setRecommendedError(null);
     try {
-      const response = await axios.get('https://yeilva-store-server.up.railway.app/api/recommendedproducts');
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/recommendedproducts`);
       setRecommendedProducts(response.data.map(FormatProductData));
     } catch (err) {
       setRecommendedError(err);

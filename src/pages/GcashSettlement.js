@@ -49,7 +49,7 @@ export default function GcashSettlement() {
                   setLoading(true);
 
                   axios
-                    .post('https://yeilva-store-server.up.railway.app/gcashsettlement', values)
+                    .post(`${process.env.REACT_APP_SERVER_URL}/gcashsettlement`, values)
                     .then((response) => {
                       if (response.status === 200) {
                         alert('Transaction Successfully Recorded!');

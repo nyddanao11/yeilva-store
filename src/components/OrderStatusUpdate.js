@@ -23,7 +23,7 @@ export default function UpdateOrder() {
 
         try {
           setLoading(true); // Set loading to true when the form is submitted
-            const response = await axios.put('https://yeilva-store-server.up.railway.app/api/updateOrder', formData);
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/updateOrder`, formData);
             setMessage(response.data.message);
             setVariant('success');
         } catch (error) {

@@ -22,7 +22,7 @@ console.log('Email:', email);
   e.preventDefault();
 
   try {
-    const response = await axios.post('https://yeilva-store-server.up.railway.app/verify-otp', {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/verify-otp`, {
       email: email,
       otp: otp,
     });

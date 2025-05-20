@@ -17,7 +17,7 @@ export default function NeedHelp ()  {
     setLoading(true); // Start loading
 
     try {
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/messages', {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/messages`, {
         email,
         mainMessage,
       });

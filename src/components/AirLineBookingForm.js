@@ -89,7 +89,7 @@ passengers: Yup.number()
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/booking', values);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/booking`, values);
       console.log('Booking successful:', response.data);
       alert('Booking submitted successfully!');
       resetForm(); // Reset form after successful submission

@@ -55,7 +55,7 @@ const backToClickProduct =()=>{
     userData: userData,
   };
   try {
-    const response = await axios.post('https://yeilva-store-server.up.railway.app/api/reviews', reviewData); // Use relative URL
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/reviews`, reviewData); // Use relative URL
     console.log(response.data);
     setRating(0);
     setComment('');

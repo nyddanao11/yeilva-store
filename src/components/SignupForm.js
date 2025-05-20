@@ -87,7 +87,7 @@ export default function SignUpForm () {
                 onSubmit={(values, actions) => {
                   setLoading(true); // Set loading to true when the form is submitted
 
-                  axios.post('https://yeilva-store-server.up.railway.app/register', values)
+                  axios.post(`${process.env.REACT_APP_SERVER_URL}/register`, values)
                     .then((response) => {
                       if (response.status === 200) {
                         setIsLoginSuccessful(true);

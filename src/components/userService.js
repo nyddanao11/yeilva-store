@@ -8,7 +8,7 @@ export const fetchUserData = async (email) => {
   }
 
   try {
-    const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user?email=${encodeURIComponent(email)}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching user data:', error);

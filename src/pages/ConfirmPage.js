@@ -11,7 +11,7 @@ export default function ConfirmPage () {
 
   if (token) {
     // Define the server address (replace with your server's actual address)
-    const serverAddress = 'https://yeilva-store-server.up.railway.app';
+    const serverAddress = `${process.env.REACT_APP_SERVER_URL}`;
 
     // Make the GET request using Axios
     axios.get(`${serverAddress}/confirm?token=${token}`)

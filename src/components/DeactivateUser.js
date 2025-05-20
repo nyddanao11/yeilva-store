@@ -14,7 +14,7 @@ const DeactivateUser = ({ searchEmail }) => {
   const fetchUserData = async () => {
     if (userStatusEmail) {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userstatus?email=${encodeURIComponent(userStatusEmail)}`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userstatus?email=${encodeURIComponent(userStatusEmail)}`);
         const userDataArray = Array.isArray(response.data) ? response.data : [response.data];
         setUserData(userDataArray);
         setErrorMessage('');
@@ -28,7 +28,7 @@ const DeactivateUser = ({ searchEmail }) => {
   const handleUsersStatusChange = async (user) => {
     try {
       setLoading(true);
-      await axios.post('https://yeilva-store-server.up.railway.app/api/user/updateStatus', {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/user/updateStatus`, {
         email: user.email,
         status: newStatus[user.email],
       });

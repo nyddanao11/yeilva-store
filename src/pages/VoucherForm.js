@@ -14,7 +14,7 @@ const CreateVoucher = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/vouchers', {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/vouchers`, {
         code,
         discount,
         expirationDate,

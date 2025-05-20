@@ -38,7 +38,7 @@ export default function NewsLetterForm () {
                   setStatus(null);
                  
                   try {
-                    const response = await axios.post('https://yeilva-store-server.up.railway.app/newsletter', {
+                    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/newsletter`, {
                       fullname: values.fullname,
                       email: values.email,
                      

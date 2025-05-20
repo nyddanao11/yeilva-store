@@ -16,7 +16,7 @@ navigate ('/myaccount');
 
 const handleDeleteAccount = async()=>{
   try{
-    const response = await axios.post('https://yeilva-store-server.up.railway.app/api/delete-account',{
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/delete-account`,{
       email: formData.email
     });
       

@@ -21,7 +21,7 @@ export default function ForgotPassword () {
       setLoading(true); // Set loading to true during form submission
 
       // Make a request to your server to handle forgot password logic
-      const response = await axios.post('https://yeilva-store-server.up.railway.app/api/send-otp', {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/send-otp`, {
         email: email,
       });
 

@@ -10,7 +10,7 @@ const useFetchReviews = (productName) => {
     if (productName) {
       const fetchReviews = async () => {
         try {
-          const response = await axios.get('https://yeilva-store-server.up.railway.app/api/userreviews', {
+          const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews`, {
             params: { productName }
           });
           setReviewData(response.data);

@@ -43,7 +43,7 @@ useEffect(() => {
   const fetchSettlements = async () => {
     if (!userData.email) return; // Ensure email exists before making the API call
     try {
-      const response = await axios.get(`https://yeilva-store-server.up.railway.app/gcash_received`, {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/gcash_received`, {
         params: { email: userData.email }, // Use the `params` option for query parameters
       });
       setSettlements(response.data || {});
@@ -101,7 +101,7 @@ const isButtonDisabled = !isLoggedIn || isEmptyObject(settlements);
     };
 
     try {
-      await axios.post('https://yeilva-store-server.up.railway.app/receivedgcash', paymentData);
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/receivedgcash`, paymentData);
       setPaymentSuccessful(true);
       alert('Transaction Code Successfully Saved!');
     } catch (error) {
