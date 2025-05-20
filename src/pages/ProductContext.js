@@ -17,7 +17,7 @@ export const ProductProvider = ({ children }) => {
   async function fetchProducts(category) {
     try {
       const response = await axios.get(
-        `https://yeilva-store-server.up.railway.app/api/productsdata?category=${encodeURIComponent(category)}`
+        `${process.env.REACT_APP_SERVER_URL}/api/productsdata?category=${encodeURIComponent(category)}`
       );
 
       const data = Array.isArray(response.data)
@@ -34,7 +34,7 @@ export const ProductProvider = ({ children }) => {
   async function fetchAllProducts(name) { // Add fetchAllProducts function
     try {
       const response = await axios.get(
-        `https://yeilva-store-server.up.railway.app/api/productsearch?name=${encodeURIComponent(name)}`
+        `${process.env.REACT_APP_SERVER_URL}/api/productsearch?name=${encodeURIComponent(name)}`
       );
 
       const data = Array.isArray(response.data)
