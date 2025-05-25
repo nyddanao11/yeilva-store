@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
 import ImageCardRecommendedProduct from './ImageCardRecommendedProduct';
-// import './BestSelling.css'; // Import your custom CSS for the slider
+import './FeaturedProductSlides.css';
 
 export default function RecommendedProductSlides ({ addToCart, recommendedProducts, recommendedLoading, recommendedError})  {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
@@ -12,11 +12,11 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
  
-    // Custom arrow components
+    // Custom arrow components (no changes needed here)
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display:'block', background:' #D6D6D6', borderRadius: '50%'}} onClick={onClick}>
+      <div className={className} style={{ ...style, display: 'block', background: ' #D6D6D6', borderRadius: '50%' }} onClick={onClick}>
         Previous
       </div>
     );
@@ -25,68 +25,50 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display:'block', background: '#D6D6D6', borderRadius: '50%'}} onClick={onClick}>
+      <div className={className} style={{ ...style, display: 'block', background: '#D6D6D6', borderRadius: '50%' }} onClick={onClick}>
         Next
       </div>
     );
   };
 
   const settings = {
-    dots: false, // Remove dots
+    dots: false,
     infinite: true,
     speed: 500,
-      slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
-    slidesToScroll:  isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
-     prevArrow: <CustomPrevArrow />,
+    slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+    slidesToScroll: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+    prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-   
+    variableWidth: false, // Ensure variableWidth is false for consistent sizing
   };
+  
   
   if (recommendedLoading) return <div>Loading...</div>;
   if (recommendedError) return <div>Error fetching best selling products</div>;
 
   return (
-    <>
-      {isSmallScreen ? (
-        <div style={{ paddingLeft: '10px', paddingRight: '6px' }}>
-          <Slider {...settings}>
-            {recommendedProducts.map((product) => (
-            <div key={product.id}>
-              <ImageCardRecommendedProduct
-                url={product.url}
-                name={product.name}
-                price={product.price}
-                thumbnails={product.thumbnails}
-                addToCart={addToCart}
-                product={product}
-              />
-            </div>
-            ))}
-          </Slider>
-        </div>
-      ) : (
-        <div>
-          <Slider {...settings}>
-           {recommendedProducts.map((product) => (
-            <div key={product.id}>
-              <ImageCardRecommendedProduct
-                url={product.url}
-                name={product.name}
-                price={product.price}
-                thumbnails={product.thumbnails}
-                addToCart={addToCart}
-                product={product}
-              />
-            </div>
-            ))}
-          </Slider>
-        </div>
-      )}
-    </>
+  // You can remove the conditional rendering for `div` with paddingLeft/Right here
+    // as the slide's padding will handle it.
+    <div className="slider-container"> {/* Add a class for potential custom styling */}
+      <Slider {...settings}>
+        {recommendedProducts.map((product) => (
+          // Apply padding to the wrapper div around each product card
+          // This creates the space between cards
+          <div key={product.id} className="product-slide-wrapper">
+             <ImageCardRecommendedProduct
+              url={product.url}
+              name={product.name}
+              price={product.price}
+              thumbnails={product.thumbnails}
+              addToCart={addToCart}
+              product={product}
+            />
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }
-
-
 
 
 
