@@ -74,14 +74,6 @@ const handleCheckoutClick = () => {
 
 
       />
-     <Row className="d-flex justify-content-center aligned-items-center" style={{marginTop:"25px"}} >
-      <div className="line" style={{marginBottom:'30px'}}>
-      <h4 className="text">You May also Like</h4>
-      </div>
-  <Col lg={10} md={10} sm={12} style={{ padding:'5px 0px', marginBottom:'15px'}}>
-            <YouMayLike addToCart={addToCart}/>
-          </Col> 
-      </Row>
 
       <div className="sticky-footer">
         <h2>Total Price: {formattedPrice}</h2>
@@ -107,6 +99,7 @@ const handleCheckoutClick = () => {
                   </Button>
                 </Modal.Footer>
               </Modal>
+               <YouMayLike addToCart={addToCart}/>
 
      </Container>
    
