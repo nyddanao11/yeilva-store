@@ -19,7 +19,7 @@ COPY . .
 # Use --build-arg to pass the value during the build process
 # RUN npm run build --build-arg REACT_APP_SERVER_URL="${REACT_APP_SERVER_URL_ARG}"
 # OR, if your backend URL is always the same, you can hardcode it here:
-RUN REACT_APP_API_URL=https://yeilva-store-server.up.railway.app npm run build
+RUN REACT_APP_SERVER_URL=https://yeilva-store-server.up.railway.app npm run build
 # However, using ARG is more flexible for CI/CD
 
 # --- Stage 2: Serve the Built Application with a Lightweight Web Server ---
