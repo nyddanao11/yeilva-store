@@ -19,7 +19,6 @@ RUN npm run build
 
 # --- Stage 2: Serve the Built Application with a Lightweight Web Server ---
 FROM node:20-alpine
-# Using a smaller base image for the final stage.
 
 WORKDIR /app
 
@@ -31,7 +30,8 @@ RUN npm install -g serve
 
 # Expose the port. This is informational but good practice.
 # We'll make the CMD dynamic to listen on the actual port Railway provides.
-EXPOSE 3000 # Default fallback, but the CMD will use $PORT
+EXPOSE 3000
+# The comment that caused the error is now on its own line above, or removed.
 
 # Command to run the 'serve' web server to serve the static files
 # Use the PORT environment variable provided by Railway, or default to 3000
