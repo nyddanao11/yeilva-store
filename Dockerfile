@@ -16,25 +16,27 @@ COPY . .
 # Build the React application for production
 RUN npm run build
 
+
 # --- Stage 2: Serve the Built Application with a Lightweight Web Server ---
 FROM node:20-alpine
-# Using a smaller base image for the final stage (e.g., -alpine) is a common best practice
-# as it results in a smaller, more secure final image.
-# If you prefer, you can use FROM node:20 as well.
+# Using a smaller base image for the final stage.
 
 WORKDIR /app
 
 # Copy the build output from the build stage
 COPY --from=build /app/build ./build
 
-# Install a simple static file server (e.g., 'serve' from npm) globally
+# Install a simple static file server ('serve' from npm) globally
 RUN npm install -g serve
 
-# Expose the port on which the app will run (React's default production port is not 3000 but the serve app's)
-# The 'serve' package by default serves on port 3000. Railway will map this.
-EXPOSE 27306
+# Expose the port. This is informational but good practice.
+# We'll make the CMD dynamic to listen on the actual port Railway provides.
+EXPOSE 3000 # Default fallback, but the CMD will use $PORT
 
 # Command to run the 'serve' web server to serve the static files
-CMD ["serve", "-s", "build", "-l", "27306"]
+# Use the PORT environment variable provided by Railway, or default to 3000
+CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
 # -s: Serve files in single-page application mode (fallback to index.html for unknown routes)
-# -l 3000: Listen on port 3000
+# -l ${PORT:-3000}: Listen on the PORT environment variable provided by Railway.
+#                   If PORT is not set, it defaults to 3000.
+# sh -c: Needed to correctly interpret the shell variable ${PORT:-3000}
