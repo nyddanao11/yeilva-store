@@ -10,9 +10,7 @@ const ImageYouMayLikeProduct = ({ product, addToCart }) => {
   const { reviewData, loading, error } = useFetchReviews(product?.name);
   const handleShare = useShare(); // Use the custom hook
 
-  const averageRating = reviewData.length > 0
-    ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
-    : 0;
+  const averageRating = reviewData.length > 0 ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length): 0;
 
   const renderStars = (rating) => {
     const stars = [];
