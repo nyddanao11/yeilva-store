@@ -32,9 +32,9 @@ RUN npm install -g serve
 
 # Expose the port on which the app will run (React's default production port is not 3000 but the serve app's)
 # The 'serve' package by default serves on port 3000. Railway will map this.
-EXPOSE 3000
+EXPOSE 27306
 
 # Command to run the 'serve' web server to serve the static files
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["serve", "-s", "build", "-l", "27306"]
 # -s: Serve files in single-page application mode (fallback to index.html for unknown routes)
 # -l 3000: Listen on port 3000
