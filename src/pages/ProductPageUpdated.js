@@ -19,6 +19,7 @@ const ProductCard = ({ product, addToCart }) => {
           name={product.name}
           price={product.price}
           id={product.id}
+          stock={product.stock}
           addToCart={addToCart}
         />
       </div>
