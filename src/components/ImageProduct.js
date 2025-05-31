@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import useFetchReviews from './useFetchReviews';
 import useShare from'./useShare';
 import'./userShare.css';
+import'./SoldOutLabel.css';
 
 const ImageProduct = ({ url, name, price, id, stock}) => {
   // console.log('Props in ImageProduct:', { url, name, price, id });
