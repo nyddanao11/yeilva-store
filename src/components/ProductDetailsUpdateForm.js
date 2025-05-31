@@ -9,6 +9,7 @@ const ProductDetailsUpdateForm = () => {
     bestselling: false,
     recommended: false,
     discount: 0,
+    stock:0,
   };
   const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState(null);
@@ -42,6 +43,7 @@ const ProductDetailsUpdateForm = () => {
         bestselling: formData.bestselling,
         recommended: formData.recommended,
         discount: formData.discount,
+        stock: formData.stock,
       });
       setMessage(response.data.message);
       setVariant('success');
@@ -98,6 +100,17 @@ const ProductDetailsUpdateForm = () => {
             value={formData.discount}
             onChange={handleChange}
             placeholder="Enter discount value"
+          />
+        </Form.Group>
+
+          <Form.Group controlId="stock" className="mb-3">
+          <Form.Label>Stock</Form.Label>
+          <Form.Control
+            type="number"
+            name="stock"
+            value={formData.stock}
+            onChange={handleChange}
+            placeholder="Enter stock value"
           />
         </Form.Group>
 
