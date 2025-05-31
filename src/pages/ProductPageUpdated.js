@@ -20,6 +20,7 @@ const ProductCard = ({ product, addToCart }) => {
           price={product.price}
           id={product.id}
           stock={product.stock}
+          discount={product.discount}
           addToCart={addToCart}
         />
       </div>
@@ -64,13 +65,13 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
 
 export default function ProductsData({ addToCart, currentPage, setCurrentPage, storedProducts }) {
   const visibleProducts = storedProducts.filter((item) => item.page === currentPage);
- const categoryLabels = [...new Set(storedProducts.map((item) =>
+    const categoryLabels = [...new Set(storedProducts.map((item) =>
       item.category
         .split(" ")
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ")
     ))];
-      const totalPages = storedProducts.length > 0 ? Math.max(...storedProducts.map((item) => item.page)) : 1;
+  const totalPages = storedProducts.length > 0 ? Math.max(...storedProducts.map((item) => item.page)) : 1;
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

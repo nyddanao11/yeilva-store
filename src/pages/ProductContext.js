@@ -62,4 +62,3 @@ export const ProductProvider = ({ children }) => {
 
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 };
-
