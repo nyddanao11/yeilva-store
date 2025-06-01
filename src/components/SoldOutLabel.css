@@ -26,6 +26,7 @@
 
 /* New CSS for Discount */
 .discount-label {
+   position: absolute;
   background-color: #28a745; /* Green color, adjust as needed */
   color: white;
   padding: 5px 10px;
