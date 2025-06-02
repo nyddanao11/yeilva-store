@@ -58,6 +58,8 @@ export default function FeaturedProductSlides({ addToCart, featuredProducts, loa
               name={product.name}
               price={product.price}
               thumbnails={product.thumbnails}
+              stock={product.stock}
+              discount={product.discount}
               addToCart={addToCart}
               product={product}
             />

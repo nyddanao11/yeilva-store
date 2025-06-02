@@ -7,7 +7,7 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 export default function FeaturedProduct({ addToCart, currentPage, setCurrentPage, featuredProducts,loading, error}) {
 
  const visibleProducts = featuredProducts.filter((product) => product.page === currentPage);
- console.log('featuredProducts', featuredProducts);
+ // console.log('featuredProducts', featuredProducts);
  
 const totalPages = Math.max(...featuredProducts.map((product) => product.page));
 const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -39,12 +39,14 @@ if (loading) return <div>Loading...</div>;
         {visibleProducts.map((product) => (
          
           <Col key={product.id} md={3} xs={6} lg={2}>
-            <div className="d-flex justify-content-center align-items-center g-1"  style={{ flexWrap:'wrap',marginBottom:'18px' }}>
+            <div >
               <ImageCardFeaturedProduct
                 url={product.url}
                 name={product.name}
                 price={product.price}
                 thumbnails={product.thumbnails}
+                stock={product.stock}
+                discount={product.discount}
                 addToCart={addToCart}
                 product={product}
               />
@@ -86,24 +88,22 @@ if (loading) return <div>Loading...</div>;
     </button>
   ))}
 
-  <button
-    onClick={() => handlePageChange(currentPage + 1)}
-    disabled={currentPage === totalPages}
-    style={{
-      marginLeft: "5px",
-      border: "none",
-      background: currentPage === totalPages ? '#EFEFEF' : '#0D6EFD',
-      color: currentPage === totalPages ? 'gray' : 'white',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
-  >
-    <BsChevronRight />
-  </button>
-</div>
-
-
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        style={{
+          marginLeft: "5px",
+          border: "none",
+          background: currentPage === totalPages ? '#EFEFEF' : '#0D6EFD',
+          color: currentPage === totalPages ? 'gray' : 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <BsChevronRight />
+      </button>
+    </div>
     </Container>
   );
 }

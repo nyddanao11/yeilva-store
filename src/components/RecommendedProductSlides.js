@@ -60,6 +60,8 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
               name={product.name}
               price={product.price}
               thumbnails={product.thumbnails}
+              stock={product.stock}
+              discount={product.discount}
               addToCart={addToCart}
               product={product}
             />

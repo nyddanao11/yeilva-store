@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Modal } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ClickProductPage.css';
 import YouMayLike from'../components/YouMayLike';
@@ -11,19 +11,30 @@ import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to 
 export default function ClickFeaturedProduct ({ addToCart, isLoggedIn, featuredProducts })  {
 
   const { id } = useParams();
-   console.log('ID from URL:', id);
+   // console.log('ID from URL:', id);
 
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
   const [freeShippingPlace, setFreeShippingPlace] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+   const [modalMessage, setModalMessage] = useState('');
+ 
+ const handleClose = () => setShowModal(false);
+  const handleShowModal = (message) => {
+  setModalMessage(message);
+  setShowModal(true);
+};
+const handleLoginRedirect = () => {
+    setShowModal(false);
+    // Redirect to login page
+    window.location.href = '/login'; // or use navigate('/login') if using react-router
+  };
+
 
   const navigate = useNavigate();
 
   const product = featuredProducts.find(p => p.id === parseInt(id)); // Assuming product IDs are numbers
-      const stockState = product.stock;
- const stockStatus = () => {
-  return stockState <= 0;
-};
+     
 useEffect(()=>{
   if(product.place ==='maslog')
       {setFreeShippingPlace(true)}
@@ -34,7 +45,7 @@ useEffect(()=>{
     // Function to fetch reviews based on product name
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${product.name}`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews?productName=${product.name}`);
         console.log('Response from server:', response.data); // Log the response data
         setReviewData(response.data);
       } catch (error) {
@@ -45,6 +56,40 @@ useEffect(()=>{
   }, [product.name]);
 
   console.log("reviewData:", reviewData);
+   if (!product) {
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <div>Product not found</div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
+  // --- All other calculations and functions that depend on 'product' go here,
+  //     after the conditional return for 'product' being defined. ---
+
+  const stockState = product.stock;
+  const stockStatus = () => {
+    return stockState <= 0;
+  };
+
+  const isProductDiscounted = () => {
+    return (product.discount || 0) > 0;
+  };
+
+  const calculateDiscountedPrice = () => {
+    if (isProductDiscounted()) {
+      return (product.price * (1 - (product.discount || 0) / 100));
+    }
+    return product.price;
+  };
+
+  const originalPriceFormatted = product.price.toFixed(2);
+  const discountedPriceCalculated = calculateDiscountedPrice();
+  const discountedPriceFormatted = discountedPriceCalculated.toFixed(2);
 
   // Calculate the average rating
   const averageRating = reviewData.length > 0
@@ -61,27 +106,37 @@ useEffect(()=>{
   };
 
  
-const handleCheckoutClick = () => {
-  if (!isLoggedIn) {
-    alert('Please log in to continue'); // Alert user to log in
-    return; // Exit the function if the user is not logged in
-  }
- addToCart(product);
-  navigate('/checkout'); // Redirect to checkout if the user is logged in
-  
-};
 
-  if (!product) {
-    return (
-      <Container>
-        <Row>
-          <Col>
-            <div>Product not found</div>
-          </Col>
-        </Row>
-      </Container>
-    );
+   const handleAddToCartClick = () => {
+    const productToAdd = {
+      ...product,
+      price: isProductDiscounted() ? discountedPriceCalculated : product.price,
+      originalPrice: product.price,
+      discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
+      displayPrice: discountedPriceFormatted
+    };
+
+    addToCart(productToAdd);
+  };
+
+  const handleCheckoutClick = () => {
+   if (!isLoggedIn) {
+   handleShowModal('Please login to continue')
+    return; // Exit the function if the user is not logged in
+  }else{
+      navigate('/checkout'); // Redirect to checkout
   }
+
+    const productToCheckout = {
+      ...product,
+      price: isProductDiscounted() ? discountedPriceCalculated : product.price,
+      originalPrice: product.price,
+      discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
+      displayPrice: discountedPriceFormatted
+    };
+    addToCart(productToCheckout);
+    navigate('/checkout');
+  };
 
   // Function to convert rating to stars
   const renderStars = (rating) => {
@@ -129,7 +184,14 @@ const handleCheckoutClick = () => {
               <h2>{product.name}</h2>
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
-           <h6>₱{product.price}</h6>
+             {isProductDiscounted() ? (
+            <div className="d-flex">
+                <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>₱{originalPriceFormatted}</h6>{' '}
+                <h6 className="discounted-price">₱{discountedPriceFormatted}</h6>
+              </div>
+            ) : (
+              <h6>₱{originalPriceFormatted}</h6>
+            )}
 
            <div className="d-flex flex-column mb-1">
             <div className="d-flex">
@@ -163,7 +225,22 @@ const handleCheckoutClick = () => {
         </Col>
 
       </Row>
- 
+         <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Authentication Required</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {modalMessage}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleLoginRedirect}>
+                    Log In
+                  </Button>
+                </Modal.Footer>
+              </Modal>
     </Container>
         <YouMayLike addToCart={addToCart}/>
     </>

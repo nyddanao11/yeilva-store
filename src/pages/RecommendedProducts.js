@@ -39,7 +39,7 @@ if (recommendedLoading) return <div>Loading...</div>;
         {visibleProducts.map((product) => (
          
           <Col key={product.id} md={3} xs={6} lg={2}>
-            <div className="d-flex justify-content-center align-items-center g-1"  style={{ flexWrap:'wrap',marginBottom:'18px' }}>
+            <div >
               <ImageCardRecommendedProduct
                 url={product.url}
                 name={product.name}
