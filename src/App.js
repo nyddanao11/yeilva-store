@@ -10,6 +10,7 @@ import { ProductContext} from './pages/ProductContext'; // Import context
 import useFeaturedProducts from './hooks/useFeaturedProducts';
 import useBestSellingProducts from './hooks/useBestSellingProducts'
 import useRecommendedProducts from './hooks/useRecommendedProducts';
+import useSearchProducts from './hooks/useSearchProducts';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const CheckoutForm = React.lazy(() => import('./components/CheckoutForm'));
@@ -93,10 +94,11 @@ const [cartItems, setCartItems] = useState(() => {
   return storedItems;
 });
 
-const { handleItemClickCategory, storedProducts, fetchProducts, clickedCategories, allProducts, fetchAllProducts} = useContext(ProductContext); // Use context
+const { handleItemClickCategory, storedProducts, fetchProducts, clickedCategories} = useContext(ProductContext); // Use context
 const { featuredProducts, loading, error } = useFeaturedProducts(); 
 const { bestSellingProducts, bestLoading, bestError } = useBestSellingProducts(); 
 const { recommendedProducts, recommendedLoading, recommendedError } = useRecommendedProducts();
+const { searchProducts, searchLoading, searchError, fetchSearchProducts} = useSearchProducts();
 
 useEffect(() => {
   if (clickedCategories.length === 0) {
@@ -225,7 +227,7 @@ const handleLogout = () => {
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout}  
-      allProducts={allProducts}  fetchAllProducts={fetchAllProducts} addToCart={addToCart} storedProducts={storedProducts} handleItemClickCategory={handleItemClickCategory} />
+      searchProducts={searchProducts} addToCart={addToCart} storedProducts={storedProducts} handleItemClickCategory={handleItemClickCategory} />
       
    {isLargeScreen?(
       <Container>
@@ -241,7 +243,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  
                         setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  />}/>                                    
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal}/>} />
@@ -310,7 +312,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn}  storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn}  storedProducts={storedProducts} searchProducts={searchProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} 
                           setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  />}/>
      
@@ -374,7 +376,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart}  isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart}  isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} 
                             setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} />}/>
             
@@ -443,7 +445,7 @@ const handleLogout = () => {
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
-            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} allProducts={allProducts}  fetchAllProducts={fetchAllProducts} />} />
+            <Route path="/clickproductpage/:id" element={<ClickProductPage addToCart={addToCart} isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} />} />
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems} 
                          setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} />}/>
          

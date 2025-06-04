@@ -185,7 +185,7 @@ const handleLoginRedirect = () => {
             {isProductDiscounted() ? (
             <div className="d-flex">
                 <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>₱{originalPriceFormatted}</h6>{' '}
-                <h6 className="discounted-price">₱{discountedPriceFormatted}</h6>
+                <h6 className="discounted-price">₱{discountedPriceFormatted} -{product.discount}%</h6>
               </div>
             ) : (
               <h6>₱{originalPriceFormatted}</h6>

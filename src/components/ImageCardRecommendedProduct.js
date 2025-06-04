@@ -73,7 +73,7 @@ const ImageCardRecommendedProduct = ({product, url, name, id, price, thumbnails,
       </Link>
       <Card.Body className="d-flex flex-column align-items-center justify-content-center p-2 flex-grow-1"> {/* flex-grow-1 to push footer down if needed */}
         {/* Remove fixed font size or define it in your CSS with responsive units */}
-        <Card.Title className="text-center" style={{ margin: 0, fontWeight:'400' }}>{name}</Card.Title>
+        <Card.Title className="text-center" style={{ margin: 0, fontWeight:'400', fontSize:'18px'}}>{name}</Card.Title>
            <Card.Text style={{ margin: '4px 0', fontWeight: '650' }}>
           {isProductDiscounted() ? (
             <>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect,useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Form, FormControl, Button, Modal, Dropdown } from 'react-bootstrap';
 import { FaSearch, FaShoppingCart, FaShippingFast } from 'react-icons/fa';
@@ -7,9 +7,11 @@ import './Header.css';
 import axios from'axios';
 import debounce from 'lodash/debounce';
 import { ProductContext} from '../pages/ProductContext'; // Import context
+import useSearchProducts from '../hooks/useSearchProducts';
 
 export default function Header ({ cartCount, addToCart, isLoggedIn}) {
-  const { allProducts, fetchAllProducts, handleItemClickCategory} = useContext(ProductContext); // Use context
+  const { handleItemClickCategory} = useContext(ProductContext); // Use context
+const {searchProducts, setSearchProducts, fetchSearchProducts} = useSearchProducts();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -23,12 +25,13 @@ export default function Header ({ cartCount, addToCart, isLoggedIn}) {
   const isSmallScreen = useMediaQuery({ query: '(max-width: 992px)' });
 const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
 
+
   const handleQueryChange = (query) => {
     setSearchQuery(query);
     debounceFetch.current(query.trim());
     
-    if (query.trim() && Array.isArray(allProducts)) {
-      const filtered = allProducts.filter((product) =>
+    if (query.trim() && Array.isArray(searchProducts)) {
+      const filtered = searchProducts.filter((product) =>
         product.name?.toLowerCase().includes(query.toLowerCase())
       );
       setSuggestions(filtered.slice(0, 10));
@@ -44,7 +47,7 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
   }
 
   const handleSearch = async (name) => {
-    await fetchAllProducts(name); // Call fetchAllProducts from context
+    await fetchSearchProducts(name); // Call fetchAllProducts from context
   };
 
   const handleKeyPress = (e) => {
@@ -152,11 +155,11 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
     </Dropdown.Item>
     )}
 
- {/* Static Frequently Searched Section */}
-    <Dropdown.Item>
-      <div className="text-muted mt-2">
-        <p>You may also like:</p>
-           <ul className="list-unstyled">
+       {/* Static Frequently Searched Section */}
+          <Dropdown.Item>
+            <div className="text-muted mt-2">
+              <p>You may also like:</p>
+               <ul className="list-unstyled">
                 <li>
                   <Link
                     to="/productsdata"
@@ -182,10 +185,10 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
                 </Link>
               </li>
               </ul>
-      </div>
-    </Dropdown.Item>
-  </Dropdown.Menu>
-)}
+            </div>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      )}
 
 
      <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
@@ -252,6 +255,7 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
           </Modal.Footer>
         </Modal>
       )}
+
     </Navbar>
   );
 };
