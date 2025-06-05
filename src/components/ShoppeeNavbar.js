@@ -160,7 +160,7 @@ const categories = [
 
               {/* Christmas Deals section */}
               <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700'}}>
+                <Nav.Link as={NavLink} to="/alldealsproduct" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700'}}>
                   <FaPercent style={{ marginRight:'5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>

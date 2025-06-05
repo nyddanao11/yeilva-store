@@ -1,0 +1,52 @@
+.category-header{
+	color: #5D5D5D;
+	margin-top:20px;
+	margin-bottom: 5px;
+}
+
+.pagination button.active-page {
+  background-color: #0D6EFD;
+  color: white;
+  outline: 2px solid #0D6EFD;
+  border: none;
+}
+
+.pagination button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin: 0 0.25rem;
+}
+
+.pagination button:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+
+
+
+.category-buttons-wrapper {
+  white-space: nowrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.category-buttons-wrapper button {
+  flex: 0 0 auto;
+}
+
+.product-card {
+  padding: 0.5rem;
+}
+
+.active-page {
+  background-color: #000;
+  color: #fff;
+}

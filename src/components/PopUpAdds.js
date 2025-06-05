@@ -55,7 +55,7 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
     ? 'Check out our Deals of the Day to save big!'
     : 'Sign up to avail our services and product deals';
 
-  const linkPath = isLoggedIn ? '/dealsofday' : '/signupform';
+  const linkPath = isLoggedIn ? '/alldealsproduct' : '/signupform';
   const btnMessage = isLoggedIn ? 'Proceed to Deals' : 'Sign Up';
 
   const buttonRedirect = () => {

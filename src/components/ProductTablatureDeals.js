@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
-import {deals} from'../data/DealsData';
 import {useNavigate} from'react-router-dom';
 import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
@@ -38,7 +37,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const reviewStatus = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/reviewstatus`, {
           params: {
             userEmail: storedUserEmail,
             productName: selectedProd
@@ -69,7 +68,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews`, {
           params: {
             productName: selectedProd
           }
@@ -155,11 +154,11 @@ const Shipping = ({
 };
 
 
-const TabbedComponent = ({ productId }) => {
+const TabbedComponent = ({ productId, allDealsProduct }) => {
   const [key, setKey] = useState('details');
  
   const [clickedTabs, setClickedTabs] = useState([]);
-  const selectedProduct = deals.find((item) => item.id === productId);
+  const selectedProduct = allDealsProduct.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);

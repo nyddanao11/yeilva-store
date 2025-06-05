@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'react-bootstrap'; // Import Breadcrumb from react-bootstrap
-import { deals } from '../data/DealsData';
 
-const BreadCrumbDeals = ({ productId }) => {
+const BreadCrumbDeals = ({ productId, allDealsProduct }) => {
   const [clickedItems, setClickedItems] = useState([]);
 
-  const selectedProduct = deals.find((item) => item.id === productId);
+  const selectedProduct = allDealsProduct.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);
@@ -17,7 +16,7 @@ const BreadCrumbDeals = ({ productId }) => {
  return (
     <Breadcrumb style={{ fontSize: "12px" }}>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
-         <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/dealsofday' }}>Deals</Breadcrumb.Item>
+         <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/alldealsproduct' }}>Deals</Breadcrumb.Item>
 
       {clickedItems.map((item, index) => (
         <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>{item.name}</Breadcrumb.Item>
