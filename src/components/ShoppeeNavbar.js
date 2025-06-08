@@ -298,7 +298,7 @@ const categories = [
           </Nav>
 
           <Nav className="flex-column" >
-            <Nav.Link as={NavLink} to="/dealsofday" onClick={handleCloseOffcanvas}  className='link_style'><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
+            <Nav.Link as={NavLink} to="/alldealsproduct" onClick={handleCloseOffcanvas}  className='link_style'><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
             <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}  className='link_style'><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
                     {/* Account Section */}
                 <Nav.Link
