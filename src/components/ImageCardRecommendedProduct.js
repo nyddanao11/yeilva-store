@@ -53,7 +53,7 @@ const ImageCardRecommendedProduct = ({product, url, name, id, price, thumbnails,
    // Instead of fixed width, let Bootstrap's grid handle the width
     // Example: For a grid where you want 2 columns on small, 3 on medium, 4 on large
     // This Card would be placed inside a <Col xs={6} md={4} lg={3}> in a Row
-    <Card className="product-card mb-4 h-100 d-flex flex-column"> {/* h-100 for consistent height in a grid */}
+    <Card className="product-card mb-4 h-100 d-flex flex-column p-0"> {/* h-100 for consistent height in a grid */}
       {isProductSoldOut(stock) && <div className="sold-out-label">Sold Out</div>}
        {isProductDiscounted() && (
         <div className="discount-label ">

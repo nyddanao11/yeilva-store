@@ -1,12 +1,8 @@
 .product-card {
   position: relative;
-  /*border: 1px solid #ccc;*/
   text-align: center;
 }
 
-/*.product-card img {
-  max-width: 100%;
-}*/
 /* SoldOutLabel.css (or your main product card CSS) */
 .sold-out-label {
   position: absolute;

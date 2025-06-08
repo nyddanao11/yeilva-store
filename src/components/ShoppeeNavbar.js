@@ -76,7 +76,7 @@ const categories = [
             <FaBars />
           </Button>
                   <Nav>
-                <Nav.Link as={NavLink} to="/dealsofday" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700' }}>
+                <Nav.Link as={NavLink} to="/alldealsproduct" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700' }}>
                   <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
                 </Nav.Link>
               </Nav>
