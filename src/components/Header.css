@@ -13,14 +13,16 @@
     align-items: center;
 }
 
-/* Ensure the search container behaves flexibly and prevents wrapping */
 .search-container {
-  position: relative; /* Keeps the dropdown aligned with the search bar */
-  flex: 1 0 auto; /* Allow growth, prevent shrinkage */
-  max-width: 100%; /* Prevent overflowing the parent container */
-  display: flex; /* Align the child elements (like .search-form) horizontally */
-  align-items: center; /* Vertically center the contents */
-  justify-content: center; /* Center the search form and suggestions */
+    position: relative;
+    /* Allows it to grow and shrink proportionally */
+    flex: 1 1 auto; /* Changed flex-shrink from 0 to 1 */
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    /* Keep justify-content: center; if the form is the only direct child,
+       or adjust if you have other elements within search-container */
+    justify-content: center;
 }
 
 /* Ensure the search form adjusts flexibly */
