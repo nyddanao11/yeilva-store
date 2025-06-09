@@ -12,7 +12,7 @@ import YouMayLike from'../components/YouMayLike';
 import CameraCapture from'../components/CameraCapture';
 
 
-export default function LoanForm ({addToCart, capturedImage}) {
+export default function LoanForm ({addToCart, capturedImage, youMayLikeProducts}) {
   const [loanAmount, setLoanAmount] = useState('3000');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -443,7 +443,7 @@ useEffect(() => {
       </Row>
   
     </Container>
-        <YouMayLike addToCart={addToCart}/>
+        <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>
       </>
 
   );

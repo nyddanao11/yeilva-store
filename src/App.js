@@ -45,7 +45,7 @@ const ChangePassword  = React.lazy(() => import('./pages/ChangePassword'));
 
 const ClickDeals = React.lazy(() => import('./pages/ClickDeals'));
 const ClickYouMayLike = React.lazy(() => import('./pages/ClickYouMayLike'));
-const YouMayLikeProduct = React.lazy(() => import('./components/YouMayLikeProduct'));
+const YouMayAlsoLikeProduct = React.lazy(() => import('./components/YouMayAlsoLikePage'));
 const CheckoutHistoryPage = React.lazy(() => import('./components/CheckoutHistoryPage'));
 const LoanFormHistoryPage = React.lazy(() => import('./components/LoanFormHistoryPage'));
 const NotFoundPage = React.lazy(() => import('./components/NotFoundPage'));
@@ -243,7 +243,7 @@ const handleLogout = () => {
           <Route path="/productsdata" element={<ProductsData addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} storedProducts={storedProducts} youMayLikeProducts={youMayLikeProducts }/>} />
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} featuredProducts={featuredProducts}  loading={loading} error={error}/>} />
             <Route path="/bestsellingproduct" element={<BestSellingProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} bestSellingProducts={bestSellingProducts}  bestLoading={bestLoading} bestError={bestError}/>} />
-             <Route path="/youmaylikeproduct" element={<YouMayLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+             <Route path="/youmayalsolikeproduct" element={<YouMayAlsoLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
             <Route path="/recommendedproduct" element={<RecommendedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} recommendedProducts={recommendedProducts} recommendedLoading={recommendedLoading} recommendedError={recommendedError}/>} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
@@ -312,7 +312,7 @@ const handleLogout = () => {
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} featuredProducts={featuredProducts}  loading={loading} error={error}/>} />
             <Route path="/bestsellingproduct" element={<BestSellingProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} bestSellingProducts={bestSellingProducts}  bestLoading={bestLoading} bestError={bestError}/>} />
             <Route path="/recommendedproduct" element={<RecommendedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} recommendedProducts={recommendedProducts} recommendedLoading={recommendedLoading} recommendedError={recommendedError}/>} />           
-             <Route path="/youmaylikeproduct" element={<YouMayLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+             <Route path="/youmayalsolikeproduct" element={<YouMayAlsoLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
@@ -374,7 +374,7 @@ const handleLogout = () => {
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} featuredProducts={featuredProducts}  loading={loading} error={error}/>} />
             <Route path="/bestsellingproduct" element={<BestSellingProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} bestSellingProducts={bestSellingProducts}  bestLoading={bestLoading} bestError={bestError}/>} />            
             <Route path="/recommendedproduct" element={<RecommendedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} recommendedProducts={recommendedProducts} recommendedLoading={recommendedLoading} recommendedError={recommendedError}/>} />           
-             <Route path="/youmaylikeproduct" element={<YouMayLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+             <Route path="/youmayalsolikeproduct" element={<YouMayAlsoLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
@@ -442,7 +442,7 @@ const handleLogout = () => {
             <Route path="/featuredproduct" element={<FeaturedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} featuredProducts={featuredProducts}  loading={loading} error={error}/>} />
              <Route path="/bestsellingproduct" element={<BestSellingProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} bestSellingProducts={bestSellingProducts}  bestLoading={bestLoading} bestError={bestError}/>} />           
             <Route path="/recommendedproduct" element={<RecommendedProduct addToCart={addToCart}  currentPage={currentPage} setCurrentPage={setCurrentPage} recommendedProducts={recommendedProducts} recommendedLoading={recommendedLoading} recommendedError={recommendedError}/>} />           
-             <Route path="/youmaylikeproduct" element={<YouMayLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+             <Route path="/youmayalsolikeproduct" element={<YouMayAlsoLikeProduct addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
             <Route path="/homekitchen" element={<NotFoundPage/>}/>
             <Route path="/homeimprovement" element={<NotFoundPage/>}/>
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>

@@ -60,7 +60,7 @@ export default function YouMayLikeProduct ({ addToCart, youMayLikeProducts, mayL
         {youMayLikeProducts.map((product) => (
           // Apply padding to the wrapper div around each product card
           // This creates the space between cards
-          <div key={product.id} className="product-slide-wrapper mt-4">
+          <div key={product.id} className="product-slide-wrapper ">
             <ImageYouMayLikeProduct
               url={product.url}
               name={product.name}
