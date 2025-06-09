@@ -63,7 +63,7 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
   );
 };
 
-export default function ProductsData({ addToCart, currentPage, setCurrentPage, storedProducts }) {
+export default function ProductsData({ addToCart, currentPage, setCurrentPage, storedProducts, youMayLikeProducts}) {
   const visibleProducts = storedProducts.filter((item) => item.page === currentPage);
     const categoryLabels = [...new Set(storedProducts.map((item) =>
       item.category
@@ -92,7 +92,7 @@ export default function ProductsData({ addToCart, currentPage, setCurrentPage, s
         totalPages={totalPages}
         handlePageChange={handlePageChange}
       />
-      <YouMayLike addToCart={addToCart} />
+      <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>
     </Container>
   );
 }

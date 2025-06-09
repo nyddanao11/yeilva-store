@@ -7,7 +7,7 @@ import TabbedComponent from'../components/ProductTablatureRecommended';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
-export default function ClickRecommendedProduct ({ addToCart, isLoggedIn, recommendedProducts })  {
+export default function ClickRecommendedProduct ({ addToCart, isLoggedIn, recommendedProducts, youMayLikeProducts })  {
 
   const { id } = useParams();
    // console.log('ID from URL:', id);
@@ -241,7 +241,7 @@ useEffect(()=>{
                 </Modal.Footer>
               </Modal>
     </Container>
-        <YouMayLike addToCart={addToCart}/>
+        <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>
     </>
   );
 };

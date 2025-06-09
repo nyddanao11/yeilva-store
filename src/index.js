@@ -13,6 +13,7 @@ import {BestSellingProvider} from './pages/BestSellingContext';
 import {RecommendedProvider} from './pages/RecommendedProductsContext';
 import {SearchProductsProvider} from './pages/SearchProductContext';
 import {AllDealsProductsProvider} from './pages/AllDealsProductContext';
+import {YouMayLikeProductProvider} from './pages/YouMayLikeProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
 
@@ -25,10 +26,12 @@ root.render( // Use root.render instead of ReactDOM.render
          <RecommendedProvider>
            <SearchProductsProvider>
             <AllDealsProductsProvider>
+            <YouMayLikeProductProvider>
               <Router>
                 <ScrollToTop />
                 <App />
               </Router>
+            </YouMayLikeProductProvider>
             </AllDealsProductsProvider>
             </SearchProductsProvider>
           </RecommendedProvider>

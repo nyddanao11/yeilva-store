@@ -8,6 +8,7 @@ const ProductDetailsUpdateForm = () => {
     featured: false,
     bestselling: false,
     recommended: false,
+    youmaylike: false,
     discount: 0,
     stock:0,
   };
@@ -42,6 +43,7 @@ const ProductDetailsUpdateForm = () => {
         featured: formData.featured,
         bestselling: formData.bestselling,
         recommended: formData.recommended,
+        youmaylike: formData.youmaylike,
         discount: formData.discount,
         stock: formData.stock,
       });
@@ -88,6 +90,15 @@ const ProductDetailsUpdateForm = () => {
             label="Recommended product"
             name="recommended"
             checked={formData.recommended}
+            onChange={handleChange}
+          />
+        </Form.Group>
+          <Form.Group controlId="youmaylike" className="mb-3">
+          <Form.Check
+            type="checkbox"
+            label="You may like product"
+            name="youmaylike"
+            checked={formData.youmaylike}
             onChange={handleChange}
           />
         </Form.Group>

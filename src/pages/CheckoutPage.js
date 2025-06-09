@@ -10,15 +10,16 @@ import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
-export default function CheckoutPage ({
+export default function CheckoutPage  ({
   cartItems,
   removeFromCart,
   addToCart,
   selectedSize,
   selectedColor,
   fetchUserData,
-  setFormattedGrandTotal
-}) {
+  setFormattedGrandTotal,
+  youMayLikeProducts
+})  {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
   const [shippingRate, setShippingRate] = useState(0);
@@ -28,7 +29,7 @@ export default function CheckoutPage ({
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
 
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     const itemsPrice = cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -39,6 +40,7 @@ export default function CheckoutPage ({
 
   useEffect(() => {
   const FREE_SHIPPING_THRESHOLD = 2500; // Set your free shipping threshold here
+
   if (totalItemsPrice > FREE_SHIPPING_THRESHOLD ) {
     setShippingRate(0);
     setIsFreeShipping(true);
@@ -54,6 +56,7 @@ export default function CheckoutPage ({
     setShowFreeShippingAlert(false);
   }
 }, [cartItems, totalItemsPrice]);
+
 
   const handleVoucherCode = (code) => {
     setVoucherCode(code / 100); // Convert to a decimal for discount calculation
@@ -141,7 +144,7 @@ export default function CheckoutPage ({
               <div className="d-flex">
                 <Button onClick={handleProceedToCheckout} style={{backgroundColor:'#E92409', border:'none'}}>Continue to Shipping</Button>
                 <Link to="/cart">
-                 <Button variant="outline-secondary" className="ms-2">
+                  <Button variant="outline-secondary" className="ms-2">
                     Back to Cart
                   </Button>
                 </Link>
@@ -158,8 +161,9 @@ export default function CheckoutPage ({
           />
         )}
       </Container>
-      <YouMayLike addToCart={addToCart}/>
+      <YouMayLike addToCart={addToCart}  youMayLikeProducts={ youMayLikeProducts}/>
     </>
   );
 };
+
 

@@ -7,7 +7,7 @@ import HoverButton1 from'../components/HoverButton1'
 import YouMayLike from'../components/YouMayLike';
 import Orders from'./YourOrders';
 
-export default function MyAccountPage ({addToCart}) {
+export default function MyAccountPage ({addToCart, youMayLikeProducts}) {
   const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
@@ -45,7 +45,7 @@ export default function MyAccountPage ({addToCart}) {
       <Row className="justify-content-center">
 
         <Col md={4}>
-       <div className="d-flex mt-2 mb-1 ">
+        <div className="d-flex mt-2 mb-1 ">
         <h5>Your Orders</h5>
         <Link to="/checkouthistory"  style={{textDecoration:'none', marginLeft:'15px'}}>( View All )</Link>
         </div>
@@ -142,7 +142,7 @@ export default function MyAccountPage ({addToCart}) {
       </Row>
 
     </Container>
-        <YouMayLike addToCart={addToCart}/>
+        <YouMayLike addToCart={addToCart} youMayLikeProducts = {youMayLikeProducts}/>
       </>
   );
 };

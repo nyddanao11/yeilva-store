@@ -11,6 +11,7 @@ const ProductCard = ({ product, addToCart }) => {
     return <Col md={2} xs={6} lg={2}><div>Product data missing.</div></Col>;
   }
 
+
   return (
     <div className="product-card px-2">
       <ImageAllDeals
@@ -52,7 +53,7 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
   );
 };
 
-export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage, allDealsProduct }) {
+export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage, allDealsProduct, youMayLikeProducts, mayLikeLoading, mayLikeError }) {
   const [selectedCategory, setSelectedCategory] = useState('All Deals');
 
   const formattedCategory = (cat) =>
@@ -98,6 +99,12 @@ export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage
     ],
   };
 
+   // IMPORTANT: Add this check
+  if (!Array.isArray(allDealsProduct) || allDealsProduct.length === 0) {
+    // You can return null, a message, or a skeleton loader for no products
+    return <div>No "Deals" product available.</div>;
+  }
+
   return (
     <Container>
       <div className="category-buttons-wrapper mb-3 mt-3 d-flex overflow-auto">
@@ -125,7 +132,7 @@ export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage
         handlePageChange={handlePageChange}
       />
 
-      <YouMayLike addToCart={addToCart} />
+      <YouMayLike addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts }/>
     </Container>
   );
 }

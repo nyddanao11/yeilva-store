@@ -8,7 +8,7 @@ import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 import { FaShippingFast } from 'react-icons/fa';
 
-export default function ClickDeals({ addToCart, isLoggedIn, allDealsProduct }) {
+export default function ClickDeals({ addToCart, isLoggedIn, allDealsProduct, youMayLikeProducts, mayLikeLoading, mayLikeError }) {
   const { id } = useParams();
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
@@ -242,7 +242,7 @@ const handleLoginRedirect = () => {
               </Modal>
 
       </Container>
-      <YouMayLike addToCart={addToCart}  />
+      <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>
     </>
   );
 }

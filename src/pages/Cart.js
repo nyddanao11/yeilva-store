@@ -8,7 +8,7 @@ import AlertEmptyCart from '../components/AlertEmptyCart';
 
 
 export default function Cart  ({ removeFromCart, handleIncrement, handleDecrement, addToCart,
- handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems, isLoggedIn})  {
+ handleSizeChange, handleColorChange ,  setCartItems,  setCartCount, cartCount, cartItems, isLoggedIn, youMayLikeProducts})  {
    const [showModal, setShowModal] = useState(false);
    const [modalMessage, setModalMessage] = useState('');
  
@@ -99,7 +99,7 @@ const handleCheckoutClick = () => {
                   </Button>
                 </Modal.Footer>
               </Modal>
-               <YouMayLike addToCart={addToCart}/>
+               <YouMayLike addToCart={addToCart} youMayLikeProducts = {youMayLikeProducts}/>
 
      </Container>
    

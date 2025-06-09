@@ -2,17 +2,18 @@ import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import { youMayLikeData } from '../data/YouMayLikeData';
 import { useMediaQuery } from 'react-responsive';
 import ImageYouMayLikeProduct from './ImageYouMayLikeProduct';
 import './FeaturedProductSlides.css';
 
-const YouMayLikeProduct= ({ addToCart}) => {
+export default function YouMayLikeProduct ({ addToCart, youMayLikeProducts, mayLikeLoading, mayLikeError }) {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
   const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
- // Custom arrow components (no changes needed here)
+  console.log('youMayLikeProducts:', youMayLikeProducts);
+
+  // Custom arrow components (no changes needed here)
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -42,20 +43,31 @@ const YouMayLikeProduct= ({ addToCart}) => {
     variableWidth: false, // Ensure variableWidth is false for consistent sizing
   };
 
-   return (
+  if (mayLikeLoading) return <div>Loading...</div>;
+  if (mayLikeError) return <div>Error fetching youMayLikeProducts</div>;
+
+  // IMPORTANT: Add this check
+  if (!Array.isArray(youMayLikeProducts) || youMayLikeProducts.length === 0) {
+    // You can return null, a message, or a skeleton loader for no products
+    return <div>No "You May Like" products available.</div>;
+  }
+
+  return (
     // You can remove the conditional rendering for `div` with paddingLeft/Right here
     // as the slide's padding will handle it.
     <div className="slider-container"> {/* Add a class for potential custom styling */}
       <Slider {...settings}>
-        {youMayLikeData.map((product) => (
+        {youMayLikeProducts.map((product) => (
           // Apply padding to the wrapper div around each product card
           // This creates the space between cards
-          <div key={product.id} className="product-slide-wrapper">
-           <ImageYouMayLikeProduct 
+          <div key={product.id} className="product-slide-wrapper mt-4">
+            <ImageYouMayLikeProduct
               url={product.url}
               name={product.name}
               price={product.price}
               thumbnails={product.thumbnails}
+              stock={product.stock}
+              discount={product.discount}
               addToCart={addToCart}
               product={product}
             />
@@ -63,10 +75,5 @@ const YouMayLikeProduct= ({ addToCart}) => {
         ))}
       </Slider>
     </div>
-
   );
 }
-
-export default YouMayLikeProduct;
-
-  

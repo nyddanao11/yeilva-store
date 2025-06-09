@@ -38,7 +38,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const reviewStatus = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/reviewstatus`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/reviewstatus`, {
           params: {
             userEmail: storedUserEmail,
             productName: selectedProd
@@ -69,7 +69,7 @@ const Reviews = ({ selectedProduct }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews`, {
           params: {
             productName: selectedProd
           }
@@ -155,11 +155,11 @@ const Shipping = ({
 };
 
 
-const TabbedComponent = ({ productId }) => {
+const TabbedComponent = ({ productId, youMayLikeProducts }) => {
   const [key, setKey] = useState('details');
  
   const [clickedTabs, setClickedTabs] = useState([]);
-  const selectedProduct = youMayLikeData.find((item) => item.id === productId);
+  const selectedProduct = youMayLikeProducts.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);

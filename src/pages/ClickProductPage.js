@@ -8,7 +8,7 @@ import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast } from 'react-icons/fa';
 
-export default function ClickProductPage({ addToCart, isLoggedIn, storedProducts, allProducts }) {
+export default function ClickProductPage({ addToCart, isLoggedIn, storedProducts, allProducts, youMayLikeProducts }) {
   const { id } = useParams();
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
@@ -185,7 +185,7 @@ const handleLoginRedirect = () => {
             {isProductDiscounted() ? (
             <div className="d-flex">
                 <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>₱{originalPriceFormatted}</h6>{' '}
-                <h6 className="discounted-price">₱{discountedPriceFormatted} -{product.discount}%</h6>
+                <h6 className="discounted-price">₱{discountedPriceFormatted} -{product.discount}% </h6>
               </div>
             ) : (
               <h6>₱{originalPriceFormatted}</h6>
@@ -242,7 +242,7 @@ const handleLoginRedirect = () => {
               </Modal>
 
       </Container>
-      <YouMayLike addToCart={addToCart} allProducts={allProducts} />
+      <YouMayLike addToCart={addToCart} allProducts={allProducts} youMayLikeProducts={youMayLikeProducts}/>
     </>
   );
 }

@@ -1,33 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Modal } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import findProductByIdYouMayLike from '../data/findProductByIdYouMayLike';
 import './ClickProductPage.css';
 import YouMayLike from'../components/YouMayLike';
 import BreadCrumbYouMayLike from'../components/BreadCrumbYouMayLike';
 import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
 import axios from 'axios';
+import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
+export default function ClickYouMayLike({ addToCart, isLoggedIn, youMayLikeProducts })  {
 
-export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
   const { id } = useParams();
-   console.log('ID from URL:', id);
-  
- const [selectedThumbnails, setSelectedThumbnails] = useState({});
+   // console.log('ID from URL:', id);
+
+  const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
+  const [freeShippingPlace, setFreeShippingPlace] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+   const [modalMessage, setModalMessage] = useState('');
+ 
+ const handleClose = () => setShowModal(false);
+  const handleShowModal = (message) => {
+  setModalMessage(message);
+  setShowModal(true);
+};
+const handleLoginRedirect = () => {
+    setShowModal(false);
+    // Redirect to login page
+    window.location.href = '/login'; // or use navigate('/login') if using react-router
+  };
+
+
   const navigate = useNavigate();
 
-  const product = findProductByIdYouMayLike (id);
-     const stockState = product.stock;
- const stockStatus = () => {
-  return stockState <= 0;
-};
+  const product = youMayLikeProducts.find(p => p.id === parseInt(id)); // Assuming product IDs are numbers
+     
+useEffect(()=>{
+  if(product.place ==='maslog')
+      {setFreeShippingPlace(true)}
+},[product.place])
+
 
   useEffect(() => {
     // Function to fetch reviews based on product name
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/userreviews?productName=${product.name}`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews?productName=${product.name}`);
         console.log('Response from server:', response.data); // Log the response data
         setReviewData(response.data);
       } catch (error) {
@@ -38,6 +56,40 @@ export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
   }, [product.name]);
 
   console.log("reviewData:", reviewData);
+   if (!product) {
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <div>Product not found</div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
+  // --- All other calculations and functions that depend on 'product' go here,
+  //     after the conditional return for 'product' being defined. ---
+
+  const stockState = product.stock;
+  const stockStatus = () => {
+    return stockState <= 0;
+  };
+
+  const isProductDiscounted = () => {
+    return (product.discount || 0) > 0;
+  };
+
+  const calculateDiscountedPrice = () => {
+    if (isProductDiscounted()) {
+      return (product.price * (1 - (product.discount || 0) / 100));
+    }
+    return product.price;
+  };
+
+  const originalPriceFormatted = product.price.toFixed(2);
+  const discountedPriceCalculated = calculateDiscountedPrice();
+  const discountedPriceFormatted = discountedPriceCalculated.toFixed(2);
 
   // Calculate the average rating
   const averageRating = reviewData.length > 0
@@ -53,27 +105,38 @@ export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
     }));
   };
 
-  const handleCheckoutClick = () => {
-  if (!isLoggedIn) {
-    alert('Please log in to continue'); // Alert user to log in
-    return; // Exit the function if the user is not logged in
-  }
- addToCart(product);
-  navigate('/checkout'); // Redirect to checkout if the user is logged in
-  
-};
+ 
 
-  if (!product) {
-    return (
-      <Container>
-        <Row>
-          <Col>
-            <div>Product not found</div>
-          </Col>
-        </Row>
-      </Container>
-    );
+   const handleAddToCartClick = () => {
+    const productToAdd = {
+      ...product,
+      price: isProductDiscounted() ? discountedPriceCalculated : product.price,
+      originalPrice: product.price,
+      discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
+      displayPrice: discountedPriceFormatted
+    };
+
+    addToCart(productToAdd);
+  };
+
+  const handleCheckoutClick = () => {
+   if (!isLoggedIn) {
+   handleShowModal('Please login to continue')
+    return; // Exit the function if the user is not logged in
+  }else{
+      navigate('/checkout'); // Redirect to checkout
   }
+
+    const productToCheckout = {
+      ...product,
+      price: isProductDiscounted() ? discountedPriceCalculated : product.price,
+      originalPrice: product.price,
+      discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
+      displayPrice: discountedPriceFormatted
+    };
+    addToCart(productToCheckout);
+    navigate('/checkout');
+  };
 
   // Function to convert rating to stars
   const renderStars = (rating) => {
@@ -92,18 +155,18 @@ export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
     <>
     <Container className="mt-3">
      <Row className="justify-content-center">
-           <BreadCrumbYouMayLike productId={product.id} />
+      {product && youMayLikeProducts && <BreadCrumbYouMayLike productId={product.id} youMayLikeProducts={youMayLikeProducts} />}
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
         style={{border:'1px #d3d4d5 solid', paddingTop:'10px', paddingBottom:'10px'}}>
           
-              <div className="main-image-container">
+             <div className="main-image-container">
                         <Image
                           src={selectedThumbnails[product.id] || product.url}
-                          alt={product.name}
+                          alt={product.name} 
                           className="main-image"
                         />
                       </div>
-                      <div className="thumbnails">
+                      <div className="thumbnails mb-2">
                         {product.thumbnails.map((thumb, id) => (
                           <img
                             key={id}
@@ -118,10 +181,17 @@ export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
 
         {/* Product Information */}
         <Col xs={12} md={6}>
-           <h2>{product.name}</h2>
+              <h2>{product.name}</h2>
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
-           <h6>₱{product.price}</h6>
+             {isProductDiscounted() ? (
+            <div className="d-flex">
+                <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>₱{originalPriceFormatted}</h6>{' '}
+                <h6 className="discounted-price">₱{discountedPriceFormatted} -{product.discount}%</h6>
+              </div>
+            ) : (
+              <h6>₱{originalPriceFormatted}</h6>
+            )}
 
            <div className="d-flex flex-column mb-1">
             <div className="d-flex">
@@ -136,6 +206,10 @@ export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
 <p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px"}}>
   {product.stock === 0 ? "Out of stock" : "In stock"}
 </p>
+{freeShippingPlace?(<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p></p>)}
+   {freeShippingPlace? (<p style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red', marginBottom:'12px'}}>
+              Not Available outside Danao City</p>):(<p></p>)}
+
         <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
       Add to Cart
     </Button>
@@ -147,14 +221,29 @@ export default function ClickYouMayLike  ({ addToCart, isLoggedIn })  {
 
        <Row style={{marginBottom:'60px', marginTop:'60px'}}>
         <Col>
-        <TabbedComponentYouMayLike  productId={product.id} />
+        <TabbedComponentYouMayLike  productId={product.id} youMayLikeProducts={youMayLikeProducts}/>
         </Col>
 
       </Row>
-
-      </Container>
-    <YouMayLike addToCart={addToCart}/>
-   </>
+         <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Authentication Required</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {modalMessage}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleLoginRedirect}>
+                    Log In
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+    </Container>
+        <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>
+    </>
   );
 };
 
