@@ -1,3 +1,18 @@
+/* Ensure the main container of your Navbar manages its direct children effectively */
+.navbar .container {
+    display: flex;
+    align-items: center; /* Vertically align items in the navbar */
+    justify-content: space-between; /* Distribute space evenly between logo, search, cart */
+    padding: 0 15px; /* Add some horizontal padding to the container */
+}
+
+/* Adjust Navbar.Brand for spacing */
+.navbar-brand {
+    margin-right: 5px; /* Space between logo and search bar */
+    display: flex; /* Helps align logo image if it's there */
+    align-items: center;
+}
+
 /* Ensure the search container behaves flexibly and prevents wrapping */
 .search-container {
   position: relative; /* Keeps the dropdown aligned with the search bar */

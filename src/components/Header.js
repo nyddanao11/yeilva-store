@@ -103,7 +103,7 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
                   height="30px"
                 />
                 {' '}
-                <strong>YeilvaSTORE</strong>
+                <strong style={{marginLeft:'2px'}}>YeilvaSTORE</strong>
               </>
             )}
 
@@ -211,7 +211,7 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
 
 
      <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
-          <FaShoppingCart size={22} style={{marginLeft:'4px'}}/>
+          <FaShoppingCart size={22} style={{marginLeft:'5px'}}/>
           <span className="cart-count">{cartCount}</span>
         </Nav.Link>
       </div>
