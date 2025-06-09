@@ -22,7 +22,7 @@
 
 /* Styling for the suggestions dropdown */
 .search-suggestions {
-  width: 95%; /* Match the width of the search form */
+  width: 92%; /* Match the width of the search form */
   position: absolute;
   top: 100%; /* Position it directly below the search form */
   left: 50%; /* Align the left edge to the center */

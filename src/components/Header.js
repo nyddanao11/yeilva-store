@@ -109,22 +109,33 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
 
         </Navbar.Brand>
 
-
-        <div className=" search-container" ref={searchBarRef}>
-          <Form className=" search-form" style={{ padding: '5px 0' }} role="search">
+        <div className=" search-container "  ref={searchBarRef}>
+         <Form className="search-form" style={{ padding: '5px 0px' }} role="search">
             <div className="input-group">
-                
-                <FormControl
-                    type="search"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => handleQueryChange(e.target.value)}
-                    onKeyDown={handleKeyPress} // Updated to onKeyDown
-                    className="form-control me-2"
-                    onFocus={() => setShowDropdown(true)}
-                />
+              <FormControl
+                type="search"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => handleQueryChange(e.target.value)}
+                onKeyDown={handleKeyPress}
+                className="form-control" // Removed me-2 to allow button to be next
+                onFocus={() => setShowDropdown(true)}
+                aria-label="Search products"
+              />
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  if (searchQuery.trim()) {
+                    navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+                    setShowDropdown(false);
+                  }
+                }}
+                aria-label="Perform search"
+              >
+                <FaSearch />
+              </Button>
             </div>
-        </Form>
+          </Form>
 {showDropdown && (
   <Dropdown.Menu
     show
@@ -132,28 +143,36 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
     ref={dropdownRef}
     aria-label="Search Suggestions"
   >
-    {suggestions.length > 0 ? (
-      suggestions.map((product) => (
-        <Dropdown.Item
-          key={product.id}
-          onClick={() => handleSuggestionClick(product)}
-          aria-label={`Suggestion for ${product.name}`}
-        >
-          <div className="d-flex align-items-center">
-            <span>{product.name}</span>
-          </div>
-        </Dropdown.Item>
-      ))
-    ) : (
-      <Dropdown.Item className="text-muted">
-        <Link to="/signupform" className="search-link">
-          {!isLoggedIn
-            ? 'Signup to avail our services & deals'
-            : 'No results found'}
-        </Link>
-      
+   {suggestions.length > 0 ? (
+  suggestions.map((product) => (
+    <Dropdown.Item
+      key={product.id}
+      onClick={() => handleSuggestionClick(product)}
+      aria-label={`Suggestion for ${product.name}`}
+    >
+      <div className="d-flex align-items-center">
+        <img
+          src={product.url || 'placeholder.jpg'} // Assuming a thumbnailUrl or use a placeholder
+          alt={product.name}
+          width="40"
+          height="40"
+          className="me-2 rounded"
+        />
+        <div>
+          <span>{product.name}</span>
+          <p className="text-muted mb-0" style={{ fontSize: '0.8em' }}>₱{product.price}</p>
+        </div>
+      </div>
     </Dropdown.Item>
-    )}
+  ))
+) : (
+  <Dropdown.Item className="text-muted">
+    {isLoggedIn
+      ? 'No results found'
+      : <Link to="/signupform" className="search-link">Signup to avail our services & deals</Link>
+    }
+  </Dropdown.Item>
+)}
 
        {/* Static Frequently Searched Section */}
           <Dropdown.Item>
@@ -192,7 +211,7 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
 
 
      <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
-          <FaShoppingCart size={22} />
+          <FaShoppingCart size={22} style={{marginLeft:'6px'}}/>
           <span className="cart-count">{cartCount}</span>
         </Nav.Link>
       </div>
