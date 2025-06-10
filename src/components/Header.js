@@ -5,31 +5,45 @@ import { FaSearch, FaShoppingCart, FaShippingFast } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
 import axios from'axios';
-import debounce from 'lodash/debounce';
-import { ProductContext} from '../pages/ProductContext'; // Import context
+import debounce from 'lodash.debounce'; // Corrected import for lodash.debounce
+import { ProductContext} from '../pages/ProductContext';
 import useSearchProducts from '../hooks/useSearchProducts';
 
 export default function Header ({ cartCount, addToCart, isLoggedIn}) {
-  const { handleItemClickCategory} = useContext(ProductContext); // Use context
-const {searchProducts, setSearchProducts, fetchSearchProducts} = useSearchProducts();
+  const { handleItemClickCategory} = useContext(ProductContext);
+  const {searchProducts, setSearchProducts, fetchSearchProducts} = useSearchProducts();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  // NEW STATE: To control the visibility of the search input on small screens
+  const [showSmallScreenSearch, setShowSmallScreenSearch] = useState(false);
+  const [animateCart, setAnimateCart] = useState(false);
+
+  // Effect to trigger animation when cartCount changes
+  useEffect(() => {
+    if (cartCount > 0) { // Only animate if items are actually in the cart
+      setAnimateCart(true);
+      const timer = setTimeout(() => {
+        setAnimateCart(false);
+      }, 300); // Duration of your CSS animation
+      return () => clearTimeout(timer);
+    }
+  }, [cartCount]); // Dependency array: run when cartCount changes
 
   const dropdownRef = useRef(null);
-  const searchBarRef = useRef(null);
+  const searchBarRef = useRef(null); // This will now refer to the small-screen search input
   const navigate = useNavigate();
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 992px)' });
-const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 992px)' }); // Bootstrap 'lg' breakpoint
 
+  const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
 
   const handleQueryChange = (query) => {
     setSearchQuery(query);
     debounceFetch.current(query.trim());
-    
+
     if (query.trim() && Array.isArray(searchProducts)) {
       const filtered = searchProducts.filter((product) =>
         product.name?.toLowerCase().includes(query.toLowerCase())
@@ -43,17 +57,21 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
   };
 
   function clickLink(){
-      setShowDropdown(false);
+    setShowDropdown(false);
+    // Optional: Hide small screen search when a link is clicked
+    if (isSmallScreen) setShowSmallScreenSearch(false);
   }
 
   const handleSearch = async (name) => {
-    await fetchSearchProducts(name); // Call fetchAllProducts from context
+    await fetchSearchProducts(name);
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && searchQuery.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
-      setShowDropdown(false); // Hide dropdown after searching
+      setShowDropdown(false);
+      // Optional: Hide small screen search after search
+      if (isSmallScreen) setShowSmallScreenSearch(false);
     }
   };
 
@@ -61,6 +79,8 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
     setSelectedProduct(product);
     setShowModal(true);
     setShowDropdown(false);
+    // Optional: Hide small screen search after suggestion click
+    if (isSmallScreen) setShowSmallScreenSearch(false);
   };
 
   const handleClickOutside = (event) => {
@@ -69,7 +89,11 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
       searchBarRef.current && !searchBarRef.current.contains(event.target)
     ) {
       setShowDropdown(false);
-    setSearchQuery('');
+      setSearchQuery('');
+      // NEW: If on small screen and search is open, close it when clicking outside
+      if (isSmallScreen && showSmallScreenSearch) {
+        setShowSmallScreenSearch(false);
+      }
     }
   };
 
@@ -80,131 +104,241 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
     };
   }, []);
 
-
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-     <Container  >
-       <Navbar.Brand as={Link} to="/">  
+      <Container>
+        <Navbar.Brand as={Link} to="/">
           {isSmallScreen ? (
-              <>
-                <img
-                  src={`${process.env.PUBLIC_URL}/logo.png`}
-                  alt="YeilvaStore Logo"
-                  width="30px"
-                  height="30px"
-                />
-              </>
-            ) : (
-              <>
-                <img
-                  src={`${process.env.PUBLIC_URL}/logo.png`}
-                  alt="YeilvaStore Logo"
-                  width="30px"
-                  height="30px"
-                />
-                {' '}
-                <strong style={{marginLeft:'2px'}}>YeilvaSTORE</strong>
-              </>
-            )}
-
+            <>
+              <img
+                src={`${process.env.PUBLIC_URL}/logo.png`}
+                alt="YeilvaStore Logo"
+                width="30px"
+                height="30px"
+              />
+            </>
+          ) : (
+            <>
+              <img
+                src={`${process.env.PUBLIC_URL}/logo.png`}
+                alt="YeilvaStore Logo"
+                width="30px"
+                height="30px"
+              />{' '}
+              {/* Removed inline style, move to CSS */}
+              <strong>YeilvaSTORE</strong>
+            </>
+          )}
         </Navbar.Brand>
 
-        <div className=" search-container "  ref={searchBarRef}>
-         <Form className="search-form" style={{ padding: '5px 0px' }} role="search">
-            <div className="input-group">
-              <FormControl
-                type="search"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => handleQueryChange(e.target.value)}
-                onKeyDown={handleKeyPress}
-                className="form-control" // Removed me-2 to allow button to be next
-                onFocus={() => setShowDropdown(true)}
-                aria-label="Search products"
-              />
-            
-            </div>
-          </Form>
-{showDropdown && (
-  <Dropdown.Menu
-    show
-    className="search-suggestions"
-    ref={dropdownRef}
-    aria-label="Search Suggestions"
-  >
-   {suggestions.length > 0 ? (
-  suggestions.map((product) => (
-    <Dropdown.Item
-      key={product.id}
-      onClick={() => handleSuggestionClick(product)}
-      aria-label={`Suggestion for ${product.name}`}
-    >
-      <div className="d-flex align-items-center">
-        <img
-          src={product.url || 'placeholder.jpg'} // Assuming a thumbnailUrl or use a placeholder
-          alt={product.name}
-          width="40"
-          height="40"
-          className="me-2 rounded"
-        />
-        <div>
-          <span>{product.name}</span>
-          <p className="text-muted mb-0" style={{ fontSize: '0.8em' }}>₱{product.price}</p>
-        </div>
-      </div>
-    </Dropdown.Item>
-  ))
-) : (
-  <Dropdown.Item className="text-muted">
-    {isLoggedIn
-      ? 'No results found'
-      : <Link to="/signupform" className="search-link">Signup to avail our services & deals</Link>
-    }
-  </Dropdown.Item>
-)}
-
-       {/* Static Frequently Searched Section */}
-          <Dropdown.Item>
-            <div className="text-muted mt-2">
-              <p>You may also like:</p>
-               <ul className="list-unstyled">
-                <li>
-                  <Link
-                    to="/productsdata"
-                    className="search-link"
-                    onClick={() => {
-                      handleItemClickCategory('wellness product');
-                      clickLink();
-                    }}
+        {/* --- Responsive Search Bar --- */}
+        {isSmallScreen ? (
+          // On small screens, show only a search icon
+          <div className="search-icon-container">
+            <Button
+              variant="link" // Make it look like a clickable icon, not a traditional button
+              className="text-white search-toggle-btn"
+              onClick={() => setShowSmallScreenSearch(!showSmallScreenSearch)}
+              aria-label="Toggle search bar"
+            >
+              <FaSearch size={20} />
+            </Button>
+            {/* The actual search input that appears when toggled */}
+            {showSmallScreenSearch && (
+              <div className="search-container-small-screen" ref={searchBarRef}>
+                <Form className="search-form" role="search">
+                  <div className="input-group">
+                    <FormControl
+                      type="search"
+                      placeholder="Search products..."
+                      value={searchQuery}
+                      onChange={(e) => handleQueryChange(e.target.value)}
+                      onKeyDown={handleKeyPress}
+                      className="form-control"
+                      onFocus={() => setShowDropdown(true)}
+                      aria-label="Search products"
+                      autoFocus // Auto-focus when it appears
+                    />
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => {
+                        if (searchQuery.trim()) {
+                          navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+                          setShowDropdown(false);
+                          setShowSmallScreenSearch(false); // Hide after search
+                        }
+                      }}
+                      aria-label="Perform search"
+                    >
+                      <FaSearch />
+                    </Button>
+                  </div>
+                </Form>
+                {/* Suggestions for small screen search */}
+                {showDropdown && (
+                  <Dropdown.Menu
+                    show
+                    className="search-suggestions-small-screen"
+                    ref={dropdownRef}
+                    aria-label="Search Suggestions"
                   >
-                    Health & Wellness Products
-                  </Link>
-                </li>
-                 <li>
-                <Link
-                  to="/productsdata"
-                  className="search-link"
+                    {suggestions.length > 0 ? (
+                      suggestions.map((product) => (
+                        <Dropdown.Item
+                          key={product.id}
+                          onClick={() => handleSuggestionClick(product)}
+                          aria-label={`Suggestion for ${product.name}`}
+                        >
+                          <div className="d-flex align-items-center">
+                            <img
+                              src={product.url || 'placeholder.jpg'}
+                              alt={product.name}
+                              width="40"
+                              height="40"
+                              className="me-2 rounded"
+                            />
+                            <div>
+                              <span>{product.name}</span>
+                              <p className="text-muted mb-0" style={{ fontSize: '0.8em' }}>₱{product.price}</p>
+                            </div>
+                          </div>
+                        </Dropdown.Item>
+                      ))
+                    ) : (
+                      <Dropdown.Item className="text-muted">
+                        {isLoggedIn
+                          ? 'No results found'
+                          : <Link to="/signupform" className="search-link">Signup to avail our services & deals</Link>
+                        }
+                      </Dropdown.Item>
+                    )}
+                    <Dropdown.Item>
+                      <div className="text-muted mt-2">
+                        <p>You may also like:</p>
+                        <ul className="list-unstyled">
+                          <li>
+                            <Link
+                              to="/productsdata"
+                              className="search-link"
+                              onClick={() => { handleItemClickCategory('wellness product'); clickLink(); }}
+                            >Health & Wellness Products</Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/productsdata"
+                              className="search-link"
+                              onClick={() => { handleItemClickCategory('beauty and hygiene'); clickLink(); }}
+                            >Beauty Products</Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          // On large/medium screens, show the full search bar
+          <div className="search-container" ref={searchBarRef}>
+            <Form className="search-form" role="search">
+              <div className="input-group">
+                <FormControl
+                  type="search"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => handleQueryChange(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  className="form-control"
+                  onFocus={() => setShowDropdown(true)}
+                  aria-label="Search products"
+                />
+                <Button
+                  variant="outline-secondary"
                   onClick={() => {
-                    handleItemClickCategory('beauty and hygiene');
-                    clickLink();
+                    if (searchQuery.trim()) {
+                      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+                      setShowDropdown(false);
+                    }
                   }}
+                  aria-label="Perform search"
                 >
-                  Beauty Products
-                </Link>
-              </li>
-              </ul>
-            </div>
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      )}
+                  <FaSearch />
+                </Button>
+              </div>
+            </Form>
+            {showDropdown && (
+              <Dropdown.Menu
+                show
+                className="search-suggestions"
+                ref={dropdownRef}
+                aria-label="Search Suggestions"
+              >
+                {suggestions.length > 0 ? (
+                  suggestions.map((product) => (
+                    <Dropdown.Item
+                      key={product.id}
+                      onClick={() => handleSuggestionClick(product)}
+                      aria-label={`Suggestion for ${product.name}`}
+                    >
+                      <div className="d-flex align-items-center">
+                        <img
+                          src={product.url || 'placeholder.jpg'}
+                          alt={product.name}
+                          width="40"
+                          height="40"
+                          className="me-2 rounded"
+                        />
+                        <div>
+                          <span>{product.name}</span>
+                          <p className="text-muted mb-0" style={{ fontSize: '0.8em' }}>₱{product.price}</p>
+                        </div>
+                      </div>
+                    </Dropdown.Item>
+                  ))
+                ) : (
+                  <Dropdown.Item className="text-muted">
+                    {isLoggedIn
+                      ? 'No results found'
+                      : <Link to="/signupform" className="search-link">Signup to avail our services & deals</Link>
+                    }
+                  </Dropdown.Item>
+                )}
+                <Dropdown.Item>
+                  <div className="text-muted mt-2">
+                    <p>You may also like:</p>
+                    <ul className="list-unstyled">
+                      <li>
+                        <Link
+                          to="/productsdata"
+                          className="search-link"
+                          onClick={() => { handleItemClickCategory('wellness product'); clickLink(); }}
+                        >Health & Wellness Products</Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/productsdata"
+                          className="search-link"
+                          onClick={() => { handleItemClickCategory('beauty and hygiene'); clickLink(); }}
+                        >Beauty Products</Link>
+                      </li>
+                    </ul>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            )}
+          </div>
+        )}
+        {/* --- End Responsive Search Bar --- */}
 
-
-     <Nav.Link as={Link} to="/cart"  className="text-white shopping-cart ">
-          <FaShoppingCart size={22} style={{marginLeft:'5px'}}/>
-          <span className="cart-count">{cartCount}</span>
+         <Nav.Link as={Link} to="/cart" className="text-white shoppingcart">
+          <FaShoppingCart size={22} />
+          {cartCount > 0 && ( // Only show count if greater than 0
+            <span className={`cart-count ${animateCart ? 'animate-add' : ''}`}>
+              {cartCount}
+            </span>
+          )}
         </Nav.Link>
-      </div>
-     
       </Container>
 
       {selectedProduct && (
@@ -212,12 +346,11 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
           show={showModal}
           onHide={() => setShowModal(false)}
           aria-labelledby="product-details-modal"
-        
         >
           <Modal.Header closeButton>
             <Modal.Title id="product-details-modal">{selectedProduct.name}</Modal.Title>
           </Modal.Header>
-          <Modal.Body >
+          <Modal.Body>
             <img
               src={selectedProduct.url}
               alt={selectedProduct.name}
@@ -245,11 +378,10 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
             <Button
               variant="success"
               onClick={() => {
-                const success = addToCart(selectedProduct); // Assuming addToCart might return a boolean indicating success
-                if (success !== false) { // Only show the alert and close the modal if addToCart was "successful" (adjust condition as needed)
+                const success = addToCart(selectedProduct);
+                if (success !== false) {
                   setShowModal(false);
                 } else {
-                  // Optionally handle the case where adding to cart failed (e.g., show an error message)
                   console.error("Failed to add item to cart.");
                 }
               }}
@@ -263,9 +395,6 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
           </Modal.Footer>
         </Modal>
       )}
-
     </Navbar>
   );
-};
-
-
+}
