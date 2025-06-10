@@ -122,18 +122,7 @@ const debounceFetch = useRef(debounce((name) => handleSearch(name), 300));
                 onFocus={() => setShowDropdown(true)}
                 aria-label="Search products"
               />
-              <Button
-                variant="outline-secondary"
-                onClick={() => {
-                  if (searchQuery.trim()) {
-                    navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
-                    setShowDropdown(false);
-                  }
-                }}
-                aria-label="Perform search"
-              >
-                <FaSearch />
-              </Button>
+            
             </div>
           </Form>
 {showDropdown && (
