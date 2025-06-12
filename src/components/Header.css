@@ -126,6 +126,7 @@
     justify-content: flex-end; /* Push the icon to the right */
     margin-right: 10px; /* Space from the cart icon */
     max-width: 40px; /* Limit the width of the icon container */
+
 }
 
 /* Hide on medium and large screens */
@@ -143,6 +144,7 @@
     color: white !important; /* Keep icon white */
 }
 
+
 /* --- Small Screen Search Container --- */
 .search-container-small-screen {
     position: absolute;
@@ -150,7 +152,7 @@
     left: 0;
     width: 100%;
     padding: 10px 15px; /* This padding affects the effective width for suggestions */
-    background-color: var(--bs-navbar-bg, #343a40);
+    background-color: var(--bs-navbar-bg);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1040;
     display: flex;
@@ -180,3 +182,11 @@
     flex-grow: 1;
     width: 100%;
 }
+.small-screen-form-button{
+    background-color:black ;
+    color:#5D5D5D;
+}
+.small-screen-form-button:hover{
+    color: white;
+}
+

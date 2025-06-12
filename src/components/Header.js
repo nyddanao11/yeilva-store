@@ -161,6 +161,7 @@ export default function Header ({ cartCount, addToCart, isLoggedIn}) {
                     />
                     <Button
                       variant="outline-secondary"
+                      className='small-screen-form-button'
                       onClick={() => {
                         if (searchQuery.trim()) {
                           navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
@@ -331,13 +332,10 @@ export default function Header ({ cartCount, addToCart, isLoggedIn}) {
         )}
         {/* --- End Responsive Search Bar --- */}
 
-         <Nav.Link as={Link} to="/cart" className="text-white shoppingcart">
+        <Nav.Link as={Link} to="/cart" className="text-white shoppingcart">
+          {/* Removed inline style, move to CSS */}
           <FaShoppingCart size={22} />
-          {cartCount > 0 && ( // Only show count if greater than 0
-            <span className={`cart-count ${animateCart ? 'animate-add' : ''}`}>
-              {cartCount}
-            </span>
-          )}
+          <span className="cart-count">{cartCount}</span>
         </Nav.Link>
       </Container>
 
