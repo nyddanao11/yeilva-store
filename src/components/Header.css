@@ -1,4 +1,33 @@
 /* --- Core Navbar Layout --- */
+/* Existing sticky-navbar and scrolled styles */
+
+/* Add this to Header.css */
+.navbar { /* Target the Navbar component directly if it has a default class or use specific classes */
+    transition: padding 0.3s ease-in-out, height 0.3s ease-in-out;
+    padding-top: 1rem; /* Default padding */
+    padding-bottom: 1rem; /* Default padding */
+    height: 70px; /* Example default height */
+    display: flex; /* Ensure flex for alignment */
+    align-items: center; /* Center content vertically */
+}
+
+.navbar-shrink {
+    padding-top: 0.5rem; /* Reduced padding on scroll */
+    padding-bottom: 0.5rem; /* Reduced padding on scroll */
+    height: 60px; /* Reduced height on scroll */
+}
+
+.logo-shrink img {
+    width: 25px; /* Smaller logo */
+    height: 25px;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+.logo-shrink strong {
+    font-size: 0.9em; /* Smaller text */
+    transition: font-size 0.3s ease-in-out;
+}
+
 .navbar .container {
     display: flex;
     align-items: center; /* Vertically align all items */
@@ -76,21 +105,23 @@
 }
 
 /* --- Shopping Cart Icon --- */
-.shoppingcart {
+.shopping-basket {
     flex: 0 0 auto; /* No grow, no shrink - cart icon maintains its size */
     position: relative;
     margin-left: 15px; /* Adjust spacing from search bar or logo */
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    padding:5px;
 }
 /* ... existing .shopping-cart and .cart-count styles ... */
 
 .cart-count {
     /* Your existing styles */
     position: absolute;
-    top: -5px;
-    right: -8px;
+    top: -2px;
+    right: -5px;
     font-size: 0.7em;
     padding: 1px 5px;
     line-height: 1;
@@ -112,7 +143,7 @@
 }
 
 /* Optional: Slight hover effect on the icon itself */
-.shoppingcart:hover {
+.shopping-basket:hover {
     transform: scale(1.05);
     transition: transform 0.1s ease-in-out;
 }
@@ -149,7 +180,7 @@
 .search-container-small-screen {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 20%;
     width: 100%;
     padding: 10px 15px; /* This padding affects the effective width for suggestions */
     background-color: var(--bs-navbar-bg);
@@ -169,13 +200,13 @@
         transform: translateX(-44%);
         width: calc(100% - 30px); /* Full width minus container padding */
         min-width: 305px; /* Don't exceed viewport width */
-  z-index: 1050;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
-}
+       z-index: 1050;
+       background-color: #fff;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       overflow: hidden;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
+    }
 
 /* Ensure search form in small screen container takes full width */
 .search-container-small-screen .search-form {

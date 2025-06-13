@@ -10,7 +10,7 @@ export const SearchProductsProvider = ({ children }) => {
   const [searchLoading, setSearchLoading] = useState(true);
   const [searchError, setSearchError] = useState(null);
 
- async function fetchSearchProducts(name) { // Add fetchAllProducts function
+ const fetchSearchProducts= useCallback (async function (name) { // Add fetchAllProducts function
     setSearchLoading(true);
     setSearchError(null);
     try {
@@ -26,8 +26,11 @@ export const SearchProductsProvider = ({ children }) => {
       console.log('Fetched search products:', data);
     } catch (error) {
       console.error('Error fetching search products:', error);
-    }
+   } finally {
+    setSearchLoading(false);
+    console.log('Search loading set to false.');
   }
+}, []);
 
   return (
     <SearchProductsContext.Provider value={{ searchProducts, searchLoading, searchError, setSearchProducts, fetchSearchProducts }}>

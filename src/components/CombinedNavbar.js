@@ -1,23 +1,48 @@
-import React from 'react';
-import Header from './Header'; // Import your Header component
-import ShopeeNavbar from './ShoppeeNavbar'; // Import your ShopeeNavbar component
+import React, { useState, useEffect } from 'react'; // <--- IMPORT useState
+import Header from './Header';
+import ShopeeNavbar from './ShoppeeNavbar';
+import './CombinedNavbar.css'; // <--- IMPORT YOUR CSS FILE
 
-export default function CombinedNavbar ({ cartItems, isLoggedIn, handleLogout, cartCount,  allProducts, fetchAllProducts, addToCart, storedProducts, handleItemClickCategory}){
-  const combinedNavbarStyle = {
-    position: 'sticky',
-    top: 0, // Stick to the top of the viewport
-    zIndex: 100, // Adjust the z-index as needed to control stacking order
-    // Add any other styles you want here
-  };
+export default function CombinedNavbar ({cartItems, isLoggedIn, handleLogout, cartCount,  allProducts, fetchAllProducts, addToCart, storedProducts, handleItemClickCategory}) { 
+                                            
+  const [scrolled, setScrolled] = useState(false);
+    const [headerShrink, setHeaderShrink] = useState(false); // New state
 
-  return (
-    <div style={combinedNavbarStyle}>
-      {/* Render the Header component */}
-      <Header cartItems={cartItems}  cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout}   allProducts={allProducts} fetchAllProducts={fetchAllProducts} addToCart={addToCart}/>
+    useEffect(() => {
+        const handleScroll = () => {
+            const isScrolled = window.scrollY > 50;
+            setScrolled(isScrolled);
+            setHeaderShrink(window.scrollY > 100); // Shrink after a slightly larger scroll
+        };
 
-      {/* Render the ShopeeNavbar component */}
-      <ShopeeNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout}   handleItemClickCategory={handleItemClickCategory}/>
-    </div>
-  );
-};
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
+    return (
+            <div className={`sticky-navbar ${scrolled ? 'scrolled' : ''}`}>
+        
+            <Header
+                cartItems={cartItems}
+                cartCount={cartCount}
+                isLoggedIn={isLoggedIn}
+                handleLogout={handleLogout}
+                allProducts={allProducts}
+                fetchAllProducts={fetchAllProducts}
+                addToCart={addToCart}
+                 headerShrink={headerShrink} 
+            />
+
+            {/* Render the ShopeeNavbar component */}
+            <ShopeeNavbar
+                cartItems={cartItems}
+                cartCount={cartCount}
+                isLoggedIn={isLoggedIn}
+                handleLogout={handleLogout}
+                handleItemClickCategory={handleItemClickCategory}
+                 headerShrink={headerShrink} 
+                
+            />
+        </div>
+    );
+}
