@@ -161,6 +161,7 @@ const handleSubmit = async (e) => {
   const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
    const cleanedProductPrice = cartItems.map((item) => item.price);
  const cleanedProductUrl = cartItems.map((item) => cleanProductName(item.url));
+ const cleanedProductWeight = cartItems.map((item) => item.weight);
 
   // Generate a string for cart item details (for display purposes)
   const itemName = cartItems.map((item) => `
@@ -198,6 +199,7 @@ const handleSubmit = async (e) => {
     productNames: cleanedProductNames, // Cleaned product names array
    productPrice: cleanedProductPrice.length > 0 ? cleanedProductPrice[0] : 0,
     productUrl: cleanedProductUrl,
+   productWeight: cleanedProductWeight.length > 0 ? cleanedProductWeight[0] : 0,
   };
 
   try {

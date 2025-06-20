@@ -12,7 +12,7 @@ export default function InstallmentHistoryPage () {
 
   const fetchUserData = async (email) => {
     try {
-      const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user?email=${encodeURIComponent(email)}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -21,7 +21,7 @@ export default function InstallmentHistoryPage () {
 
   const fetchCheckoutHistory = async (email) => {
     try {
-      const checkoutResponse = await axios.get(`https://yeilva-store-server.up.railway.app/api/Installment-history?email=${encodeURIComponent(email)}`);
+      const checkoutResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/Installment-history?email=${encodeURIComponent(email)}`);
       setInstallmentHistory(checkoutResponse.data);
     } catch (error) {
       console.error('Error fetching loanform history:', error);

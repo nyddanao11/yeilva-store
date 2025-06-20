@@ -1,51 +1,80 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Table } from 'react-bootstrap';
+import { Container, Table, Button, Image } from 'react-bootstrap';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import YouMayLike from'./YouMayLike';
 
-export default function CheckoutHistoryPage () {
+export default function CheckoutHistoryPage ({isLoggedIn, addToCart, youMayLikeProducts}) {
   const [checkoutHistory, setCheckoutHistory] = useState([]);
   const [userData, setUserData] = useState({});  // Ensure you have setUserData defined
 
   const userEmail = localStorage.getItem('email');
+  const navigate = useNavigate();
 
-  const fetchUserData = async (email) => {
-    try {
-      const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/user?email=${encodeURIComponent(email)}`);
-      setUserData(response.data);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
+   const normalizeOrderData = (order) => {
+    // Determine correct name property
+    const itemName = order.productname || order.name;
+    // Remove brackets and quotes, handle undefined. Ensure it's a string before calling replace.
+    const itemUrl = typeof order.url === 'string' ? order.url.replace(/[{}"]/g, "").trim() : ""; 
+
+    // Validate data: Check for *both* name and URL being present.
+    if (!itemName || !itemUrl) return [{ ...order, name: itemName, url: itemUrl }]; // Return original order if invalid
+
+    if (itemName.includes(",")) {
+      // Split names, handle potential missing URLs, and trim
+      const names = itemName.split(",").map(n => n.trim());
+      const urls = itemUrl.split(",").map(u => u.trim()); // Split and trim URLs
+
+      return names.map((name, index) => ({
+        ...order, // Keep other order properties like id, orderDate, status
+        name: name,
+        price: order.price,
+        url: urls[index] || "", // Use corresponding URL or empty string
+      }));
+    } else {
+      // Remove brackets and quotes, and trim
+      const cleanName = itemName.replace(/[{}"]/g, "").trim();
+      return [{ ...order, name: cleanName, price: order.price, url: itemUrl }];
     }
   };
 
   const fetchCheckoutHistory = async (email) => {
+    if (!email) {
+      console.error("Email is undefined");
+      return;
+    }
+
     try {
-      const checkoutResponse = await axios.get(`https://yeilva-store-server.up.railway.app/api/checkout-history?email=${encodeURIComponent(email)}`);
-      setCheckoutHistory(checkoutResponse.data);
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/checkout-history?email=${encodeURIComponent(email.replace(/"/g, ""))}`);
+
+      // Use flatMap to flatten the array of arrays into a single array
+      const formattedData = response.data.flatMap(normalizeOrderData);
+      setCheckoutHistory(formattedData);
     } catch (error) {
-      console.error('Error fetching checkout history:', error);
-      // Handle the error, set default checkout history, etc.
+      console.error("Error fetching user data:", error);
     }
   };
+   
 
+ useEffect(() => {
+    const storedUserEmail = localStorage.getItem("email");
+    if (storedUserEmail) {
+      fetchCheckoutHistory(storedUserEmail.replace(/"/g, ""));
+    } else {
+      console.log("Email is missing in local storage");
+    }
+  }, [isLoggedIn]); // Depend on isLoggedIn to refetch if login status changes  
 
-// Function to remove HTML tags
-const removeHtmlTags = (html) => {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.body.textContent || "";
-};
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (userEmail) {
-        await fetchUserData(userEmail);
-        await fetchCheckoutHistory(userEmail);
-      }
-    };
-
-    fetchData();
-  }, [userEmail]);
+ // Modified buyAgain function to accept the specific order
+  function buyAgain(orderToReorder) {
+    // Pass the entire order object in the state
+    navigate("/checkoutbuyagain", { state: { itemToReorder: orderToReorder } });
+  }
 
   return (
+    <>
     <Container className="mt-4">
       <h1 className="text-center mb-4">Checkout History</h1>
  
@@ -54,32 +83,32 @@ const removeHtmlTags = (html) => {
           <thead>
             <tr>
               <th>No.</th>
-              <th>Item Description</th>
+              <th>Item </th>
+                <th>Price </th>
               <th>Checkout Date</th>
               <th>Total</th>
               <th>Order Number</th>
+              <th>Buy Again</th>
             </tr>
           </thead>
           <tbody>
             {checkoutHistory.map((item, index) => (
               <tr key={item.order_number}>
                 <td>{index + 1}</td>
-                <td>
-                  <div>
-                    <div>
-                    <p>{removeHtmlTags(item.name)}</p>
-                  </div>
-                  </div>
-                </td>
+                <td><Image src={item.url} alt={item.productname} className="image-main" style={{ width: "50px", height: "50px" }} /></td>
+                <td>{item.price}</td>
                 <td>{item.checkout_date}</td>
                 <td>{item.total}</td>
                 <td>{item.order_number}</td>
-              </tr>
+                <td><Button variant = 'primary' onClick={()=> buyAgain(item)}>Buy Again</Button></td>
+          </tr>
             ))}
           </tbody>
         </Table>
       </div>
     </Container>
+            <YouMayLike addToCart={addToCart} youMayLikeProducts = {youMayLikeProducts}/>
+</>
   );
 };
 

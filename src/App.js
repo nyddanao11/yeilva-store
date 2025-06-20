@@ -23,6 +23,7 @@ const RecommendedProduct = React.lazy(() => import('./pages/RecommendedProducts'
 const Cart = React.lazy(() => import('./pages/Cart'));
 const Login = React.lazy(() => import('./pages/Login'));
 const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'));
+const CheckoutPageBuyAgain = React.lazy(() => import('./pages/BuyAgain'));
 const ShoppingCart = React.lazy(() => import('./components/ShoppingCart'));
 const SignUpForm  = React.lazy(() => import('./components/SignupForm'));
 const AllDealsProduct  = React.lazy(() => import('./pages/AllDealsProduct'));
@@ -252,6 +253,8 @@ const handleLogout = () => {
             <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} handleIncrement={handleIncrement} handleDecrement={handleDecrement}  addToCart={addToCart} setCartItems={setCartItems}  
                         setCartCount={setCartCount} cartCount={cartCount}  isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal} youMayLikeProducts = {youMayLikeProducts}/>} />
+            <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal} youMayLikeProducts = {youMayLikeProducts}/>} />
+ 
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} 
                         handleDecrement={handleDecrement} isLoggedIn={isLoggedIn} />} />
@@ -267,8 +270,8 @@ const handleLogout = () => {
            
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
-                 <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
-                <Route path="/checkouthistory" element={<CheckoutHistoryPage />} />
+                 <Route path="/returnpolicy" element={<ReturnPolicyPage  />} />
+                <Route path="/checkouthistory" element={<CheckoutHistoryPage addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts }/>} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
                  <Route path="/restrictedaccess" element={<RestrictedAccess/>} />
                   <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
@@ -291,7 +294,7 @@ const handleLogout = () => {
                         <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
-                  <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />} />
+                  <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
 
                            
                  <Route component={NotFoundPage} />
@@ -383,6 +386,8 @@ const handleLogout = () => {
                             setCartItems={setCartItems}  setCartCount={setCartCount} cartCount={cartCount}   isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts}/>}/>
             
             <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal} youMayLikeProducts = {youMayLikeProducts}/>} />
+            <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} setFormattedGrandTotal={setFormattedGrandTotal} youMayLikeProducts = {youMayLikeProducts}/>} />
+
             <Route path="/checkoutform" element={<CheckoutForm cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
             <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} handleIncrement={handleIncrement} 
                       handleDecrement={handleDecrement} isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts}/>} />
@@ -399,7 +404,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
-                <Route path="/checkouthistory" element={<CheckoutHistoryPage />} />
+                <Route path="/checkouthistory" element={<CheckoutHistoryPage addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts }/>} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
                  <Route path="/restrictedaccess" element={<RestrictedAccess/>} />
                   <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
@@ -422,7 +427,7 @@ const handleLogout = () => {
                           <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
-                  <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />} />
+                  <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                         

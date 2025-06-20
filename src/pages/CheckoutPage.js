@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CheckoutForm from '../components/CheckoutForm';
 import { Button, Container } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import CartItem from './CartItem';
 import VoucherForm from './Voucher';
 import YouMayLike from '../components/YouMayLike';
@@ -10,7 +10,7 @@ import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
 
-export default function CheckoutPage  ({
+export default function CheckoutPage ({
   cartItems,
   removeFromCart,
   addToCart,
@@ -24,6 +24,7 @@ export default function CheckoutPage  ({
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
   const [shippingRate, setShippingRate] = useState(0);
   const [voucherCode, setVoucherCode] = useState(0);
+    const [voucherDiscount, setVoucherDiscount] = useState(0); // This holds the percentage discount
   const [isFreeShipping, setIsFreeShipping] = useState(false); // New state for free shipping
   const [showFreeShippingAlert, setShowFreeShippingAlert] = useState(false);
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
@@ -60,6 +61,7 @@ export default function CheckoutPage  ({
 
   const handleVoucherCode = (code) => {
     setVoucherCode(code / 100); // Convert to a decimal for discount calculation
+    setVoucherDiscount(code);
   };
 
   const discountMultiplier = 1 - voucherCode; // Example calculation
@@ -117,7 +119,7 @@ export default function CheckoutPage  ({
             <div className="mb-4">
               {cartItems.map((item) => (
                 <CartItem
-                  key={item.id}
+                  key={item.id || item.name}
                   item={item}
                   removeFromCart={removeFromCart}
                   addToCart={addToCart}
@@ -133,11 +135,16 @@ export default function CheckoutPage  ({
                 </div>
                 <div style={{ paddingLeft: "6px" }}>
                   <p className="items_details">Total Items Price: ₱{totalItemsPrice}</p>
-                  {isFreeShipping? (
-                  <p style={{color:"#067d62", fontSize:"14px", fontWeight:"500"}}><FaShippingFast style={{color:"#0D6EFD"}}/>Shipping Rate: ₱Free </p>
-                  ):(
-                  <p style={{color:"black", fontSize:"14px", fontWeight:"500"}}>Shipping Rate: ₱{shippingRate}</p>
-                  )}                
+                  {isFreeShipping ? (
+                    <p style={{ color: "#067d62", fontSize: "14px", fontWeight: "500" }}>
+                      <FaShippingFast style={{ color: "#0D6EFD" }} />Shipping Rate: ₱Free
+                    </p>
+                  ) : (
+                    <p style={{ color: "black", fontSize: "14px", fontWeight: "500" }}>Shipping Rate: ₱{shippingRate.toFixed(2)}</p>
+                  )}
+                  {voucherDiscount > 0 && (
+                    <p style={{ color: "#067d62", fontSize: "14px", fontWeight: "500" }}>Voucher Discount: {voucherDiscount}%</p>
+                  )}         
                   </div>
               </div>
               <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
