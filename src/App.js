@@ -77,6 +77,7 @@ const  Orders = React.lazy(() => import('./pages/YourOrders'));
 const  OrderTracking = React.lazy(() => import('./pages/OrderTracking'));
 const  ProductsData = React.lazy(() => import('./pages/ProductPageUpdated'));
 const  AddToCartNotification = React.lazy(() => import('./pages/AddToCartNotification'));
+const  ClickCartItem = React.lazy(() => import('./pages/ClickCartItem'));
 
 
  function App() {
@@ -270,6 +271,8 @@ const handleLogout = () => {
            
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+                    <Route path="/clickcartitem/:id" element={<ClickCartItem  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+
                  <Route path="/returnpolicy" element={<ReturnPolicyPage  />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts }/>} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
@@ -336,6 +339,8 @@ const handleLogout = () => {
               <Route path="/contactus" element={<ContactUs />} />    
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+                      <Route path="/clickcartitem/:id" element={<ClickCartItem  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                  <Route path="/loanformhistory"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
@@ -403,6 +408,8 @@ const handleLogout = () => {
              
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+                     <Route path="/clickcartitem/:id" element={<ClickCartItem  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts }/>} />
                  <Route path="/loanformhistory" element={<LoanFormHistoryPage />} />
@@ -469,6 +476,8 @@ const handleLogout = () => {
              
                 <Route path="/clickdeals/:id" element={ <ClickDeals addToCart={addToCart} isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+                     <Route path="/clickcartitem/:id" element={<ClickCartItem  addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
                  <Route path="/loanformhistory"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>

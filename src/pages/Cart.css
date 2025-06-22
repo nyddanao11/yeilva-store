@@ -7,6 +7,7 @@
   overflow-y: auto; /* Enable scrolling for the content within the container */
   padding-bottom: 100px; /* Reserve space for the sticky footer */
   margin-top: 15px;
+  max-width: 776px;
 }
 
 .sticky-footer {

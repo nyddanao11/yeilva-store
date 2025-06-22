@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col } from 'react-bootstrap';
+import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col, Form } from 'react-bootstrap';
 import { FaTrash, FaShoppingCart } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
 import {Link} from'react-router-dom';
 
-export default function ShoppingCart ({
-  cartItems,
+export default function ShoppingCart({
+  handleSizeChange,
+  handleColorChange,
+  handleItemSelection,
+   cartItems,
   removeFromCart,
   addToCart,
   handleIncrement,
@@ -15,10 +18,9 @@ export default function ShoppingCart ({
   cartItem,
   cartCount,
   isLoggedIn,
+ 
 }) {
-
-  const [selectedThumbnails, setSelectedThumbnails] =  useState({});
-  const navigate = useNavigate();
+const navigate = useNavigate();
  const backToHome=()=>{  
 navigate ('/');
 }
@@ -28,20 +30,9 @@ const login =()=>{
 const signup =()=>{
   navigate('/signupform');
 }
-  const handleThumbnailClick = (itemId, imageUrl) => {
-    // Update the selected thumbnail for the specific item
-    setSelectedThumbnails((prevSelectedThumbnails) => ({
-      ...prevSelectedThumbnails,
-      [itemId]: imageUrl,
-    }));
-  };
-
   return (
-    <div className="shopping-cart">
-      <h4 className='page-title'>Your Shopping Cart</h4>
-      <ListGroup className="cart-group">
+    <div>
         {cartItems.length === 0 ? (
-          <ListGroup.Item className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
          <Card className="image-description border-0" > 
          <Card.Body> 
          <Row className="justify-content-center">    
@@ -65,91 +56,94 @@ const signup =()=>{
               </Card.Body> 
             </Card>
            
-          </ListGroup.Item>
-        ) : (
-          cartItems.map((cartItem) => (
-            <ListGroup.Item key={cartItem.id} className="cart-item mb-3" style={{boxShadow:'0 2px 5px 0 rgba(0,0,0,.2)'}}>
-              <Card className="pb-2 " style={{ border: "none"}}>
-                <Card.Body >
-                  <Row >
-                    <Col md={4}  className="image-description d-flex flex-column justify-content-center align-items-center">
-                       <div className="main-image-container">
-                        <Image
-                          src={selectedThumbnails[cartItem.id] || cartItem.url}
-                          alt={cartItem.name}
-                          className="main-image"
-                        />
-                      </div>
-                      <div className="thumbnails">
-                        {cartItem.thumbnails.map((thumb, id) => (
-                          <img
-                            key={id}
-                            src={thumb}
-                            alt={`Thumbnail ${id}`}
-                            onClick={() => handleThumbnailClick(cartItem.id, thumb)}
-                            className="thumbnail-image"
-                          />
-                        ))}
-                      </div>
-                    </Col>
-                <Col md={8}  className="item-details mt-3">
-                      <h4 className="item-name">{cartItem.name}</h4>  
-                      <p className="item-description">{cartItem.description}</p>
-                      <h6 className="item-price">₱{cartItem.price}</h6>
-                 
-            <div className="quantity">
-                <div className="quantity-in d-flex align-items-center justify-content-center pb-2">
-                  <Button
-                    variant="outline-secondary"
-                    className="quantity-button"
-                    onClick={() => handleDecrement(cartItem)}
-                  >
-                    -
-                  </Button>
+         
+      ) : (
+       cartItems.map((item) => (
+          <Card key={item.id} className="mb-3">
+            <Card.Body>
+              <Row className="align-items-center g-2 g-md-3"> {/* Added g-2 g-md-3 for gutter control */}
+                {/* Checkbox Column */}
+                <Col xs={2} sm={1} className="d-flex justify-content-start align-items-start pt-1">
+                  <Form.Check
+                    type="checkbox"
+                    checked={item.isSelected}
+                    onChange={() => handleItemSelection(item.id)}
+                    style={{ marginTop: '2px' }}
+                  />
+                </Col>
 
-                  <InputGroup>
-                    <FormControl
-                      className="quantity-value"
-                      value={cartItem.quantity}
+                {/* Image Column */}
+                <Col xs={12} sm={6} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
+               <Link to={`/clickcartitem/${item.id}`}>
+                  <Card.Img
+                    src={item.url}
+                    alt={item.name}
+                    className="img-fluid" // Ensures image scales down
+                    style={{ maxWidth: '100px', maxHeight: '100px', objectFit: 'cover' }}
+                  />
+                  </Link>
+                </Col>
+
+                {/* Product Details & Quantity Column */}
+                  
+                <Col xs={12} sm={6} md={5} lg={5} xl={5} className=" d-flex flex-column justify-content-center align-items-center ">
+                  <Card.Title className="h6 mb-1">{item.name}</Card.Title> {/* Adjusted heading size */}
+                  <Card.Text className="small text-muted mb-2">Price: PHP {item.price.toFixed(2)}</Card.Text>
+                  {/*
+                    Add your size and color selectors here.
+                    Consider making them responsive too, perhaps stacking vertically on small screens.
+                    Example:
+                    <div className="d-block d-sm-flex align-items-center mb-2">
+                      <span className="me-2">Size:</span>
+                      <Form.Select className="w-auto" onChange={(e) => handleSizeChange(item.id, e.target.value)} value={item.size}>
+                         <option>S</option>
+                         <option>M</option>
+                      </Form.Select>
+                    </div>
+                  */}
+
+                  <InputGroup className="mt-2" style={{ maxWidth: '120px' }}> {/* Use maxWidth for responsiveness */}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => handleDecrement(item)} 
+                    >
+                      -
+                    </Button>
+                    <Form.Control
+                      type="text"
+                      value={item.quantity}
                       readOnly
+                      className="text-center"
                     />
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => handleIncrement(item)} 
+                    >
+                      +
+                    </Button>
                   </InputGroup>
+                </Col>
 
+                {/* Remove Button Column */}
+                <Col xs={12} sm={3} md={4} lg={4} xl={4} className="text-center d-flex flex-column justify-content-center align-items-center ">
                   <Button
-                    variant="outline-secondary"
-                    className="quantity-button"
-                    onClick={() => handleIncrement(cartItem)}
+                    variant="outline-danger" // Changed to outline-danger for better contrast/UX
+                    size="sm"
+                    onClick={() => removeFromCart(item.id)} 
                   >
-                    +
+                    <FaTrash className="me-1" /> Remove
                   </Button>
-                </div>
+              
+                </Col>
 
-                <div className="mx-4">
-                 <Button
-                   variant="outline-secondary"
-                    onClick={() => removeFromCart(cartItem.id)}
-                  >
-                    <FaTrash />
-                  </Button>
-
-                </div>
-              </div>
-
-              <h6 style={{marginTop:'4px'}}>Subtotal: ₱{`${cartItem.price * cartItem.quantity}`}</h6>
-
-                  </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
-
-            </ListGroup.Item>
-          ))
-        )}
-      </ListGroup>
+              </Row>
+            </Card.Body>
+          </Card>
+        ))
+      )}
     </div>
   );
-};
-
+}
 
 
 // Define propTypes outside the component

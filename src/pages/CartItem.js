@@ -3,7 +3,7 @@ import { Card, Row, Col, Form, Button } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 
-const CartItem = ({ item, removeFromCart }) => {
+export default function CartItem ({ item, removeFromCart })  {
  
 const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
@@ -101,16 +101,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
          <div className='d-flex' style={{marginTop:"20px"}}>
             <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
-            <Button
-              variant="outline-secondary"
-              className="mx-4"
-              
-              onClick={() => {
-                removeFromCart(item.id);
-              }}
-            >
-              <FaTrash />
-            </Button>
+           
             </div>
             
           </Col>
@@ -121,4 +112,4 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
   );
 };
 
-export default CartItem;
+
