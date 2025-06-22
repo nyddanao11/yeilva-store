@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import CheckoutForm from '../components/CheckoutForm';
 import { Button, Container } from 'react-bootstrap';
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // Keep useLocation
-import CartItem from './CartItem'; // Make sure CartItem can display selected items
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import CartItem from './CartItem';
 import VoucherForm from './Voucher';
 import YouMayLike from '../components/YouMayLike';
 import './CheckoutPage.css';
@@ -11,14 +11,13 @@ import AlertEmptyCart from '../components/AlertEmptyCart';
 import { FaShippingFast } from 'react-icons/fa';
 
 export default function CheckoutPage({
-  // cartItems, // You will now get the relevant items from `location.state`
-  removeFromCart, // Keep these if you want to allow removal from checkout summary, but typically not needed
-  addToCart, // Not typically needed on checkout page
-  selectedSize, // Pass these if they are relevant for *displaying* individual items
-  selectedColor, // Pass these if they are relevant for *displaying* individual items
+  removeFromCart,
+  selectedSize,
+  selectedColor,
   fetchUserData,
   setFormattedGrandTotal,
   youMayLikeProducts,
+  addToCart, // Ensure this is available if YouMayLike needs it
 }) {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState(0);
@@ -28,39 +27,56 @@ export default function CheckoutPage({
   const [isFreeShipping, setIsFreeShipping] = useState(false);
   const [showFreeShippingAlert, setShowFreeShippingAlert] = useState(false);
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
-  const [checkoutItems, setCheckoutItems] = useState([]); // New state to hold selected items
+  const [checkoutItems, setCheckoutItems] = useState(null); // Initialize as null or undefined
 
   const navigate = useNavigate();
-  const location = useLocation(); // Initialize useLocation hook
+  const location = useLocation();
 
-  // ** Step 1: Get selected items from location.state **
+  // ** 1. Effect to extract selected items from location.state **
   useEffect(() => {
     if (location.state && location.state.selectedItems) {
       setCheckoutItems(location.state.selectedItems);
+      // If items are passed, ensure the empty cart alert is not shown
+      setShowEmptyCartAlert(false);
     } else {
-      // Handle case where selectedItems are not passed (e.g., direct navigation to checkout)
-      // You might want to redirect back to cart or show an error
+      // This case handles direct navigation to /checkout without state
       console.warn('No selected items passed to checkout page. Redirecting to cart.');
-      setShowEmptyCartAlert(true); // Show alert
-      const timer = setTimeout(() => {
-        navigate('/cart'); // Redirect after a delay
-      }, 3000);
-      return () => clearTimeout(timer);
+      setCheckoutItems([]); // Set to empty array to correctly trigger the empty cart logic
+      // No alert here, the alert will be handled by the next useEffect
     }
-  }, [location.state, navigate]); // Depend on location.state and navigate
+  }, [location.state]); // Depend on location.state
 
-  // ** Step 2: Calculate total price based on checkoutItems **
+  // ** 2. Effect to handle empty checkout items after state has been set **
   useEffect(() => {
-    // Calculate total only for the items passed to the checkout
+    // Only run this if checkoutItems has been explicitly set (not its initial null state)
+    // and if it's empty.
+    if (checkoutItems !== null && checkoutItems.length === 0) {
+      setShowEmptyCartAlert(true);
+      const timer = setTimeout(() => {
+        navigate('/cart'); // Redirect to cart, not home, if no selected items
+      }, 3000); // Give user a moment to see the alert
+      return () => clearTimeout(timer);
+    } else if (checkoutItems !== null && checkoutItems.length > 0) {
+      // If items are present, hide the alert
+      setShowEmptyCartAlert(false);
+    }
+  }, [checkoutItems, navigate]); // Depend on checkoutItems and navigate
+
+  // ** 3. Calculate total price based on checkoutItems **
+  useEffect(() => {
+    if (checkoutItems === null) return; // Don't calculate until checkoutItems is set
+
     const itemsPrice = checkoutItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
     setTotalItemsPrice(itemsPrice);
-  }, [checkoutItems]); // Depend on checkoutItems
+  }, [checkoutItems]);
 
-  // ** Step 3: Calculate shipping rate based on checkoutItems **
+  // ** 4. Calculate shipping rate based on checkoutItems **
   useEffect(() => {
+    if (checkoutItems === null) return; // Don't calculate until checkoutItems is set
+
     const FREE_SHIPPING_THRESHOLD = 2500;
 
     if (totalItemsPrice > FREE_SHIPPING_THRESHOLD) {
@@ -68,18 +84,17 @@ export default function CheckoutPage({
       setIsFreeShipping(true);
       setShowFreeShippingAlert(true);
     } else {
-      // Calculate total weight based on checkoutItems
-      const totalWeight = checkoutItems.reduce((total, item) => total + (item.weight || 0), 0); // Add default 0 for safety
+      const totalWeight = checkoutItems.reduce((total, item) => total + (item.weight || 0), 0);
       const newMultiplier = totalWeight > 0 ? (0.145 + 30 / totalWeight) : 0;
       const calculatedShippingRate = (
         checkoutItems.reduce((total, item) =>
-          total + (item.weight || 0) * newMultiplier, 0)).toFixed(2);
+          total + (item.weight || 0) * newMultiplier, 0)
+      ).toFixed(2);
       setShippingRate(Number(calculatedShippingRate));
       setIsFreeShipping(false);
       setShowFreeShippingAlert(false);
     }
-  }, [checkoutItems, totalItemsPrice]); // Depend on checkoutItems and totalItemsPrice
-
+  }, [checkoutItems, totalItemsPrice]);
 
   const handleVoucherCode = (code) => {
     setVoucherCode(code / 100);
@@ -87,13 +102,14 @@ export default function CheckoutPage({
   };
 
   const discountMultiplier = 1 - voucherCode;
-  const Total = (totalItemsPrice * discountMultiplier + shippingRate).toFixed(2);
+  // Make sure totalItemsPrice and shippingRate are numbers before calculation
+  const Total = (totalItemsPrice * discountMultiplier + Number(shippingRate)).toFixed(2);
   const grandTotal = Number(Total);
 
   const formattedGrandTotal = new Intl.NumberFormat('fil-PH', {
     style: 'currency',
     currency: 'PHP',
-  }).format(Number(grandTotal));
+  }).format(grandTotal); // Pass grandTotal as a number
 
   useEffect(() => {
     if (setFormattedGrandTotal) {
@@ -105,20 +121,14 @@ export default function CheckoutPage({
     setShowCheckoutForm(true);
   };
 
-  // Adjust empty cart alert logic to use checkoutItems
-  useEffect(() => {
-    if (checkoutItems.length === 0 && location.state && location.state.selectedItems) {
-      // This means selectedItems were passed but the array was empty
-      setShowEmptyCartAlert(true);
-      const timer = setTimeout(() => {
-        navigate('/'); // Or navigate back to /cart
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-    // If no selectedItems were passed (handled by the first useEffect),
-    // we don't need this specific empty cart alert to fire again.
-  }, [checkoutItems, navigate, location.state]);
-
+  // Only render content when checkoutItems is not null
+  if (checkoutItems === null) {
+    return (
+      <Container className="text-center my-5">
+        <p>Loading checkout items...</p>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -140,20 +150,20 @@ export default function CheckoutPage({
               </h4>
             </div>
             <div className="mb-4">
-              {/* Render only the selected items for checkout */}
               {checkoutItems.length > 0 ? (
                 checkoutItems.map((item) => (
                   <CartItem
                     key={item.id || item.name}
                     item={item}
-                    // removeFromCart is likely not needed on checkout item display
-                    // addToCart is likely not needed on checkout item display
+                    // These props are less common on a checkout summary
+                    // removeFromCart={removeFromCart}
+                    // addToCart={addToCart}
                     selectedSize={selectedSize}
                     selectedColor={selectedColor}
                   />
                 ))
               ) : (
-                // This will be displayed if selectedItems are empty, before redirect
+                // This message shows if checkoutItems is empty
                 <p className="text-center">No items selected for checkout.</p>
               )}
             </div>
@@ -182,7 +192,9 @@ export default function CheckoutPage({
               </div>
               <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
               <div className="d-flex">
-                <Button onClick={handleProceedToCheckout} style={{ backgroundColor: '#E92409', border: 'none' }}>
+                <Button onClick={handleProceedToCheckout} style={{ backgroundColor: '#E92409', border: 'none' }}
+                 disabled={checkoutItems.length === 0} // Disable if no items
+                >
                   Continue to Shipping
                 </Button>
                 <Link to="/cart">
@@ -195,14 +207,12 @@ export default function CheckoutPage({
           </div>
         ) : (
           <CheckoutForm
-            cartItems={checkoutItems} // Pass only the selected items to CheckoutForm
+            cartItems={checkoutItems}
             formattedGrandTotal={formattedGrandTotal}
-            // selectedSize={selectedSize} // Only pass these if CheckoutForm needs them for some reason
-            // selectedColor={selectedColor}
             fetchUserData={fetchUserData}
-            totalItemsPrice={totalItemsPrice} // Potentially useful for CheckoutForm
-            shippingRate={shippingRate} // Potentially useful for CheckoutForm
-            voucherDiscount={voucherDiscount} // Potentially useful for CheckoutForm
+            totalItemsPrice={totalItemsPrice}
+            shippingRate={shippingRate}
+            voucherDiscount={voucherDiscount}
           />
         )}
       </Container>

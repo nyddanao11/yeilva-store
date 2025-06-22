@@ -118,24 +118,36 @@ useEffect(()=>{
     addToCart(productToAdd);
   };
 
-  const handleCheckoutClick = () => {
-   if (!isLoggedIn) {
-   handleShowModal('Please login to continue')
-    return; // Exit the function if the user is not logged in
-  }else{
-      navigate('/checkout'); // Redirect to checkout
-  }
+ const handleCheckoutClick = () => {
+    // 1. Check if logged in first
+    if (!isLoggedIn) {
+      handleShowModal('Please login to continue');
+      return; // Stop execution if not logged in
+    }
 
+    // 2. Prepare the single item for checkout
+    // This creates the exact object structure your CheckoutPage expects for a single item
     const productToCheckout = {
       ...product,
+      // Ensure any specific checkout-related properties are included
       price: isProductDiscounted() ? discountedPriceCalculated : product.price,
       originalPrice: product.price,
       discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
-      displayPrice: discountedPriceFormatted
+      displayPrice: discountedPriceFormatted,
+      quantity: 1, // When buying now, usually it's a quantity of 1
+      isSelected: true, // Mark as selected for CheckoutPage
     };
-    addToCart(productToCheckout);
-    navigate('/checkout');
+
+    // 3. Navigate to checkout, passing the single item in an array
+    // The CheckoutPage expects an array of selected items.
+    navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+
+    // Important: Do NOT call addToCart here if "Buy Now" means immediate checkout
+    // without affecting the persistent cart. If "Buy Now" should also add to cart,
+    // call addToCart(productToCheckout) *before* the navigate.
+    // However, for typical "Buy Now" flow, we just want to proceed with *this* item.
   };
+
 
   // Function to convert rating to stars
   const renderStars = (rating) => {
