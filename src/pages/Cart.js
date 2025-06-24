@@ -109,6 +109,11 @@ const handleCheckoutClick = () => {
         <AlertEmptyCart onClose={() => setShowEmptyCartAlert(false)} />
       )}
       <Container className="cart-container">
+        <div className="d-flex justify-content-center aligned-items-center">
+              <h4 className="text-center mb-1" style={{ padding: '10px' }}>
+                Shopping Cart
+              </h4>
+            </div>
         {cartItems.length > 0 && (
           <div className="mb-3">
             <Form.Check
@@ -117,6 +122,7 @@ const handleCheckoutClick = () => {
               label="Select all items"
               checked={allItemsSelected}
               onChange={handleSelectAll}
+              style={{fontSize:'20px'}}
             />
           </div>
         )}

@@ -199,10 +199,17 @@ useEffect(()=>{
          
           <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
              {isProductDiscounted() ? (
-            <div className="d-flex">
-                <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>₱{originalPriceFormatted}</h6>{' '}
-                <h6 className="discounted-price">₱{discountedPriceFormatted} -{product.discount}%</h6>
-              </div>
+           <div className="d-flex">
+            <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>
+              ₱{originalPriceFormatted}
+            </h6>
+            {/* Add margin-left to the discounted price for spacing */}
+            <h6 className="discounted-price ms-2">₱{discountedPriceFormatted}</h6>
+            {/* Add margin-left to the discount percentage for spacing */}
+            <h6 className="ms-2" style={{ color: '#888' }}>
+              -{product.discount}%
+            </h6>
+          </div>
             ) : (
               <h6>₱{originalPriceFormatted}</h6>
             )}

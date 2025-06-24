@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
 import {Link} from'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 export default function ShoppingCart({
   handleSizeChange,
@@ -20,6 +21,7 @@ export default function ShoppingCart({
   isLoggedIn,
  
 }) {
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 const navigate = useNavigate();
  const backToHome=()=>{  
 navigate ('/');
@@ -61,32 +63,43 @@ const signup =()=>{
        cartItems.map((item) => (
           <Card key={item.id} className="mb-3">
             <Card.Body>
-              <Row className="align-items-center g-2 g-md-3"> {/* Added g-2 g-md-3 for gutter control */}
-                {/* Checkbox Column */}
-                <Col xs={2} sm={1} className="d-flex justify-content-start align-items-start pt-1">
+             <div className="d-flex justify-content-start align-items-start pt-1">           
                   <Form.Check
                     type="checkbox"
                     checked={item.isSelected}
                     onChange={() => handleItemSelection(item.id)}
-                    style={{ marginTop: '2px' }}
-                  />
-                </Col>
-
+                    style={{ fontSize: '20px' }}
+                  />              
+                </div>
+              <Row className="align-items-center g-2 g-md-3"> {/* Added g-2 g-md-3 for gutter control */} 
+                
                 {/* Image Column */}
-                <Col xs={12} sm={6} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
-               <Link to={`/clickcartitem/${item.id}`}>
-                  <Card.Img
-                    src={item.url}
-                    alt={item.name}
-                    className="img-fluid" // Ensures image scales down
-                    style={{ maxWidth: '100px', maxHeight: '100px', objectFit: 'cover' }}
-                  />
-                  </Link>
+                <Col xs={6} sm={6} md={6} lg={6} xl={6} >
+                {isSmallScreen? (
+                  <Link to={`/clickcartitem/${item.id}`} className="d-flex justify-content-center align-items-center">
+                    <Card.Img
+                      src={item.url}
+                      alt={item.name}
+                      className="img-fluid" // Ensures image scales down
+                      style={{ maxWidth: '100px', height: 'auto', }}
+                    />
+                    </Link>
+                    ):(
+                     <Link to={`/clickcartitem/${item.id}`} className="d-flex justify-content-center align-items-center">
+                    <Card.Img
+                      src={item.url}
+                      alt={item.name}
+                      className="img-fluid" // Ensures image scales down
+                      style={{ maxWidth: '50%', height: 'auto' }}
+                    />
+                    </Link>
+                    )
+                }
                 </Col>
-
+              
                 {/* Product Details & Quantity Column */}
-                  
-                <Col xs={12} sm={6} md={5} lg={5} xl={5} className=" d-flex flex-column justify-content-center align-items-center ">
+              
+                <Col xs={6} sm={6} md={6} lg={6} xl={6} className=" product-details d-flex flex-column justify-content-center align-items-center ">
                   <Card.Title className="h6 mb-1">{item.name}</Card.Title> {/* Adjusted heading size */}
                   <Card.Text className="small text-muted mb-2">Price: PHP {item.price.toFixed(2)}</Card.Text>
                   {/*
@@ -122,20 +135,19 @@ const signup =()=>{
                       +
                     </Button>
                   </InputGroup>
-                </Col>
 
-                {/* Remove Button Column */}
-                <Col xs={12} sm={3} md={4} lg={4} xl={4} className="text-center d-flex flex-column justify-content-center align-items-center ">
-                  <Button
+                 <Button
                     variant="outline-danger" // Changed to outline-danger for better contrast/UX
                     size="sm"
                     onClick={() => removeFromCart(item.id)} 
+               style={{margin:"10px 0px", maxWidth:"120px"}}
                   >
                     <FaTrash className="me-1" /> Remove
                   </Button>
               
                 </Col>
 
+                 
               </Row>
             </Card.Body>
           </Card>
