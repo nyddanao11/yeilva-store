@@ -71,7 +71,7 @@ const signup =()=>{
                     style={{ fontSize: '20px' }}
                   />              
                 </div>
-              <Row className="align-items-center g-2 g-md-3"> {/* Added g-2 g-md-3 for gutter control */} 
+              <Row className="g-2 g-md-3"> {/* Added g-2 g-md-3 for gutter control */} 
                 
                 {/* Image Column */}
                 <Col xs={6} sm={6} md={6} lg={6} xl={6} >
