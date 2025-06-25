@@ -99,7 +99,7 @@ const signup =()=>{
               
                 {/* Product Details & Quantity Column */}
               
-                <Col xs={6} sm={6} md={6} lg={6} xl={6} className=" product-details d-flex flex-column justify-content-center align-items-center ">
+                <Col xs={6} sm={6} md={6} lg={6} xl={6} className=" product-details d-flex flex-column ">
                   <Card.Title className="h6 mb-1">{item.name}</Card.Title> {/* Adjusted heading size */}
                   <Card.Text className="small text-muted mb-2">Price: PHP {item.price.toFixed(2)}</Card.Text>
                   {/*
