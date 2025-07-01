@@ -1,31 +1,115 @@
-.checkout_section{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	border: 1px #d3d4d5 solid;
-	border-radius: 5px;
-	padding:15px 8px;
-	margin-top: 30px;
-	background-color: white;
+
+/* CheckoutPage.css */
+
+.checkout-page-container {
+    max-width: 1200px; /* Adjust max-width for larger screens if needed */
 }
-.checkout_details{
-	display: flex;
-	justify-content: space-between;
+
+/* --- Progress Bar Styling --- */
+.checkout-progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
 }
-.voucher{
-	padding-right: 8px;
+
+.checkout-progress-bar .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    color: #ced4da; /* Default inactive color */
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    padding: 0 10px; /* Add some padding to prevent text overlap */
 }
-@media(min-width:767px){
-	.voucher{
-		padding-right: 80px;
-	}
+
+.checkout-progress-bar .step .step-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #ced4da; /* Default icon color */
+    transition: color 0.3s ease-in-out;
 }
-.items_details{
-	font-size: 14px;
-	font-weight: 600;
+
+.checkout-progress-bar .step.active {
+    color: #007bff; /* Active text color (Bootstrap primary blue) */
 }
-.grandtotal{
-	margin-top:30px;
-	margin-bottom:10px ;
+
+.checkout-progress-bar .step.active .step-icon {
+    color: #007bff; /* Active icon color */
 }
+
+.checkout-progress-bar .step.completed {
+    color: #28a745; /* Completed text color (Bootstrap success green) */
+}
+
+.checkout-progress-bar .step.completed .step-icon {
+    color: #28a745; /* Completed icon color */
+}
+
+.checkout-progress-bar .separator {
+    flex-grow: 1; /* Allow separator to take remaining space */
+    height: 2px;
+    background-color: #e9ecef; /* Separator color */
+    margin: 0 10px;
+    position: relative;
+    top: -1.75rem; /* Adjust to align with icons */
+}
+
+/* Style for Card Headers */
+.card-header.bg-primary {
+    background-color: #007bff !important; /* Ensure Bootstrap primary color */
+}
+.card-header.bg-info {
+    background-color: #17a2b8 !important; /* Ensure Bootstrap info color */
+}
+.card-header.bg-success {
+    background-color: #28a745 !important; /* Ensure Bootstrap success color */
+}
+
+/* Grand Total emphasis */
+.card-body .grand-total {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #E92409 !important; /* Your brand color for emphasis */
+}
+
+/* Smaller text for item details */
+.items_details {
+    font-size: 1rem;
+    color: #343a40;
+}
+
+/* Adjust button spacing within card footer */
+.card-footer.d-flex button {
+    flex-grow: 1;
+}
+.card-footer.d-flex .me-2 {
+    margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .checkout-progress-bar {
+        flex-wrap: wrap; /* Allow steps to wrap on small screens */
+        justify-content: space-around;
+    }
+    .checkout-progress-bar .step {
+        width: 45%; /* Two columns */
+        margin-bottom: 1rem;
+    }
+    .checkout-progress-bar .separator {
+        display: none; /* Hide separator on very small screens, or adjust styling */
+    }
+    .card-footer.d-flex {
+        flex-direction: column;
+    }
+    .card-footer.d-flex button {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+}
+

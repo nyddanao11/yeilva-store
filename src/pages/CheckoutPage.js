@@ -170,7 +170,7 @@ export default function CheckoutPage({
                   <hr className="my-3" />
                   <div className="d-flex justify-content-between align-items-center">
                     <h5 className="mb-0">Grand Total:</h5>
-                    <h4 className="text-primary mb-0">{formattedGrandTotal}</h4>
+                    <h4 className="grand-total mb-0">{formattedGrandTotal}</h4>
                   </div>
                 </Card.Body>
                 <Card.Footer className="d-flex justify-content-between p-3">
