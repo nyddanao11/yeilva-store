@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import CheckoutForm from '../components/CheckoutForm';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card } from 'react-bootstrap'; // Added Card for sections
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import CartItem from './CartItem';
 import VoucherForm from './Voucher';
@@ -8,7 +8,8 @@ import YouMayLike from '../components/YouMayLike';
 import './CheckoutPage.css';
 import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
-import { FaShippingFast } from 'react-icons/fa';
+import { FaShippingFast, FaCheckCircle, FaMoneyBillWave } from 'react-icons/fa'; // Added more icons
+import { useCart } from './CartContext'; // Correct path to your context
 
 export default function CheckoutPageBuyAgain({
   cartItems,
@@ -175,20 +176,31 @@ export default function CheckoutPageBuyAgain({
       {showEmptyCartAlert && (
         <AlertEmptyCart onClose={() => setShowEmptyCartAlert(false)} />
       )}
-      <Container
-        className="mb-4 d-flex justify-content-center align-items-center flex-column"
-        style={{ maxWidth: "767px" }}
-      >
+
+      <Container className="checkout-page-container my-4">
+        {/* Progress Indicator */}
+        <div className="checkout-progress-bar mb-4">
+          <div className={`step ${!showCheckoutForm ? 'active' : 'completed'}`}>
+            <FaCheckCircle className="step-icon" /> Order Summary
+          </div>
+          <div className="separator"></div>
+          <div className={`step ${showCheckoutForm ? 'active' : ''}`}>
+            <FaMoneyBillWave className="step-icon" /> Payment Details
+          </div>
+        </div>
+        {/* End Progress Indicator */}
+
         {!showCheckoutForm ? (
-          <div>
-            <div className="d-flex justify-content-center align-items-center">
-              <h4 className="text-center mb-2" style={{ padding: '10px', marginBottom: '15px' }}>
-                Checkout/Shipping Details
-              </h4>
-            </div>
-            <div className="mb-4">
-              {currentCheckoutItems.length === 0 ? (
-                <p className="text-center">Your cart is empty. Add items to proceed.</p>
+          // --- STEP 1: ORDER SUMMARY & SHIPPING DETAILS ---
+          <Row>
+            <Col lg={7} className="mb-4">
+              <Card className="shadow-sm">
+                <Card.Header className="bg-primary text-white">
+                  <h5 className="mb-0">Your Order Summary</h5>
+                </Card.Header>
+                <Card.Body>
+                 {currentCheckoutItems.length === 0 ? (
+                 <p className="text-center text-muted">No items selected for checkout. Please go back to cart.</p>
               ) : (
                 currentCheckoutItems.map((item) => (
                   <CartItem
@@ -201,46 +213,84 @@ export default function CheckoutPageBuyAgain({
                   />
                 ))
               )}
-            </div>
-            <div className="checkout_section">
-              <div className="checkout_details">
-                <div className="voucher">
-                  {/* Ensure VoucherForm calls onVoucherValidate */}
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col lg={5}>
+              <Card className="shadow-sm">
+                <Card.Header className="bg-info text-white">
+                  <h5 className="mb-0">Order Totals & Voucher</h5>
+                </Card.Header>
+                <Card.Body>
                   <VoucherForm onVoucherValidate={handleVoucherValidate} />
-                </div>
-                <div style={{ paddingLeft: "6px" }}>
-                  <p className="items_details">Total Items Price: ₱{totalItemsPrice.toFixed(2)}</p>
-                  {isFreeShipping ? (
-                    <p style={{ color: "#067d62", fontSize: "14px", fontWeight: "500" }}>
-                      <FaShippingFast style={{ color: "#0D6EFD" }} />Shipping Rate: ₱Free
-                    </p>
-                  ) : (
-                    <p style={{ color: "black", fontSize: "14px", fontWeight: "500" }}>Shipping Rate: ₱{shippingRate.toFixed(2)}</p>
-                  )}
+                  <hr className="my-3" />
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="text-muted">Items Total:</span>
+                    <strong>₱{totalItemsPrice.toFixed(2)}</strong>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="text-muted">Shipping Rate:</span>
+                    {isFreeShipping ? (
+                      <strong className="text-success">₱Free <FaShippingFast /></strong>
+                    ) : (
+                      <strong>₱{shippingRate.toFixed(2)}</strong>
+                    )}
+                  </div>
                   {voucherDiscount > 0 && (
-                    <p style={{ color: "#067d62", fontSize: "14px", fontWeight: "500" }}>Voucher Discount: {voucherDiscount}%</p>
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <span className="text-muted">Voucher Discount:</span>
+                      <strong className="text-danger">-₱{voucherDiscount.toFixed(2)}</strong>
+                    </div>
                   )}
-                </div>
-              </div>
-              <h4 className="grandtotal"> Grand Total: {formattedGrandTotal}</h4>
-              <div className="d-flex">
-                <Button onClick={handleProceedToCheckout} style={{ backgroundColor: '#E92409', border: 'none' }}>Continue to Shipping</Button>
-                <Link to="/cart">
-                  <Button variant="outline-secondary" className="ms-2">
-                    Back to Cart
+                  <hr className="my-3" />
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h5 className="mb-0">Grand Total:</h5>
+                    <h4 className="text-primary mb-0">{formattedGrandTotal}</h4>
+                  </div>
+                </Card.Body>
+                <Card.Footer className="d-flex justify-content-between p-3">
+                  <Link to="/cart">
+                    <Button variant="outline-secondary" className="me-2">
+                      Back to Cart
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={handleProceedToCheckout}
+                    style={{ backgroundColor: '#E92409', border: 'none' }}
+                   
+                  >
+                    Continue to Shipping & Payment
                   </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
+                </Card.Footer>
+              </Card>
+            </Col>
+          </Row>
         ) : (
-          <CheckoutForm
+          // --- STEP 2: SHIPPING ADDRESS & PAYMENT METHOD ---
+          <Row className="justify-content-center">
+            <Col lg={8}>
+              <Card className="shadow-sm">
+                <Card.Header className="bg-success text-white">
+                  <h5 className="mb-0">Shipping & Payment</h5>
+                </Card.Header>
+                <Card.Body>
+                 <CheckoutForm
             cartItems={currentCheckoutItems}
             formattedGrandTotal={formattedGrandTotal}
             selectedSize={selectedSize}
             selectedColor={selectedColor}
             fetchUserData={fetchUserData}
           />
+                </Card.Body>
+                <Card.Footer className="text-end">
+                    <Button variant="outline-secondary" onClick={() => setShowCheckoutForm(false)}>
+                        Back to Order Summary
+                    </Button>
+                </Card.Footer>
+              </Card>
+            </Col>
+          </Row>
         )}
       </Container>
       <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />

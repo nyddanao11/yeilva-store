@@ -5,6 +5,7 @@
    background-color: #CFE2FF !important;
   
 }
+
 .nav-link:hover{
  background-color:#CFE2FF!important;
    color: black !important;
@@ -52,9 +53,14 @@
    text-decoration: none;
   color:#5D5D5D;
 }
+#dropdown-basic{
+   text-decoration: none;
+  color:#5D5D5D;
+}
+
 /* Target the main offcanvas element when shown */
 .offcanvas.show.custom-offcanvas {
-  max-width: 75vw !important;
+  max-width: 77vw !important;
 }
 
 /* Target the offcanvas-body when the offcanvas is shown */
@@ -64,7 +70,7 @@
 
 /* Target the offcanvas header when the offcanvas is shown */
 .offcanvas.show.custom-offcanvas .offcanvas-header {
-  max-width: 75vw !important; /* Ensure header also aligns */
+  max-width: 77vw !important; /* Ensure header also aligns */
 }
 
 /* Optional: Adjust the backdrop if desired */

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Card, Row, Col, Form, Button } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
+import { useCart } from './CartContext'; // Correct path to your context
 
-export default function CartItem ({ item, removeFromCart })  {
- 
+export default function CartItem ({ item})  {
+ const {removeFromCart} = useCart();
 const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
   const [selectedSize, setSelectedSize] = useState('none');

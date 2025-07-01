@@ -172,29 +172,37 @@ const categories = [
                 </Nav.Link>
               </Nav>
 
-                       {/* Account Section */}
-                <Nav.Link
-                  as={NavLink}
-                  to={isLoggedIn ? "/myaccount" : undefined} // Omit "to" if not logged in
-                  style={{ marginLeft:'6px',paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
-                  activeClassName="active"
-                    onClick={() => {
-                          if (!isLoggedIn) {
-                           handleShowModal('Please log in to access your account.');
-                          }
-                          handleCloseOffcanvas(); // Close the offcanvas
+               
+                    {isLoggedIn ? (
+                      // When logged in, render the Dropdown
+                      <Dropdown as={Nav.Item}>
+                        <Dropdown.Toggle as={Nav.Link} id="dropdown-basic" className="account-dropdown-toggle link_style"> {/* Added link_style here too */}
+                          <FiUser style={{ marginRight: '0.5rem' }} />
+                          {`Hello, ${userData.firstname || 'User'}`}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>My Orders</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/settings" onClick={handleCloseOffcanvas}>Settings</Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item onClick={() => { handleLogout(); }}>Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    ) : (
+                      // When not logged in, render a simple Nav.Link that triggers the modal
+                      <Nav.Link
+                        as={Link}
+                        to="#" // Use to="#" to prevent actual navigation before the modal
+                        onClick={(e) => {
+                          e.preventDefault(); // Stop the default link behavior
+                          handleShowModal('Please log in to access your account.');
+                          handleCloseOffcanvas();
                         }}
-                      
-                >
-                  {isLoggedIn ? (
-                    <>
-                      <FiUser style={{ marginRight: '0.5rem' }} />
-                      {`Hello, ${userData?.firstname ?? 'loading...'}`}
-                    </>
-                  ) : (
-                    'My Account'
-                  )}
-                </Nav.Link>
+                        className="account-nav-link link_style" // Added link_style here for consistency
+                      >
+                        My Account
+                      </Nav.Link>
+                    )}
 
               <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -300,29 +308,38 @@ const categories = [
           <Nav className="flex-column" >
             <Nav.Link as={NavLink} to="/alldealsproduct" onClick={handleCloseOffcanvas}  className='link_style'><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
             <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}  className='link_style'><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
-                    {/* Account Section */}
-                <Nav.Link
-                  as={NavLink}
-                  to={isLoggedIn ? "/myaccount" : undefined} // Omit "to" if not logged in
-                  style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px' }}
-                  activeClassName="active"
-                    onClick={() => {
-                          if (!isLoggedIn) {
-                            handleShowModal('Please log in to access your account.');
-                          }
-                          handleCloseOffcanvas(); // Close the offcanvas
+              
+                    {isLoggedIn ? (
+                      // When logged in, render the Dropdown
+                      <Dropdown as={Nav.Item}>
+                        <Dropdown.Toggle as={Nav.Link} id="dropdown-basic" className="account-dropdown-toggle link_style"> {/* Added link_style here too */}
+                          <FiUser style={{ marginRight: '0.5rem' }} />
+                          {`Hello, ${userData.firstname || 'User'}`}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>My Orders</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/settings" onClick={handleCloseOffcanvas}>Settings</Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item onClick={() => { handleLogout(); handleCloseOffcanvas(); }}>Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    ) : (
+                      // When not logged in, render a simple Nav.Link that triggers the modal
+                      <Nav.Link
+                        as={Link}
+                        to="#" // Use to="#" to prevent actual navigation before the modal
+                        onClick={(e) => {
+                          e.preventDefault(); // Stop the default link behavior
+                          handleShowModal('Please log in to access your account.');
+                          handleCloseOffcanvas();
                         }}
-                       className='link_style'
-                >
-                  {isLoggedIn ? (
-                    <>
-                      <FiUser style={{ marginRight: '0.5rem' }} />
-                      {`Hello, ${userData?.firstname ?? 'loading...'}`}
-                    </>
-                  ) : (
-                    'My Account'
-                  )}
-                </Nav.Link>
+                        className="account-nav-link link_style" // Added link_style here for consistency
+                      >
+                        My Account
+                      </Nav.Link>
+                    )}
+
 
               <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>

@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Container, Card, Col, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { fetchUserData } from '../components/userService';
 import { useMediaQuery } from 'react-responsive';
+import { useCart } from './CartContext'; // Correct path to your context
 
-export default function GcashPaymentModal ({ formattedGrandTotal }) {
+export default function GcashPaymentModal () {
   const [showGcash, setShowGcash] = useState(false);
   const [transactionCode, setTransactionCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [paymentSuccessful, setPaymentSuccessful] = useState(false);
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
-
+ const {formattedGrandTotal} = useCart();
   const navigate = useNavigate();
+   const location = useLocation(); // <--- NEW: Get location object
   const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
     email: '',
   });
 
-  useEffect(() => {
+const [checkoutItemsFromNav, setCheckoutItemsFromNav] = useState([]); // <--- NEW STATE: To store items
+
+ useEffect(() => {
     const storedUserEmail = localStorage.getItem('email');
     if (storedUserEmail) {
       fetchUserData(storedUserEmail.replace(/"/g, ''))
@@ -30,13 +34,28 @@ export default function GcashPaymentModal ({ formattedGrandTotal }) {
     } else {
       console.log('Email is missing in local storage');
     }
-  }, []);
+
+    // <--- NEW: Retrieve checkoutItems when GcashPaymentModal mounts
+    if (location.state && location.state.checkoutItems) {
+      setCheckoutItemsFromNav(location.state.checkoutItems);
+    } else {
+      console.warn('GcashPaymentModal: No checkout items received via navigation state.');
+      // You might want to add logic here to handle this case, e.g., redirect to cart
+    }
+
+  }, [location.state]); // Add location.state to dependency array
+
 
   useEffect(() => {
     if (paymentSuccessful) {
-      navigate('/checkoutform', { state: { ewalletStatus: true } });
+      navigate('/checkoutform', {
+        state: {
+          ewalletStatus: true,
+        },
+      });
     }
-  }, [paymentSuccessful, navigate]);
+  }, [paymentSuccessful, navigate, checkoutItemsFromNav]); // Add checkoutItemsFromNav to dependency array
+
 
   const generateTransactionCode = () => uuidv4().slice(0, 8).toUpperCase();
 
@@ -57,12 +76,14 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
     setLoading(true);
     const newTransactionCode = transactionCode || generateTransactionCode();
 
-    const paymentData = {
+     const paymentData = {
       transactionCode: newTransactionCode,
       amount: gcashPaymentTotal,
       firstname: userData.firstname,
       lastname: userData.lastname,
       email: userData.email,
+      // You might want to send checkoutItems here too for backend record keeping
+      // checkoutItems: checkoutItemsFromNav,
     };
     console.log('paymentData', paymentData);
   
@@ -98,7 +119,7 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                   <img src={`${process.env.PUBLIC_URL}/images/gcashlogo.png`} alt="GCash Logo" style={{ width: '35px', height: '35px' }} /> Pay with GCash
                 </Button>
 
-                 <Link to="/checkoutform">
+                   <Link to="/checkoutform">
                   <Button variant="outline-secondary" className="btn-sm mt-3 mb-2">
                     Back to Checkout
                   </Button>
@@ -114,7 +135,7 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                 </Modal.Header>
                 <Modal.Body>
                   <div className="text-center">
-                    <div >
+                    <div>
                       <p>Scan the QR code below to pay with GCash</p>
                       <p>or Pay through GCash account <strong>09497042268</strong></p>
                     </div>

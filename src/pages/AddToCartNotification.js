@@ -2,30 +2,35 @@ import React, { useEffect } from 'react';
 import './AddToCartNotification.css';
 import { useNavigate } from 'react-router-dom';
 
+
 const AddToCartNotification = ({ product, onClose }) => {
-  const navigate = useNavigate(); // Correct placement of the hook
+  
+  const navigate = useNavigate();
+console.log('AddToCartNotification received product prop:', product);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 3000);
+    }, 3000); // Notification disappears after 3 seconds
 
     return () => clearTimeout(timer);
-  }, [onClose]);
-
-  if (!product) {
-    return null;
-  }
+  }, [onClose]); // Dependency on onClose is correct
 
   const cartNavigate = () => {
     navigate('/cart');
+    onClose(); // Optional: Close the notification when navigating to cart
   };
+
+  // const checkoutNavigate = () => {
+  //   navigate('/checkout'); // Assuming '/checkout' is your checkout page
+  //   onClose(); // Close the notification when navigating to checkout
+  // };
 
   return (
     <div className="add-to-cart-notification">
-    <p className='added-successfull'>✓ Successfully Added to Cart</p>
+      <p className='added-successfull'>✓ Successfully Added to Cart</p>
       <div className="notification-content-enhanced">
-        {product.url && (
+        {product.url && ( // Now using the prop
           <img
             src={product.url}
             alt={product.name}
@@ -44,7 +49,7 @@ const AddToCartNotification = ({ product, onClose }) => {
         <button className="view-cart-button" onClick={cartNavigate}>
           View Cart
         </button>
-        {/* You could add a "Proceed to Checkout" button here */}
+        
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, Image, Button, Card, Row, Col } from "react-bootstrap";
+import { ListGroup, Image, Button, Card, Row, Col, Container } from "react-bootstrap";
 import "./YourOrders.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
 export default function Orders({ isLoggedIn }) {
@@ -77,12 +77,19 @@ function returnOrder(){
   }
 
   return (
+<Container>
+     <div className="d-flex mt-2 mb-1 ">
+        <h5>Your Orders</h5>
+        <Link to="/checkouthistory"  style={{textDecoration:'none', marginLeft:'15px'}}>( View All )</Link>
+        </div>
+
     <div style={{ marginBottom: "14px", padding: "15px" }}>
       <ListGroup className="cart-group">
         {!userCheckoutData || (Array.isArray(userCheckoutData) && userCheckoutData.length === 0) ? (
           <Row>
             <Col className="mb-3 d-flex flex-column justify-content-center align-items-center">
-              <p>Sorry, we're having trouble displaying your orders or you have no past orders.</p>
+              <span>Sorry, Only undelivered orders will be displayed here.</span> 
+              <Link to="/checkouthistory"><span> To Buy Again Click Here</span></Link>
             </Col>
           </Row>
         ) : (
@@ -137,5 +144,6 @@ function returnOrder(){
         Track your Orders
       </Button>
     </div>
+    </Container>
   );
 }

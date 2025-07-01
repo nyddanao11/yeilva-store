@@ -5,18 +5,33 @@ import axios from 'axios';
 import SuccessModal from'./modalCheckout';
 import {useNavigate, Link, useLocation} from'react-router-dom';
 import CameraCapture from'./CameraCapture';
+import { useCart } from '../pages/CartContext'; // Correct path to your context
 
-export default function CheckoutForm  ({ cartItems, formattedGrandTotal, cartItem, selectedSize,
-  selectedColor, ewalletStatus, capturedImage}) {
-
+export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
+ const {
+    cartItems,
+    cartCount,
+    addToCart,
+    removeFromCart,
+    handleIncrement,
+    handleDecrement,
+    formattedGrandTotal,
+    checkoutItemsForPayment,
+    setCheckoutItemsForPayment, // This is key for passing selected items to checkout
+     clearPurchasedItems,
+  } = useCart();
    const location = useLocation();
   const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
+   const itemsToDisplay =  checkoutItemsForPayment || []; // Ensure it's an array to avoid .length errors
   
    const [loading, setLoading] = useState(false);
     const [checkoutData, setCheckoutData] = useState('');
    const [image, setImage] = useState(null);
     const [installmentChoice, setInstallmentChoice] = useState(null); // Track installment choice
     const [selfieImage, setSelfieImage] = useState(null); // Store captured selfie
+     // const [submittedOrderId, setSubmittedOrderId] = useState(null); // State to hold the orderId
+
+  // ... (other states like loading, error, etc.)
  
 const [userData, setUserData] = useState({
     firstname: '',
@@ -27,7 +42,7 @@ const [userData, setUserData] = useState({
 
  const [formData, setFormData] = useState({
   name: '', // Add the 'name' field
-  quantity: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0),
+  quantity: itemsToDisplay.reduce((accumulator, item) => accumulator + item.quantity, 0),
   total: formattedGrandTotal,
 
 });
@@ -57,6 +72,10 @@ const [userData, setUserData] = useState({
       });
     }
   }, [passedEwalletStatus]);
+
+  const handleEwalletsNavigation = () => {
+    navigate('/gcashpayment'); // GcashPaymentModal will get data from context
+  };
 
  const [paymentErrors, setPaymentErrors] = useState({
   ewallets: '',
@@ -113,17 +132,13 @@ const handleEwalletsClick = (e) => {
 
   const isButtonDisabled = loading || grandTotalToString(formattedGrandTotal) === '0.00';
 
-
   const navigate = useNavigate(); // Get the navigate function
 
-   const handleEwalletsNavigation = () => { 
-       navigate('/gcashpayment'); 
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false); // Close the modal
-    navigate('/'); // Redirect to the homepage using navigate
-  };
+  // const handleCloseModal = () => {
+  //   setShowModal(false); // Close the modal
+  //   clearPurchasedItems();
+  //   navigate('/'); // Redirect to the homepage using navigate
+  // };
   
   const handleBackToCart = () => {
     // Navigate back to the cart page or any other desired location
@@ -152,7 +167,7 @@ const cleanProductName = (productName) => {
     return blob;
   };
 
-const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
   setLoading(true); // Start loading spinner
@@ -301,6 +316,8 @@ const handleSubmit = async (e) => {
   }
 };
 
+
+
  const fetchUserData = async (email, setUserData)  => {
   if (!email) {
     console.error('Email is undefined');
@@ -354,256 +371,255 @@ useEffect(() => {
   }
 }, []);
 
-return (    
-     <Row className='d-flex justify-content-center align-items-center ' >
-       <div className="d-flex justify-content-center aligned-items-center">
-            <h4 className="text-center mb-2" style={{ padding: '10px', marginBottom: '15px' }}>
-              Checkout/Shipping Details
-            </h4>
-           </div>
-     
-      <Col xs={12} md={8} style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
-
-        {/* Checkout Information and List of Items */}
-       <Form onSubmit={handleSubmit}>
-
-  <FloatingLabel controlId="formBasicFirstName" label="First name" style={{marginBottom:'10px'}}>
-    <Form.Control
-      type="text"
-      placeholder="Your First name"
-      value={userData.firstname || ''}
-      onChange={handleUserChange}
-      readOnly
-    />
-  </FloatingLabel>
-
-  <FloatingLabel controlId="formBasicLastName" label="Last name" style={{marginBottom:'10px'}}>
-    <Form.Control
-      type="text"
-      placeholder="Your Last name"
-      value={userData.lastname || ''}
-      onChange={handleUserChange}
-      readOnly
-    />
-  </FloatingLabel>
-
-  <FloatingLabel controlId="formBasicEmail" label="Email address" style={{marginBottom:'10px'}}>
-    <Form.Control
-      type="email"
-      placeholder="Your FloatingLabelEmail"
-      value={userData.email || ''}
-      onChange={handleUserChange}
-      readOnly
-    />
-  </FloatingLabel>
-
-  <FloatingLabel controlId="address" label="Address & Landmark" style={{marginBottom:'10px'}}>
-    <Form.Control
-      as="textarea" rows={3}
-      name="address"
-      value={checkoutData.address}
-      onChange={handleUserChange}
-      required
-    />
-  </FloatingLabel>
-
-  <FloatingLabel controlId="province" label="Province" style={{marginBottom:'10px'}}>
-    <Form.Control
-      type="text"
-      name="province"
-      value={checkoutData.province}
-      onChange={handleUserChange}
-      required
-    />
-  </FloatingLabel>
-
-  <FloatingLabel controlId="phone" label="Phone" style={{marginBottom:'10px'}}>
-    <Form.Control
-      type="text"
-      name="phone"
-      value={checkoutData.phone}
-      onChange={handleUserChange}
-      required
-    />
-  </FloatingLabel>
-
-  <FloatingLabel controlId="quantity" label="Quantity" style={{ width: '150px' }}>
-    <Form.Control
-      type="text"
-      name="quantity"
-      value={formData.quantity}
-      onChange={handleFormChange}
-      required
-    />
-  </FloatingLabel>
-
-
- <div style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px', margin: '15px', padding:'0px 15px'}}>
-  <h5 className='mt-1'>Items in Cart:</h5>
-  <ul style={{padding:'5px'}}>
-    {cartItems.map((item) => (
-      <div key={item.id} style={{marginBottom:"10px", padding:'5px 10px', border:'1px #d3d4d5 solid ', borderRadius: '5px'}} className='d-flex justify-content-center align-items-center'>
-      <div >
-        <img src={item.url} alt={item.name} width="100px" height="100px" />
-     </div>
-        <div style={{padding:'0px 3px', display:'flex', flexDirection:'column'}}>
-        <p style={{ fontSize: '15px' }}>
-          {item.name} - ₱{item.price} x {item.quantity}
-        </p>
-
-        {item.selectedSize && ( // Conditionally render if selectedSize has a value
-          <Form.Group controlId={`sizeSelect-${item.id}`} >
-            <Form.Label>Selected Size:</Form.Label>
-            <Form.Control type="text" value={item.selectedSize} readOnly style={{width:'70px'}}/>
-          </Form.Group>
-        )}
-
-        {item.selectedColor && ( // Conditionally render if selectedColor has a value
-           <Form.Group controlId={`colorSelect-${item.id}`} >
-            <Form.Label>Selected Color:</Form.Label>
-            <Form.Control type="text" value={item.selectedColor} readOnly style={{width:'70px'}}/>
-          </Form.Group>
-         
-        )}
-
+  return (
+    <Row className='d-flex justify-content-center align-items-center'>
+      <Col xs={12} md={8}>
+        <div className="text-center mb-4">
+          <h2 className="display-6 fw-bold">Checkout & Shipping Details</h2>
+          <p className="text-muted">Please review your order and provide your shipping information.</p>
         </div>
-     
-      </div>
-       
-    ))}
 
-  </ul>
-
-
-    <Button variant='outline-secondary' onClick={handleBackToCart} className="mb-2 " style={{ width: '100%', marginTop:'15px', padding:'6px 6px'}}>
-            Back to Cart
-    </Button>
-</div>
-
-
-          {showModal && (
-            <SuccessModal show={showModal} onClose={handleCloseModal} handleClose={handleCloseModal} />
-          )}
-    
-    
-      {/* Payment Options */}
-      <div className="mx-3 " style={{border:'1px #d3d4d5 solid', background:'white', borderRadius:'10px', padding:'20px'}}>
-        <h3>Payment Options</h3>
-       <FloatingLabel controlId="paymentMethod"  >
-           
-            <div>
-              <Form.Check
-                type="radio"
-                label="GCash"
-                name="paymentMethod"
-                value="E-wallets banks"
-                onChange={(e) => handleEwalletsClick(e, 'E-wallets banks')}
-                checked={selectedPayment === 'E-wallets banks'} // Add checked prop
-              />
-              <Form.Check
-                type="radio"
-                label="Cash on Delivery"
-                name="paymentMethod"
-                value="Cash on Delivery"
-                onChange={(e) => handleEwalletsClick(e, 'Cash on Delivery')}
-                checked={selectedPayment === 'Cash on Delivery'} // Add checked prop
-                disabled={isPaymentDisabled.cod}
-              />
-
-               <Form.Check
-                type="radio"
-                label="Installment (purchases above ₱500)"
-                name="paymentMethod"
-                value="Installment"
-                onChange={(e) => handleEwalletsClick(e, 'Installment')}
-                checked={selectedPayment === 'Installment'} // Add checked prop
-                 disabled={isPaymentDisabled.installment}
-              />
-            </div>
-          </FloatingLabel>
-
-         {selectedPayment === 'E-wallets banks' && (
-              <>
-              <Button variant={ passedEwalletStatus? "success":"primary"} onClick={handleEwalletsNavigation} disabled={ passedEwalletStatus} style={{marginTop:'10px'}}>
-                { passedEwalletStatus ? 'You can now Place your Order' : 'Proceed to GCash Payment'}
-              </Button>
-
-
-               {paymentErrors.ewallets && (
-                  <div style={{ color: 'red', marginTop: '10px' }}>{paymentErrors.ewallets}</div>
-                 )}
-              </>
-            )}
-
-
-        {selectedPayment === 'Installment' && (
-            <>
-              <Form.Group controlId="formImage" style={{ marginTop: '20px', marginBottom: '15px' }} action="/installmentusers" method="post" enctype="multipart/form-data">
-                <FloatingLabel controlId="floatingImage" label="Upload ID">
-                  <Form.Control type="file" accept="image/*"  onChange={handleImageChange} />
+        <div className="p-4 mb-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
+          <Form onSubmit={handleSubmit}>
+            {/* User Information - Read Only */}
+            <h4 className="mb-3 text-primary">Your Information</h4>
+            <Row className="g-3 mb-4">
+              <Col md={6}>
+                <FloatingLabel controlId="formBasicFirstName" label="First Name">
+                  <Form.Control
+                    type="text"
+                    value={userData.firstname || ''}
+                    readOnly
+                    disabled
+                  />
                 </FloatingLabel>
+              </Col>
+              <Col md={6}>
+                <FloatingLabel controlId="formBasicLastName" label="Last Name">
+                  <Form.Control
+                    type="text"
+                    value={userData.lastname || ''}
+                    readOnly
+                    disabled
+                  />
+                </FloatingLabel>
+              </Col>
+              <Col xs={12}>
+                <FloatingLabel controlId="formBasicEmail" label="Email Address">
+                  <Form.Control
+                    type="email"
+                    value={userData.email || ''}
+                    readOnly
+                    disabled
+                  />
+                </FloatingLabel>
+              </Col>
+            </Row>
+
+            {/* Shipping Information */}
+            <h4 className="mb-3 text-primary">Shipping Information</h4>
+            <div className="mb-4">
+              <FloatingLabel controlId="address" label="Address & Landmark">
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="address"
+                  value={checkoutData.address}
+                  onChange={handleUserChange}
+                  required
+                />
+              </FloatingLabel>
+            </div>
+
+            <Row className="g-3 mb-4">
+              <Col md={6}>
+                <FloatingLabel controlId="province" label="Province">
+                  <Form.Control
+                    type="text"
+                    name="province"
+                    value={checkoutData.province}
+                    onChange={handleUserChange}
+                    required
+                  />
+                </FloatingLabel>
+              </Col>
+              <Col md={6}>
+                <FloatingLabel controlId="phone" label="Phone Number">
+                  <Form.Control
+                    type="tel" // Use type="tel" for phone numbers
+                    name="phone"
+                    value={checkoutData.phone}
+                    onChange={handleUserChange}
+                    required
+                  />
+                </FloatingLabel>
+              </Col>
+            </Row>
+
+            {/* Items in Cart */}
+            <h4 className="mb-3 text-primary">Your Order</h4>
+            <div className="p-3 mb-4" style={{ border: '1px #d3d4d5 solid', background: '#f9f9f9', borderRadius: '10px' }}>
+              {itemsToDisplay.length > 0 ? (
+                <ul className="list-unstyled mb-0">
+                  {itemsToDisplay.map((item) => (
+                    <li key={item.id} className="d-flex align-items-center mb-3 p-2 border rounded bg-white">
+                      <img src={item.url} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', marginRight: '15px', borderRadius: '5px' }} />
+                      <div className="flex-grow-1">
+                        <p className="fw-bold mb-1">{item.name}</p>
+                        <p className="mb-1">₱{item.price} x {item.quantity}</p>
+                        {item.selectedSize && <p className="text-muted mb-0">Size: {item.selectedSize}</p>}
+                        {item.selectedColor && <p className="text-muted mb-0">Color: {item.selectedColor}</p>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-center text-muted">Your cart is empty.</p>
+              )}
+              <Button variant='outline-secondary' onClick={handleBackToCart} className="w-100 mt-3">
+                Back to Cart
+              </Button>
+            </div>
+
+            {/* Payment Options */}
+            <h4 className="mb-3 text-primary">Payment Options</h4>
+            <div className="p-4 mb-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
+              <Form.Group className="mb-3">
+                <Form.Check
+                  type="radio"
+                  label="GCash (E-wallets/Banks)"
+                  name="paymentMethod"
+                  id="paymentMethodGcash"
+                  value="E-wallets banks"
+                  onChange={(e) => handleEwalletsClick(e, 'E-wallets banks')}
+                  checked={selectedPayment === 'E-wallets banks'}
+                  className="mb-2"
+                />
+                {selectedPayment === 'E-wallets banks' && (
+                  <div className="ms-4 mb-3">
+                    <Button
+                  variant={passedEwalletStatus ? "success" : "primary"}
+                  onClick={handleEwalletsNavigation} // <--- USE THE PROP HERE!
+                  disabled={passedEwalletStatus}
+                >
+                  {passedEwalletStatus ? 'Payment Verified, Proceed to Place Order' : 'Proceed to GCash Payment'}
+                </Button>
+                    {paymentErrors.ewallets && (
+                      <div className="text-danger mt-2">{paymentErrors.ewallets}</div>
+                    )}
+                  </div>
+                )}
+
+                <Form.Check
+                  type="radio"
+                  label="Cash on Delivery"
+                  name="paymentMethod"
+                  id="paymentMethodCod"
+                  value="Cash on Delivery"
+                  onChange={(e) => handleEwalletsClick(e, 'Cash on Delivery')}
+                  checked={selectedPayment === 'Cash on Delivery'}
+                  disabled={isPaymentDisabled.cod}
+                  className="mb-2"
+                />
+
+                <Form.Check
+                  type="radio"
+                  label="Installment (purchases above ₱500)"
+                  name="paymentMethod"
+                  id="paymentMethodInstallment"
+                  value="Installment"
+                  onChange={(e) => handleEwalletsClick(e, 'Installment')}
+                  checked={selectedPayment === 'Installment'}
+                  disabled={isPaymentDisabled.installment}
+                />
+                {selectedPayment === 'Installment' && (
+                  <div className="ms-4 mt-3">
+                    <Form.Group controlId="formImageUpload" className="mb-3">
+                      <FloatingLabel controlId="floatingImage" label="Upload Valid ID (e.g., Driver's License, Passport)">
+                        <Form.Control type="file" accept="image/*" onChange={handleImageChange} required />
+                      </FloatingLabel>
+                    </Form.Group>
+
+                    <div className="text-center mb-3">
+                      <p className="mb-2"><FaCamera className="me-2" />Capture a Selfie</p>
+                      <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
+                    </div>
+
+                    {selfieImage && (
+                      <div className="text-center mb-3 p-3 border rounded bg-light">
+                        <p className="mb-2 fw-bold">Selfie Preview:</p>
+                        <img
+                          src={selfieImage}
+                          alt="Captured Selfie"
+                          style={{ width: '100%', maxWidth: '250px', borderRadius: '8px', border: '1px solid #ddd' }}
+                          className="img-fluid"
+                        />
+                      </div>
+                    )}
+
+                    <p className="mb-2 fw-bold">Select Installment Plan:</p>
+                    <div className="d-flex justify-content-center flex-wrap gap-2 mb-3">
+                      <Button
+                        variant={installmentChoice?.plan === 2 ? "success" : "outline-secondary"}
+                        onClick={() => setInstallmentChoice({ plan: 2, amount: calculateInstallment(formattedGrandTotal, 2) })}
+                      >
+                        2 Months x ₱{calculateInstallment(formattedGrandTotal, 2)} {installmentChoice?.plan === 2 && " ✓ "}
+                      </Button>
+                      <Button
+                        variant={installmentChoice?.plan === 3 ? "success" : "outline-secondary"}
+                        onClick={() => setInstallmentChoice({ plan: 3, amount: calculateInstallment(formattedGrandTotal, 3) })}
+                      >
+                        3 Months x ₱{calculateInstallment(formattedGrandTotal, 3)} {installmentChoice?.plan === 3 && " ✓ "}
+                      </Button>
+                    </div>
+
+                    {paymentErrors.installment && (
+                      <div className="text-danger mt-2">{paymentErrors.installment}</div>
+                    )}
+
+                    <div className="text-center mt-3">
+                      <Link to="/installmentterms" className="text-primary text-decoration-underline">
+                        Read Installment Terms & Conditions
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </Form.Group>
-              
-          {/* Upload Selfie */}
-            <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
-           <FaCamera style={{ fontSize: '24px', color: 'blue' }} />
-           <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
-          </div>
-
-          {selfieImage && (
-            <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '18px', marginBottom: '18px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
-              <p>Preview of your selfie:</p>
-              <img
-                src={selfieImage}
-                alt="Captured Selfie"
-                style={{ width: '100%', maxWidth: '300px', borderRadius: '8px' }}
-              />
             </div>
-          )}
 
-            <div className="d-flex justify-content-center align-items-center mt-4 mb-3">
-            <p>Select a Plan:</p>
-             <Button
-                variant={installmentChoice?.plan === 2 ? "success" : "outline-secondary"}
-                className="btn-sm"
-                onClick={() => setInstallmentChoice({ plan: 2, amount: calculateInstallment(formattedGrandTotal, 2) })}
-                style={{margin:"0 15px"}}
-              >
-                2mth x ₱{calculateInstallment(formattedGrandTotal, 2)} {installmentChoice?.plan === 2 && " ✓ "}
+            {/* General error display */}
+            {paymentErrors.general && <p className="text-danger text-center mb-2">{paymentErrors.general}</p>}
+
+
+            {/* Total Price and Place Order Button */}
+            <div className="p-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
+              <h3 className="mb-3 text-end">Total Price: <span className="text-success">{formattedGrandTotal}</span></h3>
+              <Button type="submit" className="w-100 py-2" disabled={isButtonDisabled} style={{ backgroundColor: '#E92409', border: 'none' }}>
+                {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
               </Button>
-
-              <Button
-                variant={installmentChoice?.plan === 3 ? "success" : "outline-secondary"} // Highlight button based on selected plan
-                className="btn-sm"
-                onClick={() => setInstallmentChoice({ plan: 3, amount: calculateInstallment(formattedGrandTotal, 3) })} // Store plan and amount
-              >
-                3mth x ₱{calculateInstallment(formattedGrandTotal, 3)} {installmentChoice?.plan === 3 && " ✓ "}
-              </Button>
-
             </div>
-         
 
-             {paymentErrors.installment && (
-              <div style={{ color: 'red', marginTop: '10px', marginBottom: '10px' }}>
-                {paymentErrors.installment}
-              </div>
+            {/* The modal is rendered here */}
+            {showModal && (
+                <SuccessModal
+                    show={showModal}
+                    onClose={() => {
+                        setShowModal(false); // Hide the modal
+                  
+                     clearPurchasedItems(itemsToDisplay.map(item => item.id)); // Use itemsToDisplay directly here
+                        navigate('/'); // <--- NOW NAVIGATE
+                    }}
+                   
+                />
             )}
+     
+          </Form>
              
-                <Link to="/installmentterms" style={{  marginBottom: '10px', marginRight: '15px'  }}>
-                  Terms & Conditions
-                </Link>
-             
-            </>
-          )}
-
-          <h5 style={{ color: 'black', marginBottom: '15px', marginTop: '15px' }}>Total Price: {formattedGrandTotal}</h5>
-          <Button  type="submit" className="mb-2 mt-2" disabled={isButtonDisabled } style={{ width: '100%', backgroundColor:'#E92409', border:'none'}}>
-            {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
-          </Button>
-          </div>
-        </Form>
+        </div>
       </Col>
+
     </Row>
   );
 };
+
 

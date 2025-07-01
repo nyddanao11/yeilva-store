@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import ShoppingCart from '../components/ShoppingCart';
-import { Button, Container, Row, Col, Modal, Form } from 'react-bootstrap'; // Import Form for checkboxes
+import { Button, Container, Row, Col, Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 import YouMayLike from '../components/YouMayLike';
 import AlertEmptyCart from '../components/AlertEmptyCart';
+import { useCart } from './CartContext'; // Correct path to your context
 
 export default function Cart({
-  removeFromCart,
-  handleIncrement,
-  handleDecrement,
-  addToCart,
-  handleSizeChange,
-  handleColorChange,
-  setCartItems, // You'll likely need this if you're updating isSelected directly
-  setCartCount,
-  cartCount,
-  cartItems,
-  isLoggedIn,
-  youMayLikeProducts,
+  // ONLY keep props that are NOT managed by CartContext
+  handleSizeChange, // Keep if size/color are product-specific and passed down
+  handleColorChange, // Keep if size/color are product-specific and passed down
+  isLoggedIn, // Keep if login status is from a different context or App.js
+  youMayLikeProducts, // Keep if these products are from a different source
 }) {
+  // CORRECT: Destructure all cart-related state and functions from useCart()
+  const {
+    cartItems,
+    cartCount,
+    addToCart,
+    removeFromCart,
+    handleIncrement,
+    handleDecrement,
+    setCheckoutItemsForPayment, // This is key for passing selected items to checkout
+    setCartItems, // IMPORTANT: If you need to modify the cartItems array directly
+                  // (e.g., to add `isSelected`), you MUST expose this from context.
+                  // As discussed, prefer specific actions if possible, but for `isSelected`,
+                  // this might be a necessary, carefully managed exposure.
+  } = useCart();
+
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
@@ -28,21 +37,23 @@ export default function Cart({
 
   // Initialize selected state for all items on load or cartItems change
   useEffect(() => {
-    // Ensure all items have an 'isSelected' property, defaulting to true if not present
-    const updatedCartItems = cartItems.map(item => ({
-      ...item,
-     isSelected: item.isSelected !== undefined ? item.isSelected : true, // Default to true
-    }));
-    // Only update if there's an actual change to prevent infinite loops
-    if (JSON.stringify(updatedCartItems) !== JSON.stringify(cartItems)) {
+    // Only proceed if cartItems has loaded and needs modification for `isSelected`
+    if (cartItems.length > 0 && cartItems.some(item => item.isSelected === undefined)) {
+        const updatedCartItems = cartItems.map(item => ({
+          ...item,
+          isSelected: item.isSelected !== undefined ? item.isSelected : true, // Default to true
+        }));
+        // Use the setCartItems from context
         setCartItems(updatedCartItems);
+    } else if (cartItems.length === 0) {
+        // If cart becomes empty, ensure no leftover isSelected logic
+        setCartItems([]);
     }
-  }, [cartItems, setCartItems]);
-
+  }, [cartItems, setCartItems]); // Depend on cartItems and setCartItems (from context)
 
   // Handler for individual item selection
   const handleItemSelection = (itemId) => {
-    setCartItems(prevCartItems =>
+    setCartItems(prevCartItems => // Use setCartItems from context
       prevCartItems.map(item =>
         item.id === itemId ? { ...item, isSelected: !item.isSelected } : item
       )
@@ -52,7 +63,7 @@ export default function Cart({
   // Handler for "Select All" checkbox
   const handleSelectAll = (event) => {
     const isChecked = event.target.checked;
-    setCartItems(prevCartItems =>
+    setCartItems(prevCartItems => // Use setCartItems from context
       prevCartItems.map(item => ({ ...item, isSelected: isChecked }))
     );
   };
@@ -82,23 +93,24 @@ export default function Cart({
     window.location.href = '/login';
   };
 
-  
-const handleCheckoutClick = () => {
-  const selectedItems = cartItems.filter(item => item.isSelected); // Filter to get only selected items
+  const handleCheckoutClick = () => {
+    const itemsToProcessForCheckout = cartItems.filter(item => item.isSelected); // Filter to get only selected items
 
-  if (selectedItems.length === 0) {
-    setShowEmptyCartAlert(true);
-    return;
-  }
+    if (itemsToProcessForCheckout.length === 0) {
+      setShowEmptyCartAlert(true);
+      return;
+    }
 
-  if (!isLoggedIn) {
-    handleShowModal('Please login to continue');
-    return;
-  } else {
-    // Navigate and pass the selected items in the state
-    navigate('/checkout', { state: { selectedItems: selectedItems } });
-  }
-};
+    if (!isLoggedIn) {
+      handleShowModal('Please login to continue');
+      return;
+    } else {
+      // CORRECT: Use setCheckoutItemsForPayment from context
+      setCheckoutItemsForPayment(itemsToProcessForCheckout);
+      // CORRECT: Navigate to the correct checkout route, without passing items in state (context holds them)
+      navigate('/checkout'); // Assuming your route is /checkoutform as per earlier discussion
+    }
+  };
 
   const allItemsSelected = cartItems.length > 0 && cartItems.every(item => item.isSelected);
   const anyItemSelected = cartItems.some(item => item.isSelected);
@@ -110,10 +122,10 @@ const handleCheckoutClick = () => {
       )}
       <Container className="cart-container">
         <div className="d-flex justify-content-center aligned-items-center">
-              <h4 className="text-center mb-1" style={{ padding: '10px' }}>
-                Shopping Cart
-              </h4>
-            </div>
+          <h4 className="text-center mb-1" style={{ padding: '10px' }}>
+            Shopping Cart
+          </h4>
+        </div>
         {cartItems.length > 0 && (
           <div className="mb-3">
             <Form.Check
@@ -122,22 +134,22 @@ const handleCheckoutClick = () => {
               label="Select all items"
               checked={allItemsSelected}
               onChange={handleSelectAll}
-              style={{fontSize:'20px'}}
+              style={{ fontSize: '20px' }}
             />
           </div>
         )}
 
         <ShoppingCart
-          cartItems={cartItems}
-          removeFromCart={removeFromCart}
-          addToCart={addToCart}
-          handleIncrement={handleIncrement}
-          handleDecrement={handleDecrement}
-          handleSizeChange={handleSizeChange}
-          handleColorChange={handleColorChange}
-          cartCount={cartCount}
-          isLoggedIn={isLoggedIn}
-          handleItemSelection={handleItemSelection} // Pass the new handler
+          cartItems={cartItems} // These now come from useCart()
+          removeFromCart={removeFromCart} // From useCart()
+          addToCart={addToCart} // From useCart()
+          handleIncrement={handleIncrement} // From useCart()
+          handleDecrement={handleDecrement} // From useCart()
+          handleSizeChange={handleSizeChange} // Keep if prop
+          handleColorChange={handleColorChange} // Keep if prop
+          cartCount={cartCount} // From useCart()
+          isLoggedIn={isLoggedIn} // Keep if prop
+          handleItemSelection={handleItemSelection}
         />
 
         <div className="sticky-footer">
@@ -146,7 +158,7 @@ const handleCheckoutClick = () => {
             className="w-100"
             style={{ backgroundColor: '#E92409', border: 'none' }}
             onClick={handleCheckoutClick}
-            disabled={!anyItemSelected} // Disable if no items are selected
+            disabled={!anyItemSelected}
           >
             Proceed to Checkout
           </Button>
@@ -165,9 +177,9 @@ const handleCheckoutClick = () => {
               Log In
             </Button>
           </Modal.Footer>
-        </Modal>   
+        </Modal>
       </Container>
-       <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
+      <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
     </>
   );
 }

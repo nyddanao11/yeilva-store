@@ -7,8 +7,11 @@ import TabbedComponent from '../components/ProductTablatureDeals';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 import { FaShippingFast } from 'react-icons/fa';
+import { useCart } from './CartContext'; // Correct path to your context
 
-export default function ClickDeals({ addToCart, isLoggedIn, allDealsProduct, youMayLikeProducts, mayLikeLoading, mayLikeError }) {
+
+export default function ClickDeals({ isLoggedIn, allDealsProduct, youMayLikeProducts, mayLikeLoading, mayLikeError }) {
+   const {addToCart} = useCart();
   const { id } = useParams();
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);
@@ -117,7 +120,7 @@ const handleLoginRedirect = () => {
       discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
       displayPrice: discountedPriceFormatted
     };
-
+ // console.log("Product passed to addToCart:", productToAdd); // Add this line
     addToCart(productToAdd);
   };
 

@@ -14,30 +14,33 @@ import {RecommendedProvider} from './pages/RecommendedProductsContext';
 import {SearchProductsProvider} from './pages/SearchProductContext';
 import {AllDealsProductsProvider} from './pages/AllDealsProductContext';
 import {YouMayLikeProductProvider} from './pages/YouMayLikeProductContext';
+import { CartProvider } from './pages/CartContext'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
 
 root.render( // Use root.render instead of ReactDOM.render
   <React.StrictMode>
     <AuthProvider>
+     <CartProvider>
       <ProductProvider>
        <FeaturedProductsProvider>
         <BestSellingProvider>
          <RecommendedProvider>
            <SearchProductsProvider>
             <AllDealsProductsProvider>
-            <YouMayLikeProductProvider>
+            <YouMayLikeProductProvider>           
               <Router>
                 <ScrollToTop />
                 <App />
-              </Router>
+              </Router>              
             </YouMayLikeProductProvider>
             </AllDealsProductsProvider>
             </SearchProductsProvider>
           </RecommendedProvider>
          </BestSellingProvider>
         </FeaturedProductsProvider>
-      </ProductProvider>
+       </ProductProvider>
+      </CartProvider>
     </AuthProvider>
   </React.StrictMode>
 );

@@ -7,8 +7,12 @@ import TabbedComponent from '../components/ProductTablature';
 import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast } from 'react-icons/fa';
+import { useCart } from './CartContext'; // Correct path to your context
 
-export default function ClickProductPage({ addToCart, isLoggedIn, storedProducts, allProducts, youMayLikeProducts }) {
+
+export default function ClickProductPage({ isLoggedIn, storedProducts, allProducts, youMayLikeProducts }) {
+     const {addToCart} = useCart();
+
   const { id } = useParams();
   const [selectedThumbnails, setSelectedThumbnails] = useState({});
   const [reviewData, setReviewData] = useState([]);

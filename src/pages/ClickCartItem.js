@@ -7,8 +7,10 @@ import BreadCrumbCartItems from'../components/BreadCrumbCartItems';
 import TabbedComponent from'../components/ProductTablatureCartItems';
 import axios from 'axios';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
+import { useCart } from './CartContext'; // Correct path to your context
 
-export default function ClickCartItem ({ addToCart, isLoggedIn, cartItems, youMayLikeProducts })  {
+export default function ClickCartItem ({ isLoggedIn, youMayLikeProducts })  {
+   const {addToCart, cartItems} = useCart();
 
   const { id } = useParams();
    // console.log('ID from URL:', id);

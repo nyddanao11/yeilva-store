@@ -6,21 +6,29 @@ import './ShoppingCart.css';
 import PropTypes from 'prop-types'; // Import PropTypes
 import {Link} from'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { useCart } from '../pages/CartContext'; // Correct path to your context
 
 export default function ShoppingCart({
   handleSizeChange,
   handleColorChange,
   handleItemSelection,
-   cartItems,
-  removeFromCart,
-  addToCart,
-  handleIncrement,
-  handleDecrement,
   cartItem,
-  cartCount,
   isLoggedIn,
  
 }) {
+   const {
+    cartItems,
+    cartCount,
+    addToCart,
+    removeFromCart,
+    handleIncrement,
+    handleDecrement,
+    setCheckoutItemsForPayment, // This is key for passing selected items to checkout
+    setCartItems, // IMPORTANT: If you need to modify the cartItems array directly
+                  // (e.g., to add `isSelected`), you MUST expose this from context.
+                  // As discussed, prefer specific actions if possible, but for `isSelected`,
+                  // this might be a necessary, carefully managed exposure.
+  } = useCart();
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 const navigate = useNavigate();
  const backToHome=()=>{  

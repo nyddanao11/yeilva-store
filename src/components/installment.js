@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-
-
-const InstallmentHistory = () => {
+export default function InstallmentHistory ()  {
   const [installmentHistory, setInstallmentHistory] = useState([]);
  
   const [loading, setLoading] = useState(false);
@@ -20,7 +18,7 @@ const fetchData = async () => {
   if (searchEmail) {
     try {
       // Use axios to fetch data
-      const response = await axios.get(`https://yeilva-store-server.up.railway.app/api/installment-history?email=${encodeURIComponent(searchEmail)}`);
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/installment-history?email=${encodeURIComponent(searchEmail)}`);
       console.log('Checkout Response:', response.data);
 
       if (response.data.length === 0) {
@@ -78,7 +76,7 @@ useEffect(() => {
 
   const fetchCheckoutHistory = async (email) => {
   try {
-    const checkoutResponse = await axios.get(`https://yeilva-store-server.up.railway.app/api/installment-history?email=${encodeURIComponent(email)}`);
+    const checkoutResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/installment-history?email=${encodeURIComponent(email)}`);
     console.log('Checkout Response:', checkoutResponse.data);
     setInstallmentHistory(checkoutResponse.data);
   } catch (error) {
@@ -115,7 +113,7 @@ const handlePaymentUpdate = async (applicationNumber, index, userEmail) => {
       };
 
       // Make the API call to update payments and payment dates
-      await axios.post('https://yeilva-store-server.up.railway.app/api/updateInstallments', {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/updateInstallments`, {
         applicationNumber,
         ...updatedPayments,
       });
@@ -136,7 +134,7 @@ const handlePaymentUpdate = async (applicationNumber, index, userEmail) => {
     try {
       setLoading(true);
 
-      await axios.post('https://yeilva-store-server.up.railway.app/api/installmentStatus', {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/installmentStatus`, {
        applicationNumber,
         newStatus: paymentStates[index].newStatus,
       });
@@ -409,7 +407,6 @@ const handlePaymentUpdate = async (applicationNumber, index, userEmail) => {
   );
 };
 
-export default InstallmentHistory;
 
 
 

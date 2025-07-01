@@ -1,6 +1,6 @@
 .add-to-cart-notification {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
@@ -80,5 +80,18 @@
 .view-cart-button:hover {
   background-color: #f7dc6f;
 }
+.proceed-to-checkout-button:hover {
+  background-color:  #f7dc6f;
+}
+.proceed-to-checkout-button{
+  background-color: #28A745; /* Amazon's yellow button color */
+  color: white;
+  border: 1px solid #a88734;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+} 
+
 
 /* You can add styling for a "Proceed to Checkout" button here */

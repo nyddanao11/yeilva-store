@@ -7,7 +7,10 @@ import TabbedComponent from'../components/ProductTablatureRecommended';
 import axios from 'axios';
 import YouMayLike from'../components/YouMayLike';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
-export default function ClickRecommendedProduct ({ addToCart, isLoggedIn, recommendedProducts, youMayLikeProducts })  {
+import { useCart } from './CartContext'; // Correct path to your context
+
+export default function ClickRecommendedProduct ({isLoggedIn, recommendedProducts, youMayLikeProducts })  {
+   const {addToCart} = useCart();
 
   const { id } = useParams();
    // console.log('ID from URL:', id);
