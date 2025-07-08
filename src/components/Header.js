@@ -8,7 +8,6 @@ import axios from'axios';
 import debounce from 'lodash.debounce'; // Corrected import for lodash.debounce
 import { ProductContext} from '../pages/ProductContext';
 import useSearchProducts from '../hooks/useSearchProducts';
-import AccountDisplay from'./AccountDisplay';
 
 export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink}) {
   const { handleItemClickCategory} = useContext(ProductContext);
