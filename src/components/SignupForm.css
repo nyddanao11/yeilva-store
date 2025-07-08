@@ -1,0 +1,127 @@
+/* SignUpForm.css */
+
+/* General page container */
+.signup-page-container {
+    background-color: #f8f9fa; /* Light background for the entire page */
+    min-height: 100vh; /* Ensure it takes full viewport height */
+    display: flex; /* Use flexbox to center content */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 30px 0; /* Add some vertical padding */
+}
+
+/* Container for the Row */
+.container {
+    max-width: 1200px; /* Limit overall width */
+}
+
+/* Left Column - Introduction/Branding */
+.signup-intro-content {
+    color: #343a40; /* Darker text for better contrast */
+    text-align: center; /* Default for mobile */
+}
+
+.signup-intro-content h1 {
+    font-size: 3.5rem; /* Larger font size for impact */
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: #007bff; /* Brand primary color */
+}
+
+.signup-intro-content p.lead {
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+.signup-link {
+    color: #007bff; /* Consistent link color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.signup-link:hover {
+    color: #0056b3; /* Darker on hover */
+    text-decoration: underline;
+}
+
+/* Right Column - Form Card */
+.signup-form-card {
+    max-width: 450px; /* Max width for the form card */
+    width: 100%; /* Ensure it's responsive */
+    border-radius: 12px; /* More pronounced rounded corners */
+    overflow: hidden; /* For shadow clipping */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Deeper shadow */
+}
+
+.signup-form-title {
+    color: #343a40;
+    font-weight: 600;
+}
+
+/* Formik error messages */
+.form-control.is-invalid + .invalid-feedback {
+    display: block; /* Ensure feedback is always visible when invalid */
+    margin-top: 0.25rem;
+    font-size: 0.875em; /* Standard Bootstrap size */
+}
+
+/* Password toggle icon styling */
+.password-toggle-icon {
+    background-color: #f8f9fa; /* Light background, consistent with Bootstrap forms */
+    color: #6c757d; /* Muted color for icon */
+    cursor: pointer;
+    border-left: none; /* Remove left border */
+    border-radius: 0 0.375rem 0.375rem 0; /* Match input border-radius */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.password-toggle-icon:hover {
+    background-color: #e9ecef; /* Slightly darker on hover */
+    color: #495057;
+}
+
+/* Form buttons */
+.signup-button {
+    background-color: #28a745; /* Green for signup */
+    border-color: #28a745;
+    font-weight: 600;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.signup-button:hover:not(:disabled) {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #1e7e34;
+    transform: translateY(-1px); /* Slight lift effect */
+}
+
+.signup-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .signup-page-container .container {
+        max-width: 960px; /* Adjust for larger screens */
+    }
+
+    .signup-intro-content {
+        text-align: left; /* Align left on medium and larger screens */
+    }
+
+    .signup-intro-content h1 {
+        font-size: 4.5rem; /* Even larger on desktop */
+    }
+
+    .signup-form-card {
+        margin-top: 0; /* Remove top margin on larger screens if vertically centered */
+    }
+
+    /* Hide links in the card body if they are already in the left column */
+    .d-md-none {
+        display: none !important;
+    }
+}

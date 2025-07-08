@@ -4,7 +4,7 @@ import { FaBox, FaTruck, FaShippingFast, FaCheckCircle } from "react-icons/fa";
 import axios from'axios';
 import YouMayLike from'../components/YouMayLike';
 
-export default function OrderTracking({addToCart}) {
+export default function OrderTracking({addToCart, youMayLikeProducts}) {
        const orderSteps = [
     { label: "Ordered", icon: <FaBox />, step: 1 },
     { label: "Shipped", icon: <FaTruck />, step: 2 },
@@ -40,7 +40,6 @@ useEffect(() => {
     }
 }, []);
 
-
     return (
         <>
           <Container className="mt-4">
@@ -67,7 +66,7 @@ useEffect(() => {
             </Card>
         ))}
         </Container>
-           <YouMayLike addToCart={addToCart}/>
+           <YouMayLike addToCart={addToCart} youMayLikeProducts = {youMayLikeProducts}/>
            </>
     );
 }

@@ -8,6 +8,7 @@ import axios from'axios';
 import debounce from 'lodash.debounce'; // Corrected import for lodash.debounce
 import { ProductContext} from '../pages/ProductContext';
 import useSearchProducts from '../hooks/useSearchProducts';
+import AccountDisplay from'./AccountDisplay';
 
 export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink}) {
   const { handleItemClickCategory} = useContext(ProductContext);
@@ -199,6 +200,7 @@ export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink
                         <span className="visually-hidden">Loading...</span>
                       </Spinner>
                     </Dropdown.Item>
+                   
                   ) : (
                     <>
                       {suggestions.length > 0 ? (
@@ -260,7 +262,9 @@ export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink
               )}
             </div>
           )}
+        
         </div>
+        
       ) : (
         <div className="search-container" ref={searchBarRef}>
           <Form className="search-form" role="search">
@@ -302,6 +306,7 @@ export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink
                     <span className="visually-hidden">Loading...</span>
                   </Spinner>
                 </Dropdown.Item>
+
               ) : (
                 <>
                   {suggestions.length > 0 ? (
@@ -363,6 +368,7 @@ export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink
           )}
         </div>
       )}
+        
 
       <Nav.Link as={Link} to="/cart" className="text-white shopping-basket">
         <FaShoppingCart size={22} />

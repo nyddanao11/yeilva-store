@@ -371,14 +371,20 @@ useEffect(() => {
   }
 }, []);
 
+
+
   return (
     <Row className='d-flex justify-content-center align-items-center'>
       <Col xs={12} md={8}>
-        <div className="text-center mb-4">
-          <h2 className="display-6 fw-bold">Checkout & Shipping Details</h2>
-          <p className="text-muted">Please review your order and provide your shipping information.</p>
+      
+      <div className="text-center mb-4 mt-2">
+            {/* Correct way to conditionally render based on a boolean */}
+            {passedEwalletStatus && (
+                <h2 className="display-6 fw-bold">Checkout & Shipping Details</h2>
+            )}
+            <p className="text-muted mt-2">Please review your order and provide your shipping information.</p>
         </div>
-
+      
         <div className="p-4 mb-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
           <Form onSubmit={handleSubmit}>
             {/* User Information - Read Only */}

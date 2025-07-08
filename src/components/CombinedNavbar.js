@@ -30,7 +30,7 @@ export default function CombinedNavbar ({cartItems, isLoggedIn, handleLogout, ca
                 allProducts={allProducts}
                 fetchAllProducts={fetchAllProducts}
                 addToCart={addToCart}
-                 headerShrink={headerShrink} 
+                 // headerShrink={headerShrink} 
             />
 
             {/* Render the ShopeeNavbar component */}
@@ -40,7 +40,7 @@ export default function CombinedNavbar ({cartItems, isLoggedIn, handleLogout, ca
                 isLoggedIn={isLoggedIn}
                 handleLogout={handleLogout}
                 handleItemClickCategory={handleItemClickCategory}
-                 headerShrink={headerShrink} 
+               
                 
             />
         </div>

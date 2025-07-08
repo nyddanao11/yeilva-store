@@ -1,0 +1,75 @@
+.login-page-container{
+ background-color: #f8f9fa; /* Light background for the entire page */
+    min-height: 100vh; /* Ensure it takes full viewport height */
+    display: flex; /* Use flexbox to center content */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 30px 0; /* Add some vertical padding */
+}/* Container for the Row */
+.container {
+    max-width: 1200px; /* Limit overall width */
+}
+.login-intro-content {
+    color: #343a40; /* Darker text for better contrast */
+    text-align: center; /* Default for mobile */
+}
+.login-intro-content h1 {
+    font-size: 3.5rem; /* Larger font size for impact */
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: #007bff; /* Brand primary color */
+}
+.login-intro-content p.lead {
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+.login-link {
+    color: #007bff; /* Consistent link color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-link:hover {
+    color: #0056b3; /* Darker on hover */
+    text-decoration: underline;
+}
+
+/* Right Column - Form Card */
+.login-form-card {
+    max-width: 450px; /* Max width for the form card */
+    width: 100%; /* Ensure it's responsive */
+    border-radius: 12px; /* More pronounced rounded corners */
+    overflow: hidden; /* For shadow clipping */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Deeper shadow */
+}
+
+.login-form-title {
+    color: #343a40;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .login-page-container .container {
+        max-width: 960px; /* Adjust for larger screens */
+    }
+
+    .login-intro-content {
+        text-align: left; /* Align left on medium and larger screens */
+    }
+
+    .login-intro-content h1 {
+        font-size: 4.5rem; /* Even larger on desktop */
+    }
+
+    .login-form-card {
+        margin-top: 0; /* Remove top margin on larger screens if vertically centered */
+    }
+
+    /* Hide links in the card body if they are already in the left column */
+    .d-md-none {
+        display: none !important;
+    }
+}
