@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, Nav, Container, Dropdown, Modal, NavDropdown, Offcanvas, Button} from 'react-bootstrap';
+import { Navbar, Nav, Container, Dropdown, Modal, NavDropdown, Offcanvas, Button, Badge} from 'react-bootstrap';
 import { Link, NavLink} from 'react-router-dom';
 import { FaHome,  FaServicestack, FaGift, FaBars,FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt} from 'react-icons/fa'; // Added FaTree and FaSnowflake
 import { FiUser } from 'react-icons/fi';
@@ -55,11 +55,8 @@ const categories = [
   { name: 'Personal Collection', icon: <FaConciergeBell /> ,link:'/productsdata'},
   { name: 'Avon Collection', icon: <FaConciergeBell /> ,link:'/productsdata'},
   { name: 'Beauty and Hygiene', icon: <FaConciergeBell />,link:'/productsdata' },
-  { name: 'Fashion and Apparel', icon: <FaTshirt /> ,link:'/productsdata'},
-  { name: 'Electronics', icon: <FaLaptop />,link:'/productsdata' },
-  { name: 'Home and Kitchen Appliances', icon: <FaUtensils /> ,link:'/productsdata'},
-  { name: 'Home Improvement and DIY Tools', icon: <FaCogs /> ,link:'/productsdata'},
-  { name: 'Outdoor and Sports Equipment', icon: <FaBasketballBall /> ,link:'/productsdata'},
+  { name: 'Fashion and Apparel', icon: <FaTshirt /> ,link:'/productsdata', isComingSoon: true,},
+  { name: 'Outdoor/Sports Equipment', icon: <FaBasketballBall /> ,link:'/productsdata', isComingSoon: true,},
 ];
 
   return (
@@ -104,19 +101,27 @@ const categories = [
           <Navbar.Collapse id="navbar-nav" className="justify-content-lg-between">
             <Nav className="ml-auto">
               {/* Product category dropdown */}
+
               <Nav>
                 <NavDropdown title="Categories" id="basic-nav-dropdown">
                   {categories.map((cat, index) => (
                     <Dropdown.Item
                       key={index}
-                      onClick={() => handleItemClickCategory(cat.name)}
-                      as={Link} to="/productsdata"
+                      disabled={cat.isComingSoon}             
+                      as={!cat.isComingSoon ? Link : 'button'} // Use 'button' or a div if disabled, so it doesn't try to link
+                      to={!cat.isComingSoon ? "/productsdata" : undefined}
+                      onClick={!cat.isComingSoon ? () => handleItemClickCategory(cat.name) : undefined}
+                      title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
                     >
                       {cat.icon} {cat.name}
+                      {cat.isComingSoon && (
+                        // Conditionally show a "Coming Soon" badge
+                        <Badge bg="info" className="ms-2">
+                          Coming Soon
+                        </Badge>
+                      )}
                     </Dropdown.Item>
                   ))}
-
-                 
                 </NavDropdown>
               </Nav>
 
@@ -183,7 +188,7 @@ const categories = [
                         <Dropdown.Menu>
                           <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>My Orders</Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/settings" onClick={handleCloseOffcanvas}>Settings</Dropdown.Item>
+                          
                           <Dropdown.Divider />
                           <Dropdown.Item onClick={() => { handleLogout(); }}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
@@ -250,16 +255,29 @@ const categories = [
             <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}  className='link_style'><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
             <NavDropdown {...`${< FaServicestack />}`} title="Categories" id="product-category-dropdown"  style={{ paddingRight: '10px', borderRadius: '5px' }}>
             
-                  {categories.map((cat, index) => (
+                   {categories.map((cat, index) => (
                     <Dropdown.Item
                       key={index}
-                       onClick={() => {
-                      handleItemClickCategory(cat.name);
-                      handleCloseOffcanvas(); // Call this function to close the offcanvas
-                    }}
-                      as={Link} to="/productsdata"
+                      disabled={cat.isComingSoon}             
+                      as={!cat.isComingSoon ? Link : 'button'} // Use 'button' or a div if disabled, so it doesn't try to link
+                      to={!cat.isComingSoon ? "/productsdata" : undefined}
+                     onClick={
+                            !cat.isComingSoon
+                              ? () => {
+                                  handleItemClickCategory(cat.name); // Your existing function
+                                  handleCloseOffcanvas();            // The function to close the Offcanvas
+                                }
+                              : undefined
+                          }
+                      title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
                     >
                       {cat.icon} {cat.name}
+                      {cat.isComingSoon && (
+                        // Conditionally show a "Coming Soon" badge
+                        <Badge bg="info" className="ms-2">
+                          Coming Soon
+                        </Badge>
+                      )}
                     </Dropdown.Item>
                   ))}
 
@@ -319,7 +337,7 @@ const categories = [
                         <Dropdown.Menu>
                           <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>My Orders</Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/settings" onClick={handleCloseOffcanvas}>Settings</Dropdown.Item>
+                         
                           <Dropdown.Divider />
                           <Dropdown.Item onClick={() => { handleLogout(); handleCloseOffcanvas(); }}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
