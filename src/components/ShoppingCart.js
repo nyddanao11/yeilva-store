@@ -96,9 +96,8 @@ const signup =()=>{
                      <Link to={`/clickcartitem/${item.id}`} className="d-flex justify-content-center align-items-center">
                     <Card.Img
                       src={item.url}
-                      alt={item.name}
-                      className="img-fluid" // Ensures image scales down
-                      style={{ maxWidth: '50%', height: 'auto' }}
+                      alt={item.name}            
+                      style={{ maxWidth: '25%', height: '25%' }}
                     />
                     </Link>
                     )

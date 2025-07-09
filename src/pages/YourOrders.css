@@ -1,19 +1,29 @@
 /* Add this CSS to your component or a CSS file */
-.page-title{
+/*.page-title{
 text-align: center;
 padding-bottom: 8px;
 }
-
-
 
 .order-tracking{
   margin-bottom: 15px;
   width: 100%;
   margin-top: 10px;
  
-}
-
+}*/
+/*
 .image-main {
   width:100px;
   height: 100px;
+}*/
+/*.item-details{
+  display: flex;
+  flex-direction: column;
 }
+.buy-again{
+width: 100px;
+margin-bottom: 7px;
+}
+.return-item{
+width: 100px;
+}*/
+

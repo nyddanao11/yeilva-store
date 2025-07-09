@@ -4,6 +4,19 @@ import "./YourOrders.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
+// Helper function for status color (add this outside your component)
+const getStatusColor = (status) => {
+  switch (status?.toLowerCase()) {
+    case 'pending': return '#FFC107'; // Amber/Yellow
+    case 'processing': return '#007BFF'; // Blue
+    case 'shipped': return '#28A745'; // Green
+    case 'out for delivery': return '#17A2B8'; // Info/Cyan
+    case 'delivered': return '#6C757D'; // Grey (if you choose to show delivered)
+    case 'cancelled': return '#DC3545'; // Red
+    default: return '#343A40'; // Dark/Default
+  }
+};
+
 export default function Orders({ isLoggedIn }) {
   const [userCheckoutData, setUserCheckoutData] = useState(null);
 
@@ -77,73 +90,87 @@ function returnOrder(){
   }
 
   return (
-<Container>
-     <div className="d-flex mt-2 mb-1 ">
-        <h5>Your Orders</h5>
-        <Link to="/checkouthistory"  style={{textDecoration:'none', marginLeft:'15px'}}>( View All )</Link>
-        </div>
+<Container className="my-4"> {/* Added margin for better spacing */}
+      <div className="d-flex align-items-center mt-2 mb-3"> {/* Added align-items-center for vertical alignment, adjusted margin */}
+        <h5 className="mb-0">Your Orders</h5> {/* Removed inline margin, added mb-0 */}
+        <Link to="/checkouthistory" className="ms-3 text-decoration-none text-primary fw-bold fs-6">
+          ( View All )
+        </Link>
+      </div>
 
-    <div style={{ marginBottom: "14px", padding: "15px" }}>
-      <ListGroup className="cart-group">
-        {!userCheckoutData || (Array.isArray(userCheckoutData) && userCheckoutData.length === 0) ? (
-          <Row>
-            <Col className="mb-3 d-flex flex-column justify-content-center align-items-center">
-              <span>Sorry, Only undelivered orders will be displayed here.</span> 
-              <Link to="/checkouthistory"><span> To Buy Again Click Here</span></Link>
-            </Col>
-          </Row>
-        ) : (
-          userCheckoutData.map((order) => (
-            // Using order.id or a combination for a more unique key if id isn't always unique per item
-            <ListGroup.Item
-              key={`${order.id}-${order.name}`} // Combine ID and name for a more robust key
-              className="order-item mb-3"
-              style={{ padding: "15px", borderRadius: "6px", border: "1px solid #ddd" }}
-            >
-              {/* Order Details (if applicable for the normalized item) */}
-              {/* Note: If normalizeOrderData splits an order into multiple items,
-                  order.id, order.orderDate, order.status will be repeated for each item from the same original order.
-                  Adjust display if these should only show once per original order block. */}
-              <div className="order-info" style={{ marginBottom: "10px", fontSize: "14px" }}>
-                <strong>Order ID:</strong> {order.order_number || "N/A"} <br />
-                <strong>Placed on:</strong> {order.checkout_date || "N/A"} <br />
-               
-              </div>
-
-              <Card className="pb-2" style={{ border: "none" }}>
-                <Card.Body>
-                  <Row>
-                    {/* Left Side: Image */}
-                    <Col md={4} xs={12} className="d-flex justify-content-center align-items-center">
-                      <Image src={order.url} alt={order.name} className="image-main" style={{ width: "100px", height: "100px" }} />
+      <div className="mb-3 p-3 border rounded"> {/* Replaced inline style with Bootstrap classes */}
+        <ListGroup className="cart-group">
+          {!userCheckoutData || (Array.isArray(userCheckoutData) && userCheckoutData.length === 0) ? (
+            <Row>
+              <Col className="mb-3 d-flex flex-column justify-content-center align-items-center text-center py-4">
+                <p className="lead text-muted">
+                  Sorry, only undelivered orders will be displayed here.
+                </p>
+                <Link to="/checkouthistory" className="btn btn-outline-primary mt-2">
+                  View All Orders to Buy Again
+                </Link>
+              </Col>
+            </Row>
+          ) : (
+            userCheckoutData.map((order) => (
+              <ListGroup.Item
+                key={`${order.order_number}-${order.id || order.name}`} // Use order_number, then item ID/name
+                className="order-item mb-3 p-3 border rounded" // Consistent styling
+              >
+                {/* Order Header: Details common to the whole order */}
+                <div className="order-header mb-3">
+                  <Row className="align-items-center">
+                    <Col xs={12} md={6}>
+                      <strong>Order ID:</strong> {order.order_number || "N/A"} <br />
+                      <strong>Placed on:</strong> {new Date(order.checkout_date).toLocaleDateString() || "N/A"} <br />
                     </Col>
-
-                    {/* Right Side: Details */}
-                    <Col md={8} xs={12}>
-                      <div className="item-details">
-                        <h6 className="item-name" style={{ fontWeight: "bold" }}>{order.name}</h6>
-                        <p className="item-price" style={{ color: "#B12704" }}>₱{order.price}</p>
-                        {/* Pass the current 'order' object to buyAgain */}
-                        <Button variant="primary" size="sm" onClick={() => buyAgain(order)}>Buy Again</Button>
-                        <Button variant="outline-secondary" size="sm" className="ms-2" onClick={returnOrder}>Return Item</Button>
-                      </div>
+                    <Col xs={12} md={6} className="text-md-end mt-2 mt-md-0">
+                      <strong>Status:</strong> <span style={{ color: getStatusColor(order.status) }}>{order.status || "N/A"}</span>
                     </Col>
                   </Row>
-                </Card.Body>
-              </Card>
-            </ListGroup.Item>
-          ))
-        )}
-      </ListGroup>
+                  <hr className="my-2"/> {/* Separator for order header and items */}
+                </div>
 
-      <Button
-        onClick={showOrderTracking}
-        disabled={!userCheckoutData || (Array.isArray(userCheckoutData) && userCheckoutData.length === 0)}
-        className="order-tracking"
-      >
-        Track your Orders
-      </Button>
-    </div>
+                {/* Individual Item Details within the order */}
+                <Card className="border-0"> {/* Use border-0 instead of inline style */}
+                  <Card.Body className="p-0"> {/* Remove default padding if not needed */}
+                    <Row className="g-3 align-items-center"> {/* Added gutter and vertical alignment */}
+                      {/* Left Side: Image */}
+                      <Col xs={4} md={3} className="d-flex justify-content-center">
+                        <Image src={order.url} alt={order.name} className="img-fluid" style={{ maxWidth: "100px", height: "auto" }} />
+                      </Col>
+
+                      {/* Right Side: Details and Buttons */}
+                      <Col xs={8} md={9}>
+                        <div className="item-details">
+                          <h6 className="item-name fw-bold mb-1">{order.name}</h6> {/* Used fw-bold, mb-1 */}
+                          <p className="item-price text-danger mb-2">₱{order.price || '0.00'}</p> {/* Used text-danger, mb-2 */}
+                          <div className="d-flex flex-column flex-md-row gap-2"> {/* Responsive button group */}
+                            <Button variant="primary" size="sm" onClick={() => buyAgain(order)}>Buy Again</Button>
+                            {/* Conditionally render Return Item if applicable for undelivered orders */}
+                            {order.status !== 'pending' && order.status !== 'cancelled' && ( // Example condition
+                               <Button variant="outline-secondary" size="sm" onClick={returnOrder}>Return Item</Button>
+                            )}
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </ListGroup.Item>
+            ))
+          )}
+        </ListGroup>
+
+        <Button
+          onClick={showOrderTracking}
+          disabled={!userCheckoutData || (Array.isArray(userCheckoutData) && userCheckoutData.length === 0)}
+          className="w-100 mt-3 btn-lg" // Make button full width, add top margin, larger size
+          variant="secondary" // Changed color for distinction from primary actions
+        >
+          Track Your Orders
+        </Button>
+      </div>
     </Container>
   );
 }
