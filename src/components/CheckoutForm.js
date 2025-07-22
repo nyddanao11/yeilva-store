@@ -6,6 +6,8 @@ import SuccessModal from'./modalCheckout';
 import {useNavigate, Link, useLocation} from'react-router-dom';
 import CameraCapture from'./CameraCapture';
 import { useCart } from '../pages/CartContext'; // Correct path to your context
+import { fetchUserData } from '../components/userService';
+
 
 export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
  const {
@@ -33,12 +35,15 @@ export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
 
   // ... (other states like loading, error, etc.)
  
-const [userData, setUserData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    name:'',
-  });
+ const [userData, setUserData] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        joineddate: '',
+        delivery_addresses: [], // Initialize as empty array
+    });
+    const [selectedAddressId, setSelectedAddressId] = useState(null); // State to hold the ID of the selected address
+    const [selectedAddressDetails, setSelectedAddressDetails] = useState(null); // State to hold the details of the selected address
 
  const [formData, setFormData] = useState({
   name: '', // Add the 'name' field
@@ -170,6 +175,19 @@ const cleanProductName = (productName) => {
  const handleSubmit = async (e) => {
   e.preventDefault();
 
+   if (!selectedAddressDetails) {
+        // You might want to show an error message to the user here
+        console.error("No delivery address selected.");
+        alert('Please choose an Address before proceeding');
+        setLoading(false); // Stop loading if it was started
+        return; // Prevent submission
+    }
+ // console.log("selectedAddressDetails structure:", selectedAddressDetails);
+ //    console.log("streetAddress value:", selectedAddressDetails.streetAddress);
+ //    console.log("stateProvince value:", selectedAddressDetails.stateProvince);
+ //    console.log("phoneNumber value:", selectedAddressDetails.phoneNumber);
+
+    // If you had the incorrect nested access:
   setLoading(true); // Start loading spinner
 
   // Clean the product names for server submission
@@ -195,9 +213,13 @@ const cleanProductName = (productName) => {
   formData.append('firstname', userData.firstname);
   formData.append('lastname', userData.lastname);
   formData.append('email', userData.email);
-  formData.append('address', checkoutData.address);
-  formData.append('province', checkoutData.province);
-  formData.append('phone', checkoutData.phone);
+  formData.append('address', selectedAddressDetails.streetAddress);
+  formData.append('province', selectedAddressDetails.stateProvince);
+  formData.append('phone', selectedAddressDetails.phoneNumber);
+  formData.append('city', selectedAddressDetails.city);
+  formData.append('postalCode', selectedAddressDetails.postalCode);
+  formData.append('fullName', selectedAddressDetails.fullName);
+  formData.append('apartmentSuite', selectedAddressDetails.apartmentSuite || '');
   formData.append('name', itemName);  // HTML formatted cart items
   formData.append('quantity', cartItems.reduce((acc, item) => acc + item.quantity, 0));
   formData.append('total', formattedGrandTotal);
@@ -206,7 +228,7 @@ const cleanProductName = (productName) => {
   // For non-FormData submissions, create a JSON payload
   const cashOnDelivery = {
     ...userData,
-    ...checkoutData,
+    ...selectedAddressDetails,
     name: itemName,
     quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
     total: formattedGrandTotal,
@@ -346,31 +368,68 @@ useEffect(() => {
 }, []);
 
 
-  const fetchCheckoutData = async (email, setCheckoutData)  => {
-  if (!email) {
-    console.error('Email is undefined');
-    return;
-  }
+    useEffect(() => {
+        const storedUserEmail = localStorage.getItem('email');
+        if (storedUserEmail) {
+            fetchUserData(storedUserEmail.replace(/"/g, ''))
+                .then((user) => {
+                    console.log('User data from API:', user);
+                    setUserData({
+                        ...user,
+                        joineddate: user.joineddate || '',
+                        delivery_addresses: user.delivery_addresses || [],
+                    });
+                    setLoading(false);
 
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/checkoutdata?email=${encodeURIComponent(email)}`);
-    const user = response.data;
-   setCheckoutData(user);
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-  }
-};
+                    // Set the default address as selected initially, if available
+                    if (user.delivery_addresses && user.delivery_addresses.length > 0) {
+                        const defaultAddress = user.delivery_addresses.find(addr => addr.isDefault);
+                        if (defaultAddress) {
+                            setSelectedAddressId(defaultAddress.id);
+                            setSelectedAddressDetails(defaultAddress);
+                        } else {
+                            // If no default, select the first one
+                            setSelectedAddressId(user.delivery_addresses[0].id);
+                            setSelectedAddressDetails(user.delivery_addresses[0]);
+                        }
+                    } else {
+                        // Crucial: If no addresses, set selectedAddressDetails to null explicitly
+                        setSelectedAddressId(null);
+                        setSelectedAddressDetails(null);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                    setLoading(false);
+                    // Also clear selected address details if fetch fails
+                    setSelectedAddressId(null);
+                    setSelectedAddressDetails(null);
+                });
+        } else {
+            console.log('Email is missing in local storage');
+            setLoading(false);
+            setSelectedAddressId(null);
+            setSelectedAddressDetails(null);
+        }
+    }, []);
 
+    const handleAddressSelect = (e) => {
+        const addressId = parseInt(e.target.value, 10);
+        setSelectedAddressId(addressId);
+        // Find the selected address from the userData.delivery_addresses array
+        const selected = userData.delivery_addresses.find(addr => addr.id === addressId);
+        setSelectedAddressDetails(selected);
+    };
 
-useEffect(() => {
-  const storedUserEmail = localStorage.getItem('email');
-  if (storedUserEmail) {
-    fetchCheckoutData(storedUserEmail.replace(/"/g, ''), setCheckoutData);
-  } else {
-    console.log('Email is missing in local storage');
-  }
-}, []);
-
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '300px' }}>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
+    }
 
 
   return (
@@ -423,44 +482,51 @@ useEffect(() => {
             </Row>
 
             {/* Shipping Information */}
-            <h4 className="mb-3 text-primary">Shipping Information</h4>
-            <div className="mb-4">
-              <FloatingLabel controlId="address" label="Address & Landmark">
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  name="address"
-                  value={checkoutData.address}
-                  onChange={handleUserChange}
-                  required
-                />
-              </FloatingLabel>
-            </div>
+             <h4 className="mb-3 text-primary">Shipping Information</h4>
 
-            <Row className="g-3 mb-4">
-              <Col md={6}>
-                <FloatingLabel controlId="province" label="Province">
-                  <Form.Control
-                    type="text"
-                    name="province"
-                    value={checkoutData.province}
-                    onChange={handleUserChange}
-                    required
-                  />
-                </FloatingLabel>
-              </Col>
-              <Col md={6}>
-                <FloatingLabel controlId="phone" label="Phone Number">
-                  <Form.Control
-                    type="tel" // Use type="tel" for phone numbers
-                    name="phone"
-                    value={checkoutData.phone}
-                    onChange={handleUserChange}
-                    required
-                  />
-                </FloatingLabel>
-              </Col>
-            </Row>
+            {userData.delivery_addresses.length > 0 ? (
+                <>
+                    {/* Address Selection Dropdown */}
+                    <Form.Group controlId="addressSelect" className="mb-3">
+                        <FloatingLabel controlId="floatingAddressSelect" label="Select Delivery Address">
+                            <Form.Select
+                                value={selectedAddressId || ''} // Use selected address ID
+                                onChange={handleAddressSelect}
+                            >
+                                <option value="">Choose an address...</option>
+                                {userData.delivery_addresses.map((address) => (
+                                    <option key={address.id} value={address.id}>
+                                        {address.fullName} - {address.streetAddress}, {address.city}, {address.stateProvince},{address.phoneNumber}
+                                        {address.isDefault && ' (Default)'}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </FloatingLabel>
+                    </Form.Group>
+
+                    {/* Display Selected Address Details */}
+                    {selectedAddressDetails ? (
+                        <>
+                            <p className="fw-bold mt-4 mb-2">Selected Address Details:</p>
+                            <div className="border p-3 rounded mb-4 bg-light">
+                                <p className="mb-1"><strong>{selectedAddressDetails.fullName}</strong></p>
+                                <p className="mb-1">{selectedAddressDetails.streetAddress}
+                                    {selectedAddressDetails.apartmentSuite && `, ${selectedAddressDetails.apartmentSuite}`}</p>
+                                <p className="mb-1">{selectedAddressDetails.city}, {selectedAddressDetails.stateProvince} {selectedAddressDetails.postalCode}</p>
+                                <p className="mb-0">Phone: {selectedAddressDetails.phoneNumber}</p>
+                                {selectedAddressDetails.isDefault && <span className="badge bg-info mt-2">Default Address</span>}
+                            </div>
+                        </>
+                    ) : (
+                        <p className="text-muted mb-2">Please select a delivery address.</p>
+                    )}
+                </>
+            ) : (
+                <p>
+                    No delivery addresses found for your account. Please {' '}
+                    <a href="/myaccount" target="_blank" rel="noopener noreferrer">add one in your account settings</a>.
+                </p>
+            )}
 
             {/* Items in Cart */}
             <h4 className="mb-3 text-primary">Your Order</h4>

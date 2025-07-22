@@ -79,6 +79,8 @@ const  OrderTracking = React.lazy(() => import('./pages/OrderTracking'));
 const  ProductsData = React.lazy(() => import('./pages/ProductPageUpdated'));
 const  AddToCartNotification = React.lazy(() => import('./pages/AddToCartNotification'));
 const  ClickCartItem = React.lazy(() => import('./pages/ClickCartItem'));
+const  AddDeliveryAddress = React.lazy(() => import('./pages/AddDeliveryAddress'));
+
 
 
  function App() {
@@ -143,7 +145,7 @@ const handleLogout = () => {
     navigate('/');
   };
 
-   console.log('notificationProduct', notificationProduct);
+   // console.log('notificationProduct', notificationProduct);
 
  return (
   <ErrorBoundary>
@@ -233,6 +235,7 @@ const handleLogout = () => {
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
 
                            
                  <Route component={NotFoundPage} />
@@ -365,6 +368,7 @@ const handleLogout = () => {
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                         
