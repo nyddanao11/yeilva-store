@@ -374,34 +374,44 @@ useEffect(() => {
             fetchUserData(storedUserEmail.replace(/"/g, ''))
                 .then((user) => {
                     console.log('User data from API:', user);
+                    const addresses = user.delivery_addresses || [];
+
                     setUserData({
                         ...user,
                         joineddate: user.joineddate || '',
-                        delivery_addresses: user.delivery_addresses || [],
+                        delivery_addresses: addresses,
                     });
-                    setLoading(false);
 
-                    // Set the default address as selected initially, if available
-                    if (user.delivery_addresses && user.delivery_addresses.length > 0) {
-                        const defaultAddress = user.delivery_addresses.find(addr => addr.isDefault);
+                    // --- Start of New/Modified Logic for Automatic Selection ---
+                    if (addresses.length > 0) {
+                        const defaultAddress = addresses.find(addr => addr.is_default); // Use is_default from backend
                         if (defaultAddress) {
+                            // Option 1: A default address exists
                             setSelectedAddressId(defaultAddress.id);
                             setSelectedAddressDetails(defaultAddress);
+                        } else if (addresses.length === 1) {
+                            // Option 2: Only one address, and it's not explicitly default
+                            setSelectedAddressId(addresses[0].id);
+                            setSelectedAddressDetails(addresses[0]);
                         } else {
-                            // If no default, select the first one
-                            setSelectedAddressId(user.delivery_addresses[0].id);
-                            setSelectedAddressDetails(user.delivery_addresses[0]);
+                            // Option 3: Multiple addresses, no default. Let user choose (or pre-select first)
+                            // Your current logic: setSelectedAddressId(addresses[0].id); setSelectedAddressDetails(addresses[0]);
+                            // I'm changing this to null initially, forcing the "Choose an address" option to be visible
+                            setSelectedAddressId(null);
+                            setSelectedAddressDetails(null);
                         }
                     } else {
-                        // Crucial: If no addresses, set selectedAddressDetails to null explicitly
+                        // No addresses found
                         setSelectedAddressId(null);
                         setSelectedAddressDetails(null);
                     }
+                    // --- End of New/Modified Logic ---
+
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
                     setLoading(false);
-                    // Also clear selected address details if fetch fails
                     setSelectedAddressId(null);
                     setSelectedAddressDetails(null);
                 });
@@ -416,7 +426,6 @@ useEffect(() => {
     const handleAddressSelect = (e) => {
         const addressId = parseInt(e.target.value, 10);
         setSelectedAddressId(addressId);
-        // Find the selected address from the userData.delivery_addresses array
         const selected = userData.delivery_addresses.find(addr => addr.id === addressId);
         setSelectedAddressDetails(selected);
     };
@@ -482,30 +491,19 @@ useEffect(() => {
             </Row>
 
             {/* Shipping Information */}
-             <h4 className="mb-3 text-primary">Shipping Information</h4>
+                        <h4 className="mb-3 text-primary">Shipping Information</h4>
 
-            {userData.delivery_addresses.length > 0 ? (
+            {userData.delivery_addresses.length === 0 ? (
+                // Scenario 1: No delivery addresses at all
+                <p>
+                    No delivery addresses found for your account. Please {' '}
+                    <Link to="/myaccount" target="_blank" rel="noopener noreferrer">add one in your account settings</Link>.
+                </p>
+            ) : (
                 <>
-                    {/* Address Selection Dropdown */}
-                    <Form.Group controlId="addressSelect" className="mb-3">
-                        <FloatingLabel controlId="floatingAddressSelect" label="Select Delivery Address">
-                            <Form.Select
-                                value={selectedAddressId || ''} // Use selected address ID
-                                onChange={handleAddressSelect}
-                            >
-                                <option value="">Choose an address...</option>
-                                {userData.delivery_addresses.map((address) => (
-                                    <option key={address.id} value={address.id}>
-                                        {address.fullName} - {address.streetAddress}, {address.city}, {address.stateProvince},{address.phoneNumber}
-                                        {address.isDefault && ' (Default)'}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    {/* Display Selected Address Details */}
-                    {selectedAddressDetails ? (
+                    {/* Scenario 2 & 3: Addresses exist */}
+                    {selectedAddressDetails && (
+                        // If an address is automatically selected (either default or only one) OR manually selected
                         <>
                             <p className="fw-bold mt-4 mb-2">Selected Address Details:</p>
                             <div className="border p-3 rounded mb-4 bg-light">
@@ -514,19 +512,35 @@ useEffect(() => {
                                     {selectedAddressDetails.apartmentSuite && `, ${selectedAddressDetails.apartmentSuite}`}</p>
                                 <p className="mb-1">{selectedAddressDetails.city}, {selectedAddressDetails.stateProvince} {selectedAddressDetails.postalCode}</p>
                                 <p className="mb-0">Phone: {selectedAddressDetails.phoneNumber}</p>
-                                {selectedAddressDetails.isDefault && <span className="badge bg-info mt-2">Default Address</span>}
+                                {selectedAddressDetails.is_default && <span className="badge bg-info mt-2">Default Address</span>} {/* Use is_default */}
                             </div>
                         </>
-                    ) : (
-                        <p className="text-muted mb-2">Please select a delivery address.</p>
                     )}
-                </>
-            ) : (
-                <p>
-                    No delivery addresses found for your account. Please {' '}
-                    <a href="/myaccount" target="_blank" rel="noopener noreferrer">add one in your account settings</a>.
-                </p>
-            )}
+
+                    {/* Show dropdown only if there are multiple addresses and no specific one is auto-selected for display, OR if user wants to change */}
+                    {userData.delivery_addresses.length > 1 || !selectedAddressDetails ? (
+                        <Form.Group controlId="addressSelect" className="mb-3">
+                            <FloatingLabel controlId="floatingAddressSelect" label="Select Delivery Address">
+                                <Form.Select
+                                    value={selectedAddressId || ''} // Use selected address ID
+                                    onChange={handleAddressSelect}
+                                >
+                                    <option value="">{selectedAddressDetails ? 'Change address...' : 'Choose an address...'}</option>
+                                    {userData.delivery_addresses.map((address) => (
+                                        <option key={address.id} value={address.id}>
+                                            {address.fullName} - {address.streetAddress}, {address.city}, {address.stateProvince}, {address.phoneNumber}
+                                            {address.is_default && ' (Default)'} {/* Use is_default */}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </FloatingLabel>
+                        </Form.Group>
+                    ) : (
+                        // If only one address and it's auto-selected, no dropdown needed
+                        <p className="text-muted mb-2">This is your only available address.</p>
+                    )}
+                    </>
+                   )}
 
             {/* Items in Cart */}
             <h4 className="mb-3 text-primary">Your Order</h4>

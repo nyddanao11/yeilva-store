@@ -1,243 +1,308 @@
-import React, { useEffect, useState } from 'react';
-import { Navbar, Nav, Container, Dropdown, Modal, NavDropdown, Offcanvas, Button, Badge} from 'react-bootstrap';
-import { Link, NavLink} from 'react-router-dom';
-import { FaHome,  FaServicestack, FaGift, FaBars,FaAppleAlt, FaLaptop, FaTshirt, FaCogs, FaBasketballBall, FaConciergeBell, FaUtensils, FaPercent, FaSignInAlt, FaSignOutAlt} from 'react-icons/fa'; // Added FaTree and FaSnowflake
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  Navbar,
+  Nav,
+  Container,
+  Dropdown,
+  Modal,
+  NavDropdown,
+  Offcanvas,
+  Button,
+  Badge,
+} from 'react-bootstrap';
+import { Link, NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
+import {
+  FaHome,
+  FaServicestack,
+  FaGift,
+  FaBars,
+  FaAppleAlt,
+  FaTshirt,
+  FaCogs, // Good for services
+  FaBasketballBall,
+  FaConciergeBell, // Already used, consider if you want different icons for distinct categories
+  FaUtensils, // Good for grocery/food
+  FaPercent,
+  FaSignInAlt,
+  FaSignOutAlt,
+} from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
-import './ShoppeeNavbar.css'; // Update your CSS with Christmas theme colors
+import './ShoppeeNavbar.css';
 import { useMediaQuery } from 'react-responsive';
 
-export default function ShopeeNavbar({ cartItems, isLoggedIn, handleLogout, handleLogin, handleItemClickCategory}) {
+export default function ShopeeNavbar({
+  cartItems, // Not used in this component, consider removing if truly not needed for the navbar
+  isLoggedIn,
+  handleLogout,
+  handleLogin, // Not used directly, but related to the modal
+  handleItemClickCategory,
+}) {
   const [userData, setUserData] = useState({ firstname: '' });
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
- const [showModal, setShowModal] = useState(false);
- const [modalMessage, setModalMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
-  const handleClose = () => setShowModal(false);
-  const handleShowModal = (message) => {
-  setModalMessage(message);
-  setShowModal(true);
-};
+  // Memoize handleClose for better performance and to prevent unnecessary re-renders
+  const handleCloseModal = useCallback(() => setShowModal(false), []);
+  const handleShowModal = useCallback((message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  }, []);
 
-  const handleLoginRedirect = () => {
-    setShowModal(false);
-    // Redirect to login page
-    window.location.href = '/login'; // or use navigate('/login') if using react-router
-  };
+  const handleLoginRedirect = useCallback(() => {
+    handleCloseModal();
+    navigate('/login'); // Use navigate for routing
+  }, [handleCloseModal, navigate]);
 
+  // Handle offcanvas state
+  const handleCloseOffcanvas = useCallback(() => setShowOffcanvas(false), []);
+  const handleShowOffcanvas = useCallback(() => setShowOffcanvas(true), []);
 
+  // Fetch user data when logged in status changes
   useEffect(() => {
-    const storedUserEmail = localStorage.getItem('email');
-    const fetchUser = async () => {
-      if (storedUserEmail) {
-        try {
-          const user = await fetchUserData(storedUserEmail.replace(/"/g, ''));
-          setUserData(user);
-        } catch (error) {
-          console.error('Error setting user data:', error);
+    const fetchAndSetUser = async () => {
+      if (isLoggedIn) { // Only fetch if logged in
+        const storedUserEmail = localStorage.getItem('email');
+        if (storedUserEmail) {
+          try {
+            const user = await fetchUserData(storedUserEmail.replace(/"/g, ''));
+            setUserData(user);
+          } catch (error) {
+            console.error('Failed to fetch user data:', error);
+            // Optionally, handle error state for UI (e.g., show a generic "User" name)
+          }
+        } else {
+          console.log('User email not found in local storage, cannot fetch user data.');
+          setUserData({ firstname: '' }); // Reset user data if email is missing
         }
       } else {
-        console.log('Email is missing in local storage');
+        setUserData({ firstname: '' }); // Clear user data if logged out
       }
     };
-    fetchUser();
-  }, [isLoggedIn]);
 
-  
-  const handleCloseOffcanvas = () => setShowOffcanvas(false);
-  const handleShowOffcanvas = () => setShowOffcanvas(true);
+    fetchAndSetUser();
+  }, [isLoggedIn]); // Depend on isLoggedIn to re-fetch when status changes
 
- 
-const categories = [
-  { name: 'Grocery Items', icon: <FaAppleAlt /> ,link:'/productsdata'},
-  { name: 'Wellness Product', icon: <FaConciergeBell />,link:'/productsdata' },
-  { name: 'Personal Collection', icon: <FaConciergeBell /> ,link:'/productsdata'},
-  { name: 'Avon Collection', icon: <FaConciergeBell /> ,link:'/productsdata'},
-  { name: 'Beauty and Hygiene', icon: <FaConciergeBell />,link:'/productsdata' },
-  { name: 'Fashion and Apparel', icon: <FaTshirt /> ,link:'/productsdata', isComingSoon: true,},
-  { name: 'Outdoor/Sports Equipment', icon: <FaBasketballBall /> ,link:'/productsdata', isComingSoon: true,},
-];
+  // Define categories with more specific icons where possible
+  const categories = [
+    { name: 'Grocery Items', icon: <FaUtensils />, link: '/productsdata' },
+    { name: 'Wellness Product', icon: <FaGift />, link: '/productsdata' },
+    { name: 'Personal Collection', icon: <FaTshirt />, link: '/productsdata' },
+    { name: 'Avon Collection', icon: <FaConciergeBell />, link: '/productsdata' },
+    { name: 'Beauty and Hygiene', icon: <FaGift />, link: '/productsdata' }, // Example: maybe change icon
+    { name: 'Fashion and Apparel', icon: <FaTshirt />, link: '/productsdata', isComingSoon: true },
+    { name: 'Outdoor/Sports Equipment', icon: <FaBasketballBall />, link: '/productsdata', isComingSoon: true },
+  ];
+
+  // Define service items for better organization
+  const otherServices = [
+    'Loading phone/games',
+    'ID printing',
+    'Photo printing',
+    'Document printing',
+    'Scan',
+    'Xerox',
+    'Plastic laminate',
+    'Internet',
+  ];
+
+  const travelServices = [
+    { name: 'Loan form', link: '/loanform' },
+    { name: 'Domestic/International ticketing', link: '/airlinebookingform' },
+    { name: 'Travel and tours', link: '#' },
+    { name: 'Hotel booking', link: '#' },
+  ];
 
   return (
     <>
-      {/* Navbar with Christmas colors */}
-      <Navbar bg="white" variant="light" expand="lg" className="shadow-sm ">
+      <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
         <Container>
-          {isSmallScreen? (
-
-          <>
-          {/* Home icon with Christmas tree */}
-        
-          <Button variant="outline-secondary" className="d-lg-none" onClick={handleShowOffcanvas}>
-            <FaBars />
-          </Button>
-                  <Nav>
-                <Nav.Link as={NavLink} to="/alldealsproduct" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700' }}>
-                  <FaPercent style={{ marginRight: '5px', color: '#5D5D5D' }} /> Deals
+          {/* Mobile vs Desktop Home/Menu Toggle */}
+          {isSmallScreen ? (
+            <>
+              <Button
+                variant="outline-secondary"
+                className="d-lg-none me-2" // Added margin-end for spacing
+                onClick={handleShowOffcanvas}
+                aria-label="Open menu" // Accessibility improvement
+              >
+                <FaBars />
+              </Button>
+              {/* These links are also in Offcanvas, consider if they are truly needed here on small screen */}
+              <Nav className="flex-row"> {/* Use flex-row for horizontal alignment */}
+                <Nav.Link
+                  as={NavLink}
+                  to="/alldealsproduct"
+                  className="mx-1 p-2 rounded text-dark bg-warning" // Applied Bootstrap classes
+                  activeClassName="active-link" // Custom class for active state
+                  aria-label="Deals page"
+                >
+                  <FaPercent className="me-1" /> Deals
+                </Nav.Link>
+                <Nav.Link
+                  as={NavLink}
+                  to="/freebies"
+                  className="mx-1 p-2 rounded text-dark" // Applied Bootstrap classes
+                  activeClassName="active-link"
+                  aria-label="Freebies page"
+                >
+                  <FaGift className="me-1" /> FREEstuff
                 </Nav.Link>
               </Nav>
-              {/* Freebies with Snowflake icon */}
-              <Nav>
-                <Nav.Link as={NavLink} to="/freebies" style={{ paddingLeft: '6px', paddingRight: '6px', borderRadius: '5px', color: '#5D5D5D' }}>
-                  <FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> FREEstuff
-                </Nav.Link>
-              </Nav>
-              </>
-
-          ):(
-          <>
-          {/* Home icon with Christmas tree */}
-          <Navbar.Brand as={Link} to="/" className="home text-dark" >
-            <FaHome size={24} style={{ borderRadius: '5px', color: '#5D5D5D' }}/>
-          </Navbar.Brand>
-
-           
-          </>
-
+            </>
+          ) : (
+            <Navbar.Brand as={Link} to="/" className="text-dark" aria-label="Home">
+              <FaHome size={24} className="text-secondary" /> {/* Use Bootstrap color utility */}
+            </Navbar.Brand>
           )}
 
-
-          <Navbar.Collapse id="navbar-nav" className="justify-content-lg-between">
-            <Nav className="ml-auto">
+          <Navbar.Collapse id="navbar-nav">
+            <Nav className="me-auto"> {/* Use me-auto to push items to the left */}
               {/* Product category dropdown */}
-
-              <Nav>
-                <NavDropdown title="Categories" id="basic-nav-dropdown">
-                  {categories.map((cat, index) => (
-                    <Dropdown.Item
-                      key={index}
-                      disabled={cat.isComingSoon}             
-                      as={!cat.isComingSoon ? Link : 'button'} // Use 'button' or a div if disabled, so it doesn't try to link
-                      to={!cat.isComingSoon ? "/productsdata" : undefined}
-                      onClick={!cat.isComingSoon ? () => handleItemClickCategory(cat.name) : undefined}
-                      title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
-                    >
-                      {cat.icon} {cat.name}
-                      {cat.isComingSoon && (
-                        // Conditionally show a "Coming Soon" badge
-                        <Badge bg="info" className="ms-2">
-                          Coming Soon
-                        </Badge>
-                      )}
-                    </Dropdown.Item>
-                  ))}
-                </NavDropdown>
-              </Nav>
-
-
-              <Nav>
-                <NavDropdown title="Services" id="services-nav-dropdown" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
-                  {isLoggedIn ? (
-                    <>
-                      <NavDropdown title="Other Services" id="services-basic-dropdown" style={{ paddingLeft: '5px', paddingRight: '10px', borderRadius: '5px' }}>
-                        <Dropdown.Item>Loading phone/games</Dropdown.Item>
-                        <Dropdown.Item>ID printing</Dropdown.Item>
-                        <Dropdown.Item>Photo printing</Dropdown.Item>
-                        <Dropdown.Item>Document printing</Dropdown.Item>
-                        <Dropdown.Item>Scan</Dropdown.Item>
-                        <Dropdown.Item>Xerox</Dropdown.Item>
-                        <Dropdown.Item>Plastic laminate</Dropdown.Item>
-                        <Dropdown.Item>Internet</Dropdown.Item>
-                      </NavDropdown>
-                      <Dropdown.Item as={Link} to="/loanform">Loan form</Dropdown.Item>
-                      <Dropdown.Item as={Link} to="/airlinebookingform">Domestic/International ticketing</Dropdown.Item>
-                      <Dropdown.Item>Travel and tours</Dropdown.Item>
-                      <Dropdown.Item>Hotel booking</Dropdown.Item>
-                    </>
-                  ) : (
-                    <>
-                        {/* Dropdown Item */}
-                       <Dropdown.Item
-                        onClick={() => {
-                          if (!isLoggedIn) {
-                             handleShowModal('Please log in to view services.');
-                          }
-                          handleCloseOffcanvas(); // Close the offcanvas
-                        }}
-                      >
-                          All Services
-                        </Dropdown.Item>
-                      </>
-                  )}
-                </NavDropdown>
-              </Nav>
-
-              {/* Christmas Deals section */}
-              <Nav>
-                <Nav.Link as={NavLink} to="/alldealsproduct" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D', backgroundColor: '#FFD700'}}>
-                  <FaPercent style={{ marginRight:'5px', color: '#5D5D5D' }} /> Deals
-                </Nav.Link>
-              </Nav>
-
-              {/* Freebies with Snowflake icon */}
-              <Nav>
-                <Nav.Link as={NavLink} to="/freebies" style={{ marginLeft:'6px', paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: '#5D5D5D' }}>
-                  <FaGift style={{ marginRight: '5px', color: '#5D5D5D' }} /> Get your freebies
-                </Nav.Link>
-              </Nav>
-
-               
-                    {isLoggedIn ? (
-                      // When logged in, render the Dropdown
-                      <Dropdown as={Nav.Item}>
-                        <Dropdown.Toggle as={Nav.Link} id="dropdown-basic" className="account-dropdown-toggle link_style"> {/* Added link_style here too */}
-                          <FiUser style={{ marginRight: '0.5rem' }} />
-                          {`Hello, ${userData.firstname || 'User'}`}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>My Orders</Dropdown.Item>
-                          
-                          <Dropdown.Divider />
-                          <Dropdown.Item onClick={() => { handleLogout(); }}>Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    ) : (
-                      // When not logged in, render a simple Nav.Link that triggers the modal
-                      <Nav.Link
-                        as={Link}
-                        to="#" // Use to="#" to prevent actual navigation before the modal
-                        onClick={(e) => {
-                          e.preventDefault(); // Stop the default link behavior
-                          handleShowModal('Please log in to access your account.');
-                          handleCloseOffcanvas();
-                        }}
-                        className="account-nav-link link_style" // Added link_style here for consistency
-                      >
-                        My Account
-                      </Nav.Link>
+              <NavDropdown title="Categories" id="basic-nav-dropdown">
+                {categories.map((cat, index) => (
+                  <Dropdown.Item
+                    key={index}
+                    disabled={cat.isComingSoon}
+                    as={!cat.isComingSoon ? Link : 'button'}
+                    to={!cat.isComingSoon ? cat.link : undefined}
+                    onClick={
+                      !cat.isComingSoon
+                        ? () => handleItemClickCategory(cat.name)
+                        : undefined
+                    }
+                    title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
+                  >
+                    {cat.icon} {cat.name}
+                    {cat.isComingSoon && (
+                      <Badge bg="info" className="ms-2">
+                        Coming Soon
+                      </Badge>
                     )}
+                  </Dropdown.Item>
+                ))}
+              </NavDropdown>
 
-              <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Authentication Required</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  {modalMessage}
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleLoginRedirect}>
-                    Log In
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+              {/* Services Dropdown */}
+              <NavDropdown title="Services" id="services-nav-dropdown">
+                {isLoggedIn ? (
+                  <>
+                    <NavDropdown title="Other Services" id="services-basic-dropdown">
+                      {otherServices.map((service, index) => (
+                        <Dropdown.Item key={index}>{service}</Dropdown.Item>
+                      ))}
+                    </NavDropdown>
+                    {travelServices.map((service, index) => (
+                      <Dropdown.Item as={Link} to={service.link} key={index} onClick={handleCloseOffcanvas}>
+                        {service.name}
+                      </Dropdown.Item>
+                    ))}
+                  </>
+                ) : (
+                  <Dropdown.Item
+                    onClick={() => handleShowModal('Please log in to view services.')}
+                  >
+                    All Services
+                  </Dropdown.Item>
+                )}
+              </NavDropdown>
 
+              {/* Deals and Freebies (Desktop View Only) */}
+              {!isSmallScreen && (
+                <>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/alldealsproduct"
+                    className="p-2 rounded text-dark bg-warning" // Applied Bootstrap classes
+                    activeClassName="active-link"
+                    aria-label="Deals page"
+                  >
+                    <FaPercent className="me-1" /> Deals
+                  </Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/freebies"
+                    className="ms-2 p-2 rounded text-dark" // Added margin-start
+                    activeClassName="active-link"
+                    aria-label="Freebies page"
+                  >
+                    <FaGift className="me-1" /> Get your freebies
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
 
-            {/* Logout/Login buttons */}
-            <Nav className="ml-3">
+            {/* Right-aligned items */}
+            <Nav className="ms-auto"> {/* Use ms-auto to push items to the right */}
               {isLoggedIn ? (
-                <Nav.Link as={NavLink} to="/" onClick={handleLogout} style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'red' }} activeClassName="active">
-                  Logout
+                <Dropdown as={Nav.Item}>
+                  <Dropdown.Toggle
+                    as={Nav.Link}
+                    id="dropdown-basic"
+                    className="account-dropdown-toggle"
+                  >
+                    <FiUser className="me-2" />
+                    {`Hello, ${userData.firstname || 'User'}`}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/myaccount">
+                      My Account
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/orders">
+                      My Orders
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : (
+                <Nav.Link
+                  as={Link}
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleShowModal('Please log in to access your account.');
+                  }}
+                  className="account-nav-link"
+                >
+                  My Account
+                </Nav.Link>
+              )}
+
+              {isLoggedIn ? (
+                <Nav.Link
+                  as={NavLink}
+                  to="/"
+                  onClick={handleLogout}
+                  className="ms-3 p-2 rounded text-danger" // Red for logout
+                  activeClassName="active"
+                  aria-label="Logout"
+                >
+                  <FaSignOutAlt className="me-1" /> Logout
                 </Nav.Link>
               ) : (
                 <>
-                  <Nav.Link as={NavLink} to="/login" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'black' }} activeClassName="active">Login</Nav.Link>
-                  <Nav.Link as={NavLink} to="/signupform" style={{ paddingLeft: '10px', paddingRight: '10px', borderRadius: '5px', color: 'black' }} activeClassName="active">Sign up</Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/login"
+                    className="ms-3 p-2 rounded text-dark"
+                    activeClassName="active"
+                    aria-label="Login page"
+                  >
+                    <FaSignInAlt className="me-1" /> Login
+                  </Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/signupform"
+                    className="ms-2 p-2 rounded text-dark"
+                    activeClassName="active"
+                    aria-label="Sign up page"
+                  >
+                    <FaSignInAlt className="me-1" /> Sign up
+                  </Nav.Link>
                 </>
               )}
             </Nav>
@@ -245,148 +310,166 @@ const categories = [
         </Container>
       </Navbar>
 
-    {/* Offcanvas for additional menu items */}
-      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas}  placement={isSmallScreen ? 'start' : 'end'} className='custom-offcanvas' >
-        <Offcanvas.Header closeButton style={{ borderBottom: "1px #d3d4d5 solid" }}>
+      {/* Offcanvas Menu */}
+      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="start"> {/* Consistent placement */}
+        <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
-            <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}  className='link_style'><FaHome style={{ marginRight: '5px' }} /> Home</Nav.Link>
-            <NavDropdown {...`${< FaServicestack />}`} title="Categories" id="product-category-dropdown"  style={{ paddingRight: '10px', borderRadius: '5px' }}>
-            
-                   {categories.map((cat, index) => (
-                    <Dropdown.Item
-                      key={index}
-                      disabled={cat.isComingSoon}             
-                      as={!cat.isComingSoon ? Link : 'button'} // Use 'button' or a div if disabled, so it doesn't try to link
-                      to={!cat.isComingSoon ? "/productsdata" : undefined}
-                     onClick={
-                            !cat.isComingSoon
-                              ? () => {
-                                  handleItemClickCategory(cat.name); // Your existing function
-                                  handleCloseOffcanvas();            // The function to close the Offcanvas
-                                }
-                              : undefined
-                          }
-                      title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
-                    >
-                      {cat.icon} {cat.name}
-                      {cat.isComingSoon && (
-                        // Conditionally show a "Coming Soon" badge
-                        <Badge bg="info" className="ms-2">
-                          Coming Soon
-                        </Badge>
-                      )}
-                    </Dropdown.Item>
-                  ))}
+            <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}>
+              <FaHome className="me-2" /> Home
+            </Nav.Link>
 
+            <NavDropdown title={<><FaServicestack className="me-2" /> Categories</>} id="offcanvas-category-dropdown">
+              {categories.map((cat, index) => (
+                <Dropdown.Item
+                  key={index}
+                  disabled={cat.isComingSoon}
+                  as={!cat.isComingSoon ? Link : 'button'}
+                  to={!cat.isComingSoon ? cat.link : undefined}
+                  onClick={
+                    !cat.isComingSoon
+                      ? () => {
+                          handleItemClickCategory(cat.name);
+                          handleCloseOffcanvas();
+                        }
+                      : undefined
+                  }
+                  title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
+                >
+                  {cat.icon} {cat.name}
+                  {cat.isComingSoon && (
+                    <Badge bg="info" className="ms-2">
+                      Coming Soon
+                    </Badge>
+                  )}
+                </Dropdown.Item>
+              ))}
             </NavDropdown>
-          </Nav>
-      
-          <Nav >
-            <NavDropdown  title="Services" id="services-dropdown"  style={{ paddingRight: '10px', borderRadius: '5px' }}>
+
+            <NavDropdown title={<><FaCogs className="me-2" /> Services</>} id="offcanvas-services-dropdown">
               {isLoggedIn ? (
                 <>
-                  <NavDropdown title="Other Services" id="other-services-dropdown" style={{ paddingRight: '10px', borderRadius: '5px' }}>
-                    <Dropdown.Item>Loading phone/games</Dropdown.Item>
-                    <Dropdown.Item>ID printing</Dropdown.Item>
-                    <Dropdown.Item>Photo printing</Dropdown.Item>
-                    <Dropdown.Item>Document printing</Dropdown.Item>
-                    <Dropdown.Item>Scan</Dropdown.Item>
-                    <Dropdown.Item>Xerox</Dropdown.Item>
-                    <Dropdown.Item>Plastic laminate</Dropdown.Item>
-                    <Dropdown.Item>Internet</Dropdown.Item>
+                  <NavDropdown title="Other Services" id="offcanvas-other-services-dropdown">
+                    {otherServices.map((service, index) => (
+                      <Dropdown.Item key={index}>{service}</Dropdown.Item>
+                    ))}
                   </NavDropdown>
-                  <Dropdown.Item as={Link} to="/loanform" onClick={handleCloseOffcanvas}>Loan form</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/airlinebookingform" onClick={handleCloseOffcanvas}>Domestic/International ticketing</Dropdown.Item>
-                  <Dropdown.Item>Travel and tours</Dropdown.Item>
-                  <Dropdown.Item>Hotel booking</Dropdown.Item>
+                  {travelServices.map((service, index) => (
+                    <Dropdown.Item as={Link} to={service.link} key={index} onClick={handleCloseOffcanvas}>
+                      {service.name}
+                    </Dropdown.Item>
+                  ))}
                 </>
               ) : (
-               <>
-                        {/* Dropdown Item */}
-                       <Dropdown.Item
-                        onClick={() => {
-                          if (!isLoggedIn) {
-                             handleShowModal('Please log in to view services.');
-                          }
-                          handleCloseOffcanvas(); // Close the offcanvas
-                        }}
-                        
-                      >
-                          All Services
-                        </Dropdown.Item>
-                      </>
+                <Dropdown.Item
+                  onClick={() => {
+                    handleShowModal('Please log in to view services.');
+                    handleCloseOffcanvas();
+                  }}
+                >
+                  All Services
+                </Dropdown.Item>
               )}
             </NavDropdown>
-       
-          </Nav>
 
-          <Nav className="flex-column" >
-            <Nav.Link as={NavLink} to="/alldealsproduct" onClick={handleCloseOffcanvas}  className='link_style'><FaPercent  style={{ marginRight: '5px' }}/>Deals</Nav.Link>
-            <Nav.Link as={NavLink} to="/freebies" onClick={handleCloseOffcanvas}  className='link_style'><FaGift style={{ marginRight: '5px' }} /> Get your freebies</Nav.Link>
-              
-                    {isLoggedIn ? (
-                      // When logged in, render the Dropdown
-                      <Dropdown as={Nav.Item}>
-                        <Dropdown.Toggle as={Nav.Link} id="dropdown-basic" className="account-dropdown-toggle link_style"> {/* Added link_style here too */}
-                          <FiUser style={{ marginRight: '0.5rem' }} />
-                          {`Hello, ${userData.firstname || 'User'}`}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>My Account</Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>My Orders</Dropdown.Item>
-                         
-                          <Dropdown.Divider />
-                          <Dropdown.Item onClick={() => { handleLogout(); handleCloseOffcanvas(); }}>Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    ) : (
-                      // When not logged in, render a simple Nav.Link that triggers the modal
-                      <Nav.Link
-                        as={Link}
-                        to="#" // Use to="#" to prevent actual navigation before the modal
-                        onClick={(e) => {
-                          e.preventDefault(); // Stop the default link behavior
-                          handleShowModal('Please log in to access your account.');
-                          handleCloseOffcanvas();
-                        }}
-                        className="account-nav-link link_style" // Added link_style here for consistency
-                      >
-                        My Account
-                      </Nav.Link>
-                    )}
-
-
-              <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Authentication Required</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  Please log in to continue accessing your account.
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleLoginRedirect}>
-                    Log In
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+            <Nav.Link
+              as={NavLink}
+              to="/alldealsproduct"
+              onClick={handleCloseOffcanvas}
+            >
+              <FaPercent className="me-2" /> Deals
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/freebies"
+              onClick={handleCloseOffcanvas}
+            >
+              <FaGift className="me-2" /> Get your freebies
+            </Nav.Link>
 
             {isLoggedIn ? (
-              <Nav.Link as={NavLink} to="/" onClick={() => { handleLogout(); handleCloseOffcanvas(); }} className='link_style' ><FaSignOutAlt style={{ marginRight:'5px' }} />Logout</Nav.Link>
+              <Dropdown as={Nav.Item} className="w-100"> {/* Make dropdown full width in Offcanvas */}
+                <Dropdown.Toggle as={Nav.Link} id="offcanvas-account-dropdown" className="d-flex align-items-center">
+                  <FiUser className="me-2" />
+                  {`Hello, ${userData.firstname || 'User'}`}
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="w-100">
+                  <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>
+                    My Account
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>
+                    My Orders
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={() => { handleLogout(); handleCloseOffcanvas(); }}>
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : (
+              <Nav.Link
+                as={Link}
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleShowModal('Please log in to access your account.');
+                  handleCloseOffcanvas();
+                }}
+              >
+                <FiUser className="me-2" /> My Account
+              </Nav.Link>
+            )}
+
+            {isLoggedIn ? (
+              <Nav.Link
+                as={NavLink}
+                to="/"
+                onClick={() => {
+                  handleLogout();
+                  handleCloseOffcanvas();
+                }}
+              >
+                <FaSignOutAlt className="me-2" /> Logout
+              </Nav.Link>
             ) : (
               <>
-                <Nav.Link as={NavLink} to="/login" onClick={handleCloseOffcanvas}  className='link_style' ><FaSignInAlt style={{ marginRight:'5px', textDecoration:'none', color:'black' }} />Login</Nav.Link>
-                <Nav.Link as={NavLink} to="/signupform" onClick={handleCloseOffcanvas}  className='link_style' ><FaSignInAlt style={{ marginRight:'5px' }} />Sign up</Nav.Link>
+                <Nav.Link
+                  as={NavLink}
+                  to="/login"
+                  onClick={handleCloseOffcanvas}
+                >
+                  <FaSignInAlt className="me-2" /> Login
+                </Nav.Link>
+                <Nav.Link
+                  as={NavLink}
+                  to="/signupform"
+                  onClick={handleCloseOffcanvas}
+                >
+                  <FaSignInAlt className="me-2" /> Sign up
+                </Nav.Link>
               </>
             )}
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
+
+      {/* Global Modal */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Authentication Required</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleLoginRedirect}>
+            Log In
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

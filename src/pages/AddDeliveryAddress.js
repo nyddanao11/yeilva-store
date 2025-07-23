@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Form, FloatingLabel, Button, Col, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Formik, Field, ErrorMessage } from 'formik'; // Make sure Field and ErrorMessage are imported
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { fetchUserData } from '../components/userService';
 
@@ -40,22 +40,24 @@ export default function AddDeliveryAddress() {
         fullName: userData.firstname && userData.lastname
             ? `${userData.firstname} ${userData.lastname}`
             : '',
-        userEmail: userData.email || '',
+        userEmail: userData.email || '', // Ensure userEmail is also part of the form values
         streetAddress: '',
         apartmentSuite: '',
         city: '',
         stateProvince: '',
         postalCode: '',
         phoneNumber: '',
+        isDefault: false, // <-- ADDED: Initialize as false
     };
 
     const validationSchema = Yup.object().shape({
         fullName: Yup.string()
             .trim()
             .required('Full name is required'),
-         userEmail: Yup.string()
+        userEmail: Yup.string()
             .trim()
-            .required('Full name is required'),   
+            .email('Invalid email address') // Added email validation
+            .required('User email is required'),
         streetAddress: Yup.string()
             .trim()
             .required('Street Address is required'),
@@ -63,53 +65,67 @@ export default function AddDeliveryAddress() {
             .trim(),
         city: Yup.string()
             .trim()
-            .required('City is required'), // Corrected error message
+            .required('City is required'),
         stateProvince: Yup.string()
             .trim()
-            .required('State/Province is required'), // Corrected error message
+            .required('State/Province is required'),
         postalCode: Yup.string()
             .trim()
-            .required('Postal Code is required'), // Corrected error message
+            .required('Postal Code is required'),
         phoneNumber: Yup.string()
             .matches(/^\d{10,15}$/, 'Phone number must be between 10 to 15 digits')
-            .required('Phone number is required'), // Corrected error message
+            .required('Phone number is required'),
+        isDefault: Yup.boolean(), // <-- ADDED: Validation for boolean
     });
 
-     const handleSubmit = async (values, { setSubmitting, resetForm, actions}) => {
+    const handleSubmit = async (values, { setSubmitting, resetForm, setFieldError }) => { // Added setFieldError
         setLoading(true);
-        setServerResponse(''); // Clear previous server messages
+        setServerResponse('');
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/adddeliveryaddress`, values);
+            // Include userEmail in values for backend
+            const payload = {
+                ...values,
+                userEmail: userData.email // Ensure the correct user email from state is sent
+            };
+
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/adddeliveryaddress`, payload);
             console.log('Address added successfully:', response.data);
-            setIsAddingSuccessful(true); // Indicate success
+            setIsAddingSuccessful(true);
             setServerResponse('Address added successfully!');
             alert('Address added successfully!');
-            resetForm(); // Reset form after successful submission
+            resetForm();
         } catch (error) {
-            console.error('Error adding address:', error);
-            setIsAddingSuccessful(false); // Indicate failure
-            setServerResponse('There was an error adding your address. Please try again.');
-            alert('There was an error adding your address. Please try again.');
+            console.error('Error adding address:', error.response ? error.response.data : error.message);
+            setIsAddingSuccessful(false);
+            const errorMessage = error.response?.data?.message || 'There was an error adding your address. Please try again.';
+            setServerResponse(errorMessage);
+            alert(errorMessage);
+
+            // If backend sends specific field errors, you can set them here
+            if (error.response?.data?.errors) {
+                error.response.data.errors.forEach(err => {
+                    setFieldError(err.field, err.message);
+                });
+            }
         } finally {
             setLoading(false);
-            actions.setSubmitting(false); // Formik's submission state 
+            setSubmitting(false); // Formik's submission state
         }
     };
 
-    // Render the form only when userData is available
     return userData.email ? (
         <Formik
-            initialValues={initialFormValues} // Use initialValues
+            initialValues={initialFormValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
-            enableReinitialize // Keep this if you want to re-initialize when userData changes
+            enableReinitialize
         >
-            {({ isSubmitting, errors, touched, values, handleChange, handleBlur, handleSubmit }) => ( // Destructure formik props
+            {({ isSubmitting, errors, touched, values, handleChange, handleBlur, handleSubmit }) => (
                 <Card className="shadow-lg rounded-lg">
                     <Card.Body>
                         <h5 className="mb-4 text-gray-800">Add a New Address</h5>
-                        <Form noValidate onSubmit={handleSubmit}> {/* Use Formik's handleSubmit */}
+                        <Form noValidate onSubmit={handleSubmit}>
                             {/* Full Name Input */}
                             <Form.Group controlId="formFullName" className="mb-3">
                                 <FloatingLabel controlId="floatingFullName" label="Full Name (First and Last Name)">
@@ -117,31 +133,34 @@ export default function AddDeliveryAddress() {
                                         type="text"
                                         placeholder="Full Name (First and Last Name)"
                                         name="fullName"
-                                        value={values.fullName} // Bind to Formik's values
-                                        onChange={handleChange} // Use Formik's handleChange
-                                        onBlur={handleBlur} // Use Formik's handleBlur for touched state
-                                        isInvalid={touched.fullName && !!errors.fullName} // Apply invalid styling
+                                        value={values.fullName}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        isInvalid={touched.fullName && !!errors.fullName}
                                         className="rounded-md"
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        <ErrorMessage name="fullName" /> {/* Display error message */}
+                                        <ErrorMessage name="fullName" />
                                     </Form.Control.Feedback>
                                 </FloatingLabel>
                             </Form.Group>
-                             <Form.Group controlId="formUserEmail" className="mb-3">
+
+                            {/* User Email Input (Read-only, pre-filled) */}
+                            <Form.Group controlId="formUserEmail" className="mb-3">
                                 <FloatingLabel controlId="floatingUserEmail" label="User Email">
                                     <Form.Control
-                                        type="text"
-                                        placeholder="user email "
+                                        type="email" // Changed to email type
+                                        placeholder="User Email"
                                         name="userEmail"
-                                        value={values.userEmail} // Bind to Formik's values
-                                        onChange={handleChange} // Use Formik's handleChange
-                                        onBlur={handleBlur} // Use Formik's handleBlur for touched state
-                                        isInvalid={touched.userEmail && !!errors.userEmail} // Apply invalid styling
+                                        value={values.userEmail}
+                                        onChange={handleChange} // Keep onChange for Formik to track
+                                        onBlur={handleBlur}
+                                        isInvalid={touched.userEmail && !!errors.userEmail}
                                         className="rounded-md"
+                                        readOnly // Make it read-only
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        <ErrorMessage name="userEmail" /> {/* Display error message */}
+                                        <ErrorMessage name="userEmail" />
                                     </Form.Control.Feedback>
                                 </FloatingLabel>
                             </Form.Group>
@@ -272,13 +291,32 @@ export default function AddDeliveryAddress() {
                                 </Col>
                             </Row>
 
+                            {/* isDefault Checkbox/Switch */}
+                            <Form.Group controlId="formIsDefault" className="mb-3 mt-3">
+                                <Form.Check
+                                    type="checkbox" // Or "switch" for a toggle
+                                    id="isDefaultCheckbox"
+                                    label="Set as default delivery address"
+                                    name="isDefault"
+                                    checked={values.isDefault} // Bind to Formik's values
+                                    onChange={handleChange} // Use Formik's handleChange
+                                    onBlur={handleBlur}
+                                    isInvalid={touched.isDefault && !!errors.isDefault}
+                                    className="rounded-md" // Apply styling if needed
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    <ErrorMessage name="isDefault" />
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+
                             {/* Submit Button */}
                             <Button
                                 variant="primary"
                                 type="submit"
                                 className="w-full mt-4 py-2 rounded-md font-semibold text-lg bg-yellow-500 hover:bg-yellow-600 border-none transition duration-300 ease-in-out"
                                 style={{ backgroundColor: '#FFD700', borderColor: '#FFD700' }}
-                                disabled={isSubmitting || loading} // Disable button during submission or loading
+                                disabled={isSubmitting || loading}
                             >
                                 {isSubmitting || loading ? 'Adding Address...' : 'Add Address'}
                             </Button>

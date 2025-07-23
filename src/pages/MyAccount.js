@@ -130,6 +130,11 @@ export default function MyAccountPage({ addToCart, youMayLikeProducts }) {
                         </Card>
                     </Col>
 
+                      {/* New Delivery Address Column */}
+                    <Col md={4} className="mb-3">
+                        <AddDeliveryAddress /> {/* Integrate the new component here */}
+                    </Col>
+
                     {/* History Column */}
                     <Col md={4} className="mb-3">
                         <Card className="shadow-lg rounded-lg">
@@ -164,13 +169,7 @@ export default function MyAccountPage({ addToCart, youMayLikeProducts }) {
                             </Card.Body>
                         </Card>
                     </Col>
-
-                    {/* New Delivery Address Column */}
-                    <Col md={4} className="mb-3">
-                        <AddDeliveryAddress /> {/* Integrate the new component here */}
-                    </Col>
-
-                </Row>
+               </Row>
             </Container>
             <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
         </>

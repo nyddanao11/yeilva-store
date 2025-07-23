@@ -7,8 +7,11 @@ import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponent from'../components/ProductTablatureFeatured';
 import axios from 'axios';
 import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
+import { useCart } from './CartContext'; // Correct path to your context
 
-export default function ClickFeaturedProduct ({ addToCart, isLoggedIn, featuredProducts, youMayLikeProducts })  {
+
+export default function ClickFeaturedProduct ({ isLoggedIn, featuredProducts, youMayLikeProducts })  {
+   const {addToCart} = useCart();
 
   const { id } = useParams();
    // console.log('ID from URL:', id);
