@@ -1,26 +1,4 @@
 
-.main-image-container {
-  position: relative;
-}
-
-.main-image {
-  height: 250px; /* Adjust as needed */
-}
-
-.thumbnails {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px; /* Adjust for spacing between thumbnails */
-  margin-top: 10px;
-}
-
-.thumbnail-image {
-  width: 50px; /* Adjust thumbnail size as needed */
-  height: 50px; /* Adjust thumbnail size as needed */
-  object-fit: cover;
-  cursor: pointer;
-}
-
  .line::before,
  .line::after {
           content: "";
@@ -38,3 +16,48 @@
           align-items: center;
         }
     
+/* Existing styles... */
+
+.main-image-container {
+  max-width: 500px; /* Adjust as needed */
+  width: 100%;
+}
+
+.main-product-image {
+  max-height: 450px; /* Example height limit */
+  width: 100%;
+  object-fit: contain; /* Ensures the image fits within the bounds */
+}
+
+.thumbnails-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows thumbnails to wrap to the next line */
+  justify-content: center;
+  gap: 10px; /* Spacing between thumbnails */
+}
+
+.thumbnail-image {
+  width: 80px; /* Fixed width */
+  height: 80px; /* Fixed height for square thumbnails */
+  object-fit: cover; /* Crops image to fit the square */
+  cursor: pointer;
+  border: 2px solid transparent; /* Default border */
+  transition: all 0.2s ease-in-out; /* Smooth transition for hover/active */
+}
+
+.thumbnail-image:hover {
+  border-color: #007bff; /* Highlight on hover */
+  transform: translateY(-2px); /* Subtle lift */
+}
+
+.thumbnail-image.active-thumbnail {
+  border-color: var(--bs-primary); /* Bootstrap primary color */
+  box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.25); /* Subtle shadow */
+}
+
+/* Adjust font sizes as needed in your global CSS or directly */
+/* .display-5 { font-size: 2.5rem; } */
+/* .fs-2 { font-size: 2rem; } */
+/* .fs-4 { font-size: 1.5rem; } */
+/* .fs-5 { font-size: 1.25rem; } */
+/* .fs-6 { font-size: 1rem; } */

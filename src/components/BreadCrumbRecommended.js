@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'react-bootstrap'; // Import Breadcrumb from react-bootstrap
@@ -14,7 +15,7 @@ const BreadCrumbRecommended = ({ productId, recommendedProducts }) => {
   };
 
    return (
-    <Breadcrumb style={{ fontSize: "12px" }}>
+   <Breadcrumb className="mb-4" style={{ fontSize: "0.9rem" }}>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
        
 
@@ -29,3 +30,54 @@ const BreadCrumbRecommended = ({ productId, recommendedProducts }) => {
 };
 
 export default BreadCrumbRecommended;
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { Breadcrumb } from 'react-bootstrap';
+// import { Link, useLocation } from 'react-router-dom';
+
+// const BreadCrumbRecommended = ({ productId, recommendedProducts }) => {
+//   const location = useLocation(); // Hook to get current location information
+
+//   // Find the selected product based on productId
+//   const selectedProduct = recommendedProducts.find((item) => item.id === productId);
+  
+//   // If the product isn't found, we can't build a meaningful breadcrumb
+//   if (!selectedProduct) {
+//     return null; // Or render a fallback, like just "Home"
+//   }
+
+//   // Determine the category path.
+//   // Assuming selectedProduct.category is a single string like "Electronics", "Clothing", etc.
+//   // For a better UX, category links should point to a page that filters by that category.
+//   const categoryPath = `/productsdata?category=${encodeURIComponent(selectedProduct.category)}`;
+
+//   return (
+//     <Breadcrumb className="mb-4" style={{ fontSize: "0.9rem" }}>
+//       {/* Home Link */}
+//       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }} active={location.pathname === '/'}>
+//         Home
+//       </Breadcrumb.Item>
+
+//       {/* Category Link */}
+//       {selectedProduct.category && (
+//         <Breadcrumb.Item linkAs={Link} linkProps={{ to: categoryPath }} active={false}> {/* Not active if it's an intermediate step */}
+//           {selectedProduct.category}
+//         </Breadcrumb.Item>
+//       )}
+
+//       {/* Product Name (Always the last, active item) */}
+//       <Breadcrumb.Item active>
+//         {selectedProduct.name}
+//       </Breadcrumb.Item>
+//     </Breadcrumb>
+//   );
+// };
+
+// export default BreadCrumbRecommended;

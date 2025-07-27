@@ -14,7 +14,7 @@ const BreadCrumbFeatured = ({ productId, featuredProducts}) => {
   };
 
   return (
-    <Breadcrumb style={{ fontSize: "12px" }}>
+   <Breadcrumb className="mb-4" style={{ fontSize: "0.9rem" }}>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
        
 

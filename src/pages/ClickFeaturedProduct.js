@@ -1,72 +1,142 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Image, Button, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Modal, Spinner, Alert, Fade } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ClickProductPage.css';
-import YouMayLike from'../components/YouMayLike';
 import BreadCrumbFeatured from'../components/BreadCrumbFeatured';
 import TabbedComponent from'../components/ProductTablatureFeatured';
 import axios from 'axios';
-import { FaShippingFast} from 'react-icons/fa'; // Import the icons you want to use
-import { useCart } from './CartContext'; // Correct path to your context
-
+import YouMayLike from '../components/YouMayLike';
+import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
+import { useCart } from './CartContext';
 
 export default function ClickFeaturedProduct ({ isLoggedIn, featuredProducts, youMayLikeProducts })  {
-   const {addToCart} = useCart();
 
+  const { addToCart } = useCart();
   const { id } = useParams();
-   // console.log('ID from URL:', id);
-
-  const [selectedThumbnails, setSelectedThumbnails] = useState({});
-  const [reviewData, setReviewData] = useState([]);
-  const [freeShippingPlace, setFreeShippingPlace] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-   const [modalMessage, setModalMessage] = useState('');
- 
- const handleClose = () => setShowModal(false);
-  const handleShowModal = (message) => {
-  setModalMessage(message);
-  setShowModal(true);
-};
-const handleLoginRedirect = () => {
-    setShowModal(false);
-    // Redirect to login page
-    window.location.href = '/login'; // or use navigate('/login') if using react-router
-  };
-
-
   const navigate = useNavigate();
 
-  const product = featuredProducts.find(p => p.id === parseInt(id)); // Assuming product IDs are numbers
-     
-useEffect(()=>{
-  if(product.place ==='maslog')
-      {setFreeShippingPlace(true)}
-},[product.place])
+  // State for product details
+  const [product, setProduct] = useState(null); // Will store the found product
+  const [loadingProduct, setLoadingProduct] = useState(true);
+  const [errorProduct, setErrorProduct] = useState(null);
 
+  // State for reviews
+  const [reviewData, setReviewData] = useState([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [errorReviews, setErrorReviews] = useState(null);
 
+  // Other states
+  const [addedToCartOnce, setAddedToCartOnce] = useState(false);
+  const [freeShippingPlace, setFreeShippingPlace] = useState(false);
+  const [selectedThumbnail, setSelectedThumbnail] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const handleClose = () => setShowModal(false);
+  const handleShowModal = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+    window.location.href = '/login';
+  };
+
+  // Effect to find the product from bestSellingProducts
   useEffect(() => {
-    // Function to fetch reviews based on product name
+    // Only attempt to find product if bestSellingProducts is available and not empty
+    if ( featuredProducts &&  featuredProducts.length > 0) {
+      const foundProduct = featuredProducts.find(p => p.id === parseInt(id));
+      if (foundProduct) {
+        setProduct(foundProduct);
+        setLoadingProduct(false); // Product found, stop loading
+        setErrorProduct(null); // Clear any previous errors
+        setSelectedThumbnail(foundProduct.url); // Set initial selected thumbnail
+      } else {
+        setProduct(null); // Product not found
+        setLoadingProduct(false); // Stop loading even if not found
+        setErrorProduct('The requested product was not found.');
+      }
+    } else {
+        // If storedProducts is not yet available, or is empty, keep loading or set an error if it should have products
+        // For now, we'll keep loading as `storedProducts` might be fetched asynchronously by the parent.
+        // If `storedProducts` is always expected to be non-empty after an initial load,
+        // you might want to set `setErrorProduct` here if `storedProducts` remains empty.
+        // For instance, if `storedProducts` comes from an API call in the parent:
+        // if (!loadingInitialProductsInParent && storedProducts.length === 0) {
+        //   setErrorProduct("No products available to display.");
+        //   setLoadingProduct(false);
+        // }
+    }
+  }, [id,  featuredProducts]); // Depend on 'id' and 'storedProducts'
+
+  // Effect to set free shipping place
+  useEffect(() => {
+    if (product) { // Only run if product is defined
+      setFreeShippingPlace(product.place === 'maslog');
+    }
+  }, [product]); // Dependency on the product object itself to re-run when product loads or changes
+
+  // Effect to fetch reviews
+  useEffect(() => {
     const fetchReviews = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews?productName=${product.name}`);
-        console.log('Response from server:', response.data); // Log the response data
-        setReviewData(response.data);
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
+      if (product && product.name) {
+        setLoadingReviews(true);
+        setErrorReviews(null);
+        try {
+          const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userreviews?productName=${product.name}`);
+          setReviewData(response.data);
+        } catch (error) {
+          console.error('Error fetching reviews:', error);
+          setErrorReviews('Failed to load reviews.');
+          setReviewData([]);
+        } finally {
+          setLoadingReviews(false);
+        }
+      } else if (product === null && !loadingProduct) {
+        // If product is null and we're no longer loading, reviews can't be fetched
+        setReviewData([]);
+        setLoadingReviews(false);
       }
     };
     fetchReviews();
-  }, [product.name]);
+  }, [product, loadingProduct]); // Depend on 'product' and 'loadingProduct'
 
-  console.log("reviewData:", reviewData);
-   if (!product) {
+  // Conditional rendering for loading and error states at the top
+  if (loadingProduct) {
     return (
-      <Container>
-        <Row>
-          <Col>
-            <div>Product not found</div>
-          </Col>
-        </Row>
+      <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
+        <Spinner animation="border" role="status" className="text-primary">
+          <span className="visually-hidden">Loading product...</span>
+        </Spinner>
+        <p className="ms-3 text-muted">Fetching product details...</p>
+      </Container>
+    );
+  }
+
+  if (errorProduct) {
+    return (
+      <Container className="mt-5">
+        <Alert variant="danger" className="text-center">
+          <Alert.Heading><FaExclamationTriangle className="me-2" />Oh snap! Product not found!</Alert.Heading>
+          <p>{errorProduct} Please try again or go back to the homepage.</p>
+          <hr />
+          <Button variant="danger" onClick={() => navigate('/')}>Go to Home</Button>
+        </Alert>
+      </Container>
+    );
+  }
+
+  if (!product) {
+    // This case should ideally be caught by errorProduct, but as a fallback
+    return (
+      <Container className="mt-5">
+        <Alert variant="warning" className="text-center">
+          <Alert.Heading><FaExclamationTriangle className="me-2" />Product data unavailable.</Alert.Heading>
+          <p>The product you are looking for does not exist or could not be loaded. Please verify the URL.</p>
+          <hr />
+          <Button variant="warning" onClick={() => navigate('/')}>Go to Home</Button>
+        </Alert>
       </Container>
     );
   }
@@ -75,9 +145,7 @@ useEffect(()=>{
   //     after the conditional return for 'product' being defined. ---
 
   const stockState = product.stock;
-  const stockStatus = () => {
-    return stockState <= 0;
-  };
+  const isOutOfStock = stockState <= 0;
 
   const isProductDiscounted = () => {
     return (product.discount || 0) > 0;
@@ -94,23 +162,15 @@ useEffect(()=>{
   const discountedPriceCalculated = calculateDiscountedPrice();
   const discountedPriceFormatted = discountedPriceCalculated.toFixed(2);
 
-  // Calculate the average rating
   const averageRating = reviewData.length > 0
     ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
     : 0;
 
-  console.log("averageRating:", averageRating);
-
-  const handleThumbnailClick = (itemId, imageUrl) => {
-    setSelectedThumbnails((prev) => ({
-      ...prev,
-      [itemId]: imageUrl,
-    }));
+  const handleThumbnailClick = (imageUrl) => {
+    setSelectedThumbnail(imageUrl);
   };
 
- 
-
-   const handleAddToCartClick = () => {
+  const handleAddToCartClick = () => {
     const productToAdd = {
       ...product,
       price: isProductDiscounted() ? discountedPriceCalculated : product.price,
@@ -120,153 +180,182 @@ useEffect(()=>{
     };
 
     addToCart(productToAdd);
+    setAddedToCartOnce(true); // Set to true after adding to cart
   };
 
- const handleCheckoutClick = () => {
-    // 1. Check if logged in first
+  const handleCheckoutClick = () => {
     if (!isLoggedIn) {
       handleShowModal('Please login to continue');
-      return; // Stop execution if not logged in
+      return;
     }
 
-    // 2. Prepare the single item for checkout
-    // This creates the exact object structure your CheckoutPage expects for a single item
     const productToCheckout = {
       ...product,
-      // Ensure any specific checkout-related properties are included
       price: isProductDiscounted() ? discountedPriceCalculated : product.price,
       originalPrice: product.price,
       discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
       displayPrice: discountedPriceFormatted,
-      quantity: 1, // When buying now, usually it's a quantity of 1
-      isSelected: true, // Mark as selected for CheckoutPage
+      quantity: 1,
+      isSelected: true,
     };
 
-    // 3. Navigate to checkout, passing the single item in an array
-    // The CheckoutPage expects an array of selected items.
     navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
-
-    // Important: Do NOT call addToCart here if "Buy Now" means immediate checkout
-    // without affecting the persistent cart. If "Buy Now" should also add to cart,
-    // call addToCart(productToCheckout) *before* the navigate.
-    // However, for typical "Buy Now" flow, we just want to proceed with *this* item.
   };
 
-
-  // Function to convert rating to stars
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
-      if (i < rating) {
-        stars.push(<span key={i}>&#9733;</span>); // Filled star
-      } else {
-        stars.push(<span key={i}>&#9734;</span>); // Empty star
-      }
+      stars.push(
+        <FaStar
+          key={i}
+          className={i < rating ? "text-warning" : "text-secondary opacity-50"}
+          style={{ fontSize: "1.2rem" }}
+        />
+      );
     }
     return stars;
   };
 
   return (
     <>
-    <Container className="mt-3">
-     <Row className="justify-content-center">
-      {product && featuredProducts && <BreadCrumbFeatured productId={product.id} featuredProducts={featuredProducts} />}
-        <Col xs={12} md={6} className="d-flex flex-column justify-content-center align-items-center mb-3" 
-        style={{border:'1px #d3d4d5 solid', paddingTop:'10px', paddingBottom:'10px'}}>
-          
-             <div className="main-image-container">
-                        <Image
-                          src={selectedThumbnails[product.id] || product.url}
-                          alt={product.name} 
-                          className="main-image"
-                        />
-                      </div>
-                      <div className="thumbnails mb-2">
-                        {product.thumbnails.map((thumb, id) => (
-                          <img
-                            key={id}
-                            src={thumb}
-                            alt={`Thumbnail ${id}`}
-                            onClick={() => handleThumbnailClick(product.id, thumb)}
-                            className="thumbnail-image"
-                          />
-                        ))}
-                      </div>
-        </Col>
+      <Container className="my-4 product-page-container">
+        {/* Breadcrumb Navigation */}
+        {product &&  featuredProducts && (
+          <BreadCrumbFeatured productId={product.id}  featuredProducts={ featuredProducts} />
+        )}
 
-        {/* Product Information */}
-        <Col xs={12} md={6}>
-              <h2>{product.name}</h2>
-         
-          <p style={{marginBottom:'12px'}}>Description: {product.description}</p>
-             {isProductDiscounted() ? (
-           <div className="d-flex">
-            <h6 className="original-price" style={{ textDecoration: 'line-through', color: '#888' }}>
-              ₱{originalPriceFormatted}
-            </h6>
-            {/* Add margin-left to the discounted price for spacing */}
-            <h6 className="discounted-price ms-2">₱{discountedPriceFormatted}</h6>
-            {/* Add margin-left to the discount percentage for spacing */}
-            <h6 className="ms-2" style={{ color: '#888' }}>
-              -{product.discount}%
-            </h6>
-          </div>
+        <Row className="justify-content-center g-4 product-main-row">
+          <Col xs={12} md={6} lg={5} className="d-flex flex-column justify-content-center align-items-center product-image-section">
+            <Fade in={true} appear={true}>
+              <div className="main-image-container mb-3 shadow-sm rounded">
+                <Image
+                  src={selectedThumbnail || product.url}
+                  alt={product.name}
+                  className="main-product-image img-fluid rounded"
+                />
+              </div>
+            </Fade>
+            {product.thumbnails && product.thumbnails.length > 0 && (
+              <div className="thumbnails-container d-flex flex-wrap justify-content-center gap-2 mt-2">
+                {[product.url, ...product.thumbnails].map((thumb, idx) => (
+                  <Image
+                    key={idx}
+                    src={thumb}
+                    alt={`${product.name} thumbnail ${idx + 1}`}
+                    onClick={() => handleThumbnailClick(thumb)}
+                    className={`thumbnail-image border ${selectedThumbnail === thumb ? 'active-thumbnail border-primary shadow-sm' : 'border-light'}`}
+                    fluid
+                  />
+                ))}
+              </div>
+            )}
+          </Col>
+
+          <Col xs={12} md={6} lg={5} className='product-details-section ps-md-4'>
+            <h1 className="mb-2 display-5 fw-bold">{product.name}</h1>
+            <p className="text-muted mb-3 fs-5">{product.description}</p>
+
+            {/* Price display */}
+            {isProductDiscounted() ? ( // Call the function here
+              <div className="d-flex align-items-baseline mb-3">
+                <h3 className="original-price text-decoration-line-through text-muted me-2 fs-4">
+                  ₱{originalPriceFormatted}
+                </h3>
+                <h2 className="discounted-price text-danger me-2 fs-2 fw-bold">₱{discountedPriceFormatted}</h2>
+                <span className="badge bg-success fs-6 fw-bold">-{product.discount}% OFF</span>
+              </div>
             ) : (
-              <h6>₱{originalPriceFormatted}</h6>
+              <h2 className="price mb-3 fs-2 fw-bold">₱{originalPriceFormatted}</h2>
             )}
 
-           <div className="d-flex flex-column mb-1">
-            <div className="d-flex">
-              <div className="text-warning me-1 mb-1" style={{ fontSize: "18px" }}>
+            {/* Reviews and Stock Status */}
+            <div className="d-flex align-items-center mb-3">
+              <div className="d-flex me-3 align-items-center">
                 {renderStars(averageRating)}
+                <span className="ms-2 fw-bold fs-5 text-dark">{averageRating}</span>
               </div>
-              <span>{averageRating}</span>
-              <span className="mx-3"> Reviews: {reviewData.length} </span>
+              <span className="text-muted fs-6">({reviewData.length} Reviews)</span>
+              {loadingReviews && (
+                <span className="ms-3 text-info d-flex align-items-center">
+                  <Spinner animation="border" size="sm" className="me-1" /> Loading reviews...
+                </span>
+              )}
+              {errorReviews && (
+                <span className="ms-3 text-danger d-flex align-items-center">
+                  <FaExclamationTriangle className="me-1" /> Error loading reviews.
+                </span>
+              )}
             </div>
-          </div>    
 
-<p style={{ color: product.stock === 0 ? "red" : "#067d62", fontWeight: "400", marginBottom:"12px"}}>
-  {product.stock === 0 ? "Out of stock" : "In stock"}
-</p>
-{freeShippingPlace?(<p style={{color:"#067d62",marginBottom:"10px"}}><FaShippingFast/> FreeShipping </p>):(<p></p>)}
-   {freeShippingPlace? (<p style={{ display: 'flex', alignItems: 'center', fontSize: '15px', color: 'red', marginBottom:'12px'}}>
-              Not Available outside Danao City</p>):(<p></p>)}
+            <p className={`fw-bold fs-5 ${isOutOfStock ? "text-danger" : "text-success"} mb-3`}>
+              {isOutOfStock ? "Out of Stock" : `In Stock (${stockState} available)`}
+            </p>
 
-        <Button variant="primary" onClick={() => addToCart(product)} disabled={stockStatus()}>
-      Add to Cart
-    </Button>
-    <Button variant="primary" onClick={handleCheckoutClick} className="mx-3" disabled={stockStatus()}>
-      Buy Now
-    </Button>
-        </Col>
-      </Row>
+            {/* Shipping Information */}
+            {freeShippingPlace && (
+              <div className="mb-4 p-3 bg-light rounded border border-success">
+                <p className="text-success mb-1 fw-bold fs-5 d-flex align-items-center">
+                  <FaShippingFast className="me-2 fs-4" /> Free Shipping to Maslog (Danao City)!
+                </p>
+                <p className="text-muted small mb-0">This offer applies only within the specified area.</p>
+              </div>
+            )}
 
-       <Row style={{marginBottom:'60px', marginTop:'60px'}}>
-        <Col>
-        <TabbedComponent  productId={product.id} featuredProducts={featuredProducts}/>
-        </Col>
+            {/* Action Buttons */}
+            <div className="d-flex flex-column flex-sm-row mt-4 gap-3">
+              <Button
+                variant="primary"
+                onClick={handleAddToCartClick}
+                disabled={isOutOfStock}
+                className="px-4 py-2 flex-grow-1 d-flex align-items-center justify-content-center"
+              >
+                <FaCartPlus className="me-2" /> {addedToCartOnce ? 'Add More to Cart' : 'Add to Cart'}
+              </Button>
+              <Button
+                variant="outline-primary"
+                onClick={handleCheckoutClick}
+                disabled={isOutOfStock}
+                className="px-4 py-2 flex-grow-1 d-flex align-items-center justify-content-center"
+              >
+                Buy Now
+              </Button>
+            </div>
+          </Col>
+        </Row>
 
-      </Row>
-         <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Authentication Required</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  {modalMessage}
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleLoginRedirect}>
-                    Log In
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-    </Container>
-        <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>
+        {/* Product Details Tabs */}
+        <Row className="my-5">
+          <Col xs={12}>
+            {/* Ensure product is available before passing to TabbedComponent */}
+            {product && <TabbedComponent  productId={product.id} featuredProducts={featuredProducts}/>}
+          </Col>
+        </Row>
+
+        {/* "You May Like" Section */}
+        <Row className="my-5">
+          <Col xs={12}>
+            <YouMayLike addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts} />
+          </Col>
+        </Row>
+      </Container>
+
+      {/* Authentication Required Modal */}
+      <Modal show={showModal} onHide={handleClose} centered backdrop="static" keyboard={false}>
+        <Modal.Header closeButton className="bg-primary text-white">
+          <Modal.Title><FaExclamationTriangle className="me-2" />Authentication Required</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="py-4">
+          <p className="lead text-center">{modalMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleLoginRedirect}>
+            <FaCheckCircle className="me-1" /> Log In
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-};
-
-
+}
