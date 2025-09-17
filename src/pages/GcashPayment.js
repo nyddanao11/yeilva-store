@@ -56,21 +56,13 @@ const [checkoutItemsFromNav, setCheckoutItemsFromNav] = useState([]); // <--- NE
     }
   }, [paymentSuccessful, navigate, checkoutItemsFromNav]); // Add checkoutItemsFromNav to dependency array
 
+const backToCheckout=()=>{
+  navigate('/checkoutform')
+};
 
   const generateTransactionCode = () => uuidv4().slice(0, 8).toUpperCase();
 
-  const handleShow = () => {
-    setTransactionCode(generateTransactionCode());
-    setShowGcash(true);
-  };
-
-  const handleClose = () => {
-    setShowGcash(false);
-    setTransactionCode('');
-  };
-
-const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, ''));
-
+ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, ''));
 
   const submit = async () => {
     setLoading(true);
@@ -122,52 +114,17 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
 
               </div>
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <Button variant="success" onClick={submit} disabled={loading} style={{width:"360px", marginBottom:"10px", marginTop:"10px"}}>
+                <Button variant="success" onClick={submit} disabled={loading} style={{width:"100%", marginBottom:"10px", marginTop:"10px"}}>
                     {loading ? 'Submitting...' : 'Submit'}
                   </Button>
 
-                <Link to="/checkoutform">
-                  <Button variant="outline-secondary" className="btn-sm mt-3 mb-2" style={{width:"360px",marginBottom:"10px", marginTop:"10px"}}>
+                  <Button variant="outline-secondary" onClick={backToCheckout} className=" mt-3 mb-2" style={{width:"100%", marginBottom:"10px", marginTop:"10px"}}>
                     Back to Checkout
                   </Button>
-                </Link>
-
+              
              </div>
 
-              <Modal show={showGcash} onHide={handleClose} centered>
-                <Modal.Header closeButton>
-                  <Modal.Title>GCash Payment</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <div className="text-center">
-                    <div>
-                      <p>Scan the QR PH code below to pay</p>
-                    </div>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/qrph.jpg`}
-                      alt="QR PH"
-                      className="img-fluid mb-3"
-                      style={{ width: '250px', height: '250px' }}
-                    />
-                    <p><strong>Transaction Code:</strong> {transactionCode}</p>
-                    <p style={{fontSize:'20px'}}>Please Pay: <strong>{formattedGrandTotal}</strong></p>
-                    {errorMessage && <p className="text-danger">{errorMessage}</p>}
-                  </div>
-                   <div className="w-100"  style={{ marginTop: '15px' }}>
-                <p><strong>Reminder:</strong></p>
-              <p>Please click <mark>Submit</mark> only after completing payment via the E-Wallet(gcash, Maya,etc..) and bank(BPI,BDO,etc..) app.
-                 An email will be sent once your payment is successfully verified.</p>
-                </div>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="success" onClick={submit} disabled={loading}>
-                    {loading ? 'Submitting...' : 'Submit'}
-                  </Button>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+              
             </Card.Body>
           </Card>
         </Col>
