@@ -50,7 +50,7 @@ export default function Footer ({isLoggedIn}) {
             <h5>We Accept</h5>
             {/* Use icons for payment methods for better visual representation */}
             <ul className="payment-methods">
-              <li>Gcash</li>
+              <li>E-Wallet</li>
               <li>Bank Transfer</li>
               <li>Cash On Delivery</li>
               <li>Installment</li>

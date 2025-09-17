@@ -75,6 +75,7 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         try {
             await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/save-transaction-code`, paymentData);
             setPaymentSuccessful(true);
+            alert('Transaction Code Successfully Saved!');
         } catch (error) {
             console.error('Error saving transaction code:', error);
             setErrorMessage('There was an issue saving your transaction. Please try again.');
