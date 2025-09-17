@@ -103,7 +103,7 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
   return (
     <Container fluid className="d-flex justify-content-center align-items-center" style={{ backgroundColor: "#f8f9fa" }}>
       <Row className="w-100">
-        <Col lg={10} md={10} xs={12} className="mx-auto mt-4">
+        <Col lg={10} md={10} xs={12} className="mx-auto mt-2">
           <Card className="p-3 shadow">
             <Card.Body>
               <div className="d-flex flex-column justify-content-center align-items-center">
@@ -111,23 +111,28 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                
                 <div className={isSmallScreen ? "w-100" : "w-50"} style={{ marginTop: '25px' }}>
                 <p><strong>Reminder:</strong></p>
-                <p>Please click <mark>Submit</mark> only after completing payment via the GCash app. An email will be sent once your payment is successfully verified.</p>
+                <p>Please click <strong><mark>Submit</mark></strong> only after completing payment via the E-Wallet(gcash, Maya,etc..) and bank(BPI,BDO,etc..) app.
+                 An email will be sent once your payment is successfully verified.</p>
                </div>
 
-                 <p style={{fontSize:'20px'}}>Please Pay: <strong>{formattedGrandTotal}</strong></p>
-                   <Button variant="primary" onClick={handleShow} className="p-2 mt-3 mb-3">
-                  <img src={`${process.env.PUBLIC_URL}/images/gcashlogo.png`} alt="GCash Logo" style={{ width: '35px', height: '35px' }} /> Pay with GCash
-                </Button>
+                 <p style={{fontSize:'25px', marginTop:'10px'}}>Please Pay: <strong>{formattedGrandTotal}</strong></p>
+                   <div className="p-2 mt-2 mb-3">
+                  <img src={`${process.env.PUBLIC_URL}/images/qrph.jpg`} alt="QR ph" style={{width:"360px", heigth:"auto" }} /> 
+                </div>
+
+              </div>
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <Button variant="success" onClick={submit} disabled={loading} style={{width:"360px", marginBottom:"10px", marginTop:"10px"}}>
+                    {loading ? 'Submitting...' : 'Submit'}
+                  </Button>
 
                 <Link to="/checkoutform">
-                  <Button variant="outline-secondary" className="btn-sm mt-3 mb-2">
+                  <Button variant="outline-secondary" className="btn-sm mt-3 mb-2" style={{width:"360px",marginBottom:"10px", marginTop:"10px"}}>
                     Back to Checkout
                   </Button>
                 </Link>
 
-              </div>
-
-             
+             </div>
 
               <Modal show={showGcash} onHide={handleClose} centered>
                 <Modal.Header closeButton>
@@ -136,12 +141,11 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                 <Modal.Body>
                   <div className="text-center">
                     <div>
-                      <p>Scan the QR code below to pay with GCash</p>
-                      <p>or Pay through GCash account <strong>09497042268</strong></p>
+                      <p>Scan the QR PH code below to pay</p>
                     </div>
                     <img
-                      src={`${process.env.PUBLIC_URL}/images/gcashqrcode.jpg`}
-                      alt="GCash QR Code"
+                      src={`${process.env.PUBLIC_URL}/images/qrph.jpg`}
+                      alt="QR PH"
                       className="img-fluid mb-3"
                       style={{ width: '250px', height: '250px' }}
                     />
@@ -151,8 +155,9 @@ const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, '
                   </div>
                    <div className="w-100"  style={{ marginTop: '15px' }}>
                 <p><strong>Reminder:</strong></p>
-                <p>Please click <mark>Submit</mark> only after completing payment via the GCash app. An email will be sent once your payment is successfully verified.</p>
-               </div>
+              <p>Please click <mark>Submit</mark> only after completing payment via the E-Wallet(gcash, Maya,etc..) and bank(BPI,BDO,etc..) app.
+                 An email will be sent once your payment is successfully verified.</p>
+                </div>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="success" onClick={submit} disabled={loading}>

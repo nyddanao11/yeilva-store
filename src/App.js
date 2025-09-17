@@ -60,6 +60,9 @@ const LockoutPage = React.lazy(() => import('./pages/LockoutPage'));
 const InstallmentHistoryPage = React.lazy(() => import('./components/InstallmentHistoryPage'));
 const Epayment = React.lazy(() => import('./pages/Epayment'));
 const GcashPaymentModal = React.lazy(() => import('./pages/GcashPayment'));
+const CheckoutButton = React.lazy(() => import('./pages/PayMongoPayment'));
+const SuccessPage = React.lazy(() => import('./pages/SuccessPage'));
+const CancelPage = React.lazy(() => import('./pages/CancelPage'));
 const DeleteAccount = React.lazy(() => import('./components/DeleteAccount'));
 const ScrollToTop = React.lazy(() => import('./pages/ScrollToTop'));
 const LoanTerms = React.lazy(() => import('./pages/LoanTerms'));
@@ -221,6 +224,9 @@ const handleLogout = () => {
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/gcashpayment" element={<GcashPaymentModal addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal} />} />
+                      <Route path="/paymongopayment" element={<CheckoutButton addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal} cartItems={cartItems}/>} /> 
+                        <Route path="/successpage" element={<SuccessPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} /> 
+                      <Route path="/cancelpage" element={<CancelPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} /> 
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
@@ -354,6 +360,9 @@ const handleLogout = () => {
                       <Route path="/installmentterms" element={<InstallmentTerms />} />
                      <Route path="/epayment" element={<Epayment />} />
                       <Route path="/gcashpayment" element={<GcashPaymentModal addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal} />} />
+                      <Route path="/paymongopayment" element={<CheckoutButton addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal} cartItems={cartItems}/>} />  
+                        <Route path="/successpage" element={<SuccessPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} /> 
+                      <Route path="/cancelpage" element={<CancelPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} />  
                       <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />

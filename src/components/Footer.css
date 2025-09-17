@@ -8,23 +8,27 @@
   width: 100%;
 }
 
+.icons{
+  font-size: 20px;
+  color: white;
+}
+.icons:hover{
+  color:blue;
+}
+
 .footer-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align:center; /* Center align the content within the footer */
+  margin-bottom: 20px;
 }
 
 .social-links {
   margin-bottom: 20px; /* Add some space below the social links */
 }
 
-.social-links .btn-link {
-  font-size: 24px; /* Increase the icon size */
-  color: #fff; /* Set the icon color */
-  margin: 0 10px; /* Add some space between the icons */
-}
 
 .social-links .btn-link:hover {
   color: #007bff; /* Change the icon color on hover (use your preferred hover color) */

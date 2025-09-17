@@ -8,6 +8,12 @@ import HoverButton4 from'./HoverButton4';
 import BackToTopButton from'./BackToTopButton';
 
 export default function Footer ({isLoggedIn}) {
+// A reusable SocialLink component
+      const SocialLink = ({ href, icon, label }) => (
+        <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-link">
+          {icon}
+        </a>
+      );
   return (
     <footer className="footer">
       <Container >
@@ -15,20 +21,12 @@ export default function Footer ({isLoggedIn}) {
 
           <Col md={4} className="footer-content">
             <div>
-             <h5> Follow us:</h5>
-              <div className="social-links">
-                <Button variant="link" href="https://www.facebook.com/yeilvastore/" target="_blank">
-                  <FaFacebook />
-                </Button>
-                <Button variant="link" href="https://www.youtube.com/watch?v=vwFjm2BG8pU&t=31s" target="_blank">
-                  <FaYoutube />
-                </Button>
-                <Button variant="link" href="https://www.instagram.com/yeilvastore?igsh=MWJ6anpib2o1ZjduYQ%3D%3D" target="_blank">
-                  <FaInstagram />
-                </Button>
-                <Button variant="link" href="https://shope.ee/5pZmnVEM3L" target="_blank">
-                  <FaShopify />
-                </Button>
+             <h5> Follow us</h5>
+             <div className="social-links d-flex justify-content-center gap-3">
+                <SocialLink  href="https://www.facebook.com/yeilvastore/" icon={<FaFacebook className="icons"/>} label="Follow us on Facebook" />
+              <SocialLink  href="https://www.youtube.com/@NYDChannel" icon={<FaYoutube  className="icons"/>} label="Subscribe to our YouTube channel" />
+              <SocialLink  href="https://www.instagram.com/yeilvastore" icon={<FaInstagram  className="icons"/>} label="Follow us on Instagram" />
+              <SocialLink  href="https://shope.ee/5pZmnVEM3L" icon={<FaShopify  className="icons"/>} label="Shop on Shopee" />
               </div>
               <p>&copy; 2025 Yeilva Store. All rights reserved.</p>
             </div>
@@ -48,19 +46,21 @@ export default function Footer ({isLoggedIn}) {
           </Col>
 
           <Col md={4} className="d-flex flex-column align-items-center justify-content-center mt-2" >
-          <div >
-              <h6> Accepts</h6>
-              <p style={{margin:"0px"}}>Gcash</p>
-              <p style={{margin:"0px"}}>Bank Transfer</p>
-              <p style={{margin:"0px"}}>Cash On Delivery</p>
-              <p>Installment </p>
-          </div>
+       
+            <h5>We Accept</h5>
+            {/* Use icons for payment methods for better visual representation */}
+            <ul className="payment-methods">
+              <li>Gcash</li>
+              <li>Bank Transfer</li>
+              <li>Cash On Delivery</li>
+              <li>Installment</li>
+            </ul>
           </Col>
         </Row>
-      
       </Container>
-        <BackToTopButton /> {/* Add the BackToTopButton here */}
+      <BackToTopButton />
     </footer>
   );
 };
+
 
