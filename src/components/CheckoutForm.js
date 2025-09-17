@@ -7,7 +7,7 @@ import {useNavigate, Link, useLocation} from'react-router-dom';
 import CameraCapture from'./CameraCapture';
 import { useCart } from '../pages/CartContext'; // Correct path to your context
 import { fetchUserData } from '../components/userService';
-
+import GcashPaymentModal from './GcashPaymentModal';
 
 export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
  const {
@@ -35,6 +35,9 @@ export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
 
   // ... (other states like loading, error, etc.)
  
+ // In your CheckoutForm component
+const [showGcashModal, setShowGcashModal] = useState(false);
+
  const [userData, setUserData] = useState({
         firstname: '',
         lastname: '',
@@ -79,8 +82,10 @@ export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
   }, [passedEwalletStatus]);
 
   const handleEwalletsNavigation = () => {
-    navigate('/gcashpayment'); // GcashPaymentModal will get data from context
+    setShowGcashModal(true); //  will get data from context
   };
+
+
 
  const [paymentErrors, setPaymentErrors] = useState({
   ewallets: '',
@@ -571,7 +576,8 @@ useEffect(() => {
             <h4 className="mb-3 text-primary">Payment Options</h4>
             <div className="p-4 mb-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
               <Form.Group className="mb-3">
-                <Form.Check
+
+                 <Form.Check
                   type="radio"
                   label="GCash (E-wallets/Banks)"
                   name="paymentMethod"
@@ -588,13 +594,14 @@ useEffect(() => {
                   onClick={handleEwalletsNavigation} // <--- USE THE PROP HERE!
                   disabled={passedEwalletStatus}
                 >
-                  {passedEwalletStatus ? 'Payment Verified, Proceed to Place Order' : 'Proceed to GCash Payment'}
+                  {passedEwalletStatus ? 'Payment Verified, Proceed to Place Order' : 'Proceed to E-wallets/banks Payment'}
                 </Button>
                     {paymentErrors.ewallets && (
                       <div className="text-danger mt-2">{paymentErrors.ewallets}</div>
                     )}
                   </div>
                 )}
+
 
                 <Form.Check
                   type="radio"
@@ -676,6 +683,8 @@ useEffect(() => {
             {/* General error display */}
             {paymentErrors.general && <p className="text-danger text-center mb-2">{paymentErrors.general}</p>}
 
+
+          <GcashPaymentModal showGcash={showGcashModal} setShowGcash={setShowGcashModal} />
 
             {/* Total Price and Place Order Button */}
             <div className="p-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
