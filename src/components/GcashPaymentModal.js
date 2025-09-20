@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Container, Card, Col, Row, Spinner, Alert } from 'react-bootstrap';
+import { Button, Modal, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -24,6 +24,13 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
     });
     const [checkoutItemsFromNav, setCheckoutItemsFromNav] = useState([]);
 
+    // Generate transaction code once when the modal is shown
+    useEffect(() => {
+        if (showGcash) {
+            setTransactionCode(uuidv4().slice(0, 8).toUpperCase());
+        }
+    }, [showGcash]);
+
     useEffect(() => {
         const storedUserEmail = localStorage.getItem('email');
         if (storedUserEmail) {
@@ -41,20 +48,17 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         }
     }, [location.state]);
 
-    useEffect(() => {
-        if (paymentSuccessful) {
-            navigate('/checkoutform', {
-                state: {
-                    ewalletStatus: true,
-                },
-            });
-        }
-    }, [paymentSuccessful, navigate]);
-
     const handleClose = () => {
         setShowGcash(false);
         setErrorMessage('');
         setPaymentSuccessful(false);
+        setTransactionCode(''); // Clear the code when closing the modal
+        // Optional: Navigate back to checkout form on close after a successful payment
+        if (paymentSuccessful) {
+            navigate('/checkoutform', {
+                state: { ewalletStatus: true },
+            });
+        }
     };
 
     const gcashPaymentTotal = parseFloat(formattedGrandTotal.replace(/[^0-9.-]+/g, ''));
@@ -62,10 +66,9 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
     const submit = async () => {
         setLoading(true);
         setErrorMessage('');
-        const newTransactionCode = transactionCode || uuidv4().slice(0, 8).toUpperCase();
 
         const paymentData = {
-            transactionCode: newTransactionCode,
+            transactionCode, // Use the state variable
             amount: gcashPaymentTotal,
             firstname: userData.firstname,
             lastname: userData.lastname,
@@ -75,7 +78,6 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         try {
             await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/save-transaction-code`, paymentData);
             setPaymentSuccessful(true);
-            alert('Transaction Code Successfully Saved!');
         } catch (error) {
             console.error('Error saving transaction code:', error);
             setErrorMessage('There was an issue saving your transaction. Please try again.');
@@ -88,7 +90,6 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         <Modal show={showGcash} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton>
                 <Modal.Title className="d-flex align-items-center">
-                   
                     Complete Your Payment
                 </Modal.Title>
             </Modal.Header>
@@ -111,16 +112,17 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
                             <Col md={6} className="d-flex flex-column align-items-center">
                                 <h5 className="text-center mb-3">Scan to Pay</h5>
                                 <div className="p-3 border rounded shadow-sm">
-                                    <img src={`${process.env.PUBLIC_URL}/images/qrph.jpg`} alt="QR ph" className="img-fluid" />
+                                    <img src={`${process.env.PUBLIC_URL}/images/gcashqrcode.jpg`} alt="QR ph" className="img-fluid" />
                                 </div>
                                 <p className="mt-3 fs-4">Amount to Pay: <strong>{formattedGrandTotal}</strong></p>
+                                <p>Transaction Code: {transactionCode}</p>
                             </Col>
                             <Col md={6}>
                                 <div className="p-3">
                                     <h5 className="mb-3">Instructions:</h5>
                                     <ol>
                                         <li>Open your **E-Wallet or Bank** app.</li>
-                                        <li>Tap **"Scan QR"** and scan the code on the left.</li>
+                                        <li>Tap **Scan QR** and scan the code on the left.</li>
                                         <li>Enter the exact amount: **{formattedGrandTotal}**.</li>
                                         <li>Confirm the payment.</li>
                                         <li>After paying, click the **"I Have Paid"** button below to complete your order.</li>

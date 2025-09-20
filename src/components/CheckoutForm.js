@@ -597,22 +597,7 @@ useEffect(() => {
                   onClick={handleEwalletsNavigation} // <--- USE THE PROP HERE!
                   disabled={passedEwalletStatus}
                 >
-                  {passedEwalletStatus ? 'Proceed to Place Order' : 'Pay with QRPH e-wallet/Banks'}
-                </Button>
-                    {paymentErrors.ewallets && (
-                      <div className="text-danger mt-2">{paymentErrors.ewallets}</div>
-                    )}
-                  </div>
-                )}
-
-                {selectedPayment === 'E-wallets banks' && (
-                  <div className="ms-4 mb-3">
-                    <Button
-                  variant={passedEwalletStatus ? "success" : "primary"}
-                  onClick={handlePaymongoNavigation} // <--- USE THE PROP HERE!
-                  disabled={passedEwalletStatus}
-                >
-                  {passedEwalletStatus ? 'Proceed to Place Order' : 'Proceed to E-wallets/banks Payment'}
+                  {passedEwalletStatus ? 'Proceed to Place Order' : 'Pay with Gcash QRcode'}
                 </Button>
                     {paymentErrors.ewallets && (
                       <div className="text-danger mt-2">{paymentErrors.ewallets}</div>
