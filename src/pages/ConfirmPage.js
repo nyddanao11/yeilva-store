@@ -30,28 +30,38 @@ export default function ConfirmPage () {
   }
 }, []);
 
+return (
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6}>
+          {confirmationStatus === 'pending' && (
+            <Alert variant="info" className="text-center">
+              <Spinner animation="border" size="sm" className="me-2" />
+              Confirmation in progress...
+            </Alert>
+          )}
 
-  return (
-    <div className="d-flex flex-column justify-content-center align-items-center">
-      {confirmationStatus === 'pending' && (
-        <p>Confirmation in progress...</p>
-      )}
+          {confirmationStatus === 'success' && (
+            <Alert variant="success" className="text-center">
+              <h4>🎉 Success!</h4>
+              <p>Your email has been confirmed. You can now log in.</p>
+              <Button as={Link} to="/login" variant="success">
+                Go to Login
+              </Button>
+            </Alert>
+          )}
 
-        {confirmationStatus === 'success' && (
-        <div>
-          <p>Email confirmed successfully. You can now log in.</p>
-          <Link to="/login" style={{ textDecoration: 'none', padding: '15px 25px', background: '#0D6EFD', color: 'white'}}>
-            Login
-          </Link>
-          {/* You can add a button or link to the login page here */}
-        </div>
-      )}
-
-
-      {confirmationStatus === 'error' && (
-        <p>Error confirming email. Please check your confirmation link or try again later.</p>
-      )}
-    </div>
+          {confirmationStatus === 'error' && (
+            <Alert variant="danger" className="text-center">
+              <h4>🚨 Error</h4>
+              <p>Error confirming your email. The link may be invalid or expired. Please request a new confirmation link.</p>
+              <Button as={Link} to="/resend-confirmation" variant="danger">
+                Resend Confirmation Email
+              </Button>
+            </Alert>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
-};
-
+}
