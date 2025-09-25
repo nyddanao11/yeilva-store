@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from'react-router-dom';
+import { Container, Row, Col, Alert, Spinner, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 export default function ConfirmPage () {
