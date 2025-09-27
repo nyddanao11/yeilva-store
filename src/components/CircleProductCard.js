@@ -3,10 +3,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import ProductCard from './ImageCircleCard';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'; // Import icons
 import { useMediaQuery } from 'react-responsive';
 import axios from'axios';
 import {Link, useNavigate} from'react-router-dom';
-
+import './FeaturedProductSlides.css';
 
 const CircleCard = ({ addToCart, handleItemClickCategory }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const CircleCard = ({ addToCart, handleItemClickCategory }) => {
 
  async function fetchProductCategories() {
   try {
-    const response = await axios.get('https://yeilva-store-server.up.railway.app/api/productscategory'); // Fetch all products
+    const response = await axios.get('http://localhost:3001/api/productscategory'); // Fetch all products
     const products = Array.isArray(response.data) ? response.data.map(formatProductData) : [];
 
     if (products.length === 0) {
@@ -84,12 +85,16 @@ const CircleCard = ({ addToCart, handleItemClickCategory }) => {
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
 
-    // Custom arrow components
+ // Custom arrow components with SVG icons
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display:'block', background:' #D6D6D6', borderRadius: '50%'}} onClick={onClick}>
-        Previous
+      <div 
+        className={`${className} custom-arrow prev-arrow`} // Add custom classes
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IoIosArrowBack size={24} color="black" /> {/* Use the imported icon */}
       </div>
     );
   };
@@ -97,23 +102,26 @@ const CircleCard = ({ addToCart, handleItemClickCategory }) => {
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display:'block', background: '#D6D6D6', borderRadius: '50%'}} onClick={onClick}>
-        Next
+      <div
+        className={`${className} custom-arrow next-arrow`} // Add custom classes
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IoIosArrowForward size={24} color="black" /> {/* Use the imported icon */}
       </div>
     );
   };
 
-const slidesToDisplay = isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1;
-
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: slidesToDisplay,
-  slidesToScroll: slidesToDisplay,
-  prevArrow: <CustomPrevArrow />,
-  nextArrow: <CustomNextArrow />,
-};
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+    slidesToScroll: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    variableWidth: false,
+  };
 
 
 if (allCategory.length === 0) {

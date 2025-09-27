@@ -1,54 +1,48 @@
-.tabs_container{
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap:10px;
-	
+.announcement-wrapper {
+  padding: 30px 0;
 }
 
-.tabs_item{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 150px;
-	height: 90px;
-	background-color: #FFFFFF;
-	color: black;
-	border: none;
-	padding: 10px 5px;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);
-	margin:15px 0px;
-}
-.tabs_title, .tabs_title_01{
-	letter-spacing:1px;
-	
-}
-.tabs_title_01, .tabs_title_02{
-	letter-spacing:1px;
-	font-size: 10px;	
-}
-.tabs_title{
-	font-weight: 700;
-	font-size: 12px;
-	padding-top: 7px;
+.tabs_item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
-@media(max-width: 360px){
-  .tabs_item{
-  	margin:0px 0px;
-  }
+.tabs_item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.tabs_icon {
+  font-size: 24px;
+  color: #0D6EFD;
+  margin-bottom: 8px;
 }
 
 .tabs_title {
-  display: flex;
-  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #333;
 }
 
-.tabs_title svg {
-  margin-right: 8px; /* Adjust the spacing between the icon and the text */
+.tabs_subtitle {
+  font-size: 12px;
+  color: #666;
 }
-.icons{
-	color:#0D6EFD;
+
+.tabs_link {
+  text-decoration: none;
+  display: block;
+  
+}
+
+@media (max-width: 576px) {
+  .tabs_item {
+    margin-bottom: 15px;
+  }
 }

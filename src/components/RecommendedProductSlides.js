@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'; // Import icons
 import ImageCardRecommendedProduct from './ImageCardRecommendedProduct';
 import './FeaturedProductSlides.css';
 
@@ -12,12 +13,16 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
  
-    // Custom arrow components (no changes needed here)
+   // Custom arrow components with SVG icons
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: ' #D6D6D6', borderRadius: '50%' }} onClick={onClick}>
-        Previous
+      <div 
+        className={`${className} custom-arrow prev-arrow`} // Add custom classes
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IoIosArrowBack size={24} color="black" /> {/* Use the imported icon */}
       </div>
     );
   };
@@ -25,8 +30,12 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: '#D6D6D6', borderRadius: '50%' }} onClick={onClick}>
-        Next
+      <div
+        className={`${className} custom-arrow next-arrow`} // Add custom classes
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IoIosArrowForward size={24} color="black" /> {/* Use the imported icon */}
       </div>
     );
   };
@@ -39,9 +48,8 @@ export default function RecommendedProductSlides ({ addToCart, recommendedProduc
     slidesToScroll: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-    variableWidth: false, // Ensure variableWidth is false for consistent sizing
+    variableWidth: false,
   };
-  
   
   if (recommendedLoading) return <div>Loading...</div>;
   if (recommendedError) return <div>Error fetching best selling products</div>;

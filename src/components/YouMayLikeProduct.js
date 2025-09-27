@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'; // Import icons
 import ImageYouMayLikeProduct from './ImageYouMayLikeProduct';
 import './FeaturedProductSlides.css';
 
@@ -13,12 +14,16 @@ export default function YouMayLikeProduct ({ addToCart, youMayLikeProducts, mayL
 
   console.log('youMayLikeProducts:', youMayLikeProducts);
 
-  // Custom arrow components (no changes needed here)
+ // Custom arrow components with SVG icons
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: ' #D6D6D6', borderRadius: '50%' }} onClick={onClick}>
-        Previous
+      <div 
+        className={`${className} custom-arrow prev-arrow`} // Add custom classes
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IoIosArrowBack size={24} color="black" /> {/* Use the imported icon */}
       </div>
     );
   };
@@ -26,8 +31,12 @@ export default function YouMayLikeProduct ({ addToCart, youMayLikeProducts, mayL
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <div className={className} style={{ ...style, display: 'block', background: '#D6D6D6', borderRadius: '50%' }} onClick={onClick}>
-        Next
+      <div
+        className={`${className} custom-arrow next-arrow`} // Add custom classes
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IoIosArrowForward size={24} color="black" /> {/* Use the imported icon */}
       </div>
     );
   };
@@ -40,8 +49,9 @@ export default function YouMayLikeProduct ({ addToCart, youMayLikeProducts, mayL
     slidesToScroll: isLargeScreen ? 5 : isMediumScreen ? 4 : isSmallScreen ? 2 : 1,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-    variableWidth: false, // Ensure variableWidth is false for consistent sizing
+    variableWidth: false,
   };
+
 
   if (mayLikeLoading) return <div>Loading...</div>;
   if (mayLikeError) return <div>Error fetching youMayLikeProducts</div>;

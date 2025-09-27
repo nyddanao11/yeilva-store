@@ -75,10 +75,10 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
           {popupMessage}
         </h4>
         <div className="popup-actions">
-          <Button variant="success" onClick={buttonRedirect}>
+          <Button variant="success" onClick={buttonRedirect} className="mb-2">
             {btnMessage}
           </Button>
-          <Button variant="outline-secondary" onClick={closePopup}>
+          <Button variant="outline-secondary" onClick={closePopup}  className="mb-2">
             Close
           </Button>
         </div>

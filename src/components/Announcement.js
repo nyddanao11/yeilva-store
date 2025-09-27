@@ -1,50 +1,62 @@
 import React from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaShippingFast, FaCreditCard, FaTags, FaHeadset } from 'react-icons/fa'; // Import the icons you want to use
+import { FaShippingFast, FaCreditCard, FaTags, FaHeadset } from 'react-icons/fa';
 import './Announcement.css';
 
-export default function Announcement () {
+const features = [
+  {
+    icon: <FaShippingFast />,
+    title: 'Free Shipping',
+    subtitle: 'Orders above ₱2500',
+    link: null,
+  },
+  {
+    icon: <FaCreditCard />,
+    title: 'Installment',
+    subtitle: 'Orders above ₱500',
+    link: null,
+  },
+  {
+    icon: <FaTags />,
+    title: 'Discount Voucher',
+    subtitle: '(1 available)',
+    link: '/freebies',
+  },
+  {
+    icon: <FaHeadset />,
+    title: 'Customer Support',
+    subtitle: '24/7 Assistance',
+    link: '/needhelp',
+  },
+];
+
+export default function Announcement() {
   return (
-    <>
-      <Container>
-        <Row className="d-flex justify-content-center align-items-center">
-          <Col className="tabs_container">
-            <div className="tabs_item">
-              <p className="tabs_title">
-                <FaShippingFast className="icons"/> Free Shipping
-              </p>
-              <p className="tabs_title_02">Order above ₱2500</p>
+    <Container className="announcement-wrapper">
+      <Row className="justify-content-center">
+        {features.map((item, index) => {
+          const content = (
+            <div className="tabs_item" key={index}>
+              <div className="tabs_icon">{item.icon}</div>
+              <p className="tabs_title">{item.title}</p>
+              <p className="tabs_subtitle">{item.subtitle}</p>
             </div>
+          );
 
-            <div className="tabs_item">
-              <p className="tabs_title">
-                <FaCreditCard className="icons"/> Installment
-              </p>
-              <p className="tabs_title_01">Order above ₱500</p>
-            </div>
-
-               <Link to="/freebies" style={{ textDecoration: "none" }}>
-            <div className="tabs_item">
-             <p className="tabs_title">
-                <FaTags className="icons"/> Discount Voucher
-              </p>
-              <p className="tabs_title_01">(1)</p>
-            </div>
+          return item.link ? (
+            <Col xs={6} sm={4} md={3} key={index}>
+              <Link to={item.link} className="tabs_link">
+                {content}
               </Link>
-
-            <Link to="/needhelp" style={{ textDecoration: "none" }}>
-              <div className="tabs_item">
-                <p className="tabs_title">
-                  <FaHeadset className="icons"/> Customer Support
-                </p>
-                <p className="tabs_title_01">24/7 Support</p>
-              </div>
-            </Link>
-          </Col>
-        </Row>
-      </Container>
-    </>
+            </Col>
+          ) : (
+            <Col xs={6} sm={4} md={3} key={index}>
+              {content}
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
   );
-};
-
+}

@@ -14,3 +14,62 @@
     padding: 0 15px; /* More spacing on large screens */
   }
 }
+
+/* Style for the slider container to help with arrow positioning */
+.slider-container {
+  position: relative;
+}
+
+/* Base styles for our custom arrows */
+.custom-arrow {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background: white; /* Make the background white */
+  border-radius: 50%; /* Make it a circle */
+  width: 40px; /* Set a fixed width */
+  height: 40px; /* Set a fixed height */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  z-index: 10;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effect for the arrows */
+.custom-arrow:hover {
+  transform: scale(1.1); /* Scale up on hover */
+  background: #f0f0f0; /* Change background color on hover */
+}
+
+/* Positioning for the next arrow */
+.custom-arrow.next-arrow {
+  right: 15px; /* Adjust as needed */
+}
+
+/* Positioning for the previous arrow */
+.custom-arrow.prev-arrow {
+  left: 15px; /* Adjust as needed */
+}
+
+/* Hide default slick arrow text */
+.slick-next, .slick-prev {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* To give some space between the cards */
+.product-slide-wrapper {
+  padding: 0 10px; /* Adjust the spacing here */
+}
