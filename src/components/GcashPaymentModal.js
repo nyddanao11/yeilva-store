@@ -3,17 +3,38 @@ import { Button, Modal, Container, Col, Row, Spinner, Alert } from 'react-bootst
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { fetchUserData } from '../components/userService';
+// Corrected import path assumptions for relative structure
+import { fetchUserData } from './userService'; 
 import { useMediaQuery } from 'react-responsive';
-import { useCart } from '../pages/CartContext';
-import { FiCheckCircle } from 'react-icons/fi';
+import { useCart } from '../pages/CartContext'; 
+
+// Using an inline SVG icon as a fallback for FiCheckCircle
+const CheckCircleIcon = ({ size, color, className }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width={size} 
+        height={size} 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke={color} 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        className={className}
+    >
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </svg>
+);
+
 
 export default function GcashPaymentModal({ showGcash, setShowGcash }) {
+   
+    const [selectedMethod, setSelectedMethod] = useState('gcash');
     const [transactionCode, setTransactionCode] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
-    const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
     const { formattedGrandTotal } = useCart();
     const navigate = useNavigate();
     const location = useLocation();
@@ -24,17 +45,26 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
     });
     const [checkoutItemsFromNav, setCheckoutItemsFromNav] = useState([]);
 
-    // Generate transaction code once when the modal is shown
+    
+    const qrCodes = {
+        gcash: `${process.env.PUBLIC_URL}/images/nangcash.jpg`,
+        bpi: `${process.env.PUBLIC_URL}/images/bpiqr.jpg`,
+    };
+
+    
     useEffect(() => {
         if (showGcash) {
             setTransactionCode(uuidv4().slice(0, 8).toUpperCase());
+            setSelectedMethod('gcash'); // Reset to GCash every time the modal opens
         }
     }, [showGcash]);
 
+   
     useEffect(() => {
         const storedUserEmail = localStorage.getItem('email');
         if (storedUserEmail) {
-            fetchUserData(storedUserEmail.replace(/"/g, ''))
+            
+            fetchUserData(storedUserEmail.replace(/"/g, '')) 
                 .then((user) => setUserData({ ...user }))
                 .catch((error) => console.error('Error setting user data:', error));
         } else {
@@ -52,8 +82,7 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         setShowGcash(false);
         setErrorMessage('');
         setPaymentSuccessful(false);
-        setTransactionCode(''); // Clear the code when closing the modal
-        // Optional: Navigate back to checkout form on close after a successful payment
+        setTransactionCode('');
         if (paymentSuccessful) {
             navigate('/checkoutform', {
                 state: { ewalletStatus: true },
@@ -68,11 +97,12 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         setErrorMessage('');
 
         const paymentData = {
-            transactionCode, // Use the state variable
+            transactionCode,
             amount: gcashPaymentTotal,
             firstname: userData.firstname,
             lastname: userData.lastname,
             email: userData.email,
+            payment_method: selectedMethod, 
         };
 
         try {
@@ -86,11 +116,14 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
         }
     };
 
+    
+    const currentMethodName = selectedMethod.toUpperCase();
+
     return (
         <Modal show={showGcash} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton>
                 <Modal.Title className="d-flex align-items-center">
-                    Complete Your Payment
+                    Complete Your QR Payment
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="p-4">
@@ -101,34 +134,59 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
                 )}
                 {paymentSuccessful ? (
                     <div className="text-center py-5">
-                        <FiCheckCircle size={60} color="green" className="mb-3" />
+                        <CheckCircleIcon size={60} color="green" className="mb-3" />
                         <h3>Payment Successful!</h3>
-                        <p>Your payment has been successfully recorded. You will receive an email once your transaction is verified.</p>
+                        <p>Your payment has been successfully recorded. We will send an email once your transaction is verified.</p>
                         <Button variant="success" onClick={handleClose}>Done</Button>
                     </div>
                 ) : (
                     <Container>
                         <Row className="mb-4">
                             <Col md={6} className="d-flex flex-column align-items-center">
-                                <h5 className="text-center mb-3">Scan to Pay</h5>
-                                <div className="p-3 border rounded shadow-sm">
-                                    <img src={`${process.env.PUBLIC_URL}/images/gcashqrcode.jpg`} alt="QR ph" className="img-fluid" />
+                                {/* Payment Method Selection Buttons */}
+                                <div className="btn-group mb-4 w-100" role="group">
+                                    <Button
+                                        variant={selectedMethod === 'gcash' ? 'success' : 'outline-success'}
+                                        onClick={() => setSelectedMethod('gcash')}
+                                        className="fw-bold"
+                                    >
+                                        GCash
+                                    </Button>
+                                    <Button
+                                        variant={selectedMethod === 'bpi' ? 'primary' : 'outline-primary'}
+                                        onClick={() => setSelectedMethod('bpi')}
+                                        className="fw-bold"
+                                    >
+                                        BPI
+                                    </Button>
                                 </div>
+
+                                <h5 className="text-center mb-3">Scan {currentMethodName} QR Code</h5>
+                                {/* Dynamic QR Code Display */}
+                                <div className="p-3 border rounded shadow-lg bg-white">
+                                    <img 
+                                        src={qrCodes[selectedMethod]} 
+                                        alt={`${currentMethodName} QR Code`} 
+                                        className="img-fluid"
+                                        style={{ maxWidth: '250px', maxHeight: '250px' }}
+                                    />
+                                </div>
+                                
                                 <p className="mt-3 fs-4">Amount to Pay: <strong>{formattedGrandTotal}</strong></p>
-                                <p>Transaction Code: {transactionCode}</p>
+                                <p>Transaction Code: <span className="text-primary fw-bold">{transactionCode}</span></p>
                             </Col>
                             <Col md={6}>
                                 <div className="p-3">
-                                    <h5 className="mb-3">Instructions:</h5>
+                                    <h5 className="mb-3">Instructions for {currentMethodName}:</h5>
                                     <ol>
-                                        <li>Open your **E-Wallet or Bank** app.</li>
-                                        <li>Tap **Scan QR** and scan the code on the left.</li>
+                                        <li>Open your **{currentMethodName}** app.</li>
+                                        <li>Tap **Scan QR** (or similar function) and scan the code on the left.</li>
                                         <li>Enter the exact amount: **{formattedGrandTotal}**.</li>
                                         <li>Confirm the payment.</li>
                                         <li>After paying, click the **"I Have Paid"** button below to complete your order.</li>
                                     </ol>
                                     <p className="mt-4 text-muted fst-italic">
-                                        Note: Do not refresh this page or close the window until you have submitted your payment confirmation.
+                                        Note: Do not close this window until you have submitted your payment confirmation.
                                     </p>
                                 </div>
                             </Col>
@@ -161,4 +219,4 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
             </Modal.Body>
         </Modal>
     );
-};
+}

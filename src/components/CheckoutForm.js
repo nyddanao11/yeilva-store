@@ -597,7 +597,7 @@ useEffect(() => {
                   onClick={handleEwalletsNavigation} // <--- USE THE PROP HERE!
                   disabled={passedEwalletStatus}
                 >
-                  {passedEwalletStatus ? 'Proceed to Place Order' : 'Pay with Gcash QRcode'}
+                  {passedEwalletStatus ? 'Proceed to Place Order' : 'Pay with Gcash/Bpi QRcode'}
                 </Button>
                     {paymentErrors.ewallets && (
                       <div className="text-danger mt-2">{paymentErrors.ewallets}</div>
