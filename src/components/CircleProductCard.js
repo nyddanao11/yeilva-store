@@ -16,7 +16,7 @@ const CircleCard = ({ addToCart, handleItemClickCategory }) => {
 
  async function fetchProductCategories() {
   try {
-    const response = await axios.get('http://localhost:3001/api/productscategory'); // Fetch all products
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/productscategory`); // Fetch all products
     const products = Array.isArray(response.data) ? response.data.map(formatProductData) : [];
 
     if (products.length === 0) {
