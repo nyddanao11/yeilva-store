@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Spinner, Card, InputGroup, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAuth } from './loginContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './Login.css';
 
-export default function Login({ handleLogin }) {
+export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
   const [loading, setLoading] = useState(false);
-  const [serverMessage, setServerMessage] = useState({ type: '', text: '' }); // { type: 'success' | 'danger', text: 'message' }
+  const [serverMessage, setServerMessage] = useState({ type: '', text: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [validationErrors, setValidationErrors] = useState({}); // For client-side validation errors
+  const [validationErrors, setValidationErrors] = useState({});
 
-  const { login } = useAuth();
+  const { login } = useAuth(); // Get the login function from context
   const navigate = useNavigate();
 
-  // Effect to clear server message after a few seconds if it's a success message
   useEffect(() => {
     if (serverMessage.type === 'success' && serverMessage.text) {
       const timer = setTimeout(() => {
         setServerMessage({ type: '', text: '' });
-      }, 3000); // Clear success message after 3 seconds
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [serverMessage]);
@@ -44,8 +42,8 @@ export default function Login({ handleLogin }) {
     }
     if (!formData.password) {
       errors.password = 'Password is required.';
-    } else if (formData.password.length < 6) { // Example: minimum password length
-        errors.password = 'Password must be at least 6 characters.';
+    } else if (formData.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters.';
     }
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
@@ -53,15 +51,10 @@ export default function Login({ handleLogin }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    // Clear validation error for the specific field as user types
+    setFormData({ ...formData, [name]: value });
     setValidationErrors(prev => ({ ...prev, [name]: '' }));
-    // Clear server message on input change if it was an error
     if (serverMessage.type === 'danger') {
-        setServerMessage({ type: '', text: '' });
+      setServerMessage({ type: '', text: '' });
     }
   };
 
@@ -74,32 +67,22 @@ export default function Login({ handleLogin }) {
     }
 
     setLoading(true);
-    setServerMessage({ type: '', text: '' }); // Clear previous server messages
+    setServerMessage({ type: '', text: '' });
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, {
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (response.data.status === 'success') {
-        // Storing email in localStorage is generally okay, but be mindful of sensitive data
-        localStorage.setItem('email', JSON.stringify(response.data.email));
-        // You might consider storing a non-sensitive flag or session ID, not tokens
+      // Call the login function from the context
+      const result = await login(formData.email, formData.password);
+      
+      if (result.success) {
         setServerMessage({ type: 'success', text: 'Login successful. Redirecting...' });
-        login(response.data.email);
-        handleLogin(); // This should trigger the parent's login logic, likely a redirect
+        navigate('/');
       } else {
-        setServerMessage({ type: 'danger', text: response.data.error || 'Login failed. Please try again.' });
+        setServerMessage({ type: 'danger', text: result.error });
       }
     } catch (error) {
-      console.error('An error occurred during login:', error);
-
-      if (error.response && error.response.data && error.response.data.error) {
-        setServerMessage({ type: 'danger', text: error.response.data.error });
-      } else {
-        setServerMessage({ type: 'danger', text: 'An unexpected error occurred. Please try again.' });
-      }
+      // This catch block handles network errors, not API response errors
+      console.error('An unexpected error occurred during login:', error);
+      setServerMessage({ type: 'danger', text: 'An unexpected error occurred. Please try again.' });
     } finally {
       setLoading(false);
     }

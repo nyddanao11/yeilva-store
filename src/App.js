@@ -89,10 +89,9 @@ const  AddDeliveryAddress = React.lazy(() => import('./pages/AddDeliveryAddress'
  function App() {
 
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
-   const { isLoggedIn, login, logout } = useAuth();
-   
-     const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
+ const { isLoggedIn, login, logout, userEmail } = useAuth();
 const { handleItemClickCategory, storedProducts, fetchProducts, clickedCategories} = useContext(ProductContext); // Use context
 const { featuredProducts, loading, error } = useFeaturedProducts(); 
 const { bestSellingProducts, bestLoading, bestError } = useBestSellingProducts(); 
@@ -141,9 +140,9 @@ const handleLogout = () => {
 };
 
  // Function to handle login
-  const handleLogin = (email) => {
+  const handleLogin = (userEmail) => {
     console.log('User logged in successfully');    
-    login(email); // Set the login status to true
+    login(userEmail); // Set the login status to true
     // Redirect to the home page after login
     navigate('/');
   };
@@ -174,7 +173,7 @@ const handleLogout = () => {
       <OfflineIndicator />
     <ScrollToTop />
       {/* Render the CombinedNavbar outside of the Routes */}
-      <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} handleLogout={handleLogout}  
+      <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} userEmail={userEmail} handleLogout={handleLogout}  
       searchProducts={searchProducts} addToCart={addToCart} storedProducts={storedProducts} handleItemClickCategory={handleItemClickCategory} />
       
    {isLargeScreen?(

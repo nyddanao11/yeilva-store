@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table,  } from 'react-bootstrap';
 import axios from 'axios';
+import { useAuth} from '../pages/loginContext';
 
 export default function LoanFormHistoryPage () {
   const [loanformHistory, setLoanformHistory] = useState([]);
  const [userData, setUserData] = useState({});  // Ensure you have setUserData defined
 
-
-  const userEmail = localStorage.getItem('email');
+      const{userEmail} = useAuth();
 
   const fetchUserData = async (email) => {
     try {
@@ -29,8 +29,6 @@ export default function LoanFormHistoryPage () {
     }
   };
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       if (userEmail) {
@@ -42,17 +40,10 @@ export default function LoanFormHistoryPage () {
     fetchData();
   }, [userEmail]);
 
-
-
-
-
-
   return (
      <Container className="mt-4">
       <h1 className="text-center mb-4">Loan Application History</h1>
-   
-
-
+  
       <div className="table-responsive">
         <Table striped bordered hover>
           <thead>

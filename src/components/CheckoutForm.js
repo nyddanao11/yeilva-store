@@ -8,8 +8,11 @@ import CameraCapture from'./CameraCapture';
 import { useCart } from '../pages/CartContext'; // Correct path to your context
 import { fetchUserData } from '../components/userService';
 import GcashPaymentModal from './GcashPaymentModal';
+import { useAuth} from '../pages/loginContext';
+
 
 export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
+      const{userEmail} = useAuth();
  const {
     cartItems,
     cartCount,
@@ -367,9 +370,9 @@ const cleanProductName = (productName) => {
 
 // In MyAccountPage component
 useEffect(() => {
-  const storedUserEmail = localStorage.getItem('email');
-  if (storedUserEmail) {
-    fetchUserData(storedUserEmail.replace(/"/g, ''), setUserData);
+ 
+  if (userEmail) {
+    fetchUserData(userEmail.replace(/"/g, ''), setUserData);
   } else {
     console.log('Email is missing in local storage');
   }
@@ -377,9 +380,9 @@ useEffect(() => {
 
 
     useEffect(() => {
-        const storedUserEmail = localStorage.getItem('email');
-        if (storedUserEmail) {
-            fetchUserData(storedUserEmail.replace(/"/g, ''))
+      
+        if (userEmail) {
+            fetchUserData(userEmail.replace(/"/g, ''))
                 .then((user) => {
                     console.log('User data from API:', user);
                     const addresses = user.delivery_addresses || [];

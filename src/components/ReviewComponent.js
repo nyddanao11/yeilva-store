@@ -3,8 +3,10 @@ import { Form, Button, Container, Col, Row} from 'react-bootstrap';
 import axios from'axios';
 import { fetchUserData } from '../components/userService';
 import {useNavigate, useParams} from'react-router-dom';
+import { useAuth} from '../pages/loginContext';
 
-export default function ReviewComponent () {
+export default function  ReviewComponent () {
+  const{userEmail} = useAuth();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
    const [userData, setUserData] = useState({
@@ -21,16 +23,13 @@ const backToClickProduct =()=>{
 }
   
   useEffect(() => {
-    const storedUserEmail = localStorage.getItem('email');
-    if (storedUserEmail) {
-      fetchUserData(storedUserEmail.replace(/"/g, ''))
+    if (userEmail) {
+      fetchUserData(userEmail.replace(/"/g, ''))
         .then((user) => {
           // Set user data including joinedDate
            console.log('User data:', user);
           setUserData({ ...user });
         })
-
-
         .catch((error) => console.error('Error setting user data:', error));
     } else {
       console.log('Email is missing in local storage');
@@ -106,4 +105,5 @@ const backToClickProduct =()=>{
     </>
   );
 };
+
 

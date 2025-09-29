@@ -7,6 +7,7 @@ import axios from 'axios';
 import { fetchUserData } from './userService'; 
 import { useMediaQuery } from 'react-responsive';
 import { useCart } from '../pages/CartContext'; 
+import { useAuth} from '../pages/loginContext';
 
 // Using an inline SVG icon as a fallback for FiCheckCircle
 const CheckCircleIcon = ({ size, color, className }) => (
@@ -29,7 +30,7 @@ const CheckCircleIcon = ({ size, color, className }) => (
 
 
 export default function GcashPaymentModal({ showGcash, setShowGcash }) {
-   
+    const{userEmail} = useAuth();
     const [selectedMethod, setSelectedMethod] = useState('gcash');
     const [transactionCode, setTransactionCode] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -61,10 +62,10 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
 
    
     useEffect(() => {
-        const storedUserEmail = localStorage.getItem('email');
-        if (storedUserEmail) {
+       
+        if (userEmail) {
             
-            fetchUserData(storedUserEmail.replace(/"/g, '')) 
+            fetchUserData(userEmail.replace(/"/g, '')) 
                 .then((user) => setUserData({ ...user }))
                 .catch((error) => console.error('Error setting user data:', error));
         } else {

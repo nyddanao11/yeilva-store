@@ -10,9 +10,10 @@ import './LoanForm.css';
 import HoverButton from'../components/HoverButton'
 import YouMayLike from'../components/YouMayLike';
 import CameraCapture from'../components/CameraCapture';
-
+import { useAuth} from './loginContext';
 
 export default function LoanForm ({addToCart, capturedImage, youMayLikeProducts}) {
+  const{userEmail} = useAuth();
   const [loanAmount, setLoanAmount] = useState('3000');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -31,9 +32,9 @@ const [image, setImage] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
     const [selfieImage, setSelfieImage] = useState(null); // Store captured selfie
 
-  const handleSelfieCapture = (capturedImage) => {
-    setSelfieImage(capturedImage);
-  };
+  // const handleSelfieCapture = (capturedImage) => {
+  //   setSelfieImage(capturedImage);
+  // };
 
    // Convert selfieImage (data URL) to Blob
   const convertToBlob = async (dataUrl) => {
@@ -196,9 +197,9 @@ try {
 
 
 useEffect(() => {
-  const storedUserEmail = localStorage.getItem('email');
-  if (storedUserEmail) {
-    fetchUserData(storedUserEmail.replace(/"/g, ''), setUserData);
+  
+  if (userEmail) {
+    fetchUserData(userEmail.replace(/"/g, ''), setUserData);
   } else {
     console.log('Email is missing in local storage');
   }
@@ -235,10 +236,11 @@ useEffect(() => {
 };
 
 
+
 useEffect(() => {
-  const storedUserEmail = localStorage.getItem('email');
-  if (storedUserEmail) {
-    fetchLoanUserData(storedUserEmail.replace(/"/g, ''), setLoanUserData);
+  
+  if (userEmail) {
+    fetchUserData(userEmail.replace(/"/g, ''), setUserData);
   } else {
     console.log('Email is missing in local storage');
   }
@@ -371,7 +373,7 @@ useEffect(() => {
 
    {/* Upload Selfie */}
           <div className="d-flex flex-column justify-content-center align-items-center" style={{ marginTop: '20px', marginBottom: '15px', borderBottom:'2px solid #d3d4d5', paddingBottom:'18px'}}>
-            <FaCamera style={{ fontSize: '24px', color: 'blue' }} />
+           <FaCamera style={{ fontSize: '24px', color: 'blue' }} />
            <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
           </div>
 

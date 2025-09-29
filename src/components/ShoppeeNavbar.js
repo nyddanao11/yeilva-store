@@ -33,11 +33,13 @@ import { useMediaQuery } from 'react-responsive';
 
 export default function ShopeeNavbar({
   cartItems, // Not used in this component, consider removing if truly not needed for the navbar
-  isLoggedIn,
   handleLogout,
   handleLogin, // Not used directly, but related to the modal
   handleItemClickCategory,
+  isLoggedIn,
+  userEmail,
 }) {
+
   const [userData, setUserData] = useState({ firstname: '' });
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
@@ -61,31 +63,28 @@ export default function ShopeeNavbar({
   const handleCloseOffcanvas = useCallback(() => setShowOffcanvas(false), []);
   const handleShowOffcanvas = useCallback(() => setShowOffcanvas(true), []);
 
-  // Fetch user data when logged in status changes
+ // Fetch user data when logged in status or user email changes
   useEffect(() => {
     const fetchAndSetUser = async () => {
-      if (isLoggedIn) { // Only fetch if logged in
-        const storedUserEmail = localStorage.getItem('email');
-        if (storedUserEmail) {
-          try {
-            const user = await fetchUserData(storedUserEmail.replace(/"/g, ''));
-            setUserData(user);
-          } catch (error) {
-            console.error('Failed to fetch user data:', error);
-            // Optionally, handle error state for UI (e.g., show a generic "User" name)
-          }
-        } else {
-          console.log('User email not found in local storage, cannot fetch user data.');
-          setUserData({ firstname: '' }); // Reset user data if email is missing
+      // Check if the user is logged in AND if the email is available
+      if (isLoggedIn && userEmail) {
+        try {
+          // Use userEmail directly, no need for localStorage or replace()
+          const user = await fetchUserData(userEmail);
+          setUserData(user);
+        } catch (error) {
+          console.error('Failed to fetch user data:', error);
+          // Handle error gracefully
+          setUserData({ firstname: '' });
         }
       } else {
-        setUserData({ firstname: '' }); // Clear user data if logged out
+        // Clear user data if logged out or email is not available
+        setUserData({ firstname: '' });
       }
     };
-
     fetchAndSetUser();
-  }, [isLoggedIn]); // Depend on isLoggedIn to re-fetch when status changes
-
+  }, [isLoggedIn, userEmail]); // Depend on both isLoggedIn and userEmail
+  
   // Define categories with more specific icons where possible
   const categories = [
     { name: 'Grocery Items', icon: <FaUtensils />, link: '/productsdata' },
@@ -132,7 +131,7 @@ export default function ShopeeNavbar({
                 <FaBars />
               </Button>
               {/* These links are also in Offcanvas, consider if they are truly needed here on small screen */}
-              <Nav className="flex-row"> {/* Use flex-row for horizontal alignment */}
+              <Nav className="flex-row" > {/* Use flex-row for horizontal alignment */}
                 <Nav.Link
                   as={NavLink}
                   to="/alldealsproduct"

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchUserData } from '../components/userService';
 import { useMediaQuery } from 'react-responsive';
+import { useAuth} from '../pages/loginContext';
 
 const generateTransactionCode = () => uuidv4().slice(0, 8).toUpperCase();
 
@@ -29,6 +30,7 @@ const getInitialValues = (userData) => ({
 });
 
 export default function AirlineBookingForm() {
+   const{userEmail} = useAuth();
     const [userData, setUserData] = useState({
         firstname: '',
         lastname: '',
@@ -38,9 +40,9 @@ export default function AirlineBookingForm() {
     const [submissionStatus, setSubmissionStatus] = useState(null);
 
     useEffect(() => {
-        const storedUserEmail = localStorage.getItem('email');
-        if (storedUserEmail) {
-            fetchUserData(storedUserEmail.replace(/"/g, ''))
+       
+        if (userEmail) {
+            fetchUserData(userEmail.replace(/"/g, ''))
                 .then((user) => {
                     setUserData({
                         firstname: user.firstname || '',

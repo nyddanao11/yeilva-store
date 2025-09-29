@@ -3,6 +3,7 @@ import { ListGroup, Image, Button, Card, Row, Col, Container } from "react-boots
 import "./YourOrders.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import { useAuth} from './loginContext';
 
 // Helper function for status color (add this outside your component)
 const getStatusColor = (status) => {
@@ -19,7 +20,7 @@ const getStatusColor = (status) => {
 
 export default function Orders({ isLoggedIn }) {
   const [userCheckoutData, setUserCheckoutData] = useState(null);
-
+ const{userEmail} = useAuth();
   const normalizeOrderData = (order) => {
     // Determine correct name property
     const itemName = order.productname || order.name;
@@ -67,9 +68,9 @@ export default function Orders({ isLoggedIn }) {
   console.log('userCheckoutData', userCheckoutData);
 
   useEffect(() => {
-    const storedUserEmail = localStorage.getItem("email");
-    if (storedUserEmail) {
-      fetchUserCheckoutData(storedUserEmail.replace(/"/g, ""));
+   
+    if (userEmail) {
+      fetchUserCheckoutData(userEmail.replace(/"/g, ""));
     } else {
       console.log("Email is missing in local storage");
     }

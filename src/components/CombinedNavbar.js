@@ -3,7 +3,7 @@ import Header from './Header';
 import ShopeeNavbar from './ShoppeeNavbar';
 import './CombinedNavbar.css'; // <--- IMPORT YOUR CSS FILE
 
-export default function CombinedNavbar ({cartItems, isLoggedIn, handleLogout, cartCount,  allProducts, fetchAllProducts, addToCart, storedProducts, handleItemClickCategory}) { 
+export default function CombinedNavbar ({cartItems, isLoggedIn, userEmail, handleLogout, cartCount,  allProducts, fetchAllProducts, addToCart, storedProducts, handleItemClickCategory}) { 
                                             
   const [scrolled, setScrolled] = useState(false);
     const [headerShrink, setHeaderShrink] = useState(false); // New state
@@ -38,6 +38,7 @@ export default function CombinedNavbar ({cartItems, isLoggedIn, handleLogout, ca
                 cartItems={cartItems}
                 cartCount={cartCount}
                 isLoggedIn={isLoggedIn}
+                userEmail={userEmail}
                 handleLogout={handleLogout}
                 handleItemClickCategory={handleItemClickCategory}
                

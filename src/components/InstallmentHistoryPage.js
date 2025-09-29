@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table,  } from 'react-bootstrap';
 import axios from 'axios';
+import { useAuth} from '../pages/loginContext';
 
 export default function InstallmentHistoryPage () {
   const [installmentHistory, setInstallmentHistory] = useState([]);
  const [userData, setUserData] = useState({});  // Ensure you have setUserData defined
 
-
-  const userEmail = localStorage.getItem('email');
+   const{userEmail} = useAuth();
 
   const fetchUserData = async (email) => {
     try {
@@ -46,7 +46,6 @@ const removeHtmlTags = (html) => {
 
     fetchData();
   }, [userEmail]);
-
 
 
   return (

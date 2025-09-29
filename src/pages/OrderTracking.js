@@ -3,8 +3,10 @@ import { Container, ProgressBar, Card, Row, Col } from 'react-bootstrap';
 import { FaBox, FaTruck, FaShippingFast, FaCheckCircle } from "react-icons/fa";
 import axios from'axios';
 import YouMayLike from'../components/YouMayLike';
+import { useAuth} from '../pages/loginContext';
 
 export default function OrderTracking({addToCart, youMayLikeProducts}) {
+       const{userEmail} = useAuth();
        const orderSteps = [
     { label: "Ordered", icon: <FaBox />, step: 1 },
     { label: "Shipped", icon: <FaTruck />, step: 2 },
@@ -32,9 +34,8 @@ export default function OrderTracking({addToCart, youMayLikeProducts}) {
 };
 
 useEffect(() => {
-    const storedUserEmail = localStorage.getItem('email');
-    if (storedUserEmail) {
-        fetchUserData(storedUserEmail.replace(/"/g, ''));
+    if (userEmail) {
+        fetchUserData(userEmail.replace(/"/g, ''));
     } else {
         console.log('Email is missing in local storage');
     }

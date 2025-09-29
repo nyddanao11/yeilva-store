@@ -5,12 +5,14 @@ import axios from 'axios';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { fetchUserData } from '../components/userService';
+import { useAuth} from './loginContext';
 
 // AddDeliveryAddress component for users to input a new delivery address
 export default function AddDeliveryAddress() {
     const [serverResponse, setServerResponse] = useState('');
     const [isAddingSuccessful, setIsAddingSuccessful] = useState(false);
     const [loading, setLoading] = useState(false);
+    const{userEmail} = useAuth();
 
     const [userData, setUserData] = useState({
         firstname: '',
@@ -19,9 +21,8 @@ export default function AddDeliveryAddress() {
     });
 
     useEffect(() => {
-        const storedUserEmail = localStorage.getItem('email');
-        if (storedUserEmail) {
-            fetchUserData(storedUserEmail.replace(/"/g, ''))
+        if (userEmail) {
+            fetchUserData(userEmail.replace(/"/g, ''))
                 .then((user) => {
                     setUserData({
                         firstname: user.firstname || '',

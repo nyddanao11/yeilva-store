@@ -7,8 +7,10 @@ import HoverButton1 from '../components/HoverButton1';
 import HoverButton5 from '../components/HoverButton5';
 import YouMayLike from '../components/YouMayLike';
 import AddDeliveryAddress from './AddDeliveryAddress'; // Import the new component
+import { useAuth} from './loginContext';
 
-export default function MyAccountPage({ addToCart, youMayLikeProducts }) {
+export default function MyAccountPage({ addToCart, youMayLikeProducts}) {
+    const{userEmail} = useAuth();
     const [userData, setUserData] = useState({
         firstname: '',
         lastname: '',
@@ -26,9 +28,9 @@ export default function MyAccountPage({ addToCart, youMayLikeProducts }) {
     // console.log('Formatted Delivery Addresses:', formattedDeliveryAddresses);
 
     useEffect(() => {
-        const storedUserEmail = localStorage.getItem('email');
-        if (storedUserEmail) {
-            fetchUserData(storedUserEmail.replace(/"/g, ''))
+       
+        if (userEmail) {
+            fetchUserData(userEmail.replace(/"/g, ''))
                 .then((user) => {
                     console.log('User data from API:', user); // Check the structure here
                     setUserData({
