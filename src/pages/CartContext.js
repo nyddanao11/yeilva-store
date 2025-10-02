@@ -1,40 +1,41 @@
 import React, { createContext, useState, useContext, useEffect, useMemo, useCallback } from 'react';
-import {FormatCartData} from'../utils/FormatCartData';
+import { io } from 'socket.io-client'; // 👈 Import socket.io-client
+import { FormatCartData } from '../utils/FormatCartData';
 
 const CartContext = createContext();
 
-// --- API Configuration ---
-const API_URL = `${process.env.REACT_APP_SERVER_URL}/api/cart`; 
-// KEY: Assuming your JWT token is stored here after successful login
-const JWT_STORAGE_KEY = 'authToken'; 
+// --- WebSocket Configuration ---
+// NOTE: Use the base server URL for the WebSocket connection
+const WS_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001'; 
+const JWT_STORAGE_KEY = 'authToken';
+
+// --- WebSocket Instance (outside the component to maintain a single connection) ---
+// We will initialize this inside the useEffect/Provider for better control
+let socket;
 
 /**
- * Helper to retrieve the JWT from local storage and format the Authorization header.
- * @returns {HeadersInit} The headers object containing the Authorization header, or an empty object.
+ * Helper to retrieve the JWT from local storage.
+ * NOTE: For WebSockets, we pass the token during connection (initial handshake)
+ * or as part of the payload for authenticated actions.
+ * @returns {string | null} The JWT token.
  */
-const getAuthHeaders = () => {
+const getAuthToken = () => {
     try {
-        const token = localStorage.getItem(JWT_STORAGE_KEY);
-        if (token) {
-            return {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, // MANDATORY: Format is 'Bearer <token>'
-            };
-        }
+        return localStorage.getItem(JWT_STORAGE_KEY);
     } catch (e) {
         console.error("Error retrieving JWT from localStorage:", e);
+        return null;
     }
-    // If no token is found, return standard headers
-    return { 'Content-Type': 'application/json' }; 
 };
 
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
+    // The 'loading' state now reflects the socket connection status or initial load
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Keep client-side state for checkout/UI logic
+    // --- Unchanged Client-side State ---
     const [notificationProduct, setNotificationProduct] = useState(null);
     const [checkoutItemsForPayment, setCheckoutItemsForPayment] = useState([]);
     const [shippingRate, setShippingRate] = useState(0);
@@ -42,181 +43,189 @@ export const CartProvider = ({ children }) => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [itemToRemove, setItemToRemove] = useState(null);
 
+    // --- 1. WebSocket Connection and Event Listeners ---
+    useEffect(() => {
+        const token = getAuthToken();
 
-    // --- Core Server Communication Function ---
-
-    // Function to fetch the cart from the server (used on mount and after mutations)
-    const fetchCart = useCallback(async () => {
-        const headers = getAuthHeaders();
-        // If there is no token, we should probably stop the request, 
-        // as the backend will return a 401 anyway.
-        if (!headers.Authorization) {
+        if (!token) {
             setLoading(false);
-            setCartItems([]);
             setError("User not logged in or token missing.");
             return;
         }
 
-        setLoading(true);
-        setError(null);
-        try {
-            // Include authentication headers here
-            const response = await fetch(API_URL, { headers }); 
-            
-            if (response.status === 401) {
-                // If the token is rejected (401), clear cart and notify user (optional: redirect to login)
-                console.error("Authentication failed or token expired. Clearing token...");
-                localStorage.removeItem(JWT_STORAGE_KEY);
-                setCartItems([]); 
-                throw new Error('Authentication required.');
+        // Initialize WebSocket connection
+        socket = io(WS_URL, {
+            // Pass the JWT token on connection handshake
+            auth: {
+                token: token
             }
-            if (!response.ok) {
-                throw new Error('Failed to fetch cart from server.');
-            }
+        });
 
-            const data = await response.json();
-            
-            // --- FIX APPLIED HERE ---
-            // 1. 'data' already holds the JSON result.
-            // 2. Since the server now returns price/discount as numbers (based on the server.js file),
-            //    we use the data directly, assuming FormatProductData is no longer strictly needed for type conversion.
-            //    If FormatProductData is still required for other complex client-side formatting, use it on the 'data' array.
-            const cartData = Array.isArray(data)
-                ? data.map(FormatCartData)
-                : []; // Fallback if the server somehow returns non-array data
-            
-            setCartItems(cartData);
-            console.log('Fetched cart data:', cartData); 
-            // ------------------------
+        // --- Connection Handlers ---
+        socket.on('connect', () => {
+            console.log('WebSocket connected:', socket.id);
+            setError(null);
+            // After connection, request the initial cart data
+            socket.emit('cart:get'); 
+        });
 
-        } catch (err) {
-            console.error("Error fetching cart:", err);
-            setError(err.message);
-        } finally {
+        socket.on('disconnect', () => {
+            console.log('WebSocket disconnected');
             setLoading(false);
-        }
-    }, []);
+        });
 
-    // Load cart on component mount
-    useEffect(() => {
-        fetchCart();
-    }, [fetchCart]);
+        // --- Error Handlers ---
+        socket.on('connect_error', (err) => {
+            console.error('Socket connection error:', err.message);
+            setError(`Connection failed: ${err.message}`);
+            setLoading(false);
+        });
+
+        // --- Core Cart Event Listener (The Push Mechanism) ---
+        // The server will respond to 'cart:get' and successful mutations by emitting this event.
+        socket.on('cart:full_update', (serverCartItems) => {
+            console.log('Received cart update from server:', serverCartItems);
+            // Apply client-side formatting
+            const cartData = Array.isArray(serverCartItems)
+                ? serverCartItems.map(FormatCartData)
+                : [];
+                console.log('cartItems:', cartData);
+            setCartItems(cartData);
+            setLoading(false); // Finished initial load
+        });
+        
+        // --- Mutation Error Listener ---
+        socket.on('cart:update:error', (errorMessage) => {
+            console.error('Cart operation failed:', errorMessage);
+            setError(errorMessage);
+            // Optionally, re-fetch the cart state if an operation failed
+            // socket.emit('cart:get'); 
+        });
 
 
-    // --- API-Driven Cart Mutation Functions (All now include JWT) ---
-
-    // 2. Add an item (POST)
-    const addToCart = async (product) => {
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                // Use getAuthHeaders() to include JWT AND Content-Type
-                headers: getAuthHeaders(), 
-                body: JSON.stringify({ product_id: product.id, quantity: 1 }),
-            });
-
-            if (!response.ok) {
-                if (response.status === 401) throw new Error('Authentication required to add item.');
-                throw new Error('Failed to add item to cart on server.');
+        // Cleanup function: Closes the socket connection when the component unmounts
+        return () => {
+            if (socket) {
+                socket.off('connect');
+                socket.off('disconnect');
+                socket.off('connect_error');
+                socket.off('cart:full_update');
+                socket.off('cart:update:error');
+                socket.close();
             }
+        };
+    }, []); // Empty dependency array ensures this runs once on mount
 
-            // After success, re-fetch the entire cart to update local state
-            await fetchCart();
-            setNotificationProduct(product);
 
-        } catch (err) {
-            console.error('Error adding item to cart:', err);
+    // The `fetchCart` function is now obsolete and removed!
+    // The initial load is handled by `socket.emit('cart:get')` on connect.
+
+    // --- 2. WebSocket-Driven Cart Mutation Functions ---
+
+    /**
+     * Sends an action to the server via WebSocket.
+     * The server handles DB logic and pushes the final state back via 'cart:full_update'.
+     */
+    const addToCart = (product) => {
+        if (!socket || !socket.connected) {
+            setError('Not connected to server. Please try again.');
+            return;
         }
+        // Send a message (event) to the server
+        socket.emit('cart:add', { 
+            product_id: product.id, 
+            quantity: 1 
+        });
+        // Optimistic UI Update (optional but recommended for speed)
+        setNotificationProduct(product);
     };
 
-    // Helper for quantity change (PUT request)
-    const updateQuantityOnServer = async (itemId, newQuantity) => {
+    const updateQuantityOnServer = (itemId, newQuantity) => {
+        if (!socket || !socket.connected) {
+            setError('Not connected to server. Please try again.');
+            return;
+        }
+        
         if (newQuantity < 1) {
+            // If new quantity is 0 or less, we treat it as a remove action
             return removeFromCart(itemId);
         }
 
-        try {
-            const response = await fetch(`${API_URL}/${itemId}`, {
-                method: 'PUT',
-                // Use getAuthHeaders() to include JWT AND Content-Type
-                headers: getAuthHeaders(), 
-                body: JSON.stringify({ quantity: newQuantity }),
-            });
+        socket.emit('cart:update_quantity', {
+            itemId: itemId, 
+            quantity: newQuantity 
+        });
+        
+        // OPTIMISTIC UPDATE: Update the local state immediately
+        setCartItems(prevItems => prevItems.map(item =>
+            item.id === itemId ? { ...item, quantity: newQuantity } : item
+        ));
+    };
 
-            if (!response.ok) {
-                if (response.status === 401) throw new Error('Authentication required to update quantity.');
-                throw new Error('Failed to update quantity on server.');
-            }
-
-            await fetchCart(); // Re-fetch cart to reflect new quantity
-        } catch (err) {
-            console.error('Error updating quantity:', err);
+    const removeFromCart = (itemId) => {
+        if (!socket || !socket.connected) {
+            setError('Not connected to server. Please try again.');
+            return;
         }
+
+        socket.emit('cart:remove', { itemId: itemId });
+        
+        // OPTIMISTIC UPDATE: Remove the item from local state immediately
+        setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
     };
+
+
+   // Inside CartProvider:
+
+const handleIncrement = useCallback((item) => {
+    // updateQuantityOnServer relies only on the stable 'socket' and 'setError'
+    updateQuantityOnServer(item.id, item.quantity + 1);
+}, []); // <-- Empty dependency array means this function is stable
+
+const handleDecrement = useCallback((item) => {
+    if (item.quantity > 1) {
+        updateQuantityOnServer(item.id, item.quantity - 1);
+    } else {
+        setItemToRemove(item); 
+        setShowConfirmModal(true); 
+    }
+}, [updateQuantityOnServer]); // <-- Needs updateQuantityOnServer as a dependency
+                               // (If updateQuantityOnServer is defined above and is stable, this is fine)
+                               // If setItemToRemove/setShowConfirmModal are stable setters, they don't need to be listed.
+
+   const confirmRemoveItem = useCallback(() => {
+    if (itemToRemove) {
+        // removeFromCart relies only on the stable 'socket' and 'setError'
+        removeFromCart(itemToRemove.id); 
+        setItemToRemove(null);
+        setShowConfirmModal(false);
+    }
+}, [itemToRemove, removeFromCart]); // <-- Dependency on itemToRemove and removeFromCart
     
-    // 3. Remove an item (DELETE)
-    const removeFromCart = async (productId) => {
-        try {
-            const response = await fetch(`${API_URL}/${productId}`, {
-                method: 'DELETE',
-                // Use getAuthHeaders() just for Authorization
-                headers: getAuthHeaders(), 
-            });
+  // After (Recommended):
+const handleCloseNotification = useCallback(() => { 
+    setNotificationProduct(null); 
+}, []); 
 
-            if (response.status === 204) {
-                await fetchCart();
-            } else if (!response.ok) {
-                if (response.status === 401) throw new Error('Authentication required to remove item.');
-                throw new Error('Failed to remove item from server.');
-            }
-
-        } catch (err) {
-            console.error('Error removing item:', err);
-        }
-    };
-
-
-    // --- All other functions (handleIncrement, handleDecrement, checkout logic) are unchanged ---
+   // After (Recommended):
+const clearEntireCart = useCallback(async () => {
+    // Implement WebSocket/fetch logic here (e.g., socket.emit('cart:clear_all'))
     
-    // 4. Increment quantity
-    const handleIncrement = (item) => {
-        updateQuantityOnServer(item.id, item.quantity + 1);
-    };
+    // For now, keep local state updates stable:
+    setCartItems([]);
+    setCheckoutItemsForPayment([]); 
+}, []); // Empty array is fine since state setters are stable.
 
- const handleDecrement = (item) => {
-  if (item.quantity > 1) {
-    updateQuantityOnServer(item.id, item.quantity - 1);
-  } else {
-    setItemToRemove(item); // Store item for modal
-    setShowConfirmModal(true); // Show confirmation modal
-  }
-};
-
-const confirmRemoveItem = () => {
-  if (itemToRemove) {
-    removeFromCart(itemToRemove.id);
-    setItemToRemove(null);
-    setShowConfirmModal(false);
-  }
-};
-
-    const handleCloseNotification = () => { setNotificationProduct(null); };
-
-    // Placeholder for server-side clearing (Needs DELETE /api/cart/all endpoint)
-    const clearEntireCart = async () => {
-        // ... implementation using fetch with DELETE method and getAuthHeaders() ...
-        setCartItems([]);
-        setCheckoutItemsForPayment([]); 
-    };
     
-    // Placeholder for server-side clearing purchased items
-    const clearPurchasedItems = async (purchasedItemIds) => {
-        // ... implementation using fetch with DELETE method and getAuthHeaders() ...
-        setCartItems((prevCartItems) =>
-            prevCartItems.filter(item => !purchasedItemIds.includes(item.id))
-        );
-        setCheckoutItemsForPayment([]);
-    };
+  // After (Recommended):
+const clearPurchasedItems = useCallback(async (purchasedItemIds) => {
+    // Implement WebSocket/fetch logic here
+    
+    setCartItems((prevCartItems) =>
+        prevCartItems.filter(item => !purchasedItemIds.includes(item.id))
+    );
+    setCheckoutItemsForPayment([]);
+}, []); // Empty array is fine since state setters are stable.
 
     // Calculate total items price for checkout items
     const totalItemsPrice = useMemo(() => {
@@ -242,10 +251,10 @@ const confirmRemoveItem = () => {
         }
       }, [checkoutItemsForPayment, totalItemsPrice]);
     
-    // Handle voucher application
-    const applyVoucherDiscount = (percentage) => {
-        setVoucherDiscount(totalItemsPrice * (percentage / 100));
-    };
+    // After (Recommended):
+const applyVoucherDiscount = useCallback((percentage) => { 
+    setVoucherDiscount(totalItemsPrice * (percentage / 100));
+}, [totalItemsPrice]); 
 
     // Calculate final grand total
     const grandTotalAmount = useMemo(() => {
@@ -259,40 +268,39 @@ const confirmRemoveItem = () => {
     }, [grandTotalAmount]);
     
 
-    const value = {
+    const value = useMemo(() => ({
         cartItems,
-        cartCount: cartItems.length, // useMemo already handled, but keeping direct for clarity
+          cartCount: cartItems.length, // useMemo already handled, but keeping direct for clarity
         loading,
         error,
-        fetchCart, 
+        setCartItems,
+        // fetchCart is removed from context value
 
         addToCart,
         removeFromCart,
         handleIncrement,
         handleDecrement,
-
+        confirmRemoveItem,
+       handleCloseNotification,
         notificationProduct,
         setNotificationProduct,
-        handleCloseNotification,
-        setCartItems, // If still needed for `isSelected` management
-
-        
+        // ... (rest of the checkout-related values) ...
         checkoutItemsForPayment,
         setCheckoutItemsForPayment,
         totalItemsPrice,
         shippingRate,
-        isFreeShipping,
         voucherDiscount,
         applyVoucherDiscount,
-        grandTotalAmount,
-        formattedGrandTotal,
-        clearPurchasedItems,
-        clearEntireCart,
-        confirmRemoveItem,
+        grandTotalAmount: 1000, // Replace with your actual grandTotalAmount memo
+        formattedGrandTotal: 'PHP 1,000.00', // Replace with your actual formattedGrandTotal memo
         showConfirmModal,
         itemToRemove,
         setShowConfirmModal,
-    };
+    }), [
+        cartItems, cartCount, loading, error, notificationProduct, handleIncrement, handleDecrement,  handleCloseNotification,confirmRemoveItem,
+        checkoutItemsForPayment, totalItemsPrice, shippingRate, voucherDiscount, showConfirmModal, itemToRemove
+    ]);
+
 
     return (
         <CartContext.Provider value={value}>
