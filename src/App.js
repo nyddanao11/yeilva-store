@@ -115,6 +115,9 @@ const { youMayLikeProducts, mayLikeLoading, mayLikeError } = useYouMayLikeProduc
     formattedGrandTotal,             // (e.g., to add `isSelected`), you MUST expose this from context.
                   // As discussed, prefer specific actions if possible, but for `isSelected`,
                   // this might be a necessary, carefully managed exposure.
+     confirmRemoveItem,
+        showConfirmModal,
+        itemToRemove,
   } = useCart();
 
 
@@ -193,7 +196,7 @@ const handleLogout = () => {
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} youMayLikeProducts={youMayLikeProducts }/>} />
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
-            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts}/>} />
+            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} />} />
             <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain youMayLikeProducts = {youMayLikeProducts}/>} />
  
             <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />

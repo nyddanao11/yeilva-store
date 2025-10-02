@@ -27,6 +27,10 @@ export default function Cart({
                   // (e.g., to add `isSelected`), you MUST expose this from context.
                   // As discussed, prefer specific actions if possible, but for `isSelected`,
                   // this might be a necessary, carefully managed exposure.
+     confirmRemoveItem,
+        showConfirmModal,
+        itemToRemove,
+        setShowConfirmModal,
   } = useCart();
 
   const [showModal, setShowModal] = useState(false);
@@ -68,10 +72,16 @@ export default function Cart({
     );
   };
 
-  // Calculate total price only for selected items
+ // Calculate total price only for selected items
   const calculateTotalPrice = (items) => {
     return items.reduce((total, item) => {
-      return item.isSelected ? total + item.price * item.quantity : total;
+      // ----------------------------------------------------
+      // FIX: Ensure both price and quantity are valid numbers.
+      const price = Number(item.price) || 0;
+      const quantity = Number(item.quantity) || 0;
+      // ----------------------------------------------------
+
+      return item.isSelected ? total + price * quantity : total;
     }, 0);
   };
 
@@ -140,14 +150,14 @@ export default function Cart({
         )}
 
         <ShoppingCart
-          cartItems={cartItems} // These now come from useCart()
-          removeFromCart={removeFromCart} // From useCart()
-          addToCart={addToCart} // From useCart()
-          handleIncrement={handleIncrement} // From useCart()
-          handleDecrement={handleDecrement} // From useCart()
+         cartItems = {cartItems}
+          cartCount= {cartCount}
+          addToCart= {addToCart}
+          removeFromCart= {removeFromCart}
+          handleIncrement= {handleIncrement}
+          handleDecrement= {handleDecrement}
           handleSizeChange={handleSizeChange} // Keep if prop
           handleColorChange={handleColorChange} // Keep if prop
-          cartCount={cartCount} // From useCart()
           isLoggedIn={isLoggedIn} // Keep if prop
           handleItemSelection={handleItemSelection}
         />
@@ -178,6 +188,8 @@ export default function Cart({
             </Button>
           </Modal.Footer>
         </Modal>
+
+       
       </Container>
       <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
     </>

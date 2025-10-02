@@ -21,6 +21,7 @@ export default function CheckoutPage({
   isLoggedIn
 }) {
   const {
+    cartItems,
     addToCart,
     checkoutItemsForPayment,
     setCheckoutItemsForPayment,
@@ -94,6 +95,7 @@ export default function CheckoutPage({
     );
   }
 
+
   return (
     <>
       {showFreeShippingAlert && (
@@ -155,7 +157,7 @@ export default function CheckoutPage({
                   </div>
                   <div className="d-flex justify-content-between align-items-center mb-2">
                     <span className="text-muted">Shipping Rate:</span>
-                    {isFreeShipping ? (
+                    {isFreeShipping? (
                       <strong className="text-success">₱Free <FaShippingFast /></strong>
                     ) : (
                       <strong>₱{shippingRate.toFixed(2)}</strong>

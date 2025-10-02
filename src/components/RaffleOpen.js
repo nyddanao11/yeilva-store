@@ -6,6 +6,7 @@ import axios from 'axios';
 import { fetchUserData } from './userService';
 import { Link } from 'react-router-dom';
 import UAParser from 'ua-parser-js';
+import {useAuth}from'../pages/loginContext';
 
 // Validation schema
 const validationSchema = Yup.object().shape({
@@ -13,7 +14,8 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
 });
 
-const RaffleOpen = () => {
+export default function RaffleOpen (){
+  const{userEmail}= useAuth();
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState('');
@@ -64,9 +66,9 @@ const RaffleOpen = () => {
   };
 
   useEffect(() => {
-    const storedUserEmail = localStorage.getItem('email');
-    if (storedUserEmail) {
-      fetchUserData(storedUserEmail.replace(/"/g, ''))
+   
+    if (userEmail) {
+      fetchUserData(userEmail.replace(/"/g, ''))
         .then((user) => {
           setUserData({ ...user });
         })
@@ -212,4 +214,3 @@ const RaffleOpen = () => {
   );
 };
 
-export default RaffleOpen;

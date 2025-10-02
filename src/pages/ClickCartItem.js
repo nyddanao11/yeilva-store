@@ -41,34 +41,27 @@ export default function ClickCartItem ({ isLoggedIn, youMayLikeProducts })  {
     setShowModal(false);
     window.location.href = '/login';
   };
+// Effect to find the product from cartItems
+useEffect(() => {
+// Only attempt to find product if cartItems has loaded and not empty
+if ( cartItems && cartItems.length > 0) {
+ const foundProduct = cartItems.find(p => p.id === parseInt(id));
+ if (foundProduct) {
+ setProduct(foundProduct);
+ setLoadingProduct(false); // Product found, stop loading
+ setErrorProduct(null); // Clear any previous errors
 
-  // Effect to find the product from bestSellingProducts
-  useEffect(() => {
-    // Only attempt to find product if bestSellingProducts is available and not empty
-    if ( cartItems &&  cartItems.length > 0) {
-      const foundProduct = cartItems.find(p => p.id === parseInt(id));
-      if (foundProduct) {
-        setProduct(foundProduct);
-        setLoadingProduct(false); // Product found, stop loading
-        setErrorProduct(null); // Clear any previous errors
-        setSelectedThumbnail(foundProduct.url); // Set initial selected thumbnail
-      } else {
-        setProduct(null); // Product not found
-        setLoadingProduct(false); // Stop loading even if not found
-        setErrorProduct('The requested product was not found.');
-      }
-    } else {
-        // If storedProducts is not yet available, or is empty, keep loading or set an error if it should have products
-        // For now, we'll keep loading as `storedProducts` might be fetched asynchronously by the parent.
-        // If `storedProducts` is always expected to be non-empty after an initial load,
-        // you might want to set `setErrorProduct` here if `storedProducts` remains empty.
-        // For instance, if `storedProducts` comes from an API call in the parent:
-        // if (!loadingInitialProductsInParent && storedProducts.length === 0) {
-        //   setErrorProduct("No products available to display.");
-        //   setLoadingProduct(false);
-        // }
-    }
-  }, [id,  cartItems]); // Depend on 'id' and 'storedProducts'
+        // 2. CORRECTED INITIALIZATION: Use the single URL for the primary display
+ setSelectedThumbnail(foundProduct.url); 
+ } else {
+ setProduct(null); // Product not found
+ setLoadingProduct(false); // Stop loading even if not found
+ setErrorProduct('The requested product was not found.');
+ }
+} else {
+ setLoadingProduct(true); // Keep loading if cartItems is empty initially
+}
+}, [id, cartItems]); // Depend on 'id' and 'cartItems'
 
   // Effect to set free shipping place
   useEffect(() => {

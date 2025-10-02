@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col, Form } from 'react-bootstrap';
+import { ListGroup, Image, Button, InputGroup, FormControl, Card, Row, Col, Form, Modal } from 'react-bootstrap';
 import { FaTrash, FaShoppingCart } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 import './ShoppingCart.css';
@@ -9,14 +9,10 @@ import { useMediaQuery } from 'react-responsive';
 import { useCart } from '../pages/CartContext'; // Correct path to your context
 
 export default function ShoppingCart({
-  handleSizeChange,
-  handleColorChange,
   handleItemSelection,
-  cartItem,
   isLoggedIn,
- 
 }) {
-   const {
+  const{
     cartItems,
     cartCount,
     addToCart,
@@ -28,8 +24,14 @@ export default function ShoppingCart({
                   // (e.g., to add `isSelected`), you MUST expose this from context.
                   // As discussed, prefer specific actions if possible, but for `isSelected`,
                   // this might be a necessary, carefully managed exposure.
-  } = useCart();
+     confirmRemoveItem,
+        showConfirmModal,
+        itemToRemove,
+        setShowConfirmModal,
+  }= useCart();
+   
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+
 const navigate = useNavigate();
  const backToHome=()=>{  
 navigate ('/');
@@ -40,7 +42,7 @@ const login =()=>{
 const signup =()=>{
   navigate('/signupform');
 }
-  return (
+ return (
     <div>
         {cartItems.length === 0 ? (
          <Card className="image-description border-0" > 
@@ -160,18 +162,22 @@ const signup =()=>{
           </Card>
         ))
       )}
+         <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Remove Item?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>You're about to remove <strong>{itemToRemove?.name}</strong> from your cart. Are you sure?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmRemoveItem}>
+            Yes, Remove
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
-
-
-// Define propTypes outside the component
-ShoppingCart.propTypes = {
-  cartItems: PropTypes.array.isRequired,
-  removeFromCart: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired,
-  handleIncrement: PropTypes.func.isRequired,
-  handleDecrement: PropTypes.func.isRequired,
-  
-};
-
