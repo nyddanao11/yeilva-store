@@ -23,22 +23,24 @@ root.render( // Use root.render instead of ReactDOM.render
     <AuthProvider>
      <CartProvider>
       <ProductProvider>
+       <YouMayLikeProductProvider>      
        <FeaturedProductsProvider>
         <BestSellingProvider>
          <RecommendedProvider>
            <SearchProductsProvider>
             <AllDealsProductsProvider>
-            <YouMayLikeProductProvider>           
+                
               <Router>
                 <ScrollToTop />
                 <App />
               </Router>              
-            </YouMayLikeProductProvider>
+          
             </AllDealsProductsProvider>
             </SearchProductsProvider>
           </RecommendedProvider>
          </BestSellingProvider>
         </FeaturedProductsProvider>
+          </YouMayLikeProductProvider>
        </ProductProvider>
       </CartProvider>
     </AuthProvider>
