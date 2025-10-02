@@ -291,8 +291,8 @@ const applyVoucherDiscount = useCallback((percentage) => {
         shippingRate,
         voucherDiscount,
         applyVoucherDiscount,
-        grandTotalAmount: 1000, // Replace with your actual grandTotalAmount memo
-        formattedGrandTotal: 'PHP 1,000.00', // Replace with your actual formattedGrandTotal memo
+        grandTotalAmount, // Replace with your actual grandTotalAmount memo
+        formattedGrandTotal, // Replace with your actual formattedGrandTotal memo
         showConfirmModal,
         itemToRemove,
         setShowConfirmModal,
