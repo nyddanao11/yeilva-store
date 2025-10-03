@@ -38,22 +38,25 @@ export default function Cart({
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
 
   const navigate = useNavigate();
-
-  // Initialize selected state for all items on load or cartItems change
-  useEffect(() => {
-    // Only proceed if cartItems has loaded and needs modification for `isSelected`
+  
+useEffect(() => {
+    // Check if initialization is necessary AND if cartItems is available
     if (cartItems.length > 0 && cartItems.some(item => item.isSelected === undefined)) {
+        
+        // Create the NEW array
         const updatedCartItems = cartItems.map(item => ({
-          ...item,
-          isSelected: item.isSelected !== undefined ? item.isSelected : true, // Default to true
+            ...item,
+            isSelected: true, // Default to true
         }));
-        // Use the setCartItems from context
+        
+        // Update the state once. The loop will stop because the next time 
+        // the component renders, `cartItems.some(item => item.isSelected === undefined)` 
+        // will be false, and this hook will not call the setter again.
         setCartItems(updatedCartItems);
-    } else if (cartItems.length === 0) {
-        // If cart becomes empty, ensure no leftover isSelected logic
-        setCartItems([]);
-    }
-  }, [cartItems, setCartItems]); // Depend on cartItems and setCartItems (from context)
+    } 
+    
+    // Remove the `else if (cartItems.length === 0)` block, it's redundant and risky.
+}, [cartItems, setCartItems]);
 
   // Handler for individual item selection
   const handleItemSelection = (itemId) => {

@@ -14,14 +14,14 @@ import {RecommendedProvider} from './pages/RecommendedProductsContext';
 import {SearchProductsProvider} from './pages/SearchProductContext';
 import {AllDealsProductsProvider} from './pages/AllDealsProductContext';
 import {YouMayLikeProductProvider} from './pages/YouMayLikeProductContext';
-import { CartProvider } from './pages/CartContext'; 
+import {MasterCartProvider} from './pages/CartContext'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
 
 root.render( // Use root.render instead of ReactDOM.render
   <React.StrictMode>
     <AuthProvider>
-     <CartProvider>
+     <MasterCartProvider>
       <ProductProvider>
        <YouMayLikeProductProvider>      
        <FeaturedProductsProvider>
@@ -42,7 +42,7 @@ root.render( // Use root.render instead of ReactDOM.render
         </FeaturedProductsProvider>
           </YouMayLikeProductProvider>
        </ProductProvider>
-      </CartProvider>
+      </MasterCartProvider>
     </AuthProvider>
   </React.StrictMode>
 );
