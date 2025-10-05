@@ -1,93 +1,211 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+// Removed: import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
+// Temporary, basic JWT decoder function to prevent build error.
+// In a real project, ensure 'jwt-decode' is installed or use a trusted library.
+// const safeJwtDecode = (token) => {
+//     try {
+//         const base64Url = token.split('.')[1];
+//         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+//             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//         }).join(''));
+        
+//         return JSON.parse(jsonPayload);
+//     } catch (e) {
+//         console.error("Failed to decode JWT:", e);
+//         return null;
+//     }
+// };
+
+
+// Create a custom Axios instance that will be configured for token handling
+const apiClient = axios.create({
+    baseURL: process.env.REACT_APP_SERVER_URL,
+    // Add default headers or settings here if needed
+});
+
 export const useAuth = () => {
-  return useContext(AuthContext);
+    return useContext(AuthContext);
 };
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
+    // Stores the short-lived Access Token in memory (not localStorage!)
+    const [accessToken, setAccessToken] = useState(null);
+    
+    // Auth status is derived from whether we have an accessToken
+    const isLoggedIn = !!accessToken;
+    const [userEmail, setUserEmail] = useState(null);
+    const isRefreshing = useRef(false);
 
-  // The login function now handles the API call
-  const login = async (email, password) => {
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, { email, password });
-      
-      const { token } = response.data;
-      
-      localStorage.setItem('authToken', token);
-      
-      const decodedToken = jwtDecode(token);
-      setUserEmail(decodedToken.email);
-      
-      setIsLoggedIn(true);
-      return { success: true };
-    } catch (error) {
-      console.error('Login failed:', error);
-      setIsLoggedIn(false);
-      // Return a structured error response
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'An unexpected error occurred.'
-      };
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await axios.post('/api/logout');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    } finally {
-      localStorage.removeItem('authToken');
-      setUserEmail(null);
-      setIsLoggedIn(false);
-    }
-  };
-
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      const token = localStorage.getItem('authToken');
-      if (token) {
+    // --- Core Renewal Logic ---
+    const refreshAccessToken = async () => {
+        if (isRefreshing.current) return; // Prevent multiple simultaneous refresh calls
+        isRefreshing.current = true;
+        
         try {
-          // This call also validates the token
-          const response = await axios.get('/api/check-auth', {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          
-          if (response.status === 200) {
-            const decodedToken = jwtDecode(token);
-            setUserEmail(decodedToken.email);
-            setIsLoggedIn(true);
-          }
+            // This call relies on the browser automatically sending the long-lived, 
+            // secure HTTP-only Refresh Token cookie to the server.
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`);
+            
+            const newAccessToken = response.data.token; // Server sends new access token
+            
+            // 1. Update the in-memory access token
+            setAccessToken(newAccessToken);
+            
+            // 2. Decode for user info
+            const decodedToken = jwtDecode(newAccessToken); // Using the local decoder
+            if (decodedToken) {
+                setUserEmail(decodedToken.email);
+            }
+
+            isRefreshing.current = false;
+            return newAccessToken;
+
         } catch (error) {
-          console.error('Authentication check failed:', error);
-          localStorage.removeItem('authToken');
-          setUserEmail(null);
-          setIsLoggedIn(false);
+            console.error("Token refresh failed. Forcing logout.", error);
+            // If refresh fails (e.g., Refresh Token expired or revoked), force a full logout
+            // This also clears the failed HTTP-only cookie on the server.
+            await logout(); 
+            isRefreshing.current = false;
+            throw error; // Propagate the error to the interceptor
         }
-      } else {
-        setIsLoggedIn(false);
-      }
+    };
+    // ----------------------------
+
+
+    // Login function updated to store token in state
+    const login = async (email, password) => {
+        try {
+            // Step 1: Login call
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, { email, password });
+            
+            const { token } = response.data; // This is the Access Token
+            // NOTE: The Refresh Token MUST be set by the server as an HTTP-only cookie here.
+
+            // Step 2: Store Access Token in state/memory
+            setAccessToken(token);
+            
+            // Step 3: Extract and store user data
+            const decodedToken = jwtDecode(token); // Using the local decoder
+            if (decodedToken) {
+                 setUserEmail(decodedToken.email);
+            }
+            
+            return { success: true };
+        } catch (error) {
+            console.error('Login failed:', error);
+            setAccessToken(null);
+            setUserEmail(null);
+            return { 
+                success: false, 
+                error: error.response?.data?.error || 'An unexpected error occurred.' 
+            };
+        }
+    };
+
+    // Logout function updated to hit the server endpoint to clear the HTTP-only cookie
+    const logout = async () => {
+        try {
+            // Tell the server to revoke the Refresh Token (clear the HTTP-only cookie)
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`);
+        } catch (error) {
+            console.error('Server-side logout failed (cookie clearance):', error);
+        } finally {
+            // Clear client-side state
+            setAccessToken(null);
+            setUserEmail(null);
+        }
     };
     
-    checkAuthStatus();
-  }, []);
+    
+    // --- Axios Interceptor Setup ---
+    useEffect(() => {
+        let isMounted = true;
+        
+        // 1. REQUEST INTERCEPTOR: Attach the current Access Token to every request header
+        const requestInterceptor = apiClient.interceptors.request.use(
+            (config) => {
+                if (accessToken) {
+                    config.headers.Authorization = `Bearer ${accessToken}`;
+                }
+                return config;
+            },
+            (error) => Promise.reject(error)
+        );
 
-  const contextValue = {
-    isLoggedIn,
-    login,
-    logout,
-    userEmail,
-  };
+        // 2. RESPONSE INTERCEPTOR: Handle 401 Unauthorized errors (token expired)
+        const responseInterceptor = apiClient.interceptors.response.use(
+            (response) => response,
+            async (error) => {
+                const originalRequest = error.config;
+                // Check if the token expired (401) and if we haven't already tried to refresh
+                if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
+                    originalRequest._retry = true;
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
-  );
+                    try {
+                        const newAccessToken = await refreshAccessToken();
+                        // Update the header of the original failed request with the new token
+                        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+                        
+                        // Retry the original request
+                        return apiClient(originalRequest);
+                    } catch (refreshError) {
+                        // Refresh failed (user truly needs to log in again)
+                        return Promise.reject(refreshError);
+                    }
+                }
+                return Promise.reject(error);
+            }
+        );
+
+        // Initial check on mount: Use the refresh endpoint to see if a session is active
+        const checkInitialSession = async () => {
+             // Skip initial check if we already have a token (e.g., after login)
+            if (accessToken) return;
+            try {
+                // Attempt to refresh. This relies on the long-lived HTTP-only cookie.
+                await refreshAccessToken(); 
+            } catch (error) {
+                // No valid Refresh Token found. Session is not active.
+                setAccessToken(null);
+                setUserEmail(null);
+            }
+        };
+
+        if (isMounted) {
+             // Only run initial session check if we don't have an access token yet
+             if (!accessToken) {
+                checkInitialSession();
+             }
+        }
+        
+        // Cleanup function: Remove interceptors when the component unmounts
+        return () => {
+            isMounted = false;
+            apiClient.interceptors.request.eject(requestInterceptor);
+            apiClient.interceptors.response.eject(responseInterceptor);
+        };
+    }, [accessToken]); // Rerun interceptor setup if accessToken changes to use the new token
+    // ----------------------------
+
+    const contextValue = {
+        isLoggedIn,
+        login,
+        logout,
+        userEmail,
+        accessToken,
+        // Provide the configured client so all other components use it for API calls
+        apiClient, 
+    };
+
+    return (
+        <AuthContext.Provider value={contextValue}>
+            {children}
+        </AuthContext.Provider>
+    );
 };

@@ -2,29 +2,15 @@ import React, { createContext, useState, useContext, useEffect, useMemo, useCall
 import { io } from 'socket.io-client'; // 👈 Import socket.io-client
 import { FormatCartData } from '../utils/FormatCartData';
 import { CartContext } from './CartContext';
-
+import { useAuth } from './loginContext'; // ⬅️ Import your Auth context
 // --- WebSocket Configuration ---
 // NOTE: Use the base server URL for the WebSocket connection
 const WS_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001'; 
-const JWT_STORAGE_KEY = 'authToken';
 
-/**
- * Helper to retrieve the JWT from local storage.
- * NOTE: For WebSockets, we pass the token during connection (initial handshake)
- * or as part of the payload for authenticated actions.
- * @returns {string | null} The JWT token.
- */
-const getAuthToken = () => {
-    try {
-        return localStorage.getItem(JWT_STORAGE_KEY);
-    } catch (e) {
-        console.error("Error retrieving JWT from localStorage:", e);
-        return null;
-    }
-};
 
 export const CartProviderAuthenticated = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
+       const { accessToken, isLoggedIn } = useAuth(); // <-- Get token and status from AuthContext
     // At the top of CartProvider:
     const [socket, setSocket] = useState(null); // Managed socket connection state
     // The 'loading' state now reflects the socket connection status or initial load
@@ -39,33 +25,39 @@ export const CartProviderAuthenticated = ({ children }) => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [itemToRemove, setItemToRemove] = useState(null);
 
-    // --- 1. WebSocket Connection and Event Listeners ---
+   // --- 1. WebSocket Connection and Event Listeners ---
+    // The dependency array now watches accessToken (the key change)
     useEffect(() => {
-        const token = getAuthToken();
-
-        if (!token) {
+        // Only attempt to connect if the user is explicitly logged in AND we have an accessToken
+        if (!isLoggedIn || !accessToken) {
             setLoading(false);
-            setError("User not logged in or token missing.");
+            setError(isLoggedIn ? null : "User not logged in or token missing.");
             return;
         }
 
-       const newSocket = io(WS_URL, {
-            auth: { token: token }
-             });
-       setSocket(newSocket); // Store the active socket instance in state
-        // --- Connection Handlers ---
-       newSocket.on('connect', () => {
-        // ✅ FIX: Use the 'newSocket' local variable for its ID and methods
-        console.log('WebSocket connected:', newSocket.id); 
-        setError(null);
+        // Initialize socket connection, passing the current in-memory accessToken
+        const newSocket = io(WS_URL, {
+            auth: { token: accessToken },
+            // Setting transports to ensure stability in various environments
+            transports: ['websocket', 'polling']
+        });
         
-        // ✅ FIX: Use newSocket to emit the initial request
-        newSocket.emit('cart:get'); 
-    });
+        setSocket(newSocket); 
+        setLoading(true); // Start loading when attempting connection
+
+        // --- Connection Handlers ---
+        newSocket.on('connect', () => {
+            console.log('WebSocket connected:', newSocket.id);
+            setError(null);
+            
+            // Request the initial cart state immediately upon connection
+            newSocket.emit('cart:get'); 
+        });
 
         newSocket.on('disconnect', () => {
             console.log('WebSocket disconnected');
-            setLoading(false);
+            // Do NOT set loading to false here, as a disconnect may mean a token expired,
+            // and the AuthContext might trigger a reconnect.
         });
 
         // --- Error Handlers ---
@@ -73,37 +65,38 @@ export const CartProviderAuthenticated = ({ children }) => {
             console.error('Socket connection error:', err.message);
             setError(`Connection failed: ${err.message}`);
             setLoading(false);
+            // Crucial: Handle 401/Invalid Token Errors if your server is configured to send them
+            if (err.message.includes('Unauthorized') || err.message.includes('401')) {
+                // In a production environment, you might trigger a logout or a token refresh here, 
+                // but since the HTTP API already handles the refresh, a disconnect is usually enough.
+                setError("Authentication failed for WebSocket. Please refresh the page.");
+            }
         });
 
         // --- Core Cart Event Listener (The Push Mechanism) ---
-        // The server will respond to 'cart:get' and successful mutations by emitting this event.
         newSocket.on('cart:full_update', (serverCartItems) => {
             console.log('Received cart update from server:', serverCartItems);
-            // Apply client-side formatting
             const cartData = Array.isArray(serverCartItems)
                 ? serverCartItems.map(FormatCartData)
                 : [];
-                console.log('cartItems:', cartData);
             setCartItems(cartData);
-            setLoading(false); // Finished initial load
+            setLoading(false); 
         });
         
-        // --- Mutation Error Listener ---
         newSocket.on('cart:update:error', (errorMessage) => {
             console.error('Cart operation failed:', errorMessage);
             setError(errorMessage);
-            // Optionally, re-fetch the cart state if an operation failed
-            // socket.emit('cart:get'); 
         });
 
+        // Cleanup function: Closes the socket when the token or login status changes (or component unmounts)
+        return () => {
+            if (newSocket) {
+                newSocket.close();
+                setSocket(null); // Clear the socket state
+            }
+        };
+    }, [accessToken, isLoggedIn]); // <-- Re-run effect when Access Token changes
 
-      // Cleanup function:
-    return () => {
-        if (newSocket) {
-            newSocket.close();
-        }
-    };
-}, []); 
 
    
     // 1. Define removeFromCart (Must be done first, and wrapped in useCallback)
