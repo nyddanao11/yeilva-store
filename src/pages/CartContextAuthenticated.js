@@ -3,9 +3,12 @@ import { io } from 'socket.io-client'; // 👈 Import socket.io-client
 import { FormatCartData } from '../utils/FormatCartData';
 import { CartContext } from './CartContext';
 import { useAuth } from './loginContext'; // ⬅️ Import your Auth context
+import axios from 'axios';
 // --- WebSocket Configuration ---
 // NOTE: Use the base server URL for the WebSocket connection
 const WS_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001'; 
+const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001';
+const LOCAL_CART_STORAGE_KEY = 'cartItems'; // Key for the guest cart in localStorage
 
 
 export const CartProviderAuthenticated = ({ children }) => {
@@ -24,6 +27,58 @@ export const CartProviderAuthenticated = ({ children }) => {
     const [voucherDiscount, setVoucherDiscount] = useState(0);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [itemToRemove, setItemToRemove] = useState(null);
+
+        // ----------------------------------------------------------------------
+    // NEW LOGIC: MERGE LOCAL CART ON LOGIN
+    // ----------------------------------------------------------------------
+
+    const mergeLocalCart = useCallback(async () => {
+        const localCartJson = localStorage.getItem(LOCAL_CART_STORAGE_KEY);
+        
+        if (!localCartJson) {
+            console.log('No guest cart found in localStorage.');
+            return;
+        }
+
+        try {
+            const localCartItems = JSON.parse(localCartJson);
+            
+            if (!localCartItems || localCartItems.length === 0) {
+                 localStorage.removeItem(LOCAL_CART_STORAGE_KEY);
+                 return;
+            }
+
+            console.log('Initiating cart merge for items:', localCartItems);
+
+            // Send local cart data to the dedicated server merge endpoint
+            // We use axios directly here, ensuring the accessToken is correctly attached.
+            await axios.post(`${API_URL}/api/cart/merge`, { 
+                cartItems: localCartItems 
+            }, {
+                headers: {
+                    // Use the Access Token from the Auth Context for authorization
+                    Authorization: `Bearer ${accessToken}`, 
+                }
+            });
+
+            // If the server confirms the merge:
+            // 1. Delete the local storage items to prevent re-merging
+            localStorage.removeItem(LOCAL_CART_STORAGE_KEY);
+            console.log('Local cart successfully merged and cleared.');
+
+            // 2. Request a full update from the server (optional, as the server merge logic
+            //    should trigger the WebSocket update 'cart:full_update' automatically)
+            if (socket && socket.connected) {
+                socket.emit('cart:get');
+            }
+
+        } catch (err) {
+            console.error('Error during local cart merge:', err.response?.data?.error || err.message);
+            // Crucial: Do NOT delete the local storage item if the merge fails!
+            setError(`Failed to merge old cart: ${err.response?.data?.error || 'Server error'}`);
+        }
+    }, [accessToken, socket, setError]);
+
 
    // --- 1. WebSocket Connection and Event Listeners ---
     // The dependency array now watches accessToken (the key change)
@@ -97,6 +152,18 @@ export const CartProviderAuthenticated = ({ children }) => {
         };
     }, [accessToken, isLoggedIn]); // <-- Re-run effect when Access Token changes
 
+
+// ----------------------------------------------------------------------
+    // EFFECT 2: LOCAL CART SYNCHRONIZATION TRIGGER
+    // ----------------------------------------------------------------------
+
+    useEffect(() => {
+        // Trigger merge ONLY when the user is confirmed to be logged in and authenticated.
+        if (isLoggedIn) {
+            mergeLocalCart();
+        }
+        // Dependency on mergeLocalCart ensures we always call the latest version
+    }, [isLoggedIn, mergeLocalCart]); 
 
    
     // 1. Define removeFromCart (Must be done first, and wrapped in useCallback)
@@ -207,8 +274,15 @@ const clearPurchasedItems = useCallback(async (purchasedItemIds) => {
         return checkoutItemsForPayment.reduce((total, item) => total + (item.price * item.quantity), 0);
     }, [checkoutItemsForPayment]);
 
-    // Calculate shipping rate (remains client-side logic for now)
-    const isFreeShipping = useMemo(() => totalItemsPrice > 2500, [totalItemsPrice]);
+  // Step 1: Create a simple, specific dependency outside of useMemo
+const hasMaslogItem = cartItems.some(item => item.place === 'Maslog'); 
+
+// Step 2: Use the simpler dependency in useMemo
+const isFreeShipping = useMemo(() => {
+  // Use the derived boolean
+  return totalItemsPrice > 2500 || hasMaslogItem;
+}, [totalItemsPrice, hasMaslogItem]);
+
     const cartCount = useMemo(() => cartItems.length, [cartItems]);
 
     useEffect(() => {
@@ -280,9 +354,10 @@ const clearPurchasedItems = useCallback(async (purchasedItemIds) => {
         showConfirmModal,
         itemToRemove,
         setShowConfirmModal,
+        isFreeShipping,
     }), [
         cartItems, cartCount, loading, error, notificationProduct, handleIncrement, handleDecrement,  handleCloseNotification,confirmRemoveItem,
-        checkoutItemsForPayment, totalItemsPrice, shippingRate, voucherDiscount, showConfirmModal, itemToRemove
+        checkoutItemsForPayment, totalItemsPrice, shippingRate, voucherDiscount, showConfirmModal, itemToRemove, isFreeShipping
     ]);
 
 

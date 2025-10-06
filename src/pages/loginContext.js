@@ -1,32 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-// Removed: import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
-
-// Temporary, basic JWT decoder function to prevent build error.
-// In a real project, ensure 'jwt-decode' is installed or use a trusted library.
-// const safeJwtDecode = (token) => {
-//     try {
-//         const base64Url = token.split('.')[1];
-//         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-//         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-//             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-//         }).join(''));
-        
-//         return JSON.parse(jsonPayload);
-//     } catch (e) {
-//         console.error("Failed to decode JWT:", e);
-//         return null;
-//     }
-// };
-
 
 // Create a custom Axios instance that will be configured for token handling
 const apiClient = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL,
-    // Add default headers or settings here if needed
+    withCredentials: true, // IMPORTANT: Allows sending the HTTP-only Refresh Token cookie
 });
 
 export const useAuth = () => {
@@ -50,7 +31,7 @@ export const AuthProvider = ({ children }) => {
         try {
             // This call relies on the browser automatically sending the long-lived, 
             // secure HTTP-only Refresh Token cookie to the server.
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {}, { withCredentials: true });
             
             const newAccessToken = response.data.token; // Server sends new access token
             
@@ -58,7 +39,7 @@ export const AuthProvider = ({ children }) => {
             setAccessToken(newAccessToken);
             
             // 2. Decode for user info
-            const decodedToken = jwtDecode(newAccessToken); // Using the local decoder
+            const decodedToken = jwtDecode(newAccessToken);
             if (decodedToken) {
                 setUserEmail(decodedToken.email);
             }
@@ -69,7 +50,6 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Token refresh failed. Forcing logout.", error);
             // If refresh fails (e.g., Refresh Token expired or revoked), force a full logout
-            // This also clears the failed HTTP-only cookie on the server.
             await logout(); 
             isRefreshing.current = false;
             throw error; // Propagate the error to the interceptor
@@ -82,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             // Step 1: Login call
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, { email, password });
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, { email, password }, { withCredentials: true });
             
             const { token } = response.data; // This is the Access Token
             // NOTE: The Refresh Token MUST be set by the server as an HTTP-only cookie here.
@@ -91,7 +71,7 @@ export const AuthProvider = ({ children }) => {
             setAccessToken(token);
             
             // Step 3: Extract and store user data
-            const decodedToken = jwtDecode(token); // Using the local decoder
+            const decodedToken = jwtDecode(token);
             if (decodedToken) {
                  setUserEmail(decodedToken.email);
             }
@@ -112,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         try {
             // Tell the server to revoke the Refresh Token (clear the HTTP-only cookie)
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`);
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/logout`, {}, { withCredentials: true });
         } catch (error) {
             console.error('Server-side logout failed (cookie clearance):', error);
         } finally {
@@ -122,7 +102,33 @@ export const AuthProvider = ({ children }) => {
         }
     };
     
-    
+    // --- Proactive Refresh on Window Focus (THE FIX) ---
+    useEffect(() => {
+        const handleWakeup = async () => {
+            // Only run if the user thinks they are logged in and the access token is missing or null
+            if (isLoggedIn && !accessToken) { 
+                console.log("Window focused/woke up. Attempting proactive token refresh...");
+                try {
+                    // This call will fail silently if the Refresh Token is truly expired,
+                    // and refreshAccessToken will handle the necessary logout.
+                    await refreshAccessToken(); 
+                } catch (error) {
+                    // Error already handled and logged by refreshAccessToken.
+                }
+            }
+        };
+
+        // Listen for the window regaining focus
+        window.addEventListener('focus', handleWakeup);
+        
+        // Clean up the event listener
+        return () => {
+            window.removeEventListener('focus', handleWakeup);
+        };
+        // We include dependencies here to ensure we capture the latest version of these values
+    }, [isLoggedIn, accessToken, refreshAccessToken]); 
+
+
     // --- Axios Interceptor Setup ---
     useEffect(() => {
         let isMounted = true;
@@ -148,6 +154,7 @@ export const AuthProvider = ({ children }) => {
                     originalRequest._retry = true;
 
                     try {
+                        // THIS IS THE LINE THAT WAS FAILING ON WAKE UP
                         const newAccessToken = await refreshAccessToken();
                         // Update the header of the original failed request with the new token
                         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
@@ -165,7 +172,7 @@ export const AuthProvider = ({ children }) => {
 
         // Initial check on mount: Use the refresh endpoint to see if a session is active
         const checkInitialSession = async () => {
-             // Skip initial check if we already have a token (e.g., after login)
+            // Skip initial check if we already have a token (e.g., after login)
             if (accessToken) return;
             try {
                 // Attempt to refresh. This relies on the long-lived HTTP-only cookie.
@@ -178,10 +185,10 @@ export const AuthProvider = ({ children }) => {
         };
 
         if (isMounted) {
-             // Only run initial session check if we don't have an access token yet
-             if (!accessToken) {
+            // Only run initial session check if we don't have an access token yet
+            if (!accessToken) {
                 checkInitialSession();
-             }
+            }
         }
         
         // Cleanup function: Remove interceptors when the component unmounts
@@ -190,7 +197,7 @@ export const AuthProvider = ({ children }) => {
             apiClient.interceptors.request.eject(requestInterceptor);
             apiClient.interceptors.response.eject(responseInterceptor);
         };
-    }, [accessToken]); // Rerun interceptor setup if accessToken changes to use the new token
+    }, [accessToken, refreshAccessToken]); // Rerun interceptor setup if accessToken or refreshFn changes
     // ----------------------------
 
     const contextValue = {
