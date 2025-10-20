@@ -25,6 +25,7 @@ export const CartProviderAuthenticated = ({ children }) => {
     const [checkoutItemsForPayment, setCheckoutItemsForPayment] = useState([]);
     const [shippingRate, setShippingRate] = useState(0);
     const [voucherDiscount, setVoucherDiscount] = useState(0);
+    const [voucherCode, setVoucherCode] = useState(null); 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [itemToRemove, setItemToRemove] = useState(null);
 
@@ -213,7 +214,7 @@ const addToCart = useCallback((product) => {
         setError('Not connected to server. Please try again.');
         return;
     }
-    socket.emit('cart:add', { product_id: product.id, quantity: 1 });
+    socket.emit('cart:add', { product_id: product.id, quantity: 1,  final_price:product.price});
     setNotificationProduct(product);
 }, [socket, setError, setNotificationProduct]);
 
@@ -259,10 +260,16 @@ const clearEntireCart = useCallback(async () => {
 }, []); // Empty array is fine since state setters are stable.
 
     
-  // After (Recommended):
-const clearPurchasedItems = useCallback(async (purchasedItemIds) => {
-    // Implement WebSocket/fetch logic here
+ 
+// After (Recommended):
+const clearPurchasedItems = useCallback((purchasedItemIds) => {
+    // 1. Guard clause: Ensure we only proceed if purchasedItemIds is a valid array.
+    if (!Array.isArray(purchasedItemIds)) {
+        console.warn("clearPurchasedItems called with non-array purchasedItemIds:", purchasedItemIds);
+        return;
+    }
     
+    // Implement WebSocket/fetch logic here  
     setCartItems((prevCartItems) =>
         prevCartItems.filter(item => !purchasedItemIds.includes(item.id))
     );
@@ -271,7 +278,7 @@ const clearPurchasedItems = useCallback(async (purchasedItemIds) => {
 
     // Calculate total items price for checkout items
     const totalItemsPrice = useMemo(() => {
-        return checkoutItemsForPayment.reduce((total, item) => total + (item.price * item.quantity), 0);
+        return checkoutItemsForPayment.reduce((total, item) => total + (item.final_price * item.quantity), 0);
     }, [checkoutItemsForPayment]);
 
   // Step 1: Create a simple, specific dependency outside of useMemo
@@ -310,9 +317,16 @@ const isFreeShipping = useMemo(() => {
  }
 }, [checkoutItemsForPayment, totalItemsPrice, shippingRate]); // Add shippingRate to dependencies
     
- const applyVoucherDiscount = useCallback((percentage) => { 
+const applyVoucherDiscount = useCallback((percentage, code) => { // <-- Add 'code' parameter
     setVoucherDiscount(totalItemsPrice * (percentage / 100));
-}, [totalItemsPrice, setVoucherDiscount]); // ✅ Added setVoucherDiscount
+    setVoucherCode(code); // <-- Store the code
+}, [totalItemsPrice, setVoucherDiscount, setVoucherCode]);
+
+ // ✅ NEW: reset function
+  const clearVoucherDiscount = useCallback(() => {
+    setVoucherDiscount(0);
+    setVoucherCode(null);
+  }, []);
 
     // Calculate final grand total
     const grandTotalAmount = useMemo(() => {
@@ -348,6 +362,7 @@ const isFreeShipping = useMemo(() => {
         totalItemsPrice,
         shippingRate,
         voucherDiscount,
+        voucherCode,
         applyVoucherDiscount,
         grandTotalAmount, // Replace with your actual grandTotalAmount memo
         formattedGrandTotal, // Replace with your actual formattedGrandTotal memo
@@ -355,9 +370,12 @@ const isFreeShipping = useMemo(() => {
         itemToRemove,
         setShowConfirmModal,
         isFreeShipping,
+        clearPurchasedItems,
+        clearVoucherDiscount
     }), [
         cartItems, cartCount, loading, error, notificationProduct, handleIncrement, handleDecrement,  handleCloseNotification,confirmRemoveItem,
-        checkoutItemsForPayment, totalItemsPrice, shippingRate, voucherDiscount, showConfirmModal, itemToRemove, isFreeShipping
+        checkoutItemsForPayment, totalItemsPrice, shippingRate, voucherDiscount, showConfirmModal, itemToRemove, 
+        isFreeShipping, voucherCode,clearPurchasedItems,clearVoucherDiscount
     ]);
 
 

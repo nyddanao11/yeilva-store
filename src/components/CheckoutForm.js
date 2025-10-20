@@ -11,7 +11,7 @@ import GcashPaymentModal from './GcashPaymentModal';
 import { useAuth} from '../pages/loginContext';
 
 
-export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
+export default function CheckoutForm  ({ ewalletStatus, capturedImage, showCheckoutModal, setShowCheckoutModal}) {
       const{userEmail} = useAuth();
  const {
     cartItems,
@@ -22,8 +22,10 @@ export default function CheckoutForm  ({ ewalletStatus, capturedImage}) {
     handleDecrement,
     formattedGrandTotal,
     checkoutItemsForPayment,
-    setCheckoutItemsForPayment, // This is key for passing selected items to checkout
-     clearPurchasedItems,
+    setCheckoutItemsForPayment,
+    voucherCode, 
+    clearPurchasedItems,
+    clearVoucherDiscount,
   } = useCart();
    const location = useLocation();
   const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
@@ -58,9 +60,6 @@ const [showGcashModal, setShowGcashModal] = useState(false);
 
 });
 
-
-
-   const [showModal, setShowModal] = useState(false); //
 
  const [selectedPayment, setSelectedPayment] = useState('Cash on Delivery');
   const [isPaymentDisabled, setIsPaymentDisabled] = useState({
@@ -149,12 +148,6 @@ const handleEwalletsClick = (e) => {
   const isButtonDisabled = loading || grandTotalToString(formattedGrandTotal) === '0.00';
 
   const navigate = useNavigate(); // Get the navigate function
-
-  // const handleCloseModal = () => {
-  //   setShowModal(false); // Close the modal
-  //   clearPurchasedItems();
-  //   navigate('/'); // Redirect to the homepage using navigate
-  // };
   
   const handleBackToCart = () => {
     // Navigate back to the cart page or any other desired location
@@ -208,7 +201,7 @@ const cleanProductName = (productName) => {
  const cleanedProductWeight = cartItems.map((item) => item.weight);
 
   // Generate a string for cart item details (for display purposes)
-  const itemName = cartItems.map((item) => `
+  const itemName = checkoutItemsForPayment.map((item) => `
     <div>
       <p>Item: ${item.name}</p>
       <p>Price: ₱${item.price}</p>
@@ -232,22 +225,28 @@ const cleanProductName = (productName) => {
   formData.append('fullName', selectedAddressDetails.fullName);
   formData.append('apartmentSuite', selectedAddressDetails.apartmentSuite || '');
   formData.append('name', itemName);  // HTML formatted cart items
-  formData.append('quantity', cartItems.reduce((acc, item) => acc + item.quantity, 0));
+  formData.append('quantity', checkoutItemsForPayment.reduce((acc, item) => acc + item.quantity, 0));
   formData.append('total', formattedGrandTotal);
   formData.append('paymentOption', selectedPayment);
+  formData.append('voucherCode', voucherCode);
+  formData.append('items', checkoutItemsForPayment);
+
+
   
   // For non-FormData submissions, create a JSON payload
   const cashOnDelivery = {
     ...userData,
     ...selectedAddressDetails,
     name: itemName,
-    quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
+    quantity: checkoutItemsForPayment.reduce((acc, item) => acc + item.quantity, 0),
     total: formattedGrandTotal,
     paymentOption: selectedPayment,
     productNames: cleanedProductNames, // Cleaned product names array
    productPrice: cleanedProductPrice.length > 0 ? cleanedProductPrice[0] : 0,
     productUrl: cleanedProductUrl,
    productWeight: cleanedProductWeight.length > 0 ? cleanedProductWeight[0] : 0,
+   voucherCode: voucherCode,
+   items: checkoutItemsForPayment,
   };
 
   try {
@@ -305,49 +304,75 @@ const cleanProductName = (productName) => {
 }
 
 
-      // Send Installment request
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/installmentusers`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-      setShowModal(true);
-      return; // End after successful Installment submission
-    }
-
-    // Validate E-wallet payment
-    if (selectedPayment === 'E-wallets banks') {
-      if (!passedEwalletStatus) {
-        setPaymentErrors((prevErrors) => ({
-          ...prevErrors,
-          ewallets: 'Sorry, Please proceed to Gcash payment first to submit your Order.',
-        }));
-        setLoading(false);
-        return;
+     // Send Installment request
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/installmentusers`, formData, {
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    },
+    });
+        
+            console.log(response.data);
+            // 1. Get the IDs of the items the server confirmed it deleted
+            clearVoucherDiscount();
+            const deletedIds = response.data.deletedCartItemIds; 
+            
+            // 2. Clear the cart items from the local state using your context function
+            await clearPurchasedItems(deletedIds); 
+            
+            console.log("✅ Reached: Setting Modal to True (Installment)"); // <-- 2. Debug Log
+            setShowCheckoutModal(true);
+            return; // End after successful Installment submission
       }
 
-      // Send E-wallet request
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
-      console.log(response.data);
-      setShowModal(true);
-      return; // End after successful E-wallet submission
-    }
+        // Validate E-wallet payment
+        if (selectedPayment === 'E-wallets banks') {
+            if (!passedEwalletStatus) {
+                setPaymentErrors((prevErrors) => ({
+                    ...prevErrors,
+                    ewallets: 'Sorry, Please proceed to Gcash payment first to submit your Order.',
+                }));
+                setLoading(false);
+                return;
+            }
 
-    // Default case for other payments (e.g., Cash on Delivery)
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
-    console.log(response.data);
-    setShowModal(true);
-  } catch (error) {
-    console.error('Error submitting order:', error);
-    setPaymentErrors((prevErrors) => ({
-      ...prevErrors,
-      [selectedPayment.toLowerCase()]: 'There was an error submitting your order. Please try again later.',
-    }));
-  } finally {
-    setLoading(false); // Stop loading spinner
-  }
-};
+            // Send E-wallet request
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
+                console.log(response.data);
+                clearVoucherDiscount();
+                // 1. Get the IDs of the items the server confirmed it deleted
+                const deletedIds = response.data.deletedCartItemIds; 
+                
+                // 2. Clear the cart items from the local state using your context function
+                await clearPurchasedItems(deletedIds); 
+                
+                console.log("✅ Reached: Setting Modal to True (E-wallets)"); // <-- 2. Debug Log
+                 setShowCheckoutModal(true);
+                return; // End after successful E-wallet submission
+            }
+
+        // Default case for other payments (e.g., Cash on Delivery)
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
+            console.log(response.data);
+            clearVoucherDiscount();
+            // 1. Get the IDs of the items the server confirmed it deleted
+            const deletedIds = response.data.deletedCartItemIds; 
+            
+            // 2. Clear the cart items from the local state using your context function
+            await clearPurchasedItems(deletedIds); 
+            
+            console.log("✅ Reached: Setting Modal to True (COD)"); // <-- 2. Debug Log
+            setShowCheckoutModal(true);
+              
+    } catch (error) {
+        console.error('Error submitting order:', error);
+        setPaymentErrors((prevErrors) => ({
+          ...prevErrors,
+          [selectedPayment.toLowerCase()]: 'There was an error submitting your order. Please try again later.',
+        }));
+      } finally {
+        setLoading(false); // Stop loading spinner
+      }
+    };
 
 
 
@@ -501,57 +526,100 @@ useEffect(() => {
               </Col>
             </Row>
 
-            {/* Shipping Information */}
-                        <h4 className="mb-3 text-primary">Shipping Information</h4>
+             {/* Shipping Information */}
+      <h4 className="mb-3 text-primary">Shipping Information</h4>
 
-            {userData.delivery_addresses.length === 0 ? (
-                // Scenario 1: No delivery addresses at all
-                <p>
-                    No delivery addresses found for your account. Please {' '}
-                    <Link to="/myaccount" target="_blank" rel="noopener noreferrer">add one in your account settings</Link>.
+      {userData.delivery_addresses.length === 0 ? (
+        // 🔹 Scenario 1: No delivery addresses at all
+        <div className="p-3 border rounded bg-light">
+          <p className="mb-2">
+            No delivery addresses found for your account.
+          </p>
+          {/* 🔹 Inline Add Address Button */}
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => navigate('/myaccount#addresses')}
+          >
+            Add New Address
+          </Button>
+        </div>
+      ) : (
+        <>
+          {/* 🔹 Scenario 2 & 3: Addresses exist */}
+          {selectedAddressDetails && (
+            // If an address is automatically or manually selected
+            <>
+              <p className="fw-bold mt-4 mb-2">Selected Delivery Address:</p>
+              <div className="border p-3 rounded mb-3 bg-light position-relative">
+                <p className="mb-1">
+                  <strong>{selectedAddressDetails.fullName}</strong>
                 </p>
-            ) : (
-                <>
-                    {/* Scenario 2 & 3: Addresses exist */}
-                    {selectedAddressDetails && (
-                        // If an address is automatically selected (either default or only one) OR manually selected
-                        <>
-                            <p className="fw-bold mt-4 mb-2">Selected Address Details:</p>
-                            <div className="border p-3 rounded mb-4 bg-light">
-                                <p className="mb-1"><strong>{selectedAddressDetails.fullName}</strong></p>
-                                <p className="mb-1">{selectedAddressDetails.streetAddress}
-                                    {selectedAddressDetails.apartmentSuite && `, ${selectedAddressDetails.apartmentSuite}`}</p>
-                                <p className="mb-1">{selectedAddressDetails.city}, {selectedAddressDetails.stateProvince} {selectedAddressDetails.postalCode}</p>
-                                <p className="mb-0">Phone: {selectedAddressDetails.phoneNumber}</p>
-                                {selectedAddressDetails.is_default && <span className="badge bg-info mt-2">Default Address</span>} {/* Use is_default */}
-                            </div>
-                        </>
-                    )}
+                <p className="mb-1">
+                  {selectedAddressDetails.streetAddress}
+                  {selectedAddressDetails.apartmentSuite &&
+                    `, ${selectedAddressDetails.apartmentSuite}`}
+                </p>
+                <p className="mb-1">
+                  {selectedAddressDetails.city}, {selectedAddressDetails.stateProvince}{' '}
+                  {selectedAddressDetails.postalCode}
+                </p>
+                <p className="mb-0">Phone: {selectedAddressDetails.phoneNumber}</p>
 
-                    {/* Show dropdown only if there are multiple addresses and no specific one is auto-selected for display, OR if user wants to change */}
-                    {userData.delivery_addresses.length > 1 || !selectedAddressDetails ? (
-                        <Form.Group controlId="addressSelect" className="mb-3">
-                            <FloatingLabel controlId="floatingAddressSelect" label="Select Delivery Address">
-                                <Form.Select
-                                    value={selectedAddressId || ''} // Use selected address ID
-                                    onChange={handleAddressSelect}
-                                >
-                                    <option value="">{selectedAddressDetails ? 'Change address...' : 'Choose an address...'}</option>
-                                    {userData.delivery_addresses.map((address) => (
-                                        <option key={address.id} value={address.id}>
-                                            {address.fullName} - {address.streetAddress}, {address.city}, {address.stateProvince}, {address.phoneNumber}
-                                            {address.is_default && ' (Default)'} {/* Use is_default */}
-                                        </option>
-                                    ))}
-                                </Form.Select>
-                            </FloatingLabel>
-                        </Form.Group>
-                    ) : (
-                        // If only one address and it's auto-selected, no dropdown needed
-                        <p className="text-muted mb-2">This is your only available address.</p>
-                    )}
-                    </>
-                   )}
+                {/* 🔹 Default badge, Amazon-style */}
+                {selectedAddressDetails.is_default && (
+                  <span className="badge bg-info mt-2 position-absolute top-0 end-0 m-2">
+                    Default
+                  </span>
+                )}
+              </div>
+
+              {/* 🔹 Subtle confirmation text when user switches address */}
+              <p className="text-success small mb-3">
+                Delivering to <strong>{selectedAddressDetails.city}</strong>
+              </p>
+            </>
+          )}
+
+                {/* 🔹 Show dropdown only if multiple addresses or none auto-selected */}
+                {userData.delivery_addresses.length > 1 || !selectedAddressDetails ? (
+                  <Form.Group controlId="addressSelect" className="mb-3">
+                    <FloatingLabel controlId="floatingAddressSelect" label="Select Delivery Address">
+                      <Form.Select
+                        value={selectedAddressId || ''}
+                        onChange={handleAddressSelect}
+                      >
+                        <option value="">
+                          {selectedAddressDetails ? 'Change address...' : 'Choose an address...'}
+                        </option>
+                        {userData.delivery_addresses.map((address) => (
+                          <option key={address.id} value={address.id}>
+                            {/* 🔹 Friendlier, scannable dropdown label */}
+                            {`${address.fullName} (${address.city})${
+                              address.is_default ? ' — Default' : ''
+                            }`}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </FloatingLabel>
+                  </Form.Group>
+                ) : (
+                  // Only one address (auto-selected)
+                  <p className="text-muted mb-2">This is your only available address.</p>
+                )}
+
+                {/* 🔹 Inline Add/Edit Addresses Button */}
+                <div className="d-flex justify-content-end mt-3">
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    onClick={() => navigate('/myaccount#addresses')}
+                  >
+                    Add or Edit Addresses
+                  </Button>
+                </div>
+              </>
+            )}
 
             {/* Items in Cart */}
             <h4 className="mb-3 text-primary">Your Order</h4>
@@ -563,7 +631,7 @@ useEffect(() => {
                       <img src={item.url} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', marginRight: '15px', borderRadius: '5px' }} />
                       <div className="flex-grow-1">
                         <p className="fw-bold mb-1">{item.name}</p>
-                        <p className="mb-1">₱{item.price} x {item.quantity}</p>
+                        <p className="mb-1">₱{item.final_price} x {item.quantity}</p>
                         {item.selectedSize && <p className="text-muted mb-0">Size: {item.selectedSize}</p>}
                         {item.selectedColor && <p className="text-muted mb-0">Color: {item.selectedColor}</p>}
                       </div>
@@ -700,17 +768,15 @@ useEffect(() => {
             </div>
 
             {/* The modal is rendered here */}
-            {showModal && (
+            {showCheckoutModal && (
                 <SuccessModal
-                    show={showModal}
+                    show={showCheckoutModal}
                     onClose={() => {
-                        setShowModal(false); // Hide the modal
-                  
-                     clearPurchasedItems(itemsToDisplay.map(item => item.id)); // Use itemsToDisplay directly here
+                        setShowCheckoutModal(false); // Hide the modal
                         navigate('/'); // <--- NOW NAVIGATE
+                        
                     }}
-                   
-                />
+                 />
             )}
      
           </Form>

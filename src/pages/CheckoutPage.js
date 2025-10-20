@@ -18,7 +18,9 @@ export default function CheckoutPage({
   selectedColor,
   fetchUserData,
   youMayLikeProducts,
-  isLoggedIn
+  isLoggedIn,
+  showCheckoutModal,
+  setShowCheckoutModal,
 }) {
   const {
     cartItems,
@@ -29,6 +31,7 @@ export default function CheckoutPage({
     shippingRate,
     isFreeShipping,
     voucherDiscount,
+    voucherCode,
     applyVoucherDiscount,
     formattedGrandTotal,
   } = useCart();
@@ -74,17 +77,18 @@ export default function CheckoutPage({
     }
   }, [isFreeShipping]);
 
-  const handleVoucherCode = (code) => {
-    applyVoucherDiscount(code);
-  };
+ const handleVoucherCode = (percentage, code) => { 
+    applyVoucherDiscount(percentage, code);
+};
 
   const handleProceedToCheckout = () => {
     setShowCheckoutForm(true);
   };
 
-  // Render loading state or redirect if no items (initial load only)
+
   // This block will now keep the "No items selected..." message without forcing redirect.
-  if (!checkoutItemsForPayment || checkoutItemsForPayment.length === 0) {
+ if ((!checkoutItemsForPayment || checkoutItemsForPayment.length === 0) &&
+    !showCheckoutModal ){// <-- This prevents the page from exiting when the cart is empty due to a successful purchase
     return (
       <Container className="text-center my-5">
         <p>No items selected for checkout. Please go back to cart.</p>
@@ -149,7 +153,7 @@ export default function CheckoutPage({
                   <h5 className="mb-0">Order Totals & Voucher</h5>
                 </Card.Header>
                 <Card.Body>
-                  <VoucherForm onVoucherValidate={handleVoucherCode} />
+                 <VoucherForm onVoucherValidate={applyVoucherDiscount} />
                   <hr className="my-3" />
                   <div className="d-flex justify-content-between align-items-center mb-2">
                     <span className="text-muted">Items Total:</span>
@@ -207,10 +211,13 @@ export default function CheckoutPage({
                     totalItemsPrice={totalItemsPrice}
                     shippingRate={shippingRate}
                     voucherDiscount={voucherDiscount}
+                    voucherCode={voucherCode}
                     checkoutItems={checkoutItemsForPayment} // Pass the items explicitly
                     isLoggedIn={isLoggedIn}
                     // Pass ewalletStatus from location.state if available
                     ewalletStatus={location.state?.ewalletStatus || false}
+                    showCheckoutModal={showCheckoutModal}
+                    setShowCheckoutModal={setShowCheckoutModal}
                   />
                 </Card.Body>
                 <Card.Footer className="text-end">

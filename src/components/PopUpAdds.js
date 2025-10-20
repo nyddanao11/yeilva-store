@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './PopUpAdds.css'; // Import external CSS for styles
@@ -43,20 +43,20 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
     return () => document.removeEventListener('keydown', handleEscape);
   }, [closePopup]);
 
-  const handleClickOutside = (e) => {
-    if (e.target.className.includes('popup-overlay')) {
+
+   const handleClickOutside = (e) => {
+    // Cleaner way to detect overlay click
+    if (e.currentTarget === e.target) { 
       closePopup();
     }
   };
 
-  if (!isOpen || hasClosed) return null;
+if (!isOpen || hasClosed || isLoggedIn) return null; // Add isLoggedIn check here
 
-  const popupMessage = isLoggedIn
-    ? 'Check out our Deals of the Day to save big!'
-    : 'Sign up to avail our services and product deals';
-
-  const linkPath = isLoggedIn ? '/alldealsproduct' : '/signupform';
-  const btnMessage = isLoggedIn ? 'Proceed to Deals' : 'Sign Up';
+ // Now you only reach this point if (!isOpen || hasClosed) is false AND isLoggedIn is false.
+ const popupMessage = 'Sign up to avail our services and product deals!';
+ const linkPath = '/signupform';
+ const btnMessage = 'Sign Up';
 
   const buttonRedirect = () => {
     navigate(linkPath);
@@ -70,7 +70,9 @@ const PopUpAdds = ({ delay = 3000, autoCloseAfter = null, isLoggedIn = false }) 
       aria-modal="true"
       aria-labelledby="popup-header"
     >
-      <div className="popup-content">
+       <div 
+        className="popup-content" 
+      >
         <h4 id="popup-header" className="popup-title">
           {popupMessage}
         </h4>

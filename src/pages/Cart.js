@@ -31,6 +31,7 @@ export default function Cart({
         showConfirmModal,
         itemToRemove,
         setShowConfirmModal,
+        applyVoucherDiscount,
   } = useCart();
 
   const [showModal, setShowModal] = useState(false);
@@ -80,7 +81,7 @@ useEffect(() => {
     return items.reduce((total, item) => {
       // ----------------------------------------------------
       // FIX: Ensure both price and quantity are valid numbers.
-      const price = Number(item.price) || 0;
+      const price = Number(item.final_price) || 0;
       const quantity = Number(item.quantity) || 0;
       // ----------------------------------------------------
 
@@ -163,6 +164,7 @@ useEffect(() => {
           handleColorChange={handleColorChange} // Keep if prop
           isLoggedIn={isLoggedIn} // Keep if prop
           handleItemSelection={handleItemSelection}
+          applyVoucherDiscount={applyVoucherDiscount}
         />
 
         <div className="sticky-footer">

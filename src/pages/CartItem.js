@@ -55,7 +55,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
           <Col lg={6} md={6} xs={8} className="mb-3 ">
             <h5> {item.name}</h5>
-            <h6>₱{item.price}</h6>
+            <h6>₱{item.final_price}</h6>
             <p>Quantity: {item.quantity}</p>
 
          {item.sizecolor && (
@@ -101,7 +101,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
             )}
 
          <div className='d-flex' style={{marginTop:"20px"}}>
-            <h6 style={{marginTop:'7px'}}>Total: ₱{item.price * item.quantity}</h6>
+            <h6 style={{marginTop:'7px'}}>Total: ₱{item.final_price * item.quantity}</h6>
            
             </div>
             

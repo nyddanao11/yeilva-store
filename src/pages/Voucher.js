@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
 
-const VoucherForm = ({ onVoucherValidate }) => {
+export default function VoucherForm ({ onVoucherValidate }) {
   const [code, setCode] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     setIsLoading(true);
+     setMessage('');
     try {
       const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/vouchers/validate`, { code });
-      setMessage(`Voucher valid! Discount: ${response.data.discount}`);
-      onVoucherValidate(response.data.discount); // Pass the discount to the parent component
+      const discountPercentage = response.data.voucher.discount; 
+    
+    // Pass BOTH the percentage and the original 'code' back to the parent
+    onVoucherValidate(discountPercentage, code); // <--- Pass 'code' here
+
+    setMessage(`Voucher valid! Discount: ${discountPercentage}`);
     } catch (error) {
-      setMessage('Invalid or expired voucher');
+       const errorMessage = error.response?.data?.error || 'Invalid or expired voucher.';
+    setMessage(errorMessage);
     }
   };
 
@@ -26,8 +34,8 @@ const VoucherForm = ({ onVoucherValidate }) => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
-        <Button type="submit" variant="outline-secondary" style={{ marginTop: '10px',width:"150px"}}>
-          Validate Voucher
+        <Button type="submit" variant="outline-secondary" style={{ marginTop: '10px',width:"150px"}} disabled={isLoading || !code} >
+           {isLoading ? 'Validating...' : 'Apply Voucher'}
         </Button>
       </Form>
 
@@ -36,4 +44,3 @@ const VoucherForm = ({ onVoucherValidate }) => {
   );
 };
 
-export default VoucherForm;

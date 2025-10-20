@@ -90,6 +90,8 @@ const  AddDeliveryAddress = React.lazy(() => import('./pages/AddDeliveryAddress'
 
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
   const [currentPage, setCurrentPage] = useState(1);
+    const [showCheckoutModal, setShowCheckoutModal] = useState(false); //
+
 
  const { isLoggedIn, login, logout, userEmail } = useAuth();
 const { handleItemClickCategory, storedProducts, fetchProducts, clickedCategories} = useContext(ProductContext); // Use context
@@ -196,10 +198,10 @@ const handleLogout = () => {
             <Route path="/outdoorsports" element={<NotFoundPage/>}/>
             <Route path="/clickproductpage/:id" element={<ClickProductPage isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} youMayLikeProducts={youMayLikeProducts }/>} />
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
-            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} />} />
+            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain youMayLikeProducts = {youMayLikeProducts}/>} />
  
-            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
+            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts}/>} />
            <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>} />
@@ -332,10 +334,10 @@ const handleLogout = () => {
             <Route path="/clickproductpage/:id" element={<ClickProductPage isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} youMayLikeProducts={youMayLikeProducts } />} />
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
 
-            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts}/>} />
+            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain  youMayLikeProducts = {youMayLikeProducts}/>} />
 
-            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} />} />
+            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
                <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts}/>} />
             <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>} />

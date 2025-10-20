@@ -34,6 +34,7 @@ export const FormatCartData = (product) => {
         category: product.category || 'Misc',
         quantity: parseFloat(product.quantity) || 0,
         price: parseFloat(product.price) || 0,
+        final_price:parseFloat(product.final_price) || 0,
         weight: parseFloat(product.weight) || 0,
         stock: parseFloat(product.stock) || 0,
         discount: parseFloat(product.discount) || 0,
