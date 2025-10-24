@@ -177,29 +177,36 @@ export default function ClickProductPage({ isLoggedIn, storedProducts, allProduc
       discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
       displayPrice: discountedPriceFormatted
     };
-
     addToCart(productToAdd);
     setAddedToCartOnce(true); // Set to true after adding to cart
   };
 
-  const handleCheckoutClick = () => {
-    if (!isLoggedIn) {
-      handleShowModal('Please login to continue');
-      return;
-    }
+ const handleCheckoutClick = () => {
+  if (!isLoggedIn) {
+    handleShowModal('Please login to continue');
+    return;
+  }
 
-    const productToCheckout = {
-      ...product,
-      price: isProductDiscounted() ? discountedPriceCalculated : product.price,
-      originalPrice: product.price,
-      discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
-      displayPrice: discountedPriceFormatted,
-      quantity: 1,
-      isSelected: true,
-    };
+  const basePrice = Number(product.price);
+  const discountedPrice = isProductDiscounted()
+    ? basePrice * (1 - (product.discount || 0) / 100)
+    : basePrice;
 
-    navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+  const productToCheckout = {
+    ...product,
+    price: discountedPrice, // optional, still okay for UI
+    final_price: discountedPrice, // ✅ crucial for checkout math
+    originalPrice: basePrice,
+    discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
+    displayPrice: discountedPrice.toFixed(2),
+     final_price: isProductDiscounted() ? discountedPriceCalculated : product.price,
+    quantity: 1,
+    isSelected: true,
   };
+
+  navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+};
+
 
   const renderStars = (rating) => {
     const stars = [];

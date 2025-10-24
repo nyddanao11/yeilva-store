@@ -277,9 +277,17 @@ const clearPurchasedItems = useCallback((purchasedItemIds) => {
 }, []); // Empty array is fine since state setters are stable.
 
     // Calculate total items price for checkout items
+    // const totalItemsPrice = useMemo(() => {
+    //     return checkoutItemsForPayment.reduce((total, item) => total + (item.final_price * item.quantity), 0);
+    // }, [checkoutItemsForPayment]);
+
     const totalItemsPrice = useMemo(() => {
-        return checkoutItemsForPayment.reduce((total, item) => total + (item.final_price * item.quantity), 0);
-    }, [checkoutItemsForPayment]);
+  return checkoutItemsForPayment.reduce((total, item) => {
+    const price = Number(item.final_price ?? item.price ?? 0);
+    return total + price * (item.quantity || 0);
+  }, 0);
+}, [checkoutItemsForPayment]);
+
 
   // Step 1: Create a simple, specific dependency outside of useMemo
 const hasMaslogItem = cartItems.some(item => item.place === 'Maslog'); 
