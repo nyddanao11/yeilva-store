@@ -25,6 +25,8 @@ import {
   FaPercent,
   FaSignInAlt,
   FaSignOutAlt,
+  FaShoppingBag,
+  FaUserPlus
 } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
@@ -120,43 +122,94 @@ export default function ShopeeNavbar({
       <Navbar bg="white" variant="light" expand="lg" className="shadow-sm">
         <Container>
           {/* Mobile vs Desktop Home/Menu Toggle */}
-          {isSmallScreen ? (
-            <>
-              <Button
-                variant="outline-secondary"
-                className="d-lg-none me-2" // Added margin-end for spacing
-                onClick={handleShowOffcanvas}
-                aria-label="Open menu" // Accessibility improvement
-              >
-                <FaBars />
-              </Button>
-              {/* These links are also in Offcanvas, consider if they are truly needed here on small screen */}
-              <Nav className="flex-row" > {/* Use flex-row for horizontal alignment */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/alldealsproduct"
-                  className="mx-1 p-2 rounded text-dark bg-warning" // Applied Bootstrap classes
-                  activeClassName="active-link" // Custom class for active state
-                  aria-label="Deals page"
-                >
-                  <FaPercent className="me-1" /> Deals
-                </Nav.Link>
-                <Nav.Link
-                  as={NavLink}
-                  to="/freebies"
-                  className="mx-1 p-2 rounded text-dark" // Applied Bootstrap classes
-                  activeClassName="active-link"
-                  aria-label="Freebies page"
-                >
-                  <FaGift className="me-1" /> FREEstuff
-                </Nav.Link>
-              </Nav>
-            </>
-          ) : (
-            <Navbar.Brand as={Link} to="/" className="text-dark" aria-label="Home">
-              <FaHome size={24} className="text-secondary" /> {/* Use Bootstrap color utility */}
-            </Navbar.Brand>
-          )}
+
+            {isSmallScreen ? (
+                <div className="position-relative w-100 d-flex justify-content-center align-items-center py-2">
+                  {/* 1. Hamburger Menu */}
+                  <Button
+                    variant="outline-secondary"
+                    onClick={handleShowOffcanvas}
+                    aria-label="Open menu"
+                    className="position-absolute start-0 top-50 translate-middle-y ms-2 z-3"
+                  >
+                    <FaBars />
+                  </Button>
+
+                  {/* 2. Account Dropdown */}
+                  <Nav className="flex-row position-absolute end-0 top-50 translate-middle-y me-2">
+                    {isLoggedIn ? (
+                      <Dropdown
+                        as={Nav.Item}
+                        align="end"
+                        drop="down"
+                        autoClose="outside"
+                        className="position-relative"
+                      >
+                        <Dropdown.Toggle
+                          as={Nav.Link}
+                          id="account-dropdown"
+                          className="p-0 d-flex align-items-center"
+                          style={{ lineHeight: "1" }}
+                        >
+                          <FiUser size={22} />
+                        </Dropdown.Toggle>
+
+                        {/* Force dropdown below toggle */}
+                        <Dropdown.Menu
+                          className="mt-2 shadow-sm border-0 position-absolute"
+                          style={{ top: "100%", right: "0" }}
+                        >
+                          <Dropdown.Header className="text-primary fw-bold">
+                            Hi, {userData.firstname || "User"}
+                          </Dropdown.Header>
+                          <Dropdown.Divider />
+                          <Dropdown.Item as={Link} to="/myaccount">
+                            <FiUser className="me-2" /> My Account
+                          </Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/orders">
+                            <FaShoppingBag className="me-2" /> My Orders
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item onClick={handleLogout} className="text-danger">
+                            <FaSignOutAlt className="me-2" /> Logout
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    ) : (
+                      <Dropdown
+                        as={Nav.Item}
+                        align="end"
+                        drop="down"
+                        className="position-relative"
+                      >
+                        <Dropdown.Toggle
+                          as={Nav.Link}
+                          id="account-dropdown-guest"
+                          className="p-0 d-flex align-items-center"
+                          style={{ lineHeight: "1" }}
+                        >
+                          <FiUser size={22} />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu
+                          className="mt-2 shadow-sm border-0 position-absolute"
+                          style={{ top: "100%", right: "0" }}
+                        >
+                          <Dropdown.Item as={Link} to="/login">
+                            <FaSignInAlt className="me-2" /> Login
+                          </Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/signupform">
+                            <FaUserPlus className="me-2" /> Sign Up
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    )}
+                  </Nav>
+                </div>
+              ) : (
+                <Navbar.Brand as={Link} to="/" className="text-dark" aria-label="Home">
+                  <FaHome size={24} className="text-secondary" />
+                </Navbar.Brand>
+              )}
 
           <Navbar.Collapse id="navbar-nav">
             <Nav className="me-auto"> {/* Use me-auto to push items to the left */}
@@ -300,7 +353,7 @@ export default function ShopeeNavbar({
                     activeClassName="active"
                     aria-label="Sign up page"
                   >
-                    <FaSignInAlt className="me-1" /> Sign up
+                    <FaUserPlus className="me-1" /> Sign up
                   </Nav.Link>
                 </>
               )}
