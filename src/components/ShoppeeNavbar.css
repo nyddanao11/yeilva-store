@@ -6,6 +6,21 @@
   
 }
 
+/* Smooth fade + slide-down animation for dropdowns */
+.dropdown-menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: block; /* prevent flicker when Bootstrap toggles it */
+  visibility: hidden;
+}
+
+.dropdown.show .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
 
 .nav-link:hover{
  background-color:#CFE2FF!important;
@@ -19,6 +34,7 @@
  #basic-nav-dropdown #services-nav-dropdown{
   max-height: 150px; /* Adjust this value as needed */
   overflow-y:  scroll;
+ margin-right: 20px;
 }
 
 /*css for christmas*/

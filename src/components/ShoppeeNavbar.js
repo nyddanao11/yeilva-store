@@ -48,6 +48,10 @@ export default function ShopeeNavbar({
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate hook
+  const [showDropdown, setShowDropdown] = useState(false);
+
+const handleToggleDropdown = (isOpen) => setShowDropdown(isOpen);
+const handleCloseDropdown = () => setShowDropdown(false);
 
   // Memoize handleClose for better performance and to prevent unnecessary re-renders
   const handleCloseModal = useCallback(() => setShowModal(false), []);
@@ -143,6 +147,8 @@ export default function ShopeeNavbar({
                         align="end"
                         drop="down"
                         autoClose="outside"
+                        show={showDropdown}
+                        onToggle={handleToggleDropdown}
                         className="position-relative"
                       >
                         <Dropdown.Toggle
@@ -163,14 +169,17 @@ export default function ShopeeNavbar({
                             Hi, {userData.firstname || "User"}
                           </Dropdown.Header>
                           <Dropdown.Divider />
-                          <Dropdown.Item as={Link} to="/myaccount">
+                            <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseDropdown}>
                             <FiUser className="me-2" /> My Account
                           </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/orders">
+                          <Dropdown.Item as={Link} to="/orders" onClick={handleCloseDropdown}>
                             <FaShoppingBag className="me-2" /> My Orders
                           </Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item onClick={handleLogout} className="text-danger">
+                          <Dropdown.Divider /> 
+                          <Dropdown.Item onClick={() => {
+                              handleLogout();
+                              handleCloseDropdown();
+                            }} className="text-danger">
                             <FaSignOutAlt className="me-2" /> Logout
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -180,6 +189,8 @@ export default function ShopeeNavbar({
                         as={Nav.Item}
                         align="end"
                         drop="down"
+                         show={showDropdown}
+                         onToggle={handleToggleDropdown}
                         className="position-relative"
                       >
                         <Dropdown.Toggle
@@ -194,10 +205,10 @@ export default function ShopeeNavbar({
                           className="mt-2 shadow-sm border-0 position-absolute"
                           style={{ top: "100%", right: "0" }}
                         >
-                          <Dropdown.Item as={Link} to="/login">
+                          <Dropdown.Item as={Link} to="/login"  onClick={handleCloseDropdown}>
                             <FaSignInAlt className="me-2" /> Login
                           </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/signupform">
+                          <Dropdown.Item as={Link} to="/signupform"  onClick={handleCloseDropdown}>
                             <FaUserPlus className="me-2" /> Sign Up
                           </Dropdown.Item>
                         </Dropdown.Menu>
