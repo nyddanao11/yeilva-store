@@ -111,7 +111,7 @@ const signup =()=>{
               
                 <Col xs={6} sm={6} md={6} lg={6} xl={6} className=" product-details d-flex flex-column ">
                   <Card.Title className="h6 mb-1">{item.name}</Card.Title> {/* Adjusted heading size */}
-                  <Card.Text className="small text-muted mb-2">Price: PHP {item.final_price.toFixed(2)}</Card.Text>
+                  <Card.Text className="small text-muted mb-2">Price: PHP {item.price.toFixed(2)}</Card.Text>
                   {/*
                     Add your size and color selectors here.
                     Consider making them responsive too, perhaps stacking vertically on small screens.

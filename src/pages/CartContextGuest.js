@@ -85,10 +85,12 @@ export const CartProviderGuest = ({ children }) => {
   };
 
 
-  // Calculate total items price for checkout items
-  const totalItemsPrice = useMemo(() => {
-    return checkoutItemsForPayment.reduce((total, item) => total + item.price * item.quantity, 0);
-  }, [checkoutItemsForPayment]);
+   const totalItemsPrice = useMemo(() => {
+  return checkoutItemsForPayment.reduce((total, item) => {
+    const price = Number(item.final_price ?? item.price ?? 0);
+    return total + price * (item.quantity || 0);
+  }, 0);
+}, [checkoutItemsForPayment]);
 
   // Calculate shipping rate based on checkout items
   const isFreeShipping = useMemo(() => totalItemsPrice > 2500, [totalItemsPrice]);
