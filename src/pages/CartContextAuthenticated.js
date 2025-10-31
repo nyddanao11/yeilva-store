@@ -129,20 +129,48 @@ export const CartProviderAuthenticated = ({ children }) => {
             }
         });
 
-        // --- Core Cart Event Listener (The Push Mechanism) ---
-        newSocket.on('cart:full_update', (serverCartItems) => {
-            console.log('Received cart update from server:', serverCartItems);
-            const cartData = Array.isArray(serverCartItems)
-                ? serverCartItems.map(FormatCartData)
-                : [];
-            setCartItems(cartData);
-            setLoading(false); 
-        });
+     // 📦 Inside your CartContext or useCart hook file
+
+            // --- Core Cart Event Listener (The Push Mechanism) ---
+            newSocket.on('cart:full_update', (serverCartItems) => {
+                console.log('Received cart update from server:', serverCartItems);
+                
+                let processedItems = Array.isArray(serverCartItems)
+                    ? serverCartItems.map(FormatCartData)
+                    : [];
+
+                // 🎯 Step 1: Normalize the data (add isSelected)
+                const normalizedItems = processedItems.map(item => ({
+                    ...item,
+                    // If isSelected exists, use its value; otherwise, default to true.
+                    isSelected: item.isSelected !== undefined ? item.isSelected : true,
+                }));
+                
+                // 🎯 Step 2: Set the state ONCE with the fully prepared data
+                setCartItems(normalizedItems); 
+
+                setLoading(false); // Make sure this is outside any extra block scope
+            });
+
+            newSocket.on('cart:update:error', (errorMessage) => {
+                console.error('Cart operation failed:', errorMessage);
+                setError(errorMessage);
+            });
+
+        //    // --- Core Cart Event Listener (The Push Mechanism) ---
+        // newSocket.on('cart:full_update', (serverCartItems) => {
+        //     console.log('Received cart update from server:', serverCartItems);
+        //     const cartData = Array.isArray(serverCartItems)
+        //         ? serverCartItems.map(FormatCartData)
+        //         : [];
+        //     setCartItems(cartData);
+        //     setLoading(false); 
+        // });
         
-        newSocket.on('cart:update:error', (errorMessage) => {
-            console.error('Cart operation failed:', errorMessage);
-            setError(errorMessage);
-        });
+        // newSocket.on('cart:update:error', (errorMessage) => {
+        //     console.error('Cart operation failed:', errorMessage);
+        //     setError(errorMessage);
+        // });
 
         // Cleanup function: Closes the socket when the token or login status changes (or component unmounts)
         return () => {
@@ -208,16 +236,20 @@ const updateQuantityOnServer = useCallback((itemId, newQuantity) => {
 
 }, [socket, setError, removeFromCart, setCartItems]);
 
-// 3. Define addToCart (Can be anywhere after dependencies are defined)
 const addToCart = useCallback((product) => {
     if (!socket || !socket.connected) {
         setError('Not connected to server. Please try again.');
         return;
     }
-    socket.emit('cart:add', { product_id: product.id, quantity: 1,  final_price:product.price});
+    socket.emit('cart:add', { 
+        product_id: product.id, 
+        quantity: 1, 
+        final_price: product.final_price || product.price, // Better to send the correct price
+        // 🚨 IMPORTANT FIX: Corrected typo from 'isSelcted' to 'isSelected'
+        isSelected: true 
+    });
     setNotificationProduct(product);
 }, [socket, setError, setNotificationProduct]);
-
 
    // Inside CartProvider:
 
@@ -281,12 +313,14 @@ const clearPurchasedItems = useCallback((purchasedItemIds) => {
     //     return checkoutItemsForPayment.reduce((total, item) => total + (item.final_price * item.quantity), 0);
     // }, [checkoutItemsForPayment]);
 
-    const totalItemsPrice = useMemo(() => {
+  
+     const totalItemsPrice = useMemo(() => {
   return checkoutItemsForPayment.reduce((total, item) => {
     const price = Number(item.final_price ?? item.price ?? 0);
     return total + price * (item.quantity || 0);
   }, 0);
 }, [checkoutItemsForPayment]);
+
 
 
   // Step 1: Create a simple, specific dependency outside of useMemo

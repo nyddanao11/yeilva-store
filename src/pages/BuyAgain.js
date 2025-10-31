@@ -16,7 +16,9 @@ export default function CheckoutPageBuyAgain({
   selectedColor,
   fetchUserData,
   youMayLikeProducts,
-  isLoggedIn // Ensure isLoggedIn is passed as a prop
+  isLoggedIn, // Ensure isLoggedIn is passed as a prop
+  showCheckoutModal,
+  setShowCheckoutModal
 }) {
   const {
     addToCart,
@@ -104,6 +106,8 @@ export default function CheckoutPageBuyAgain({
       </Container>
     );
   }
+
+
 
   return (
     <>
@@ -220,6 +224,8 @@ export default function CheckoutPageBuyAgain({
                     checkoutItems={checkoutItemsForPayment} // From context
                     isLoggedIn={isLoggedIn} // Passed prop
                     ewalletStatus={location.state?.ewalletStatus || false} // Pass ewalletStatus from location.state if available
+                    showCheckoutModal={showCheckoutModal}
+                    setShowCheckoutModal={setShowCheckoutModal}
                   />
                 </Card.Body>
                 <Card.Footer className="text-end">

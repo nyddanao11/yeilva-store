@@ -10,6 +10,8 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
   const [selectedSize, setSelectedSize] = useState('none');
   const [selectedColor, setSelectedColor] = useState('none');
+  // 💡 Calculate the effective price once
+ const effectivePrice = item.final_price ?? item.price ?? 0;
 
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
@@ -55,9 +57,9 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
           <Col lg={6} md={6} xs={8} className="mb-3 ">
             <h5> {item.name}</h5>
-            <h6>₱{item.final_price}</h6>
+            <h6>₱{effectivePrice}</h6>
             <p>Quantity: {item.quantity}</p>
-
+ 
          {item.sizecolor && (
             <div className="mb-3" style={{display:'flex', flexWrap:'wrap'}}>
               <Form.Group controlId={`sizeSelect_${item.id}`} style={{ width: '70px' }}>
@@ -101,7 +103,7 @@ const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
             )}
 
          <div className='d-flex' style={{marginTop:"20px"}}>
-            <h6 style={{marginTop:'7px'}}>Total: ₱{item.final_price * item.quantity}</h6>
+            <h6 style={{marginTop:'7px'}}>Total: ₱{effectivePrice * item.quantity}</h6>
            
             </div>
             

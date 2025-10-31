@@ -81,7 +81,7 @@ useEffect(() => {
     return items.reduce((total, item) => {
       // ----------------------------------------------------
       // FIX: Ensure both price and quantity are valid numbers.
-      const price = Number(item.final_price) || 0;
+      const price = Number(item.final_price ?? item.price)||0;
       const quantity = Number(item.quantity) || 0;
       // ----------------------------------------------------
 

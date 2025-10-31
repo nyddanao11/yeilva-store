@@ -22,6 +22,7 @@ const FeaturedProduct = React.lazy(() => import('./pages/FeaturedProducts'));
 const BestSellingProduct = React.lazy(() => import('./pages/BestSellingProducts'));
 const RecommendedProduct = React.lazy(() => import('./pages/RecommendedProducts'));
 const Cart = React.lazy(() => import('./pages/Cart'));
+const CartItem= React.lazy(() => import('./pages/CartItem'));
 const Login = React.lazy(() => import('./pages/Login'));
 const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'));
 const CheckoutPageBuyAgain = React.lazy(() => import('./pages/BuyAgain'));
@@ -199,7 +200,7 @@ const handleLogout = () => {
             <Route path="/clickproductpage/:id" element={<ClickProductPage isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} youMayLikeProducts={youMayLikeProducts }/>} />
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
             <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
-            <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain youMayLikeProducts = {youMayLikeProducts}/>} />
+            <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
  
             <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts}/>} />
@@ -335,11 +336,11 @@ const handleLogout = () => {
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
 
             <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
-            <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain  youMayLikeProducts = {youMayLikeProducts}/>} />
+            <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain  youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
 
             <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
                <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts}/>} />
-            <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
+            <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLogshowCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}gedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>} />
             <Route path="/newarrival" element={<NewArrival addToCart={addToCart} cartItems={cartItems} />} />
             <Route path="/myaccount" element={<MyAccountPage addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />

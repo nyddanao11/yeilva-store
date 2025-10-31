@@ -25,7 +25,7 @@ export const CartProviderGuest = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product) => {
+   const addToCart = (product) => {
     // This will schedule the cart items update
     setCartItems((prevCartItems) => {
         const existingItem = prevCartItems.find((item) => item.id === product.id);
@@ -42,6 +42,7 @@ export const CartProviderGuest = ({ children }) => {
     setNotificationProduct(product);
     // alert('items successfully added to cart');
 };
+
 
   const removeFromCart = (itemId) => {
     setCartItems((prevCartItems) => prevCartItems.filter((item) => String(item.id) !== String(itemId)));
@@ -85,12 +86,29 @@ export const CartProviderGuest = ({ children }) => {
   };
 
 
-   const totalItemsPrice = useMemo(() => {
+   // Use a more robust way to get a clean number from a potentially formatted string
+const getPrice = (priceString) => {
+  if (typeof priceString === 'string') {
+    // Strips out everything except digits and the decimal point
+    const cleanedPrice = priceString.replace(/[^\d.]/g, ''); 
+    return Number(cleanedPrice) || 0;
+  }
+  return Number(priceString) || 0;
+};
+
+const totalItemsPrice = useMemo(() => {
   return checkoutItemsForPayment.reduce((total, item) => {
-    const price = Number(item.final_price ?? item.price ?? 0);
-    return total + price * (item.quantity || 0);
+    // Use the robust helper function
+    const finalPrice = item.final_price ?? item.price;
+    const price = getPrice(finalPrice); 
+
+    const quantity = Number(item.quantity) || 0;
+
+    return total + price * quantity;
+
   }, 0);
 }, [checkoutItemsForPayment]);
+
 
   // Calculate shipping rate based on checkout items
   const isFreeShipping = useMemo(() => totalItemsPrice > 2500, [totalItemsPrice]);

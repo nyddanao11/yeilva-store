@@ -40,11 +40,12 @@ export default function Orders({ isLoggedIn }) {
         name: name,
         price: order.price,
         url: urls[index] || "", // Use corresponding URL or empty string
+        id:order.productid,
       }));
     } else {
       // Remove brackets and quotes, and trim
       const cleanName = itemName.replace(/[{}"]/g, "").trim();
-      return [{ ...order, name: cleanName, price: order.price, url: itemUrl }];
+      return [{ ...order, name: cleanName, price: order.price, url: itemUrl, id:order.productid}];
     }
   };
 
