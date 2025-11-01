@@ -5,7 +5,7 @@ import {useNavigate} from'react-router-dom';
 import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
 
-const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProduct }) => {
+const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProduct, userEmail }) => {
   return (
     <div className="d-flex flex-column mt-2">
       <h4>Product Details</h4>
@@ -23,7 +23,7 @@ const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProdu
   );
 };
 
-const Reviews = ({ selectedProduct }) => {
+const Reviews = ({ selectedProduct, userEmail }) => {
   const [clickedReviews, setClickedReviews] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [statusReview, setStatusReview] = useState(null);
@@ -31,7 +31,7 @@ const Reviews = ({ selectedProduct }) => {
   const navigate = useNavigate();
   const selectedProd = selectedProduct.name;
 
-   const storedUserEmail = localStorage.getItem('email')?.replace(/^"|"$/g, ''); // Remove quotes if present
+   const storedUserEmail = {userEmail}
   // console.log("email from localStorage:", storedUserEmail);
   // console.log("selectedProd:", selectedProd);
 
