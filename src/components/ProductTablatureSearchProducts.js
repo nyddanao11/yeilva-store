@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Tab, Nav, Row, Col, Button } from 'react-bootstrap';
 import {useNavigate} from'react-router-dom';
+import axios from'axios';
 import { ReactComponent as PersonCircleIcon } from './person-circle.svg';
 
-const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProduct,userEmail }) => {
+const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProduct, userEmail }) => {
   return (
     <div className="d-flex flex-column mt-2">
       <h4>Product Details</h4>
@@ -22,7 +22,7 @@ const ProductDetails = ({ productId, clickedTabs, handleItemClick, selectedProdu
   );
 };
 
-const Reviews = ({ selectedProduct,userEmail }) => {
+const Reviews = ({ selectedProduct, userEmail }) => {
   const [clickedReviews, setClickedReviews] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [statusReview, setStatusReview] = useState(null);
@@ -129,6 +129,7 @@ const Reviews = ({ selectedProduct,userEmail }) => {
 };
 
 
+
 const Shipping = ({
   clickedTabs, 
   handleItemClick, 
@@ -153,11 +154,11 @@ const Shipping = ({
 };
 
 
-const TabbedComponent = ({ productId, storedProducts}) => {
+const TabbedComponent = ({ productId, searchProducts}) => {
   const [key, setKey] = useState('details');
  
   const [clickedTabs, setClickedTabs] = useState([]);
-  const selectedProduct = storedProducts.find((item) => item.id=== productId);
+  const selectedProduct = searchProducts.find((item) => item.id === productId);
 
   const handleItemClick = (item) => {
     console.log('Clicked item:', item);

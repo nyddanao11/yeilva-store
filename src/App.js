@@ -48,6 +48,7 @@ const ChangePassword  = React.lazy(() => import('./pages/ChangePassword'));
 
 const ClickDeals = React.lazy(() => import('./pages/ClickDeals'));
 const ClickYouMayLike = React.lazy(() => import('./pages/ClickYouMayLike'));
+const ClickSearchPage = React.lazy(() => import('./pages/ClickSearchPage'));
 const YouMayAlsoLikeProduct = React.lazy(() => import('./components/YouMayAlsoLikePage'));
 const CheckoutHistoryPage = React.lazy(() => import('./components/CheckoutHistoryPage'));
 const LoanFormHistoryPage = React.lazy(() => import('./components/LoanFormHistoryPage'));
@@ -84,7 +85,7 @@ const  ProductsData = React.lazy(() => import('./pages/ProductPageUpdated'));
 const  AddToCartNotification = React.lazy(() => import('./pages/AddToCartNotification'));
 const  ClickCartItem = React.lazy(() => import('./pages/ClickCartItem'));
 const  AddDeliveryAddress = React.lazy(() => import('./pages/AddDeliveryAddress'));
-
+const  SearchPage = React.lazy(() => import('./pages/SearchPage'));
 
 
  function App() {
@@ -217,6 +218,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={ <ClickDeals isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                     <Route path="/clickcartitem/:id" element={<ClickCartItem isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+                    <Route path="/clicksearchpage/:id" element={<ClickSearchPage isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} searchProducts={searchProducts}/>} />
 
                  <Route path="/returnpolicy" element={<ReturnPolicyPage  />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts }/>} />
@@ -247,7 +249,7 @@ const handleLogout = () => {
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
-
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
                            
                  <Route component={NotFoundPage} />
                        
@@ -286,6 +288,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={ <ClickDeals isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                       <Route path="/clickcartitem/:id" element={<ClickCartItem isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+                    <Route path="/clicksearchpage/:id" element={<ClickSearchPage isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} searchProducts={searchProducts}/>} />
 
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
@@ -306,6 +309,7 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
 
                  <Route component={NotFoundPage} />
                 
@@ -353,6 +357,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={ <ClickDeals isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                      <Route path="/clickcartitem/:id" element={<ClickCartItem  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+                    <Route path="/clicksearchpage/:id" element={<ClickSearchPage isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} searchProducts={searchProducts}/>} />
 
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory" element={<CheckoutHistoryPage addToCart={addToCart}  isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts }/>} />
@@ -383,6 +388,7 @@ const handleLogout = () => {
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
 
                  <Route component={NotFoundPage} />
                         
@@ -423,6 +429,7 @@ const handleLogout = () => {
                 <Route path="/clickdeals/:id" element={ <ClickDeals isLoggedIn={isLoggedIn} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                    <Route path="/clickyoumaylike/:id" element={<ClickYouMayLike isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
                      <Route path="/clickcartitem/:id" element={<ClickCartItem isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} cartItems={cartItems}/>} />
+                    <Route path="/clicksearchpage/:id" element={<ClickSearchPage isLoggedIn={isLoggedIn} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError} searchProducts={searchProducts}/>} />
 
                  <Route path="/returnpolicy" element={<ReturnPolicyPage />} />
                 <Route path="/checkouthistory"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}/>
@@ -444,6 +451,7 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
 
 
                  <Route component={NotFoundPage} />
