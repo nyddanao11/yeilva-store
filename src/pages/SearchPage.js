@@ -1,202 +1,139 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import { Container, Row, Col, Form, Card, Button, Spinner } from "react-bootstrap";
-import useSearchProducts from "../hooks/useSearchProducts";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import {
+  Container, Row, Col, Card, Form, Button, Modal
+} from "react-bootstrap";
+import YouMayLike from'../components/YouMayLike';
 
-export default function SearchPage({ addToCart }) {
-  const [params, setParams] = useSearchParams();
-  const urlQuery = params.get("query") || "";
-
-  const [searchQuery, setSearchQuery] = useState(urlQuery);
-
-  // Filter states
+export default function SearchPage({ searchProducts, addToCart, youMayLikeProducts }) {
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [sortOption, setSortOption] = useState("none");
+  const [priceRange, setPriceRange] = useState([0, 5000]);
+  const [sortBy, setSortBy] = useState("default");
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  const { searchProducts, fetchSearchProducts, searchLoading } = useSearchProducts();
+  const location = useLocation();
 
   useEffect(() => {
-    if (urlQuery) fetchSearchProducts(urlQuery);
-  }, [urlQuery]);
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get("query");
+    if (query) setSearchQuery(query);
+  }, [location]);
 
-  const handleSearchInput = (value) => {
-    setSearchQuery(value);
-    setParams({ query: value });
-  };
+  const filteredProducts = searchProducts
+    .filter((product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((product) =>
+      selectedCategory === "all"
+        ? true
+        : product.category === selectedCategory
+    )
+    .filter(
+      (product) =>
+        product.price >= priceRange[0] && product.price <= priceRange[1]
+    )
+    .sort((a, b) => {
+      if (sortBy === "low-high") return a.price - b.price;
+      if (sortBy === "high-low") return b.price - a.price;
+      return 0;
+    });
 
-  // Unique categories from results
-  const categories = useMemo(() => {
-    const set = new Set(searchProducts?.map(p => p.category));
-    return ["all", ...Array.from(set)];
-  }, [searchProducts]);
+  const FilterContent = () => (
+    <>
+      <h5 className="fw-bold mb-3">Filters</h5>
 
-  // Filter + sort results
-  const filteredProducts = useMemo(() => {
-    let products = [...(searchProducts || [])];
+      {/* Category */}
+      <Form.Group className="mb-3">
+        <Form.Label>Category</Form.Label>
+        <Form.Select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="wellness product">Wellness Products</option>
+          <option value="grocery items">Grocery</option>
+          <option value="beauty and hygiene">Beauty & Hygiene</option>
+          <option value="personal collection">Personal Collection</option>
+        </Form.Select>
+      </Form.Group>
 
-    // Category filter
-    if (selectedCategory !== "all") {
-      products = products.filter(p => p.category === selectedCategory);
-    }
+      {/* Price */}
+      <Form.Group className="mb-3">
+        <Form.Label>Max Price: ₱{priceRange[1]}</Form.Label>
+        <Form.Range
+          min={0}
+          max={5000}
+          value={priceRange[1]}
+          onChange={(e) => setPriceRange([0, Number(e.target.value)])}
+        />
+      </Form.Group>
 
-    // Price filter
-    if (minPrice) products = products.filter(p => p.price >= Number(minPrice));
-    if (maxPrice) products = products.filter(p => p.price <= Number(maxPrice));
+      {/* Sort */}
+      <Form.Group className="mb-3">
+        <Form.Label>Sort by</Form.Label>
+        <Form.Select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="default">Default</option>
+          <option value="low-high">Price: Low to High</option>
+          <option value="high-low">Price: High to Low</option>
+        </Form.Select>
+      </Form.Group>
 
-    // Sorting
-    switch (sortOption) {
-      case "price-asc":
-        products.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        products.sort((a, b) => b.price - a.price);
-        break;
-      case "alpha":
-        products.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case "new":
-        products.sort((a, b) => b.id - a.id);
-        break;
-      default:
-        break;
-    }
-
-    return products;
-  }, [searchProducts, selectedCategory, minPrice, maxPrice, sortOption]);
+      <Button className="w-100 mt-3" onClick={() => setShowMobileFilters(false)}>
+        Apply Filters
+      </Button>
+    </>
+  );
 
   return (
-    <Container className="py-4">
-
-      {/* Search Bar */}
-      <Form className="mb-4">
-        <Form.Control
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => handleSearchInput(e.target.value)}
-          style={{ padding: "0.8rem", fontSize: "1.1rem" }}
-        />
-      </Form>
-
+  <>
+    <Container fluid className="py-4">
       <Row>
 
-        {/* ─── Filters Sidebar ───────────────────────────── */}
-        <Col md={3} sm={12} className="mb-4">
-
-          <Card className="p-3 shadow-sm" style={{position: "sticky", top: "80px",zIndex: 1}}>
-            <h5 className="mb-3">Filters</h5>
-
-            {/* Category */}
-            <Form.Group className="mb-3">
-              <Form.Label>Category</Form.Label>
-              <Form.Select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-              >
-                {categories.map((cat) => (
-                  <option key={cat}>{cat}</option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-
-            {/* Price */}
-            <Form.Group className="mb-3">
-              <Form.Label>Price Range</Form.Label>
-              <div className="d-flex gap-2">
-                <Form.Control
-                  type="number"
-                  placeholder="Min"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                />
-                <Form.Control
-                  type="number"
-                  placeholder="Max"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                />
-              </div>
-            </Form.Group>
-
-            {/* Sort */}
-            <Form.Group className="mb-2">
-              <Form.Label>Sort</Form.Label>
-              <Form.Select
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value)}
-              >
-                <option value="none">Default</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="alpha">A → Z</option>
-                <option value="new">Newest</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Button
-              variant="secondary"
-              size="sm"
-              className="mt-3"
-              onClick={() => {
-                setSelectedCategory("all");
-                setMinPrice("");
-                setMaxPrice("");
-                setSortOption("none");
-              }}
-            >
-              Reset Filters
-            </Button>
+        {/* Desktop Sidebar */}
+        <Col md={3} className="d-none d-md-block">
+          <Card
+            className="p-3 shadow-sm"
+            style={{ position: "sticky", top: "80px", zIndex: 1 }}
+          >
+            <FilterContent />
           </Card>
         </Col>
 
-        {/* ─── Results ───────────────────────────── */}
-        <Col md={9}>
+        {/* Results */}
+        <Col xs={12} md={9}>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h4 className="fw-bold">Search Results</h4>
 
-          <h6 className="mb-3">
-            Showing results for: <strong>"{urlQuery}"</strong>
-          </h6>
+            {/* Mobile filter button */}
+            <Button
+              className="d-md-none"
+              variant="outline-primary"
+              onClick={() => setShowMobileFilters(true)}
+            >
+              Filters
+            </Button>
+          </div>
 
-          {searchLoading && (
-            <div className="text-center my-5">
-              <Spinner animation="border" /> <p>Searching products...</p>
-            </div>
-          )}
-
-          {!searchLoading && filteredProducts.length === 0 && (
-            <p className="text-muted text-center my-5">No products match your filters.</p>
-          )}
-
+          {/* Product Grid */}
           <Row>
             {filteredProducts.map((product) => (
-              <Col key={product.id} xs={6} sm={4} lg={3} className="mb-4">
-                <Card className="shadow-sm h-100">
-                 <Link to={`/clicksearchpage/${product.id}`}>
+              <Col xs={6} sm={4} md={4} lg={3} key={product.id} className="mb-4">
+                <Card className="h-100 shadow-sm">
                   <Card.Img
-                    src={product.url || "placeholder.jpg"}
-                    style={{ height: "160px", objectFit: "cover" }}
-                     alt={product.name || "Product image"}
+                    variant="top"
+                    src={product.url}
+                    style={{ height: "150px", objectFit: "cover" }}
                   />
-                  </Link>
-                  <Card.Body className="d-flex flex-column">
-                    <Card.Title style={{ fontSize: "1rem", fontWeight: "600" }}>
-                      {product.name}
-                    </Card.Title>
-                    <Card.Text><strong>₱{product.price}</strong></Card.Text>
-                    <Card.Text
-                      className={product.stock === 0 ? "text-danger" : "text-success"}
-                      style={{ fontSize: "0.9rem" }}
-                    >
-                      {product.stock === 0 ? "Out of stock" : "In stock"}
-                    </Card.Text>
+                  <Card.Body>
+                    <Card.Title className="small fw-bold">{product.name}</Card.Title>
+                    <Card.Text>₱{product.price}</Card.Text>
                     <Button
-                      variant="success"
-                      className="mt-auto"
-                      disabled={product.stock === 0}
+                      size="sm"
+                      className="w-100"
                       onClick={() => addToCart(product)}
                     >
-                      {product.stock === 0 ? "Unavailable" : "Add to Cart"}
+                      Add to Cart
                     </Button>
                   </Card.Body>
                 </Card>
@@ -205,6 +142,23 @@ export default function SearchPage({ addToCart }) {
           </Row>
         </Col>
       </Row>
+
+      {/* Mobile Filter Drawer */}
+      <Modal
+        show={showMobileFilters}
+        onHide={() => setShowMobileFilters(false)}
+        fullscreen="sm-down"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Filters</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FilterContent />
+        </Modal.Body>
+      </Modal>
     </Container>
+     <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>
+    </>
   );
 }

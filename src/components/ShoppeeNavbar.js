@@ -312,13 +312,13 @@ const handleCloseDropdown = () => setShowDropdown(false);
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item as={Link} to="/myaccount">
-                      My Account
+                      <FiUser className="me-2" />My Account
                     </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/orders">
-                      My Orders
+                      <FaShoppingBag className="me-2" />My Orders
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}> <FaSignOutAlt className="me-2" />Logout</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (

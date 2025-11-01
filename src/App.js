@@ -249,7 +249,7 @@ const handleLogout = () => {
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
-                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                            
                  <Route component={NotFoundPage} />
                        
@@ -309,7 +309,7 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                 
@@ -388,7 +388,7 @@ const handleLogout = () => {
                    <Route path="/orders" element={<Orders handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} cartItems={cartItems}/>} />
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
-                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                         
@@ -451,7 +451,7 @@ const handleLogout = () => {
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
-                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} />} />
+                  <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
 
                  <Route component={NotFoundPage} />
