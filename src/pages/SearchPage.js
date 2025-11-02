@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import {
   Container, Row, Col, Card, Form, Button, Modal
 } from "react-bootstrap";
@@ -120,20 +120,29 @@ export default function SearchPage({ searchProducts, addToCart, youMayLikeProduc
             {filteredProducts.map((product) => (
               <Col xs={6} sm={4} md={4} lg={3} key={product.id} className="mb-4">
                 <Card className="h-100 shadow-sm">
+                <Link to={`/clicksearchpage/${product.id}`}>
                   <Card.Img
                     variant="top"
                     src={product.url}
                     style={{ height: "150px", objectFit: "cover" }}
                   />
+                  </Link>
                   <Card.Body>
                     <Card.Title className="small fw-bold">{product.name}</Card.Title>
                     <Card.Text>₱{product.price}</Card.Text>
+                       <Card.Text
+                      className={product.stock === 0 ? "text-danger" : "text-success"}
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      {product.stock === 0 ? "Out of stock" : "In stock"}
+                    </Card.Text>
                     <Button
-                      size="sm"
-                      className="w-100"
+                      variant="success"
+                      className="mt-auto"
+                      disabled={product.stock === 0}
                       onClick={() => addToCart(product)}
                     >
-                      Add to Cart
+                      {product.stock === 0 ? "Unavailable" : "Add to Cart"}
                     </Button>
                   </Card.Body>
                 </Card>
