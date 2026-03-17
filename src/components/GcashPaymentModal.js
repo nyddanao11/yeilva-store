@@ -120,6 +120,29 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
     
     const currentMethodName = selectedMethod.toUpperCase();
 
+     const handleDownloadQR = async () => {
+            try {
+                const imageUrl = qrCodes[selectedMethod];
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                // This names the file based on the method (e.g., GCASH_QR.jpg)
+                link.download = `${selectedMethod.toUpperCase()}_QR.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                
+                // Cleanup
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Download failed:', error);
+                setErrorMessage('Could not download the image. Please try long-pressing the QR code to save it.');
+            }
+        };
+
     return (
         <Modal show={showGcash} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton>
@@ -164,13 +187,26 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
 
                                 <h5 className="text-center mb-3">Scan {currentMethodName} QR Code</h5>
                                 {/* Dynamic QR Code Display */}
-                                <div className="p-3 border rounded shadow-lg bg-white">
+                                <div className="p-3 border rounded shadow-lg bg-white d-flex flex-column align-items-center">
                                     <img 
                                         src={qrCodes[selectedMethod]} 
                                         alt={`${currentMethodName} QR Code`} 
                                         className="img-fluid"
                                         style={{ maxWidth: '250px', maxHeight: '250px' }}
                                     />
+                                        <div className="mt-3 d-flex flex-column align-items-center">
+                                        <Button 
+                                            variant="outline-primary" 
+                                            size="sm" 
+                                            onClick={handleDownloadQR}
+                                            className="mb-2"
+                                        >
+                                            Save QR to Photos
+                                        </Button>
+                                        <p className="text-muted" style={{ fontSize: '0.75rem' }}>
+                                            Tip: If the button doesn't work, <strong>long-press</strong> the image to save.
+                                        </p>
+                                    </div>
                                 </div>
                                 
                                 <p className="mt-3 fs-4">Amount to Pay: <strong>{formattedGrandTotal}</strong></p>
@@ -181,7 +217,7 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
                                     <h5 className="mb-3">Instructions for {currentMethodName}:</h5>
                                     <ol>
                                         <li>Open your **{currentMethodName}** app.</li>
-                                        <li>Tap **Scan QR** (or similar function) and scan the code on the left.</li>
+                                        <li>Tap **Scan QR** or **Upload QR** code if save (or similar function) on the left.</li>
                                         <li>Enter the exact amount: **{formattedGrandTotal}**.</li>
                                         <li>Confirm the payment.</li>
                                         <li>After paying, click the **"I Have Paid"** button below to complete your order.</li>

@@ -86,6 +86,11 @@ const  AddToCartNotification = React.lazy(() => import('./pages/AddToCartNotific
 const  ClickCartItem = React.lazy(() => import('./pages/ClickCartItem'));
 const  AddDeliveryAddress = React.lazy(() => import('./pages/AddDeliveryAddress'));
 const  SearchPage = React.lazy(() => import('./pages/SearchPage'));
+const DeveloperServices = React.lazy(() => import('./components/WebsitePernSetup'));
+const ServiceFab = React.lazy(() => import('./components/ServiceFab'));
+const WebContactForm = React.lazy(() => import('./components/WebContactForm'));
+const Onboarding= React.lazy(() => import('./components/Onboarding'));
+
 
 
  function App() {
@@ -179,6 +184,8 @@ const handleLogout = () => {
      </div>
       <OfflineIndicator />
     <ScrollToTop />
+    <ServiceFab />
+
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} userEmail={userEmail} handleLogout={handleLogout}  
       searchProducts={searchProducts} addToCart={addToCart} storedProducts={storedProducts} handleItemClickCategory={handleItemClickCategory} />
@@ -250,7 +257,10 @@ const handleLogout = () => {
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
-                           
+                  <Route path="/developerservices" element={<DeveloperServices  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+      
                  <Route component={NotFoundPage} />
                        
           </Routes>
@@ -310,6 +320,9 @@ const handleLogout = () => {
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/developerservices" element={<DeveloperServices  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                 
@@ -389,6 +402,9 @@ const handleLogout = () => {
                   <Route path="/ordertracking" element={<OrderTracking handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/adddeliveryaddress" element={<AddDeliveryAddress handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/developerservices" element={<DeveloperServices  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                         
@@ -452,6 +468,9 @@ const handleLogout = () => {
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/developerservices" element={<DeveloperServices  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
 
                  <Route component={NotFoundPage} />

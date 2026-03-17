@@ -1,185 +1,103 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Tab, Tabs} from 'react-bootstrap';
+import { Container, Row, Col, Nav, Card, Navbar } from 'react-bootstrap';
+
+// Import your components
 import DeactivateUser from './DeactivateUser';
 import LoanHistory from './Loanhistory';
-import InstallmentHistory from'./installment';
-import CreateVoucher from'../pages/VoucherForm';
-import GenerateVouchers from'../pages/MultiVoucher';
-import GcashSettlement from'../pages/GcashSettlement';
-import UpdateOrder from'./OrderStatusUpdate';
-import AddProduct from'../pages/ProductUpload';
-import ProductDetailsUpdateForm from'./ProductDetailsUpdateForm';
+import InstallmentHistory from './installment';
+import CreateVoucher from '../pages/VoucherForm';
+import GenerateVouchers from '../pages/MultiVoucher';
+import GcashSettlement from '../pages/GcashSettlement';
+import UpdateOrder from './OrderStatusUpdate';
+import AddProduct from '../pages/ProductUpload';
+import ProductDetailsUpdateForm from './ProductDetailsUpdateForm';
+import AdminInquiries from './AdminInquiries';
 
-export default function AdminPage () {
+export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('LoanHistory');
-  const [loanformHistory, setLoanformHistory] = useState([]);
-  const [loading, setLoading] = useState(false);  
-  const [searchEmail, setSearchEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [searchTimer, setSearchTimer] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  // 1. Centralized Tab Configuration
+  // This makes it easy to add new tabs without writing new functions
+  const tabs = [
+    { id: 'LoanHistory', label: 'Loan History', component: <LoanHistory /> },
+    { id: 'DeactivateUser', label: 'Deactivate User', component: <DeactivateUser /> },
+    { id: 'InstallmentHistory', label: 'Installments', component: <InstallmentHistory /> },
+    { id: 'CreateVoucher', label: 'Create Voucher', component: <CreateVoucher /> },
+    { id: 'GenerateVouchers', label: 'Bulk Vouchers', component: <GenerateVouchers /> },
+    { id: 'GcashSettlement', label: 'GCash Settlement', component: <GcashSettlement /> },
+    { id: 'UpdateOrder', label: 'Update Order', component: <UpdateOrder /> },
+    { id: 'AddProduct', label: 'Add Product', component: <AddProduct /> },
+    { id: 'ProductDetails', label: 'Product Details', component: <ProductDetailsUpdateForm /> },
+    { id: 'AdminInquiries', label: 'Inquiries', component: <AdminInquiries /> },
+  ];
 
-const loanHistoryTabContent = <LoanHistory />; // Store the component in a variable
+  const handleTabChange = (tabId) => setActiveTab(tabId);
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'LoanHistory':
-        return loanHistoryTabContent; // Use the variable here
-      case 'DeactivateUser':
-        return renderDeactivateUserTab();
-      case 'InstallmentHistory':
-        return renderInstallmentHistoryTab();
-       case 'CreateVoucher':
-        return renderCreateVoucherTab();
-        case 'GenerateVouchers':
-        return renderGenerateVouchersTab();  
-         case 'GcashSettlement':
-        return renderGcashSettlementTab();  
-         case 'UpdateOrder':
-         return renderUpdateOrderTab(); 
-          case 'AddProduct':
-         return renderAddProductTab();  
-          case 'ProductDetailsUpdateForm':
-         return ProductDetailsUpdateForm();        
-      // Add more cases for additional tabs
-      default:
-        return null;
-    }
-  };
-
-  const fetchData = async () => {
-    // Fetch data based on the active tab
-    if (activeTab === 'LoanHistory') {
-      // Fetch loan history data
-      // ...
-    } else if (activeTab === 'DeactivateUser') {
-      // Fetch user data for deactivation
-      // ...
-    }else if (activeTab === 'InstallmentHistory'){
-    // Add more cases for additional tabs
-    }else if (activeTab === 'CreateVoucher'){
-    // Add more cases for additional tabs
-    }else if (activeTab === 'GenerateVouchers'){
-    // Add more cases for additional tabs
-    }else if (activeTab === 'GcashSettlement'){
-      // Add more cases for additional tabs
-    }else if (activeTab === 'UpdateOrder'){
-      // Add more cases for additional tabs
-    }else if (activeTab === 'AddProduct'){
-      // Add more cases for additional tabs
-    }else if (activeTab === 'ProductDetailsUpdateForm'){
-      // Add more cases for additional tabs
-    };
-};
-
-  useEffect(() => {
-    fetchData();
-    console.log('Updated Loanform History:', loanformHistory);
-  }, [searchEmail, activeTab]);
-
-  const renderLoanHistoryTab = () => {
-    // Render content for the 'Loan History' tab
-    // Similar to your existing loan history rendering logic
-     return <LoanHistory />;
-  };
-
-  const renderDeactivateUserTab = () => {
-    // Render content for the 'Deactivate User' tab
-    return <DeactivateUser />;
-  };
-
-  const renderInstallmentHistoryTab = () => {
-    return <InstallmentHistory />;
-  };
-
- const renderCreateVoucherTab = () => {
-    return <CreateVoucher />;
-  };
-
-   const renderGenerateVouchersTab = () => {
-    return <GenerateVouchers />;
-  };
-
-   const renderGcashSettlementTab = () => {
-    return <GcashSettlement />;
-  };
-
-    const renderUpdateOrderTab = () => {
-    return <UpdateOrder />;
-  };
-   const renderAddProductTab = () => {
-    return <AddProduct />;
-  };
-  const renderProductDetailsUpdateFormTab = () => {
-    return <ProductDetailsUpdateForm />;
-  };
-
-  const handleSearch = async () => {
-    console.log('Searching...', searchEmail);
-
-    if (searchEmail) {
-      clearTimeout(searchTimer);
-      setSearchTimer(
-        setTimeout(async () => {
-          await fetchData(); // Call fetchData here
-        }, 500)
-      );
-    }
-  };
+  // Get current component based on activeTab
+  const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component;
 
   return (
-    <Container className="mt-4">
-      <h1 className="text-center mb-4" style={{color:'green'}}>YeilvaStore Dashboard</h1>
+    <Container fluid className="py-4 px-lg-5">
+      <header className="mb-4 border-bottom pb-3">
+        <h1 className="fw-bold" style={{ color: '#2e7d32' }}>YeilvaStore Admin</h1>
+        <p className="text-muted">Manage your store operations, users, and finances.</p>
+      </header>
 
-      <Tabs
-        id="admin-tabs"
-        activeKey={activeTab}
-        onSelect={handleTabChange}
-        className="mb-3"
-      >
-        <Tab eventKey="LoanHistory" title="Loan History">
-          {/* Content for the 'Loan History' tab */}
-          {renderLoanHistoryTab()}
-        </Tab>
-        <Tab eventKey="DeactivateUser" title="Deactivate User">
-          {/* Content for the 'Deactivate User' tab */}
-          {renderDeactivateUserTab()}
-        </Tab>
-        <Tab eventKey="InstallmentHistory" title="InstallmentHistory">
-          {/* Content for the 'InstallmentHistory' tab */}
-          {renderInstallmentHistoryTab()}
-        </Tab>
-          <Tab eventKey="CreateVoucher" title="CreateVoucher">
-          {/* Content for the 'InstallmentHistory' tab */}
-          {renderCreateVoucherTab()}
-        </Tab>
-           <Tab eventKey="GenerateVouchers" title="GenerateVouchers">
-          {/* Content for the 'InstallmentHistory' tab */}
-          {renderGenerateVouchersTab()}
-        </Tab>
-          <Tab eventKey="GcashSettlement" title="GcashSettlement">
-          {/* Content for the 'InstallmentHistory' tab */}
-          {renderGcashSettlementTab()}
-        </Tab>
-        <Tab eventKey="UpdateOrder" title="UpdateOrder">
-          {/* Content for the 'UpdateOrder' tab */}
-          {renderUpdateOrderTab()}
-        </Tab>
-         <Tab eventKey="AddProduct" title="AddProduct">
-          {/* Content for the 'UpdateOrder' tab */}
-          {renderAddProductTab()}
-        </Tab>
-          <Tab eventKey="ProductDetailsUpdateForm" title="ProductDetailsUpdateForm">
-          {/* Content for the 'ProductDetailsUpdateForm' tab */}
-          {renderProductDetailsUpdateFormTab()}
-        </Tab>
-        {/* Add more Tab components for additional tabs */}
-      </Tabs>
-     
+      <Row>
+      {/* Sidebar Navigation - Better for responsiveness than top tabs */}
+        <Col md={3} lg={2} className="mb-4">
+          
+          {/* Mobile Hamburger Menu Toggle Button - Visible only on small screens */}
+          <Navbar expand="md" className="p-0 mb-3 d-md-none border-0">
+            <Container fluid className="px-0">
+              <Navbar.Brand href="#">Menu</Navbar.Brand>
+              <Navbar.Toggle aria-controls="admin-sidebar-nav" onClick={toggleMobileMenu} />
+            </Container>
+          </Navbar>
+
+          {/* Sidebar Nav - Collapsible on small screens, fixed on larger screens */}
+          <Navbar.Collapse id="admin-sidebar-nav" in={mobileMenuOpen} className="d-md-block">
+            <Card className="shadow-sm border-0 w-100"> {/* Ensure Card takes full width */}
+              <Nav variant="pills" className="flex-column p-2 w-100"> {/* Ensure Nav takes full width */}
+                {tabs.map((tab) => (
+                  <Nav.Item key={tab.id}>
+                    <Nav.Link
+                      // ... (rest of Nav.Link props, including icons from Step 1) ...
+                      onClick={() => {
+                        handleTabChange(tab.id);
+                        if (mobileMenuOpen) toggleMobileMenu(); // Close mobile menu after selection
+                      }}
+                    >
+                      <span className="me-2 d-inline-flex align-items-center">{tab.icon}</span> 
+                      {tab.label}
+                    </Nav.Link>
+                  </Nav.Item>
+                ))}
+              </Nav>
+            </Card>
+          </Navbar.Collapse>
+        </Col>
+
+        {/* Main Content Area */}
+        <Col md={9} lg={10}>
+          <Card className="shadow-sm border-0 p-4" style={{ minHeight: '70vh' }}>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h3 className="h5 fw-bold mb-0">
+                {tabs.find(t => t.id === activeTab)?.label}
+              </h3>
+              {loading && <div className="spinner-border spinner-border-sm text-success" role="status" />}
+            </div>
+            
+            {/* Render the selected component */}
+            <div className="fade-in">
+              {ActiveComponent}
+            </div>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
-};
-
+}

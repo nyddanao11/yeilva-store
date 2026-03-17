@@ -32,6 +32,7 @@ import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css';
 import { useMediaQuery } from 'react-responsive';
+import DeveloperServices from './WebsitePernSetup';
 
 export default function ShopeeNavbar({
   cartItems, // Not used in this component, consider removing if truly not needed for the navbar
@@ -118,7 +119,7 @@ const handleCloseDropdown = () => setShowDropdown(false);
     { name: 'Loan form', link: '/loanform' },
     { name: 'Domestic/International ticketing', link: '/airlinebookingform' },
     { name: 'Travel and tours', link: '#' },
-    { name: 'Hotel booking', link: '#' },
+   { name: (<Badge bg="primary" className="mb-2 d-flex align-items-center gap-1"> <i className="bi bi-code-slash"></i> Own a Site Like This </Badge> ), link: '/developerservices' },
   ];
 
   return (
