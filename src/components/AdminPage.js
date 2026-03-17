@@ -12,6 +12,7 @@ import UpdateOrder from './OrderStatusUpdate';
 import AddProduct from '../pages/ProductUpload';
 import ProductDetailsUpdateForm from './ProductDetailsUpdateForm';
 import AdminInquiries from './AdminInquiries';
+import ProductInventory from './ProductInventory';
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('LoanHistory');
@@ -32,6 +33,8 @@ export default function AdminPage() {
     { id: 'AddProduct', label: 'Add Product', component: <AddProduct /> },
     { id: 'ProductDetails', label: 'Product Details', component: <ProductDetailsUpdateForm /> },
     { id: 'AdminInquiries', label: 'Inquiries', component: <AdminInquiries /> },
+    { id: 'ProductInventory', label: 'Product Inventory', component: <ProductInventory /> },
+
   ];
 
   const handleTabChange = (tabId) => setActiveTab(tabId);

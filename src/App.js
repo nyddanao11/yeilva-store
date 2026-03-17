@@ -90,6 +90,7 @@ const DeveloperServices = React.lazy(() => import('./components/WebsitePernSetup
 const ServiceFab = React.lazy(() => import('./components/ServiceFab'));
 const WebContactForm = React.lazy(() => import('./components/WebContactForm'));
 const Onboarding= React.lazy(() => import('./components/Onboarding'));
+const ProductInventory= React.lazy(() => import('./components/ProductInventory'));
 
 
 
@@ -260,7 +261,8 @@ const handleLogout = () => {
                   <Route path="/developerservices" element={<DeveloperServices  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
-      
+                  <Route path="/ProductInventory" element={<ProductInventory  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+    
                  <Route component={NotFoundPage} />
                        
           </Routes>
@@ -405,6 +407,7 @@ const handleLogout = () => {
                   <Route path="/developerservices" element={<DeveloperServices  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/ProductInventory" element={<ProductInventory  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                         

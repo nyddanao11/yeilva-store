@@ -7,10 +7,14 @@ export default function WebContactForm () {
   const [status, setStatus] = useState({ type: '', msg: '' });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  // LOGIC: Check if all required fields have content
+  const isFormIncomplete = !formData.name || !formData.email || !formData.message;
+
+ const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+    setStatus({ type: '', msg: '' }); // Clear previous status
+
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/contact`, {
         method: 'POST',
@@ -18,7 +22,12 @@ export default function WebContactForm () {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.status === 409) {
+        // Status 409 = Conflict (Email already exists)
+        setStatus({ type: 'warning', msg: 'You have already sent an inquiry! I will get back to you soon.' });
+      } else if (response.ok) {
         setStatus({ type: 'success', msg: 'Message sent! I will get back to you within 24 hours.' });
         setFormData({ name: '', email: '', project: 'Professional', message: '' });
       } else {
@@ -31,7 +40,7 @@ export default function WebContactForm () {
   };
 
   return (
-    <div className="mx-auto mt-5 p-4 border rounded shadow-sm bg-white" style={{ maxWidth: '600px' }}>
+  <div className="mx-auto mt-5 p-4 border rounded shadow-sm bg-white" style={{ maxWidth: '600px' }}>
       <h3 className="text-center mb-4">Start Your Project</h3>
       {status.msg && <Alert variant={status.type}>{status.msg}</Alert>}
       
@@ -73,7 +82,13 @@ export default function WebContactForm () {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className="w-100" disabled={loading}>
+       <Button 
+          variant="primary" 
+          type="submit" 
+          className="w-100" 
+          // UPDATED: Disabled if loading OR if the form is incomplete
+          disabled={loading || isFormIncomplete}
+        >
           {loading ? <Spinner animation="border" size="sm" /> : 'Send Inquiry'}
         </Button>
       </Form>
