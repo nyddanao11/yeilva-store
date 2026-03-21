@@ -1,17 +1,20 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Form, FormControl, Button, Modal, Dropdown, Spinner } from 'react-bootstrap';
-import { FaSearch, FaShoppingCart, FaShippingFast } from 'react-icons/fa';
+import { FaSearch, FaShoppingCart, FaShippingFast,FaTimes} from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
 import axios from'axios';
 import debounce from 'lodash.debounce'; // Corrected import for lodash.debounce
 import { ProductContext} from '../pages/ProductContext';
 import useSearchProducts from '../hooks/useSearchProducts';
+import { useAuth} from '../pages/loginContext';
 
-export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink}) {
+
+export default function Header ({ cartCount, addToCart, headerShrink}) {
   const { handleItemClickCategory} = useContext(ProductContext);
   const {searchProducts, setSearchProducts, fetchSearchProducts, searchLoading} = useSearchProducts();
+ const { isLoggedIn, login, logout, userEmail } = useAuth();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -166,13 +169,16 @@ export default function Header ({ cartCount, addToCart, isLoggedIn, headerShrink
                     value={searchQuery}
                     onChange={(e) => handleQueryChange(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    className="form-control"
                     onFocus={() => setShowDropdown(true)}
                     aria-label="Search products"
                     autoFocus
+                    enterKeyHint="search" // Changes mobile keyboard button
+                   className="border-end-0" // Clean look with button
                   />
+                
                   <Button
-                    variant="outline-secondary"
+                    variant="primary"
+                    className="border-start-0"
                     onClick={() => {
                       if (searchQuery.trim()) {
                         navigate(`/search?query=${encodeURIComponent(searchQuery)}`);

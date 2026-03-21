@@ -16,7 +16,7 @@ const NewUserDiscount = () => {
     const [timeRemaining, setTimeRemaining] = useState('');
 
     // Set the raffle date
-    const voucherExpiry = new Date('December 31, 2024 00:00:00');
+    const voucherExpiry = new Date('December 31, 2026 00:00:00');
 
     useEffect(() => {
         const updateCountdown = () => {

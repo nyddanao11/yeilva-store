@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form, Row, Col, Badge } from 'react-bootstrap';
+import {FormatProductData} from'../utils/FormatProductData';
 
 export default function ProductInventory () {
   const [products, setProducts] = useState([]);
@@ -37,6 +38,7 @@ export default function ProductInventory () {
       console.error("Error adding product", err);
     }
   };
+  console.log('newproducts date', newProduct);
 
   return (
     <Container className="mt-4">
@@ -64,11 +66,11 @@ export default function ProductInventory () {
               <td className="fw-bold">{p.name}</td>
               <td>{p.category}</td>
               <td>₱{parseFloat(p.price).toLocaleString()}</td>
-              <td>{p.stock_quantity}</td>
+              <td>{p.stock}</td>
               <td>
-                {p.stock_quantity > 10 ? (
+                {p.stock> 10 ? (
                   <Badge bg="success">In Stock</Badge>
-                ) : p.stock_quantity > 0 ? (
+                ) : p.stock> 0 ? (
                   <Badge bg="warning" text="dark">Low Stock</Badge>
                 ) : (
                   <Badge bg="danger">Out of Stock</Badge>

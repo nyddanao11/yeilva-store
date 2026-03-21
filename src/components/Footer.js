@@ -28,7 +28,7 @@ export default function Footer ({isLoggedIn}) {
               <SocialLink  href="https://www.instagram.com/yeilvastore" icon={<FaInstagram  className="icons"/>} label="Follow us on Instagram" />
               <SocialLink  href="https://shope.ee/5pZmnVEM3L" icon={<FaShopify  className="icons"/>} label="Shop on Shopee" />
               </div>
-              <p>&copy; 2025 Yeilva Store. All rights reserved.</p>
+              <p>&copy; 2026 Yeilva Store. All rights reserved.</p>
             </div>
           </Col>
           <Col md={4}  className="d-flex flex-column align-items-center justify-content-center mt-2 mb-3" >

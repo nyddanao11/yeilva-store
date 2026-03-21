@@ -21,7 +21,7 @@ const features = [
     icon: <FaTags />,
     title: 'Discount Voucher',
     subtitle: '(1 available)',
-    link: '/freebies',
+    link: '/newuserdiscount',
   },
   {
     icon: <FaHeadset />,

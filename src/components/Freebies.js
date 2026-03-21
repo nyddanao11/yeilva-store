@@ -15,8 +15,6 @@ export default function Freebies  ({ addToCart, youMayLikeProducts })  {
                     
                       </Col>
                     <Col lg={6} md={6} xs={12} className="mb-4">
-                     
-                           <NewUserDiscount />
 
                          <Link to="/barleygrassjuice">
                            <div  className="d-flex flex-column justify-content-center align-items-center mt-4 p-2">

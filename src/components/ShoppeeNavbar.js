@@ -9,6 +9,7 @@ import {
   Offcanvas,
   Button,
   Badge,
+  Accordion,
 } from 'react-bootstrap';
 import { Link, NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
 import {
@@ -120,6 +121,7 @@ const handleCloseDropdown = () => setShowDropdown(false);
     { name: 'Domestic/International ticketing', link: '/airlinebookingform' },
     { name: 'Travel and tours', link: '#' },
    { name: (<Badge bg="primary" className="mb-2 d-flex align-items-center gap-1"> <i className="bi bi-code-slash"></i> Own a Site Like This </Badge> ), link: '/developerservices' },
+
   ];
 
   return (
@@ -375,149 +377,94 @@ const handleCloseDropdown = () => setShowDropdown(false);
       </Navbar>
 
       {/* Offcanvas Menu */}
-      <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="start"> {/* Consistent placement */}
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <Nav className="flex-column">
-            <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas}>
-              <FaHome className="me-2" /> Home
-            </Nav.Link>
+<Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="start" className="modern-offcanvas">
+  <Offcanvas.Header closeButton className="border-bottom">
+    <Offcanvas.Title className="fw-bold">Explore</Offcanvas.Title>
+  </Offcanvas.Header>
 
-            <NavDropdown title={<><FaServicestack className="me-2" /> Categories</>} id="offcanvas-category-dropdown">
-              {categories.map((cat, index) => (
-                <Dropdown.Item
-                  key={index}
-                  disabled={cat.isComingSoon}
-                  as={!cat.isComingSoon ? Link : 'button'}
-                  to={!cat.isComingSoon ? cat.link : undefined}
-                  onClick={
-                    !cat.isComingSoon
-                      ? () => {
-                          handleItemClickCategory(cat.name);
-                          handleCloseOffcanvas();
-                        }
-                      : undefined
-                  }
-                  title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
-                >
-                  {cat.icon} {cat.name}
-                  {cat.isComingSoon && (
-                    <Badge bg="info" className="ms-2">
-                      Coming Soon
-                    </Badge>
-                  )}
-                </Dropdown.Item>
-              ))}
-            </NavDropdown>
+  <Offcanvas.Body className="p-0"> {/* Remove padding for full-width items */}
+    
+    {/* --- User Hero Section --- */}
+    <div className="bg-light p-4 mb-3 border-bottom">
+      {isLoggedIn ? (
+        <div className="d-flex align-items-center">
+          <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style={{width: '50px', height: '50px'}}>
+            {userData.firstname?.charAt(0) || 'U'}
+          </div>
+          <div>
+            <h6 className="mb-0">Welcome, {userData.firstname}!</h6>
+            <small className="text-muted">Manage your profile & orders</small>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h6>Welcome to our Store</h6>
+          <small>Login for the best experience</small>
+        </div>
+      )}
+    </div>
 
-            <NavDropdown title={<><FaCogs className="me-2" /> Services</>} id="offcanvas-services-dropdown">
-              {isLoggedIn ? (
-                <>
-                  <NavDropdown title="Other Services" id="offcanvas-other-services-dropdown">
-                    {otherServices.map((service, index) => (
-                      <Dropdown.Item key={index}>{service}</Dropdown.Item>
-                    ))}
-                  </NavDropdown>
-                  {travelServices.map((service, index) => (
-                    <Dropdown.Item as={Link} to={service.link} key={index} onClick={handleCloseOffcanvas}>
-                      {service.name}
-                    </Dropdown.Item>
-                  ))}
-                </>
-              ) : (
-                <Dropdown.Item
-                  onClick={() => {
-                    handleShowModal('Please log in to view services.');
-                    handleCloseOffcanvas();
-                  }}
-                >
-                  All Services
-                </Dropdown.Item>
-              )}
-            </NavDropdown>
+    <Nav className="flex-column px-3">
+      {/* --- Main Navigation Group --- */}
+      <div className="menu-section-label text-uppercase text-muted small fw-bold mb-2">Main Menu</div>
+      
+      <Nav.Link as={NavLink} to="/" onClick={handleCloseOffcanvas} className="py-2">
+        <FaHome className="me-2 text-primary" /> Home
+      </Nav.Link>
 
-            <Nav.Link
-              as={NavLink}
-              to="/alldealsproduct"
-              onClick={handleCloseOffcanvas}
-            >
-              <FaPercent className="me-2" /> Deals
-            </Nav.Link>
-            <Nav.Link
-              as={NavLink}
-              to="/freebies"
-              onClick={handleCloseOffcanvas}
-            >
-              <FaGift className="me-2" /> Get your freebies
-            </Nav.Link>
-
-            {isLoggedIn ? (
-              <Dropdown as={Nav.Item} className="w-100"> {/* Make dropdown full width in Offcanvas */}
-                <Dropdown.Toggle as={Nav.Link} id="offcanvas-account-dropdown" className="d-flex align-items-center">
-                  <FiUser className="me-2" />
-                  {`Hello, ${userData.firstname || 'User'}`}
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="w-100">
-                  <Dropdown.Item as={Link} to="/myaccount" onClick={handleCloseOffcanvas}>
-                    My Account
-                  </Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/orders" onClick={handleCloseOffcanvas}>
-                    My Orders
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => { handleLogout(); handleCloseOffcanvas(); }}>
-                    Logout
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            ) : (
-              <Nav.Link
-                as={Link}
-                to="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleShowModal('Please log in to access your account.');
-                  handleCloseOffcanvas();
-                }}
+      {/* --- Using Accordion for Categories (Better for Mobile) --- */}
+      <Accordion flush className="w-100">
+        <Accordion.Item eventKey="0" className="border-0">
+          <Accordion.Header className="px-0 py-2">
+            <FaServicestack className="me-2 text-primary" /> Categories
+          </Accordion.Header>
+          <Accordion.Body className="ps-4 py-0">
+            {categories.map((cat, index) => (
+              <Nav.Link 
+                key={index} 
+                as={Link} 
+                to={cat.link} 
+                disabled={cat.isComingSoon}
+                className="d-flex align-items-center justify-content-between py-2 text-dark"
               >
-                <FiUser className="me-2" /> My Account
+                <span>{cat.icon} {cat.name}</span>
+                {cat.isComingSoon && <Badge bg="secondary" size="sm">Soon</Badge>}
               </Nav.Link>
-            )}
+            ))}
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
 
-            {isLoggedIn ? (
-              <Nav.Link
-                as={NavLink}
-                to="/"
-                onClick={() => {
-                  handleLogout();
-                  handleCloseOffcanvas();
-                }}
-              >
-                <FaSignOutAlt className="me-2" /> Logout
-              </Nav.Link>
-            ) : (
-              <>
-                <Nav.Link
-                  as={NavLink}
-                  to="/login"
-                  onClick={handleCloseOffcanvas}
-                >
-                  <FaSignInAlt className="me-2" /> Login
-                </Nav.Link>
-                <Nav.Link
-                  as={NavLink}
-                  to="/signupform"
-                  onClick={handleCloseOffcanvas}
-                >
-                  <FaSignInAlt className="me-2" /> Sign up
-                </Nav.Link>
-              </>
-            )}
-          </Nav>
-        </Offcanvas.Body>
-      </Offcanvas>
+      <Nav.Link as={NavLink} to="/alldealsproduct" onClick={handleCloseOffcanvas} className="py-2">
+        <FaPercent className="me-2 text-danger" /> Hot Deals
+      </Nav.Link>
+
+      <hr className="my-3" />
+
+      {/* --- Account Section --- */}
+      <div className="menu-section-label text-uppercase text-muted small fw-bold mb-2">My Account</div>
+      
+      {isLoggedIn ? (
+        <>
+          <Nav.Link as={Link} to="/myaccount" onClick={handleCloseOffcanvas} className="py-2">
+            <FiUser className="me-2" /> Profile Settings
+          </Nav.Link>
+          <Nav.Link as={Link} to="/orders" onClick={handleCloseOffcanvas} className="py-2">
+            <FaGift className="me-2" /> My Orders
+          </Nav.Link>
+          <Nav.Link onClick={handleLogout} className="py-2 text-danger mt-4">
+            <FaSignOutAlt className="me-2" /> Sign Out
+          </Nav.Link>
+        </>
+      ) : (
+        <div className="d-grid gap-2 mt-2">
+          <Button variant="primary" as={Link} to="/login" onClick={handleCloseOffcanvas}>Login</Button>
+          <Button variant="outline-primary" as={Link} to="/signupform" onClick={handleCloseOffcanvas}>Create Account</Button>
+        </div>
+      )}
+    </Nav>
+  </Offcanvas.Body>
+</Offcanvas>
 
       {/* Global Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>

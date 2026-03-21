@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import {
-  Container, Row, Col, Card, Form, Button, Modal
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button, Modal} from "react-bootstrap";
 import YouMayLike from'../components/YouMayLike';
 
 export default function SearchPage({ searchProducts, addToCart, youMayLikeProducts }) {
@@ -20,24 +18,24 @@ export default function SearchPage({ searchProducts, addToCart, youMayLikeProduc
     if (query) setSearchQuery(query);
   }, [location]);
 
-  const filteredProducts = searchProducts
-    .filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .filter((product) =>
-      selectedCategory === "all"
-        ? true
-        : product.category === selectedCategory
-    )
-    .filter(
-      (product) =>
-        product.price >= priceRange[0] && product.price <= priceRange[1]
-    )
-    .sort((a, b) => {
-      if (sortBy === "low-high") return a.price - b.price;
-      if (sortBy === "high-low") return b.price - a.price;
-      return 0;
-    });
+ const filteredProducts = searchProducts
+  .filter((product) => {
+    // 1. Search Check
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // 2. Category Check
+    const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
+    
+    // 3. Price Check
+    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+
+    return matchesSearch && matchesCategory && matchesPrice;
+  })
+  .sort((a, b) => {
+    if (sortBy === "low-high") return a.price - b.price;
+    if (sortBy === "high-low") return b.price - a.price;
+    return 0;
+  });
 
   const FilterContent = () => (
     <>
