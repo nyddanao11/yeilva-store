@@ -123,6 +123,11 @@ const handleCloseDropdown = () => setShowDropdown(false);
    { name: (<Badge bg="primary" className="mb-2 d-flex align-items-center gap-1"> <i className="bi bi-code-slash"></i> Own a Site Like This </Badge> ), link: '/developerservices' },
 
   ];
+  // Add this helper function in your component logic
+const handleCategorySelect = (categoryName) => {
+  handleItemClickCategory(categoryName); // Your filtering logic
+  handleCloseOffcanvas();               // Close the sidebar
+};
 
   return (
     <>
@@ -419,16 +424,24 @@ const handleCloseDropdown = () => setShowDropdown(false);
             <FaServicestack className="me-2 text-primary" /> Categories
           </Accordion.Header>
           <Accordion.Body className="ps-4 py-0">
-            {categories.map((cat, index) => (
+          {categories.map((cat, index) => (
               <Nav.Link 
                 key={index} 
                 as={Link} 
-                to={cat.link} 
-                disabled={cat.isComingSoon}
+                // If it's coming soon, we prevent navigation by pointing to '#'
+                to={cat.isComingSoon ? "#" : cat.link} 
                 className="d-flex align-items-center justify-content-between py-2 text-dark"
+                onClick={(e) => {
+                  if (cat.isComingSoon) {
+                    e.preventDefault();
+                    return;
+                  }
+                  handleCategorySelect(cat.name);
+                }}
+                style={{ opacity: cat.isComingSoon ? 0.5 : 1, cursor: cat.isComingSoon ? 'not-allowed' : 'pointer' }}
               >
                 <span>{cat.icon} {cat.name}</span>
-                {cat.isComingSoon && <Badge bg="secondary" size="sm">Soon</Badge>}
+                {cat.isComingSoon && <Badge bg="secondary">Soon</Badge>}
               </Nav.Link>
             ))}
           </Accordion.Body>
