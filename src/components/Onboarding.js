@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { Container, Row, Col, Card, ListGroup, Alert, Button, Form, Modal} from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup, Alert, Button, Form, Modal, Nav } from 'react-bootstrap';
 
 export default function Onboarding () {
   const [hasAgreed, setHasAgreed] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+const [paymentMethod, setPaymentMethod] = useState('gcash');
 
   const handleFinalSubmit = () => {
     if (hasAgreed) {
@@ -25,6 +26,48 @@ export default function Onboarding () {
   document.body.removeChild(link); // Clean up after clicking
 };
 
+const renderPaymentDetails = () => {
+  switch (paymentMethod) {
+    case 'gcash':
+      return (
+        <>
+          <img 
+            src={`${process.env.PUBLIC_URL}/images/nangcash.jpg`} 
+            alt="GCash QR" 
+            style={{ width: '100%', height: 'auto' }} 
+          />
+          <p className="fw-bold mt-2 mb-0 text-primary">GCash Number</p>
+          <p className="text-muted">09XX XXX XXXX</p>
+        </>
+      );
+    case 'maya':
+      return (
+        <>
+          <img 
+            src={`${process.env.PUBLIC_URL}/images/mayaqr.jpg`} 
+            alt="Maya QR" 
+            style={{ width: '100%', height: 'auto' }} 
+          />
+          <p className="fw-bold mt-2 mb-0 text-success">Maya Number</p>
+          <p className="text-muted">09XX XXX XXXX</p>
+        </>
+      );
+    case 'bpi':
+      return (
+        <>
+          <img 
+            src={`${process.env.PUBLIC_URL}/images/bpiqr.jpg`} 
+            alt="BPI QR" 
+            style={{ width: '100%', height: 'auto' }} 
+          />
+          <p className="fw-bold mt-2 mb-0" style={{ color: '#b30000' }}>BPI Account</p>
+          <p className="text-muted">04XX XXX XXXX</p>
+        </>
+      );
+    default:
+      return null;
+  }
+};
 
   return (
     <Container className="py-5">
@@ -61,7 +104,7 @@ export default function Onboarding () {
       </Row>
 
       <Alert variant="info" className="mt-5">
-        <Alert.Heading>Payment & Terms (Philippines Based)</Alert.Heading>
+        <Alert.Heading>Payment & Terms </Alert.Heading>
         <p>
           I require a <strong>50% Downpayment</strong> before project commencement. 
           Accepted methods: <strong>GCash, Maya, Bank Transfer (BPI)</strong>.
@@ -72,6 +115,7 @@ export default function Onboarding () {
         <Button variant="success" size="lg">I Have Everything Ready - Let's Sign</Button>
       </div>
 
+      {/* Action Section */}
       <Card className="mt-5 border-primary shadow">
         <Card.Body className="text-center p-4">
           <h3 className="mb-3">Finalize Agreement</h3>
@@ -108,58 +152,56 @@ export default function Onboarding () {
           </Button>
           
           {!hasAgreed && (
-            <div className="text-danger small mt-2">
-              * You must agree to the terms before proceeding.
-            </div>
+            <div className="text-danger small mt-2">* You must agree to the terms before proceeding.</div>
           )}
         </Card.Body>
       </Card>
 
-      {/* --- PAYMENT MODAL --- */}
+      {/* --- IMPROVED PAYMENT MODAL --- */}
       <Modal 
         show={showPayment} 
         onHide={() => setShowPayment(false)} 
         centered
-        backdrop="static" // Prevents closing by clicking outside
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Secure Downpayment</Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">
           <h5>Thank you for choosing YeilvaStore!</h5>
-          <p className="text-muted small">
-            To begin development, please send the 50% downpayment via GCash or Maya.
+          <p className="text-muted small mb-4">
+            Select your preferred method to view the QR code.
           </p>
-          
-          <Row className="my-4">
-            <Col>
-              {/* Replace 'gcash-qr.jpg' with your actual image path in /public */}
-              <div className="p-2 border rounded bg-light mb-2">
-               <img 
-                  src={`${process.env.PUBLIC_URL}/images/nangcash.jpg`} 
-                  alt="GCash QR" 
-                  style={{ width: '100%', maxWidth: '200px' }} 
-                />
-              </div>
-              <p className="fw-bold mb-0">GCash</p>
-              <p className="small text-muted">09XX XXX XXXX</p>
-            </Col>
-          </Row>
 
-          <div className="bg-warning-subtle p-3 rounded small text-start">
+          {/* Tab Navigation for UX */}
+          <Nav variant="pills" className="justify-content-center mb-4" activeKey={paymentMethod}>
+            <Nav.Item>
+              <Nav.Link eventKey="gcash" onClick={() => setPaymentMethod('gcash')}>GCash</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="maya" onClick={() => setPaymentMethod('maya')}>Maya</Nav.Link>
+            </Nav.Item>
+             <Nav.Item>
+              <Nav.Link eventKey="bpi" onClick={() => setPaymentMethod('bpi')}>Bpi</Nav.Link>
+            </Nav.Item>
+          </Nav>
+          
+          <div className="p-3 border rounded bg-white shadow-sm mx-auto mb-3" style={{ maxWidth: '250px' }}>
+            {renderPaymentDetails()}
+          </div>
+
+          <div className="bg-light p-3 rounded small text-start border-start border-4 border-warning">
             <strong>Next Steps:</strong>
             <ol className="mb-0 mt-2">
               <li>Scan the QR code and send the amount.</li>
-              <li>Take a screenshot of the receipt.</li>
+              <li>Take a screenshot of the <strong>successful receipt</strong>.</li>
               <li>Email the receipt to <strong>yeilvastore@gmail.com</strong>.</li>
             </ol>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowPayment(false)}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={() => window.location.href='mailto:yeilvastore.com?subject=Payment Receipt'}>
+          <Button variant="secondary" onClick={() => setShowPayment(false)}>Close</Button>
+          <Button variant="primary" onClick={() => window.location.href='mailto:yeilvastore@gmail.com?subject=Payment Receipt'}>
             I've Sent the Payment
           </Button>
         </Modal.Footer>

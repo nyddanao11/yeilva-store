@@ -50,6 +50,7 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
     const qrCodes = {
         gcash: `${process.env.PUBLIC_URL}/images/nangcash.jpg`,
         bpi: `${process.env.PUBLIC_URL}/images/bpiqr.jpg`,
+        maya: `${process.env.PUBLIC_URL}/images/mayaqr.jpg`,
     };
 
     
@@ -175,6 +176,13 @@ export default function GcashPaymentModal({ showGcash, setShowGcash }) {
                                         className="fw-bold"
                                     >
                                         GCash
+                                    </Button>
+                                   <Button
+                                        variant={selectedMethod === 'maya' ? 'success' : 'outline-success'}
+                                        onClick={() => setSelectedMethod('maya')}
+                                        className="fw-bold"
+                                    >
+                                        Maya
                                     </Button>
                                     <Button
                                         variant={selectedMethod === 'bpi' ? 'primary' : 'outline-primary'}

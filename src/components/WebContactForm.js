@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
-import Onboarding from './Onboarding';
+import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate } from 'react-router-dom';
 
 export default function WebContactForm () {
   const [formData, setFormData] = useState({ name: '', email: '', project: 'Professional', message: '' });
   const [status, setStatus] = useState({ type: '', msg: '' });
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [isRecaptchaLoading, setIsRecaptchaLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // LOGIC: Check if all required fields have content
-  const isFormIncomplete = !formData.name || !formData.email || !formData.message;
+  // This function runs once the Google Script is fully ready
+  const handleOnLoad = () => {
+    setIsRecaptchaLoading(false);
+  };
+
+ const isFormIncomplete = !formData.name || !formData.email || !formData.message || !captchaToken;
+
+  const handleCaptchaChange = (token) => {
+    setCaptchaToken(token); // Store the token when user clicks the checkbox
+  };
 
  const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +31,7 @@ export default function WebContactForm () {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+       body: JSON.stringify({ ...formData, captchaToken }), // Send token to server
       });
 
       const data = await response.json();
@@ -28,7 +40,9 @@ export default function WebContactForm () {
         // Status 409 = Conflict (Email already exists)
         setStatus({ type: 'warning', msg: 'You have already sent an inquiry! I will get back to you soon.' });
       } else if (response.ok) {
-        setStatus({ type: 'success', msg: 'Message sent! I will get back to you within 24 hours.' });
+        // setStatus({ type: 'success', msg: 'Message sent! I will get back to you within 24 hours.' });
+        // SUCCESS: Redirect to the new page instead of just showing an alert
+        navigate('/webdevsuccess');
         setFormData({ name: '', email: '', project: 'Professional', message: '' });
       } else {
         throw new Error();
@@ -81,6 +95,27 @@ export default function WebContactForm () {
             value={formData.message}
           />
         </Form.Group>
+           <div className="mb-3">
+            {/* 1. The Placeholder (Shown only while loading) */}
+            {isRecaptchaLoading && (
+              <div 
+                className="d-flex align-items-center justify-content-center border rounded bg-light" 
+                style={{ width: "304px", height: "78px", margin: "0 auto" }}
+              >
+                <Spinner animation="border" size="sm" variant="secondary" className="me-2" />
+                <span className="text-muted small">Loading Security...</span>
+              </div>
+            )}
+
+            {/* 2. The Actual reCAPTCHA (Hidden until loaded) */}
+            <div style={{ display: isRecaptchaLoading ? "none" : "block" }}>
+              <ReCAPTCHA
+                sitekey={process.env.REACT_APP_GOOGLE_SITE_KEY}
+                asyncScriptOnLoad={handleOnLoad} // <--- The magic prop
+                onChange={(token) => setCaptchaToken(token)}
+              />
+            </div>
+          </div>
 
        <Button 
           variant="primary" 
@@ -93,7 +128,9 @@ export default function WebContactForm () {
         </Button>
       </Form>
       <div className="mt-3">
-      <Onboarding />
+     <Button variant="outline-secondary"  className="w-100"  onClick={() => navigate('/onboarding')}>
+                  Onboarding Checklist, Payment & Contract
+      </Button>
       </div>
     </div>
 

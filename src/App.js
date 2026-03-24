@@ -92,6 +92,7 @@ const WebContactForm = React.lazy(() => import('./components/WebContactForm'));
 const Onboarding= React.lazy(() => import('./components/Onboarding'));
 const ProductInventory= React.lazy(() => import('./components/ProductInventory'));
 const NewUserDiscount= React.lazy(() => import('./components/NewUserDiscount'));
+const WebDevSuccess= React.lazy(() => import('./components/WebDevSuccess'));
 
 
  function App() {
@@ -262,6 +263,7 @@ const handleLogout = () => {
                   <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                        
@@ -326,6 +328,7 @@ const handleLogout = () => {
                   <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                 
@@ -409,6 +412,7 @@ const handleLogout = () => {
                   <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
                         
@@ -476,7 +480,8 @@ const handleLogout = () => {
                   <Route path="/webcontactform" element={<WebContactForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
-
+                  <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  
                  <Route component={NotFoundPage} />
                         
           </Routes>
