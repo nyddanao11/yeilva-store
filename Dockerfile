@@ -3,34 +3,35 @@ FROM node:22 as build
 
 WORKDIR /app
 
-# Define a build argument for the backend API URL
-ARG REACT_APP_API_URL_ARG
+# 1. Define all Build Arguments
+ARG REACT_APP_SERVER_URL
+ARG REACT_APP_GOOGLE_SITE_KEY
 
-# Copy package.json and package-lock.json first
+# 2. Copy and Install Dependencies
 COPY package*.json ./
-
-# Install application dependencies
 RUN npm install
 
-# Copy the rest of the application source code
+# 3. Copy source code
 COPY . .
 
-# Build the React application for production
-# Use --build-arg to pass the value during the build process
-# RUN npm run build --build-arg REACT_APP_SERVER_URL="${REACT_APP_SERVER_URL_ARG}"
-# OR, if your backend URL is always the same, you can hardcode it here:
-RUN REACT_APP_SERVER_URL=https://yeilva-store-server.up.railway.app npm run build
-# However, using ARG is more flexible for CI/CD
+# 4. Build the app using the ARGs as Environment Variables
+# We map the ARG to a shell variable right before running the build
+RUN REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL \
+    REACT_APP_GOOGLE_SITE_KEY=$REACT_APP_GOOGLE_SITE_KEY \
+    npm run build
 
-# --- Stage 2: Serve the Built Application with a Lightweight Web Server ---
+# --- Stage 2: Serve the Built Application ---
 FROM node:20-alpine
 
 WORKDIR /app
 
+# Copy the build output from Stage 1
 COPY --from=build /app/build ./build
 
+# Install a lightweight server to host static files
 RUN npm install -g serve
 
 EXPOSE 3000
 
+# Start serve, using Railway's dynamic PORT variable
 CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
