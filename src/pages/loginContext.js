@@ -59,10 +59,10 @@ export const AuthProvider = ({ children }) => {
 
 
     // Login function updated to store token in state
-    const login = async (email, password) => {
+    const login = async (email, password, captchaToken) => {
         try {
             // Step 1: Login call
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, { email, password }, { withCredentials: true });
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`, { email, password, captchaToken}, { withCredentials: true });
             
             const { token } = response.data; // This is the Access Token
             // NOTE: The Refresh Token MUST be set by the server as an HTTP-only cookie here.

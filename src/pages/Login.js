@@ -5,17 +5,29 @@ import { useAuth } from './loginContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './Login.css';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+
   });
 
   const [loading, setLoading] = useState(false);
   const [serverMessage, setServerMessage] = useState({ type: '', text: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+    const [captchaToken, setCaptchaToken] = useState(null);
+    const [isRecaptchaLoading, setIsRecaptchaLoading] = useState(true);
+// This function runs once the Google Script is fully ready
+  const handleOnLoad = () => {
+    setIsRecaptchaLoading(false);
+  };
+  const GOOGLE_SITE_KEY = process.env.REACT_APP_GOOGLE_SITE_KEY;
+  const handleCaptchaChange = (token) => {
+    setCaptchaToken(token); // Store the token when user clicks the checkbox
+  };
 
   const { login } = useAuth(); // Get the login function from context
   const navigate = useNavigate();
@@ -61,6 +73,14 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // 2. Added Validation for Captcha
+    if (!validateForm()) return;
+    
+    if (!captchaToken) {
+      setServerMessage({ type: 'danger', text: 'Please complete the reCAPTCHA.' });
+      return;
+    }
+
     if (!validateForm()) {
       setServerMessage({ type: 'danger', text: 'Please correct the errors in the form.' });
       return;
@@ -71,7 +91,7 @@ export default function Login() {
 
     try {
       // Call the login function from the context
-      const result = await login(formData.email, formData.password);
+      const result = await login(formData.email, formData.password, captchaToken);
       
       if (result.success) {
         setServerMessage({ type: 'success', text: 'Login successful. Redirecting...' });
@@ -162,7 +182,37 @@ export default function Login() {
                     </InputGroup>
                   </Form.Group>
 
-                  <Button variant="primary" type="submit" className="w-100 mt-4" disabled={loading}>
+                   <div className="mb-3">
+                  {/* 1. The Placeholder (Shown only while loading) */}
+                  {isRecaptchaLoading && (
+                    <div 
+                      className="d-flex align-items-center justify-content-center border rounded bg-light" 
+                      style={{ width: "304px", height: "78px", margin: "0 auto" }}
+                    >
+                      <Spinner animation="border" size="sm" variant="secondary" className="me-2" />
+                      <span className="text-muted small">Loading Security...</span>
+                    </div>
+                  )}
+
+                  {/* 2. The Actual reCAPTCHA (Hidden until loaded) */}
+                 <div className="mb-3 d-flex justify-content-center">
+                    {GOOGLE_SITE_KEY ? (
+                      <ReCAPTCHA
+                        sitekey={GOOGLE_SITE_KEY}
+                        asyncScriptOnLoad={handleOnLoad}
+                        onChange={handleCaptchaChange}
+                      />
+                    ) : (
+                      <div className="p-3 border rounded border-danger text-danger bg-light small">
+                        <strong>Developer Note:</strong> The reCAPTCHA Site Key is missing from the environment variables. 
+                        Please check your Railway settings and redeploy.
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+
+                  <Button variant="primary" type="submit" className="w-100 mt-4" disabled={loading || isRecaptchaLoading || !captchaToken}>
                     {loading ? (
                       <>
                         <Spinner
@@ -181,6 +231,7 @@ export default function Login() {
                   </Button>
                 </Form>
 
+                
                 <div className="mt-3 text-center">
                   <p>
                     <Link to="/forgotpassword" style={{ textDecoration: 'none' }}>Forgot password?</Link>
