@@ -16,6 +16,8 @@ export default function WebContactForm () {
     setIsRecaptchaLoading(false);
   };
 
+  const GOOGLE_SITE_KEY = process.env.REACT_APP_GOOGLE_SITE_KEY;
+
  const isFormIncomplete = !formData.name || !formData.email || !formData.message || !captchaToken;
 
   const handleCaptchaChange = (token) => {
@@ -108,12 +110,19 @@ export default function WebContactForm () {
             )}
 
             {/* 2. The Actual reCAPTCHA (Hidden until loaded) */}
-            <div style={{ display: isRecaptchaLoading ? "none" : "block" }}>
-              <ReCAPTCHA
-                sitekey={process.env.REACT_APP_GOOGLE_SITE_KEY}
-                asyncScriptOnLoad={handleOnLoad} // <--- The magic prop
-                onChange={(token) => setCaptchaToken(token)}
-              />
+           <div className="mb-3 d-flex justify-content-center">
+              {GOOGLE_SITE_KEY ? (
+                <ReCAPTCHA
+                  sitekey={GOOGLE_SITE_KEY}
+                  asyncScriptOnLoad={handleOnLoad}
+                  onChange={handleCaptchaChange}
+                />
+              ) : (
+                <div className="p-3 border rounded border-danger text-danger bg-light small">
+                  <strong>Developer Note:</strong> The reCAPTCHA Site Key is missing from the environment variables. 
+                  Please check your Railway settings and redeploy.
+                </div>
+              )}
             </div>
           </div>
 
