@@ -27,7 +27,8 @@ import {
   FaSignInAlt,
   FaSignOutAlt,
   FaShoppingBag,
-  FaUserPlus
+  FaUserPlus,
+  FaLock 
 } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
@@ -60,6 +61,7 @@ const handleCloseDropdown = () => setShowDropdown(false);
   const handleShowModal = useCallback((message) => {
     setModalMessage(message);
     setShowModal(true);
+     handleCloseOffcanvas();
   }, []);
 
   const handleLoginRedirect = useCallback(() => {
@@ -229,157 +231,102 @@ const handleCategorySelect = (categoryName) => {
                   <FaHome size={24} className="text-secondary" />
                 </Navbar.Brand>
               )}
-
-          <Navbar.Collapse id="navbar-nav">
-            <Nav className="me-auto"> {/* Use me-auto to push items to the left */}
-              {/* Product category dropdown */}
-              <NavDropdown title="Categories" id="basic-nav-dropdown">
-                {categories.map((cat, index) => (
-                  <Dropdown.Item
-                    key={index}
-                    disabled={cat.isComingSoon}
-                    as={!cat.isComingSoon ? Link : 'button'}
-                    to={!cat.isComingSoon ? cat.link : undefined}
-                    onClick={
-                      !cat.isComingSoon
-                        ? () => handleItemClickCategory(cat.name)
-                        : undefined
-                    }
-                    title={cat.isComingSoon ? `${cat.name} - Coming Soon!` : undefined}
-                  >
-                    {cat.icon} {cat.name}
-                    {cat.isComingSoon && (
-                      <Badge bg="info" className="ms-2">
-                        Coming Soon
-                      </Badge>
-                    )}
-                  </Dropdown.Item>
-                ))}
-              </NavDropdown>
-
-              {/* Services Dropdown */}
-              <NavDropdown title="Services" id="services-nav-dropdown">
-                {isLoggedIn ? (
-                  <>
-                    <NavDropdown title="Other Services" id="services-basic-dropdown">
-                      {otherServices.map((service, index) => (
-                        <Dropdown.Item key={index}>{service}</Dropdown.Item>
-                      ))}
-                    </NavDropdown>
-                    {travelServices.map((service, index) => (
-                      <Dropdown.Item as={Link} to={service.link} key={index} onClick={handleCloseOffcanvas}>
-                        {service.name}
-                      </Dropdown.Item>
-                    ))}
-                  </>
-                ) : (
-                  <Dropdown.Item
-                    onClick={() => handleShowModal('Please log in to view services.')}
-                  >
-                    All Services
-                  </Dropdown.Item>
-                )}
-              </NavDropdown>
-
-              {/* Deals and Freebies (Desktop View Only) */}
-              {!isSmallScreen && (
-                <>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/alldealsproduct"
-                    className="p-2 rounded text-dark bg-warning" // Applied Bootstrap classes
-                    activeClassName="active-link"
-                    aria-label="Deals page"
-                  >
-                    <FaPercent className="me-1" /> Deals
-                  </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/freebies"
-                    className="ms-2 p-2 rounded text-dark" // Added margin-start
-                    activeClassName="active-link"
-                    aria-label="Freebies page"
-                  >
-                    <FaGift className="me-1" /> Get your freebies
-                  </Nav.Link>
-                </>
-              )}
-            </Nav>
-
-            {/* Right-aligned items */}
-            <Nav className="ms-auto"> {/* Use ms-auto to push items to the right */}
-              {isLoggedIn ? (
-                <Dropdown as={Nav.Item}>
-                  <Dropdown.Toggle
-                    as={Nav.Link}
-                    id="dropdown-basic"
-                    className="account-dropdown-toggle"
-                  >
-                    <FiUser className="me-2" />
-                    {`Hello, ${userData.firstname || 'User'}`}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/myaccount">
-                      <FiUser className="me-2" />My Account
-                    </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/orders">
-                      <FaShoppingBag className="me-2" />My Orders
-                    </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item onClick={handleLogout}> <FaSignOutAlt className="me-2" />Logout</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                <Nav.Link
-                  as={Link}
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleShowModal('Please log in to access your account.');
-                  }}
-                  className="account-nav-link"
+        
+        <Navbar.Collapse id="navbar-nav">
+          <Nav className="me-auto align-items-center">
+            {/* Categories */}
+            <NavDropdown title="Categories" id="categories-dropdown">
+              {categories.map((cat, index) => (
+                <Dropdown.Item
+                  key={index}
+                  as={cat.isComingSoon ? "div" : Link}
+                  to={!cat.isComingSoon ? cat.link : undefined}
+                  className={cat.isComingSoon ? "text-muted" : ""}
+                  onClick={!cat.isComingSoon ? () => handleItemClickCategory(cat.name) : undefined}
+                  style={{ cursor: cat.isComingSoon ? "default" : "pointer" }}
                 >
-                  My Account
-                </Nav.Link>
-              )}
+                  {cat.icon} <span className="ms-2">{cat.name}</span>
+                  {cat.isComingSoon && (
+                    <Badge bg="light" text="dark" className="ms-2 border">Soon</Badge>
+                  )}
+                </Dropdown.Item>
+              ))}
+            </NavDropdown>
 
-              {isLoggedIn ? (
-                <Nav.Link
-                  as={NavLink}
-                  to="/"
-                  onClick={handleLogout}
-                  className="ms-3 p-2 rounded text-danger" // Red for logout
-                  activeClassName="active"
-                  aria-label="Logout"
-                >
-                  <FaSignOutAlt className="me-1" /> Logout
-                </Nav.Link>
+            {/* Services */}
+            <NavDropdown title="Services" id="services-dropdown">
+              {!isLoggedIn ? (
+                <Dropdown.Item onClick={() => handleShowModal('Please log in to view services.')}>
+                  All Services (Login Required)
+                </Dropdown.Item>
               ) : (
                 <>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/login"
-                    className="ms-3 p-2 rounded text-dark"
-                    activeClassName="active"
-                    aria-label="Login page"
-                  >
-                    <FaSignInAlt className="me-1" /> Login
-                  </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/signupform"
-                    className="ms-2 p-2 rounded text-dark"
-                    activeClassName="active"
-                    aria-label="Sign up page"
-                  >
-                    <FaUserPlus className="me-1" /> Sign up
-                  </Nav.Link>
+                  <Dropdown.Header>Travel Services</Dropdown.Header>
+                  {travelServices.map((service, index) => (
+                    <Dropdown.Item as={Link} to={service.link} key={index}>
+                      {service.name}
+                    </Dropdown.Item>
+                  ))}
+                  <Dropdown.Divider />
+                  <Dropdown.Header>Other Services</Dropdown.Header>
+                  {otherServices.map((service, index) => (
+                    <Dropdown.Item key={index} as="button" className="btn btn-link text-start text-decoration-none">
+                      {service}
+                    </Dropdown.Item>
+                  ))}
                 </>
               )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+            </NavDropdown>
+
+            {/* Highlights */}
+            {!isSmallScreen && (
+              <>
+                <Nav.Link as={NavLink} to="/alldealsproduct" className="nav-highlight ms-lg-2">
+                  <FaPercent className="me-1" /> Deals
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/freebies" className="ms-lg-2">
+                  <FaGift className="me-1" /> Freebies
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+
+          {/* Right Side: Auth & Profile */}
+          <Nav className="ms-auto align-items-center">
+            {isLoggedIn ? (
+              <NavDropdown 
+                title={<span><FiUser className="me-1" /> {userData.firstname || 'Account'}</span>} 
+                id="user-profile-dropdown"
+                align="end"
+              >
+                <Dropdown.Item as={Link} to="/myaccount">
+                  <FiUser className="me-2" /> My Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/orders">
+                  <FaShoppingBag className="me-2" /> My Orders
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={handleLogout} className="text-danger">
+                  <FaSignOutAlt className="me-2" /> Logout
+                </Dropdown.Item>
+              </NavDropdown>
+            ) : (
+              <div className="d-flex align-items-center">
+                <Nav.Link as={Link} to="/login" className="px-3">Login</Nav.Link>
+                <Button 
+                  as={Link} 
+                  to="/signupform" 
+                  variant="primary" 
+                  className="ms-2 rounded-pill px-4 shadow-sm"
+                >
+                  Sign Up
+                </Button>
+              </div>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 
       {/* Offcanvas Menu */}
 <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="start" className="modern-offcanvas">
@@ -447,6 +394,63 @@ const handleCategorySelect = (categoryName) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+
+    {/* Services Accordion for Offcanvas */}
+    <Accordion flush className="border-0 bg-transparent">
+      <Accordion.Item eventKey="0" className="border-0 bg-transparent">
+        <Accordion.Header className="custom-accordion-trigger">
+          <div className="d-flex align-items-center">
+            {/* Added Service Icon Here */}
+            <FaConciergeBell className="me-2 text-primary" /> 
+            <span className="text-dark fw-medium">Services</span>
+          </div>
+        </Accordion.Header>
+        
+        <Accordion.Body className="ps-4 pe-0 py-2">
+          {!isLoggedIn ? (
+            <Nav.Link 
+              className="text-muted small border-start ps-3"
+              onClick={() => {
+                handleShowModal('Please log in to view services.');
+                // NOTICE: We do NOT call handleCloseOffcanvas here.
+                // This keeps the sidebar visible behind the modal.
+              }}
+            
+            >
+              <FaLock className="me-2" /> All Services (Login Required)
+            </Nav.Link>
+          ) : (
+            <div className="d-flex flex-column gap-2 border-start ps-3">
+              <div className="fw-bold small text-uppercase text-secondary mt-2" style={{ fontSize: '0.7rem' }}>
+                Travel Services
+              </div>
+              {travelServices.map((service, index) => (
+                <Nav.Link 
+                  as={Link} 
+                  to={service.link} 
+                  key={index}
+                  onClick={handleCloseOffcanvas} // Close because we are navigating away
+                  className="py-1 text-dark"
+                >
+                  {service.name}
+                </Nav.Link>
+              ))}
+
+              <hr className="my-1 opacity-25" />
+
+              <div className="fw-bold small text-uppercase text-secondary" style={{ fontSize: '0.7rem' }}>
+                Other Services
+              </div>
+              {otherServices.map((service, index) => (
+                <div key={index} className="py-1 text-muted small">
+                  {service}
+                </div>
+              ))}
+            </div>
+          )}
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
 
       <Nav.Link as={NavLink} to="/alldealsproduct" onClick={handleCloseOffcanvas} className="py-2">
         <FaPercent className="me-2 text-danger" /> Hot Deals

@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Container, Row, Col, Button, Spinner, Card} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Container, Row, Col, Button, Spinner, Card, Alert } from 'react-bootstrap';
+import { FaEnvelope, FaComment, FaPaperPlane, FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-export default function NeedHelp ()  {
+export default function NeedHelp() {
   const [email, setEmail] = useState('');
   const [mainMessage, setMainMessage] = useState('');
   const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // State for tracking message type
+  const [messageType, setMessageType] = useState(''); 
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
+    setMessage(''); // Clear previous messages
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/messages`, {
@@ -23,83 +25,103 @@ export default function NeedHelp ()  {
       });
 
       if (response.data.status === 'success') {
-        setMessage('Message sent successfully');
-        setMessageType('success'); // Set message type to success
-
-        // Redirect to homepage after 3 seconds
-        setTimeout(() => {
-          navigate('/'); // Redirect to the homepage
-        }, 3000); // 3-second delay
+        setMessage('Message sent successfully! We will get back to you shortly.');
+        setMessageType('success');
+        setTimeout(() => navigate('/'), 3000);
       } else {
-        setMessage(response.data.error);
-        setMessageType('error'); // Set message type to error
+        setMessage(response.data.message || 'Failed to send message.');
+        setMessageType('danger');
       }
     } catch (error) {
-      setMessage('Error: Message not sent.');
-      setMessageType('error'); // Set message type to error
+      // Accessing the specific error message from your backend response
+      const errMsg = error.response?.data?.message || 'Error: Connection lost.';
+      setMessage(errMsg);
+      setMessageType('danger');
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
- return (
-    <>
-    <Container >
-      <Row className="mt-4 d-flex justify-content-center align-items-center ">
-        <Col sm={12} md={6} lg={6} style={{ maxWidth: '400px'}}>
-           <Card className="mx-auto mt-4">
-              <Card.Body className="p-4 shadow">
-          <h3 className="text-center">Need Help?</h3>
+  return (
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={5}>
+          {/* Back Button */}
+          <Link to="/" className="text-decoration-none text-muted small mb-3 d-inline-block">
+            <FaArrowLeft className="me-1" /> Back to Home
+          </Link>
 
-          {message && (
-            <p
-              className="mt-3"
-              style={{ color: messageType === 'success' ? 'green' : 'red' }} // Set color based on message type
-            >
-              {message}
-            </p>
-          )}
+          <Card className="border-0 shadow-lg rounded-4">
+            <Card.Body className="p-4 p-md-5">
+              <div className="text-center mb-4">
+                <div className="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px' }}>
+                  <FaPaperPlane size={24} />
+                </div>
+                <h3 className="fw-bold">Need Help?</h3>
+                <p className="text-muted">Send us a message and our team will reach out to you.</p>
+              </div>
 
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+              {/* Enhanced Feedback UI */}
+              {message && (
+                <Alert variant={messageType} className="rounded-3 border-0 shadow-sm">
+                  {message}
+                </Alert>
+              )}
 
-            <Form.Group controlId="mainMessage">
-              <Form.Label>Message</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter your message"
-                value={mainMessage}
-                onChange={(e) => setMainMessage(e.target.value)}
-                required
-              />
-            </Form.Group>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="email">
+                  <Form.Label className="fw-semibold small text-uppercase">
+                    <FaEnvelope className="me-2 text-primary" /> Email Address
+                  </Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="name@example.com"
+                    className="py-2 border-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-            <Button
-              variant="primary"
-              type="submit"
-              className="w-100 mt-3"
-              disabled={loading}
-            >
-              {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
-            </Button>
-          </Form>
-          </Card.Body>
+                <Form.Group className="mb-4" controlId="mainMessage">
+                  <Form.Label className="fw-semibold small text-uppercase">
+                    <FaComment className="me-2 text-primary" /> How can we help?
+                  </Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={5}
+                    placeholder="Describe your issue in detail..."
+                    className="py-2 border-2"
+                    value={mainMessage}
+                    onChange={(e) => setMainMessage(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="w-100 py-3 rounded-3 fw-bold shadow-sm d-flex align-items-center justify-content-center"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Spinner animation="border" size="sm" className="me-2" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
+                </Button>
+              </Form>
+            </Card.Body>
           </Card>
+          
+          <p className="text-center mt-4 text-muted small">
+            Typical response time: <strong>Under 24 hours</strong>
+          </p>
         </Col>
       </Row>
-     
     </Container>
-
-     </>
   );
-};
-
+}
