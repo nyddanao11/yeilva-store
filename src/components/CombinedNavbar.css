@@ -1,7 +1,7 @@
 .sticky-navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1050;
   background-color: var(--bs-navbar-bg, #343a40); /* Use Bootstrap var or ensure it's dark to match Navbar */
   transition: all 0.3s ease-in-out;
 }

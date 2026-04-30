@@ -1,5 +1,37 @@
-@media (max-width: 767px) {
-  .title {
-    padding-left: 10px; /* Gap for small screens */
-  }
+/* Clean, modern typography */
+.home-wrapper {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #2D3436;
+    background-color: #FAFAFA;
+}
+
+/* Give items room to breathe */
+.section-title {
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: -0.5px;
+}
+
+/* Category cards enhancement */
+.category-card-wrapper {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+/* The 'View All' link should look like a subtle button, not a blue hyperlink */
+.view-all-link {
+    text-decoration: none;
+    color: #55E6C1; /* A wellness green */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* Trust bar styling */
+.trust-bar span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #636e72;
 }

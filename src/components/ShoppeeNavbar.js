@@ -97,10 +97,8 @@ const handleCloseDropdown = () => setShowDropdown(false);
   
   // Define categories with more specific icons where possible
   const categories = [
-    { name: 'Grocery Items', icon: <FaUtensils />, link: '/productsdata' },
+    { name: 'Digital Product', icon: <FaUtensils />, link: '/productsdata' },
     { name: 'Wellness Product', icon: <FaGift />, link: '/productsdata' },
-    { name: 'Personal Collection', icon: <FaTshirt />, link: '/productsdata' },
-    { name: 'Avon Collection', icon: <FaConciergeBell />, link: '/productsdata' },
     { name: 'Beauty and Hygiene', icon: <FaGift />, link: '/productsdata' }, // Example: maybe change icon
     { name: 'Fashion and Apparel', icon: <FaTshirt />, link: '/productsdata', isComingSoon: true },
     { name: 'Outdoor/Sports Equipment', icon: <FaBasketballBall />, link: '/productsdata', isComingSoon: true },
@@ -119,8 +117,8 @@ const handleCloseDropdown = () => setShowDropdown(false);
   ];
 
   const travelServices = [
-    { name: 'Loan form', link: '/loanform' },
-    { name: 'Domestic/International ticketing', link: '/airlinebookingform' },
+    // { name: 'Loan form', link: '/loanform' },
+    { name: 'Domestic', link: '/airlinebookingform' },
     { name: 'Travel and tours', link: '#' },
    { name: (<Badge bg="primary" className="mb-2 d-flex align-items-center gap-1"> <i className="bi bi-code-slash"></i> Own a Site Like This </Badge> ), link: '/developerservices' },
 

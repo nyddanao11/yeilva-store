@@ -15,7 +15,6 @@ export default function WebContactForm () {
   const handleOnLoad = () => {
     setIsRecaptchaLoading(false);
   };
-
   const GOOGLE_SITE_KEY = process.env.REACT_APP_GOOGLE_SITE_KEY;
 
  const isFormIncomplete = !formData.name || !formData.email || !formData.message || !captchaToken;
@@ -136,11 +135,7 @@ export default function WebContactForm () {
           {loading ? <Spinner animation="border" size="sm" /> : 'Send Inquiry'}
         </Button>
       </Form>
-      <div className="mt-3">
-     <Button variant="outline-secondary"  className="w-100"  onClick={() => navigate('/onboarding')}>
-                  Onboarding Checklist, Payment & Contract
-      </Button>
-      </div>
+    
     </div>
 
   );

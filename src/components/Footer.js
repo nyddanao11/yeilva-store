@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { FaFacebook, FaYoutube, FaInstagram, FaShopify } from 'react-icons/fa';
+import { FaFacebook, FaYoutube, FaInstagram, FaShopify, FaCcPaypal, FaCcVisa, FaCcMastercard } from 'react-icons/fa';
 import './Footer.css'; // Import your custom CSS for the footer styling
 import HoverButton2 from'./HoverButton2';
 import HoverButton3 from'./HoverButton3';
 import HoverButton4 from'./HoverButton4';
+import HoverButton6 from'./HoverButton6';
 import BackToTopButton from'./BackToTopButton';
 
 export default function Footer ({isLoggedIn}) {
@@ -36,13 +37,16 @@ export default function Footer ({isLoggedIn}) {
            <HoverButton2 /> 
           </div>
           {!isLoggedIn &&(
-          <div >  
+          <div style={{marginBottom:"15px"}} >  
            <HoverButton3/> 
           </div>
           )}
-          <div style={{marginBottom:"15px", marginTop:"15px"}}>  
-        <HoverButton4 />
+           <div style={{marginBottom:"15px"}}>  
+        <HoverButton6 />
            </div> 
+          <div style={{marginBottom:"15px"}}>  
+        <HoverButton4 />
+           </div>      
           </Col>
 
           <Col md={4} className="d-flex flex-column align-items-center justify-content-center mt-2" >
@@ -50,11 +54,16 @@ export default function Footer ({isLoggedIn}) {
             <h5>We Accept</h5>
             {/* Use icons for payment methods for better visual representation */}
             <ul className="payment-methods">
-              <li>E-Wallet</li>
-              <li>Bank Transfer</li>
-              <li>Cash On Delivery</li>
-              <li>Installment</li>
+               <li>Paypal</li>
+               <li> debit/credit card</li>
+                          
             </ul>
+            {/* Payment Icons Container */}
+          <div className="payment-icons d-flex gap-3 fs-2 primary">
+            <FaCcPaypal title="PayPal" />
+            <FaCcVisa title="Visa" />
+            <FaCcMastercard title="Mastercard" />
+          </div>
           </Col>
         </Row>
       </Container>

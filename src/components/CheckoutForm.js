@@ -9,6 +9,7 @@ import { useCart } from '../pages/CartContext'; // Correct path to your context
 import { fetchUserData } from '../components/userService';
 import GcashPaymentModal from './GcashPaymentModal';
 import { useAuth} from '../pages/loginContext';
+import PayPalSection from './CheckoutFormPaypal';
 
 
 export default function CheckoutForm  ({ ewalletStatus, capturedImage, showCheckoutModal, setShowCheckoutModal}) {
@@ -26,6 +27,9 @@ export default function CheckoutForm  ({ ewalletStatus, capturedImage, showCheck
     voucherCode, 
     clearPurchasedItems,
     clearVoucherDiscount,
+    shippingRate,
+    totalItemsPrice,
+    grandTotalAmount,
   } = useCart();
    const location = useLocation();
   const passedEwalletStatus = location.state?.ewalletStatus || ewalletStatus || false; // use either location state or prop
@@ -42,6 +46,9 @@ export default function CheckoutForm  ({ ewalletStatus, capturedImage, showCheck
  
  // In your CheckoutForm component
 const [showGcashModal, setShowGcashModal] = useState(false);
+const [modalType, setModalType] = useState(false);
+const [downloadUrl, setDownloadUrl] = useState(null);
+
 
  const [userData, setUserData] = useState({
         firstname: '',
@@ -91,11 +98,16 @@ const handlePaymongoNavigation = () => {
     navigate('/paymongopayment'); //  will get data from context
   };
 
+  const handlePaypalNavigation = () => {
+    navigate('/paypalsection'); //  will get data from context
+  };
+
 
  const [paymentErrors, setPaymentErrors] = useState({
   ewallets: '',
   installment: '',
   cashOnDelivery: '',
+   paypal:'',
 });
 
  // Update handleEwalletsClick to reset error message for the selected payment method
@@ -105,6 +117,7 @@ const handleEwalletsClick = (e) => {
     ewallets: '',
     installment: '',
     cashOnDelivery: '',
+    paypal:'',
   }); // Clear error messages when switching payment methods
 };
 
@@ -197,6 +210,7 @@ const cleanProductName = (productName) => {
   // Clean the product names for server submission
   const cleanedProductNames = cartItems.map((item) => cleanProductName(item.name));
    const cleanedProductPrice = cartItems.map((item) => item.price);
+
  const cleanedProductUrl = cartItems.map((item) => cleanProductName(item.url));
  const cleanedProductWeight = cartItems.map((item) => item.weight);
 
@@ -334,6 +348,7 @@ const cleanProductName = (productName) => {
                 setLoading(false);
                 return;
             }
+           
 
             // Send E-wallet request
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/checkout`, cashOnDelivery);
@@ -409,7 +424,7 @@ useEffect(() => {
         if (userEmail) {
             fetchUserData(userEmail.replace(/"/g, ''))
                 .then((user) => {
-                    console.log('User data from API:', user);
+                    // console.log('User data from API:', user);
                     const addresses = user.delivery_addresses || [];
 
                     setUserData({
@@ -460,8 +475,14 @@ useEffect(() => {
     }, []);
 
     const handleAddressSelect = (e) => {
-        const addressId = parseInt(e.target.value, 10);
-        setSelectedAddressId(addressId);
+        const val = e.target.value;
+        if (!val) {
+            setSelectedAddressId(null);
+            setSelectedAddressDetails(null);
+            return;
+        }
+        const addressId = parseInt(val, 10);
+            setSelectedAddressId(addressId);
         const selected = userData.delivery_addresses.find(addr => addr.id === addressId);
         setSelectedAddressDetails(selected);
     };
@@ -476,315 +497,104 @@ useEffect(() => {
         );
     }
 
+console.log("Selected Payment:", selectedPayment);
 
   return (
-    <Row className='d-flex justify-content-center align-items-center'>
-      <Col xs={12} md={8}>
-      
-      <div className="text-center mb-4 mt-2">
-            {/* Correct way to conditionally render based on a boolean */}
-            {passedEwalletStatus && (
-                <h2 className="display-6 fw-bold">Checkout & Shipping Details</h2>
-            )}
-            <p className="text-muted mt-2">Please review your order and provide your shipping information.</p>
-        </div>
-      
-        <div className="p-4 mb-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
-          <Form onSubmit={handleSubmit}>
-            {/* User Information - Read Only */}
-            <h4 className="mb-3 text-primary">Your Information</h4>
-            <Row className="g-3 mb-4">
-              <Col md={6}>
-                <FloatingLabel controlId="formBasicFirstName" label="First Name">
-                  <Form.Control
-                    type="text"
-                    value={userData.firstname || ''}
-                    readOnly
-                    disabled
-                  />
-                </FloatingLabel>
-              </Col>
-              <Col md={6}>
-                <FloatingLabel controlId="formBasicLastName" label="Last Name">
-                  <Form.Control
-                    type="text"
-                    value={userData.lastname || ''}
-                    readOnly
-                    disabled
-                  />
-                </FloatingLabel>
-              </Col>
-              <Col xs={12}>
-                <FloatingLabel controlId="formBasicEmail" label="Email Address">
-                  <Form.Control
-                    type="email"
-                    value={userData.email || ''}
-                    readOnly
-                    disabled
-                  />
-                </FloatingLabel>
-              </Col>
-            </Row>
+    <Row className="justify-content-center py-4">
+  <Col xs={12} lg={12} xl={10}>
+    <div className="text-center mb-5">
+      <h2 className="display-5 fw-bold text-dark">Secure Checkout</h2>
+      <p className="text-muted">Review your order details below to complete your purchase.</p>
+    </div>
 
-             {/* Shipping Information */}
-      <h4 className="mb-3 text-primary">Shipping Information</h4>
+    <Row className="g-4">
+      {/* LEFT COLUMN: Order Details */}
+      <Col lg={6}>
+        {/* User Info Card */}
+        <section className="bg-white p-4 mb-4 rounded shadow-sm border">
+          <h5 className="mb-3 text-uppercase text-secondary small fw-bold">Shipping To</h5>
+          <div className="bg-light p-3 rounded">
+            <p className="mb-1 fw-bold">{userData.firstname} {userData.lastname}</p>
+            <p className="mb-0 text-muted">{userData.email}</p>
+          </div>
+        </section>
 
-      {userData.delivery_addresses.length === 0 ? (
-        // 🔹 Scenario 1: No delivery addresses at all
-        <div className="p-3 border rounded bg-light">
-          <p className="mb-2">
-            No delivery addresses found for your account.
-          </p>
-          {/* 🔹 Inline Add Address Button */}
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => navigate('/myaccount#addresses')}
-          >
-            Add New Address
-          </Button>
-        </div>
-      ) : (
-        <>
-          {/* 🔹 Scenario 2 & 3: Addresses exist */}
-          {selectedAddressDetails && (
-            // If an address is automatically or manually selected
-            <>
-              <p className="fw-bold mt-4 mb-2">Selected Delivery Address:</p>
-              <div className="border p-3 rounded mb-3 bg-light position-relative">
-                <p className="mb-1">
-                  <strong>{selectedAddressDetails.fullName}</strong>
-                </p>
-                <p className="mb-1">
-                  {selectedAddressDetails.streetAddress}
-                  {selectedAddressDetails.apartmentSuite &&
-                    `, ${selectedAddressDetails.apartmentSuite}`}
-                </p>
-                <p className="mb-1">
-                  {selectedAddressDetails.city}, {selectedAddressDetails.stateProvince}{' '}
-                  {selectedAddressDetails.postalCode}
-                </p>
-                <p className="mb-0">Phone: {selectedAddressDetails.phoneNumber}</p>
-
-                {/* 🔹 Default badge, Amazon-style */}
-                {selectedAddressDetails.is_default && (
-                  <span className="badge bg-info mt-2 position-absolute top-0 end-0 m-2">
-                    Default
-                  </span>
-                )}
-              </div>
-
-              {/* 🔹 Subtle confirmation text when user switches address */}
-              <p className="text-success small mb-3">
-                Delivering to <strong>{selectedAddressDetails.city}</strong>
-              </p>
-            </>
-          )}
-
-                {/* 🔹 Show dropdown only if multiple addresses or none auto-selected */}
-                {userData.delivery_addresses.length > 1 || !selectedAddressDetails ? (
-                  <Form.Group controlId="addressSelect" className="mb-3">
-                    <FloatingLabel controlId="floatingAddressSelect" label="Select Delivery Address">
-                      <Form.Select
-                        value={selectedAddressId || ''}
-                        onChange={handleAddressSelect}
-                      >
-                        <option value="">
-                          {selectedAddressDetails ? 'Change address...' : 'Choose an address...'}
-                        </option>
-                        {userData.delivery_addresses.map((address) => (
-                          <option key={address.id} value={address.id}>
-                            {/* 🔹 Friendlier, scannable dropdown label */}
-                            {`${address.fullName} (${address.city})${
-                              address.is_default ? ' — Default' : ''
-                            }`}
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Form.Group>
-                ) : (
-                  // Only one address (auto-selected)
-                  <p className="text-muted mb-2">This is your only available address.</p>
-                )}
-
-                {/* 🔹 Inline Add/Edit Addresses Button */}
-                <div className="d-flex justify-content-end mt-3">
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    onClick={() => navigate('/myaccount#addresses')}
-                  >
-                    Add or Edit Addresses
-                  </Button>
+        {/* Order Items */}
+        <section className="bg-white p-4 rounded shadow-sm border">
+          <h5 className="mb-3 text-uppercase text-secondary small fw-bold">Order Summary</h5>
+          <ul className="list-unstyled mb-0">
+            {itemsToDisplay.map((item) => (
+              <li key={item.id} className="d-flex align-items-center py-3 border-bottom">
+                <img src={item.url} alt={item.name} className="rounded" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
+                <div className="ms-3 flex-grow-1">
+                  <p className="fw-bold mb-0">{item.name}</p>
+                  <small className="text-muted">{item.selectedSize ? `Size: ${item.selectedSize} | ` : ''} Qty: {item.quantity}</small>
                 </div>
-              </>
-            )}
-
-            {/* Items in Cart */}
-            <h4 className="mb-3 text-primary">Your Order</h4>
-            <div className="p-3 mb-4" style={{ border: '1px #d3d4d5 solid', background: '#f9f9f9', borderRadius: '10px' }}>
-              {itemsToDisplay.length > 0 ? (
-                <ul className="list-unstyled mb-0">
-                  {itemsToDisplay.map((item) => (
-                    <li key={item.id} className="d-flex align-items-center mb-3 p-2 border rounded bg-white">
-                      <img src={item.url} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', marginRight: '15px', borderRadius: '5px' }} />
-                      <div className="flex-grow-1">
-                        <p className="fw-bold mb-1">{item.name}</p>
-                        <p className="mb-1">₱{item.final_price} x {item.quantity}</p>
-                        {item.selectedSize && <p className="text-muted mb-0">Size: {item.selectedSize}</p>}
-                        {item.selectedColor && <p className="text-muted mb-0">Color: {item.selectedColor}</p>}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-center text-muted">Your cart is empty.</p>
-              )}
-              <Button variant='outline-secondary' onClick={handleBackToCart} className="w-100 mt-3">
-                Back to Cart
-              </Button>
-            </div>
-
-            {/* Payment Options */}
-            <h4 className="mb-3 text-primary">Payment Options</h4>
-            <div className="p-4 mb-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
-              <Form.Group className="mb-3">
-
-                 <Form.Check
-                  type="radio"
-                  label="E-wallets/Banks Payment"
-                  name="paymentMethod"
-                  id="paymentMethodGcash"
-                  value="E-wallets banks"
-                  onChange={(e) => handleEwalletsClick(e, 'E-wallets banks')}
-                  checked={selectedPayment === 'E-wallets banks'}
-                  className="mb-2"
-                />
-                {selectedPayment === 'E-wallets banks' && (
-                  <div className="ms-4 mb-3">
-                    <Button
-                  variant={passedEwalletStatus ? "success" : "primary"}
-                  onClick={handleEwalletsNavigation} // <--- USE THE PROP HERE!
-                  disabled={passedEwalletStatus}
-                >
-                  {passedEwalletStatus ? 'Proceed to Place Order' : 'Pay with Gcash/Bpi QRcode'}
-                </Button>
-                    {paymentErrors.ewallets && (
-                      <div className="text-danger mt-2">{paymentErrors.ewallets}</div>
-                    )}
-                  </div>
-                )}
-
-                <Form.Check
-                  type="radio"
-                  label="Cash on Delivery"
-                  name="paymentMethod"
-                  id="paymentMethodCod"
-                  value="Cash on Delivery"
-                  onChange={(e) => handleEwalletsClick(e, 'Cash on Delivery')}
-                  checked={selectedPayment === 'Cash on Delivery'}
-                  disabled={isPaymentDisabled.cod}
-                  className="mb-2"
-                />
-
-                <Form.Check
-                  type="radio"
-                  label="Installment (purchases above ₱500)"
-                  name="paymentMethod"
-                  id="paymentMethodInstallment"
-                  value="Installment"
-                  onChange={(e) => handleEwalletsClick(e, 'Installment')}
-                  checked={selectedPayment === 'Installment'}
-                  disabled={isPaymentDisabled.installment}
-                />
-                {selectedPayment === 'Installment' && (
-                  <div className="ms-4 mt-3">
-                    <Form.Group controlId="formImageUpload" className="mb-3">
-                      <FloatingLabel controlId="floatingImage" label="Upload Valid ID (e.g., Driver's License, Passport)">
-                        <Form.Control type="file" accept="image/*" onChange={handleImageChange} required />
-                      </FloatingLabel>
-                    </Form.Group>
-
-                    <div className="text-center mb-3">
-                      <p className="mb-2"><FaCamera className="me-2" />Capture a Selfie</p>
-                      <CameraCapture onCapture={(capturedImage) => setSelfieImage(capturedImage)} />
-                    </div>
-
-                    {selfieImage && (
-                      <div className="text-center mb-3 p-3 border rounded bg-light">
-                        <p className="mb-2 fw-bold">Selfie Preview:</p>
-                        <img
-                          src={selfieImage}
-                          alt="Captured Selfie"
-                          style={{ width: '100%', maxWidth: '250px', borderRadius: '8px', border: '1px solid #ddd' }}
-                          className="img-fluid"
-                        />
-                      </div>
-                    )}
-
-                    <p className="mb-2 fw-bold">Select Installment Plan:</p>
-                    <div className="d-flex justify-content-center flex-wrap gap-2 mb-3">
-                      <Button
-                        variant={installmentChoice?.plan === 2 ? "success" : "outline-secondary"}
-                        onClick={() => setInstallmentChoice({ plan: 2, amount: calculateInstallment(formattedGrandTotal, 2) })}
-                      >
-                        2 Months x ₱{calculateInstallment(formattedGrandTotal, 2)} {installmentChoice?.plan === 2 && " ✓ "}
-                      </Button>
-                      <Button
-                        variant={installmentChoice?.plan === 3 ? "success" : "outline-secondary"}
-                        onClick={() => setInstallmentChoice({ plan: 3, amount: calculateInstallment(formattedGrandTotal, 3) })}
-                      >
-                        3 Months x ₱{calculateInstallment(formattedGrandTotal, 3)} {installmentChoice?.plan === 3 && " ✓ "}
-                      </Button>
-                    </div>
-
-                    {paymentErrors.installment && (
-                      <div className="text-danger mt-2">{paymentErrors.installment}</div>
-                    )}
-
-                    <div className="text-center mt-3">
-                      <Link to="/installmentterms" className="text-primary text-decoration-underline">
-                        Read Installment Terms & Conditions
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </Form.Group>
-            </div>
-
-            {/* General error display */}
-            {paymentErrors.general && <p className="text-danger text-center mb-2">{paymentErrors.general}</p>}
-
-
-          <GcashPaymentModal showGcash={showGcashModal} setShowGcash={setShowGcashModal} />
-
-            {/* Total Price and Place Order Button */}
-            <div className="p-4" style={{ border: '1px #d3d4d5 solid', background: 'white', borderRadius: '10px' }}>
-              <h3 className="mb-3 text-end">Total Price: <span className="text-success">{formattedGrandTotal}</span></h3>
-              <Button type="submit" className="w-100 py-2" disabled={isButtonDisabled} style={{ backgroundColor: '#E92409', border: 'none' }}>
-                {loading ? <Spinner animation="border" size="sm" className="me-2" /> : 'Place Order'}
-              </Button>
-            </div>
-
-            {/* The modal is rendered here */}
-            {showCheckoutModal && (
-                <SuccessModal
-                    show={showCheckoutModal}
-                    onClose={() => {
-                        setShowCheckoutModal(false); // Hide the modal
-                        navigate('/'); // <--- NOW NAVIGATE
-                        
-                    }}
-                 />
-            )}
-     
-          </Form>
-             
-        </div>
+                <div className="text-end fw-bold">₱{(item.final_price * item.quantity).toFixed(2)}</div>
+              </li>
+            ))}
+          </ul>
+          <Button variant="link" className="w-100 text-decoration-none mt-2 text-muted" onClick={handleBackToCart}>
+            ← Edit Cart
+          </Button>
+        </section>
       </Col>
 
+      {/* RIGHT COLUMN: Totals & Payment */}
+      <Col lg={6}>
+        <div className="sticky-top" style={{ top: '20px' }}>
+          <section className="bg-white p-4 rounded shadow-sm border mb-4">
+            <h5 className="mb-4 text-uppercase text-secondary small fw-bold">Total</h5>
+            
+            <div className="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <span>₱{totalItemsPrice.toFixed(2)}</span>
+            </div>
+            <div className="d-flex justify-content-between mb-3 pb-3 border-bottom">
+              <span>Shipping</span>
+              <span>{shippingRate === 0 ? "FREE" : `₱${shippingRate.toFixed(2)}`}</span>
+            </div>
+            <div className="d-flex justify-content-between mb-4">
+              <span className="fw-bold fs-4">Total</span>
+              <span className="fw-bold fs-4 text-success">{formattedGrandTotal}</span>
+            </div>
+
+            <hr />
+
+          <PayPalSection
+                setShowCheckoutModal={setShowCheckoutModal} // Pass function, not state
+                setModalType={setModalType}
+                setDownloadUrl={setDownloadUrl} // Pass this so PayPalSection can update it
+                clearPurchasedItems={clearPurchasedItems}
+                showCheckoutModal={showCheckoutModal}
+              />
+            
+            {paymentErrors.general && (
+              <p className="text-danger small mt-2">{paymentErrors.general}</p>
+            )}
+          </section>
+          
+          <p className="text-center small text-muted">
+            🔒 Secure transaction. Your data is protected by encryption.
+          </p>
+        {/* ✅ FIXED MODAL LOGIC */}
+            {showCheckoutModal && (
+              <SuccessModal 
+                show={showCheckoutModal} // Matches the state variable
+                downloadUrl={downloadUrl} // Receives the URL set by PayPalSection
+                onClose={() => {
+                  clearPurchasedItems(); 
+                  setShowCheckoutModal(false);
+                  navigate('/'); 
+                }} 
+              />
+            )}
+            
+        </div>
+      </Col>
     </Row>
+  </Col>
+</Row>
   );
 };
 

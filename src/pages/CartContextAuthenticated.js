@@ -241,13 +241,14 @@ const addToCart = useCallback((product) => {
         setError('Not connected to server. Please try again.');
         return;
     }
+    const finalPriceValue = Number(product.final_price ?? product.price) || 0;
     socket.emit('cart:add', { 
-        product_id: product.id, 
-        quantity: 1, 
-        final_price: product.final_price || product.price, // Better to send the correct price
-        // 🚨 IMPORTANT FIX: Corrected typo from 'isSelcted' to 'isSelected'
-        isSelected: true 
-    });
+    product_id: product.id, 
+    quantity: 1, 
+    // Use the correctly converted number value here
+    final_price: finalPriceValue, 
+    isSelected: true 
+});
     setNotificationProduct(product);
 }, [socket, setError, setNotificationProduct]);
 
@@ -325,11 +326,12 @@ const clearPurchasedItems = useCallback((purchasedItemIds) => {
 
   // Step 1: Create a simple, specific dependency outside of useMemo
 const hasMaslogItem = cartItems.some(item => item.place === 'Maslog'); 
+// const hasDigitalProduct = cartItems.some(item => item.category === 'digital product'); 
 
 // Step 2: Use the simpler dependency in useMemo
 const isFreeShipping = useMemo(() => {
   // Use the derived boolean
-  return totalItemsPrice > 2500 || hasMaslogItem;
+  return totalItemsPrice > 2500 || hasMaslogItem 
 }, [totalItemsPrice, hasMaslogItem]);
 
     const cartCount = useMemo(() => cartItems.length, [cartItems]);
@@ -358,6 +360,46 @@ const isFreeShipping = useMemo(() => {
     }
  }
 }, [checkoutItemsForPayment, totalItemsPrice, shippingRate]); // Add shippingRate to dependencies
+
+
+//     // Step 1: Identify your cart composition
+// const hasMaslogItem = cartItems.some(item => item.place === 'Maslog');
+// const physicalItems = cartItems.filter(item => item.category !== 'digital product');
+// const hasPhysicalItems = physicalItems.length > 0;
+
+// // Step 2: Determine if shipping is free based ONLY on physical rules or local pickup
+// const isFreeShipping = useMemo(() => {
+//   // If there are NO physical items, it's a digital-only order (Free Shipping)
+//   if (!hasPhysicalItems) return true;
+
+//   // If there are physical items, check the 2500 threshold or Maslog location
+//   return totalItemsPrice > 2500 || hasMaslogItem;
+// }, [totalItemsPrice, hasMaslogItem, hasPhysicalItems]);
+//    const cartCount = useMemo(() => cartItems.length, [cartItems]);
+
+
+// // Step 3: Update Shipping Rate in useEffect
+// useEffect(() => {
+//   if (isFreeShipping) {
+//     if (shippingRate !== 0) setShippingRate(0);
+//   } else {
+//     // 🛑 IMPORTANT: Calculate weight ONLY for the physical items
+//     const physicalWeight = physicalItems.reduce((total, item) => total + (item.weight || 0), 0);
+
+//     if (physicalWeight > 0) {
+//       const newMultiplier = 0.145 + 30 / physicalWeight;
+//       const calculatedRate = physicalWeight * newMultiplier;
+//       const newRate = Math.round(calculatedRate * 100) / 100;
+
+//       if (newRate !== shippingRate) {
+//         setShippingRate(newRate);
+//       }
+//     } else {
+//       // Fallback if physical items somehow have 0 weight
+//       if (shippingRate !== 0) setShippingRate(0);
+//     }
+//   }
+// }, [physicalItems, totalItemsPrice, shippingRate, isFreeShipping]);
     
 const applyVoucherDiscount = useCallback((percentage, code) => { // <-- Add 'code' parameter
     setVoucherDiscount(totalItemsPrice * (percentage / 100));
