@@ -16,19 +16,22 @@ const total = (Number(subtotal) + Number(shippingRate)).toFixed(2) - voucherDisc
 console.log("💰 PayPal total:", total);
    const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
    // Add this state to your main Checkout component
+console.log("Paypal Client ID being used:", clientId); 
 
+if (!clientId) {
+  return <div>Error: PayPal Client ID is missing. Check your .env file.</div>;
+}
   console.log("cartItems:", checkoutItemsForPayment); // 👈 debug this
 
   return (
-    <PayPalScriptProvider
+     <PayPalScriptProvider
+    key={`${clientId}`} 
       options={{
-        "client-id": clientId, // ✅ REQUIRED
+        "client-id": clientId,
         currency: "PHP",
         intent: "capture",
-      
       }}
     >
-
 
 
    <PayPalButtons
