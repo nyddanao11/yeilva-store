@@ -20,23 +20,27 @@ const SuccessModal = ({ show, onClose, downloadUrl}) => {
             <Modal.Body className="text-center">
                 <p>Your order has been placed successfully.</p>
 
-                {/* 🚀 NEW DOWNLOAD SECTION */}
-                {downloadUrl && (
-                    <div className="my-4 p-3" style={{ backgroundColor: '#f8f9fa', borderRadius: '8px', border: '1px dashed #28a745' }}>
-                        <h5 className="mb-3">Your Digital Product is Ready!</h5>
-                        <Button 
-                            variant="success" 
-                            href={downloadUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="w-100 py-2 shadow-sm"
+                {downloadUrl && downloadUrl.length > 0 ? (
+                  downloadUrl.map((link, index) => (
+                    <div key={index} className="d-flex justify-content-between align-items-center mb-3 p-2 border rounded">
+                      <span>{link.name}</span>
+                      {/* 🟢 Check if link.url exists and is a string before rendering */}
+                      {typeof link.url === 'string' ? (
+                        <a 
+                          href={link.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn btn-primary btn-sm"
                         >
-                            📥 Download Your Ebook Now
-                        </Button>
-                        <small className="text-muted d-block mt-2">
-                            Link expires in 15 mins. We also sent a copy to your email.
-                        </small>
+                          📥 Download Your Ebook Now
+                        </a>
+                      ) : (
+                        <span className="text-danger small">Link Generation Failed</span>
+                      )}
                     </div>
+                  ))
+                ) : (
+                  <p>Processing your items...</p>
                 )}
              
                 <p>Thank you for your purchase!</p>

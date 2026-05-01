@@ -583,9 +583,10 @@ console.log("Selected Payment:", selectedPayment);
                 show={showCheckoutModal} // Matches the state variable
                 downloadUrl={downloadUrl} // Receives the URL set by PayPalSection
                 onClose={() => {
-                  clearPurchasedItems(); 
+
                   setShowCheckoutModal(false);
                   navigate('/'); 
+                  window.location.reload(); // This forces the app to pull the fresh, empty cart from the DB
                 }} 
               />
             )}
