@@ -1,11 +1,7 @@
-# --- Stage 1: Build the React Application ---
-FROM node:22 as build
-
-WORKDIR /app
-
-# 1. Define all Build Arguments
+# 1. Define all Build Arguments (ADD PAYPAL HERE)
 ARG REACT_APP_SERVER_URL
 ARG REACT_APP_GOOGLE_SITE_KEY
+ARG REACT_APP_PAYPAL_CLIENT_ID  # <--- 🟢 ADD THIS LINE
 
 # 2. Copy and Install Dependencies
 COPY package*.json ./
@@ -14,10 +10,10 @@ RUN npm install
 # 3. Copy source code
 COPY . .
 
-# 4. Build the app using the ARGs as Environment Variables
-# We map the ARG to a shell variable right before running the build
+# 4. Build the app using the ARGs
 RUN REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL \
     REACT_APP_GOOGLE_SITE_KEY=$REACT_APP_GOOGLE_SITE_KEY \
+    REACT_APP_PAYPAL_CLIENT_ID=$REACT_APP_PAYPAL_CLIENT_ID \
     npm run build
 
 # --- Stage 2: Serve the Built Application ---
