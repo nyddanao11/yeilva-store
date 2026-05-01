@@ -1,7 +1,12 @@
-# 1. Define all Build Arguments (ADD PAYPAL HERE)
+# --- Stage 1: Build the React Application ---
+FROM node:22 as build
+
+WORKDIR /app
+
+# 1. Define all Build Arguments
 ARG REACT_APP_SERVER_URL
 ARG REACT_APP_GOOGLE_SITE_KEY
-ARG REACT_APP_PAYPAL_CLIENT_ID  # <--- 🟢 ADD THIS LINE
+ARG REACT_APP_PAYPAL_CLIENT_ID
 
 # 2. Copy and Install Dependencies
 COPY package*.json ./
@@ -10,7 +15,7 @@ RUN npm install
 # 3. Copy source code
 COPY . .
 
-# 4. Build the app using the ARGs
+# 4. Build the app (Mapping ARGs to the Build Environment)
 RUN REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL \
     REACT_APP_GOOGLE_SITE_KEY=$REACT_APP_GOOGLE_SITE_KEY \
     REACT_APP_PAYPAL_CLIENT_ID=$REACT_APP_PAYPAL_CLIENT_ID \
@@ -29,5 +34,5 @@ RUN npm install -g serve
 
 EXPOSE 3000
 
-# Start serve, using Railway's dynamic PORT variable
+# Start serve using Railway's dynamic PORT
 CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
