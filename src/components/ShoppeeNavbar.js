@@ -15,12 +15,12 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'; // Import useNavi
 import {
   FaHome,
   FaServicestack,
+
   FaGift,
   FaBars,
   FaAppleAlt,
   FaTshirt,
   FaCogs, // Good for services
-  FaBasketballBall,
   FaConciergeBell, // Already used, consider if you want different icons for distinct categories
   FaUtensils, // Good for grocery/food
   FaPercent,
@@ -30,6 +30,7 @@ import {
   FaUserPlus,
   FaLock 
 } from 'react-icons/fa';
+import { LuBookOpen } from "react-icons/lu";
 import { FiUser } from 'react-icons/fi';
 import { fetchUserData } from './userService';
 import './ShoppeeNavbar.css';
@@ -97,11 +98,11 @@ const handleCloseDropdown = () => setShowDropdown(false);
   
   // Define categories with more specific icons where possible
   const categories = [
-    { name: 'Digital Product', icon: <FaUtensils />, link: '/productsdata' },
-    { name: 'Wellness Product', icon: <FaGift />, link: '/productsdata' },
+    { name: 'Digital Product', icon: <FaServicestack />, link: '/productsdata' },
+    { name: 'Wellness Product', icon: < FaAppleAlt />, link: '/productsdata' },
     { name: 'Beauty and Hygiene', icon: <FaGift />, link: '/productsdata' }, // Example: maybe change icon
-    { name: 'Fashion and Apparel', icon: <FaTshirt />, link: '/productsdata', isComingSoon: true },
-    { name: 'Outdoor/Sports Equipment', icon: <FaBasketballBall />, link: '/productsdata', isComingSoon: true },
+    { name: 'Groceries', icon: < FaUtensils />, link: '/productsdata', isComingSoon: true },
+    { name: 'Home Improvement', icon: <FaConciergeBell />, link: '/productsdata', isComingSoon: true },
   ];
 
   // Define service items for better organization
