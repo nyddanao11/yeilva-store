@@ -62,7 +62,7 @@ const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails,
 
       {/* Image Container with Hover Effect */}
       <div className="card-image-container position-relative overflow-hidden group">
-         <Link to={`/clickproductpagefeaturedproduct/${product.id}`}>
+       <Link to={`/clickproductpagebestselling/${product.id}`}>
           <div style={{ paddingTop: '100%', position: 'relative' }}>
             <img
               src={url}
