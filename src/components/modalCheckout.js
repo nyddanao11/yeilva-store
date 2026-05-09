@@ -20,29 +20,35 @@ const SuccessModal = ({ show, onClose, downloadUrl}) => {
             <Modal.Body className="text-center">
                 <p>Your order has been placed successfully.</p>
 
-                {downloadUrl && downloadUrl.length > 0 ? (
+             {Array.isArray(downloadUrl) && downloadUrl.length > 0 ? (
                   downloadUrl.map((link, index) => (
-                    <div key={index} className="d-flex justify-content-between align-items-center mb-3 p-2 border rounded">
-                      <span>{link.name}</span>
-                      {/* 🟢 Check if link.url exists and is a string before rendering */}
-                      {typeof link.url === 'string' ? (
+                    <div key={index} className="d-flex justify-content-between align-items-center mb-3 p-3 border rounded bg-light">
+                      <div className="me-3">
+                        <strong className="d-block">{link.name}</strong>
+                        <small className="text-muted">Digital Download</small>
+                      </div>
+
+                      {typeof link.url === 'string' && link.url.trim() !== '' ? (
                         <a 
                           href={link.url} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="btn btn-primary btn-sm"
+                          className="btn btn-danger btn-sm px-3 shadow-sm"
                         >
-                          📥 Download Your Ebook Now
+                          📥 Download
                         </a>
                       ) : (
-                        <span className="text-danger small">Link Generation Failed</span>
+                        <span className="badge bg-warning text-dark">Link Pending</span>
                       )}
                     </div>
                   ))
                 ) : (
-                  <p>Processing your items...</p>
+                  <div className="text-center p-4">
+                    <div className="spinner-border text-danger mb-2" role="status"></div>
+                    <p>Preparing your download links...</p>
+                  </div>
                 )}
-             
+                
                 <p>Thank you for your purchase!</p>
             </Modal.Body>
             <Modal.Footer>
