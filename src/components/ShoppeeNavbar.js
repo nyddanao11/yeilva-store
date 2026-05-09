@@ -15,7 +15,6 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'; // Import useNavi
 import {
   FaHome,
   FaServicestack,
-
   FaGift,
   FaBars,
   FaAppleAlt,
@@ -28,7 +27,8 @@ import {
   FaSignOutAlt,
   FaShoppingBag,
   FaUserPlus,
-  FaLock 
+  FaLock,
+  FaTimes,
 } from 'react-icons/fa';
 import { LuBookOpen } from "react-icons/lu";
 import { FiUser } from 'react-icons/fi';
@@ -70,9 +70,16 @@ const handleCloseDropdown = () => setShowDropdown(false);
     navigate('/login'); // Use navigate for routing
   }, [handleCloseModal, navigate]);
 
-  // Handle offcanvas state
-  const handleCloseOffcanvas = useCallback(() => setShowOffcanvas(false), []);
-  const handleShowOffcanvas = useCallback(() => setShowOffcanvas(true), []);
+
+// Use a single toggle function for the button
+const handleToggleOffcanvas = useCallback(() => {
+  setShowOffcanvas((prev) => !prev);
+}, []);
+
+// Keep the explicit close for the backdrop/X button
+const handleCloseOffcanvas = useCallback(() => {
+  setShowOffcanvas(false);
+}, []);
 
  // Fetch user data when logged in status or user email changes
   useEffect(() => {
@@ -116,31 +123,10 @@ const handleCloseDropdown = () => setShowDropdown(false);
    // Define categories with more specific icons where possible
   const categories = [
     { name: 'Digital Product', icon: <FaServicestack />, link: '/productsdata' },
-    { name: 'Wellness Product', icon: < FaAppleAlt />, link: '/productsdata' },
-    { name: 'Beauty and Hygiene', icon: <FaGift />, link: '/productsdata' }, // Example: maybe change icon
-    { name: 'Groceries', icon: < FaUtensils />, link: '/productsdata', isComingSoon: true },
-    { name: 'Home Improvement', icon: <FaConciergeBell />, link: '/productsdata', isComingSoon: true },
+ 
   ];
 
-  // Define service items for better organization
-  const otherServices = [
-    'Loading phone/games',
-    'ID printing',
-    'Photo printing',
-    'Document printing',
-    'Scan',
-    'Xerox',
-    'Plastic laminate',
-    'Internet',
-  ];
 
-  const travelServices = [
-    // { name: 'Loan form', link: '/loanform' },
-    { name: 'Domestic', link: '/airlinebookingform' },
-    { name: 'Travel and tours', link: '#' },
-   { name: (<Badge bg="primary" className="mb-2 d-flex align-items-center gap-1"> <i className="bi bi-code-slash"></i> Own a Site Like This </Badge> ), link: '/developerservices' },
-
-  ];
   // Add this helper function in your component logic
 const handleCategorySelect = (categoryName) => {
   handleItemClickCategory(categoryName); // Your filtering logic
@@ -158,11 +144,11 @@ const handleCategorySelect = (categoryName) => {
                   {/* 1. Hamburger Menu */}
                   <Button
                     variant="outline-secondary"
-                    onClick={handleShowOffcanvas}
-                    aria-label="Open menu"
+                    onClick={handleToggleOffcanvas} // Use the toggle here!
+                    aria-label={showOffcanvas ? "Close menu" : "Open menu"}
                     className="position-absolute start-0 top-50 translate-middle-y ms-2 z-3"
                   >
-                    <FaBars />
+                    {showOffcanvas ? <FaTimes /> : <FaBars />}
                   </Button>
 
                   {/* 2. Account Dropdown */}
@@ -347,6 +333,7 @@ const handleCategorySelect = (categoryName) => {
     </Navbar>
 
       {/* Offcanvas Menu */}
+
 <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} placement="start" className="modern-offcanvas">
   <Offcanvas.Header closeButton className="border-bottom">
     <Offcanvas.Title className="fw-bold">Explore</Offcanvas.Title>
