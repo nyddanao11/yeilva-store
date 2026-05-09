@@ -142,17 +142,7 @@ export default function MyAccountPage({ addToCart, youMayLikeProducts}) {
                         <Card className="shadow-lg rounded-lg">
                             <Card.Body>
                                 <h5 className="text-gray-800">History</h5>
-                                <div className="mt-3">
-                                    <Link to="/loanformhistory" style={{ textDecoration: 'none' }} className="text-blue-600 hover:underline">
-                                        View Loan Application History
-                                    </Link>
-                                </div>
-
-                                <div className="mt-3">
-                                    <Link to="/installmenthistorypage" style={{ textDecoration: 'none' }} className="text-blue-600 hover:underline">
-                                        View Product Installment History
-                                    </Link>
-                                </div>
+                                
 
                                 <div className="mt-3">
                                     {userData.email === 'bonifacioamoren@gmail.com' && (

@@ -97,6 +97,23 @@ const handleCloseDropdown = () => setShowDropdown(false);
   }, [isLoggedIn, userEmail]); // Depend on both isLoggedIn and userEmail
   
   // Define categories with more specific icons where possible
+  // const categories = [
+  //   { 
+  //   name: 'Digital Shop', 
+  //   icon: <FaServicestack />, 
+  //   link: '/productsdata',
+  //   subcategories: [
+  //     { name: 'Ebooks', link: '/productsdata?cat=ebooks' },
+  //     { name: 'Business Blueprints', link: '/productsdata?cat=blueprints' }
+  //   ]
+  // },
+  //   { name: 'Wellness Product', icon: < FaAppleAlt />, link: '/productsdata' },
+  //   { name: 'Beauty and Hygiene', icon: <FaGift />, link: '/productsdata' }, // Example: maybe change icon
+  //   { name: 'Groceries', icon: < FaUtensils />, link: '/productsdata', isComingSoon: true },
+  //   { name: 'Home Improvement', icon: <FaConciergeBell />, link: '/productsdata', isComingSoon: true },
+  // ];
+
+   // Define categories with more specific icons where possible
   const categories = [
     { name: 'Digital Product', icon: <FaServicestack />, link: '/productsdata' },
     { name: 'Wellness Product', icon: < FaAppleAlt />, link: '/productsdata' },
@@ -233,9 +250,34 @@ const handleCategorySelect = (categoryName) => {
         
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto align-items-center">
-            {/* Categories */}
-            <NavDropdown title="Categories" id="categories-dropdown">
-              {categories.map((cat, index) => (
+                      {/* Categories */}
+                    <NavDropdown title="Categories" id="categories-dropdown">
+            {categories.map((cat, index) => {
+              // If a category has subcategories, we render a nested structure
+              if (cat.subcategories && cat.subcategories.length > 0) {
+                return (
+                  <div key={index} className="dropdown-submenu-container">
+                    <Dropdown.Header className="fw-bold text-dark">
+                      {cat.icon} <span className="ms-2">{cat.name}</span>
+                    </Dropdown.Header>
+                    {cat.subcategories.map((sub, subIndex) => (
+                      <Dropdown.Item
+                        key={subIndex}
+                        as={Link}
+                        to={sub.link}
+                        className="ps-4 py-1 small"
+                        onClick={() => handleItemClickCategory(sub.name)}
+                      >
+                        — {sub.name}
+                      </Dropdown.Item>
+                    ))}
+                    <Dropdown.Divider />
+                  </div>
+                );
+              }
+
+              // Default rendering for categories without subcategories (like Coming Soon items)
+              return (
                 <Dropdown.Item
                   key={index}
                   as={cat.isComingSoon ? "div" : Link}
@@ -249,33 +291,10 @@ const handleCategorySelect = (categoryName) => {
                     <Badge bg="light" text="dark" className="ms-2 border">Soon</Badge>
                   )}
                 </Dropdown.Item>
-              ))}
-            </NavDropdown>
+              );
+            })}
+          </NavDropdown>
 
-            {/* Services */}
-            <NavDropdown title="Services" id="services-dropdown">
-              {!isLoggedIn ? (
-                <Dropdown.Item onClick={() => handleShowModal('Please log in to view services.')}>
-                  All Services (Login Required)
-                </Dropdown.Item>
-              ) : (
-                <>
-                  <Dropdown.Header>Travel Services</Dropdown.Header>
-                  {travelServices.map((service, index) => (
-                    <Dropdown.Item as={Link} to={service.link} key={index}>
-                      {service.name}
-                    </Dropdown.Item>
-                  ))}
-                  <Dropdown.Divider />
-                  <Dropdown.Header>Other Services</Dropdown.Header>
-                  {otherServices.map((service, index) => (
-                    <Dropdown.Item key={index} as="button" className="btn btn-link text-start text-decoration-none">
-                      {service}
-                    </Dropdown.Item>
-                  ))}
-                </>
-              )}
-            </NavDropdown>
 
             {/* Highlights */}
             {!isSmallScreen && (
@@ -394,62 +413,7 @@ const handleCategorySelect = (categoryName) => {
         </Accordion.Item>
       </Accordion>
 
-    {/* Services Accordion for Offcanvas */}
-    <Accordion flush className="border-0 bg-transparent">
-      <Accordion.Item eventKey="0" className="border-0 bg-transparent">
-        <Accordion.Header className="custom-accordion-trigger">
-          <div className="d-flex align-items-center">
-            {/* Added Service Icon Here */}
-            <FaConciergeBell className="me-2 text-primary" /> 
-            <span className="text-dark fw-medium">Services</span>
-          </div>
-        </Accordion.Header>
-        
-        <Accordion.Body className="ps-4 pe-0 py-2">
-          {!isLoggedIn ? (
-            <Nav.Link 
-              className="text-muted small border-start ps-3"
-              onClick={() => {
-                handleShowModal('Please log in to view services.');
-                // NOTICE: We do NOT call handleCloseOffcanvas here.
-                // This keeps the sidebar visible behind the modal.
-              }}
-            
-            >
-              <FaLock className="me-2" /> All Services (Login Required)
-            </Nav.Link>
-          ) : (
-            <div className="d-flex flex-column gap-2 border-start ps-3">
-              <div className="fw-bold small text-uppercase text-secondary mt-2" style={{ fontSize: '0.7rem' }}>
-                Travel Services
-              </div>
-              {travelServices.map((service, index) => (
-                <Nav.Link 
-                  as={Link} 
-                  to={service.link} 
-                  key={index}
-                  onClick={handleCloseOffcanvas} // Close because we are navigating away
-                  className="py-1 text-dark"
-                >
-                  {service.name}
-                </Nav.Link>
-              ))}
-
-              <hr className="my-1 opacity-25" />
-
-              <div className="fw-bold small text-uppercase text-secondary" style={{ fontSize: '0.7rem' }}>
-                Other Services
-              </div>
-              {otherServices.map((service, index) => (
-                <div key={index} className="py-1 text-muted small">
-                  {service}
-                </div>
-              ))}
-            </div>
-          )}
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
+   
 
       <Nav.Link as={NavLink} to="/alldealsproduct" onClick={handleCloseOffcanvas} className="py-2">
         <FaPercent className="me-2 text-danger" /> Hot Deals
