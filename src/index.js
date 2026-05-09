@@ -15,6 +15,7 @@ import {SearchProductsProvider} from './pages/SearchProductContext';
 import {AllDealsProductsProvider} from './pages/AllDealsProductContext';
 import {YouMayLikeProductProvider} from './pages/YouMayLikeProductContext';
 import {MasterCartProvider} from './pages/CartContext'; 
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
 
@@ -22,6 +23,7 @@ root.render( // Use root.render instead of ReactDOM.render
   <React.StrictMode>
     <AuthProvider>
      <MasterCartProvider>
+     <HelmetProvider>
       <ProductProvider>
        <YouMayLikeProductProvider>      
        <FeaturedProductsProvider>
@@ -29,6 +31,7 @@ root.render( // Use root.render instead of ReactDOM.render
          <RecommendedProvider>
            <SearchProductsProvider>
             <AllDealsProductsProvider>
+
                 
               <Router>
                 <ScrollToTop />
@@ -42,6 +45,7 @@ root.render( // Use root.render instead of ReactDOM.render
         </FeaturedProductsProvider>
           </YouMayLikeProductProvider>
        </ProductProvider>
+       </HelmetProvider>
       </MasterCartProvider>
     </AuthProvider>
   </React.StrictMode>
