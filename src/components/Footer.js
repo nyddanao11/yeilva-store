@@ -25,7 +25,7 @@ export default function Footer ({isLoggedIn}) {
              <h5> Follow us</h5>
              <div className="social-links d-flex justify-content-center gap-3">
                 <SocialLink  href="https://www.facebook.com/yeilvastore/" icon={<FaFacebook className="icons"/>} label="Follow us on Facebook" />
-              <SocialLink  href="https://www.youtube.com/@NYDChannel" icon={<FaYoutube  className="icons"/>} label="Subscribe to our YouTube channel" />
+              <SocialLink  href="https://www.youtube.com/" icon={<FaYoutube  className="icons"/>} label="Subscribe to our YouTube channel" />
               <SocialLink  href="https://www.instagram.com/yeilvastore" icon={<FaInstagram  className="icons"/>} label="Follow us on Instagram" />
               <SocialLink  href="https://shope.ee/5pZmnVEM3L" icon={<FaShopify  className="icons"/>} label="Shop on Shopee" />
               </div>
