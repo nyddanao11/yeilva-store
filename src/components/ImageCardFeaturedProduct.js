@@ -9,10 +9,7 @@ const ImageCardFeaturedProduct = ({product, url, name, id, price, thumbnails, st
    // console.log('Props in ImageProduct:', { url, name, price, id, thumbnails, stock, discount });
    const { reviewData, loading, error } = useFetchReviews(name);
      
-      const isProductSoldOut = () => {
-    // Replace this condition with your own logic for determining if a product is sold out
-    return stock <= 0;
-  };
+      const isProductSoldOut = stock !== undefined && stock <= 0;
   const isProductDiscounted = () => {
     return discount > 0; // Ensure discount is not undefined/null and is greater than 0
   };
@@ -85,7 +82,7 @@ const ImageCardFeaturedProduct = ({product, url, name, id, price, thumbnails, st
           Ebook/Guides
         </small>
         
-        <Link to={`/clickproductpage/${id}`} className="text-decoration-none text-dark">
+         <Link to={`/clickproductpagefeaturedproduct/${product.id}`} className="text-decoration-none text-dark">
           <Card.Title className="h6 mb-2 text-truncate-2" style={{ height: '2.5rem', lineHeight: '1.25' }}>
             {name}
           </Card.Title>
@@ -112,14 +109,15 @@ const ImageCardFeaturedProduct = ({product, url, name, id, price, thumbnails, st
             </span>
           </div>
           
+
           <Button 
             as={Link} 
-            to={`/clickproductpage/${id}`}
-            variant={isProductSoldOut ? "secondary" : "outline-primary"} 
+            to={isProductSoldOut ? "#" : `/clickproductpage/${id}`}
+             variant={isProductSoldOut ? "secondary" : "outline-primary"} 
             className="btn-sm rounded-pill px-3 fw-bold"
             disabled={isProductSoldOut}
           >
-            {isProductSoldOut ? "Sold Out" : "View"}
+            {isProductSoldOut ? "Sold Out" : "view"}
           </Button>
         </div>
       </Card.Body>

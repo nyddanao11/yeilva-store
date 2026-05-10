@@ -8,7 +8,7 @@ import'./SoldOutLabel.css';
 const ImageProduct = ({ url, name, price, id, stock, discount = 0 }) => {
   const { reviewData, loading } = useFetchReviews(name);
   
-  const isProductSoldOut = stock <= 0;
+ const isProductSoldOut = stock !== undefined && stock <= 0;
   const isProductDiscounted = discount > 0;
   
   const discountedPrice = isProductDiscounted 

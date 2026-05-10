@@ -103,26 +103,18 @@ const handleCloseOffcanvas = useCallback(() => {
     fetchAndSetUser();
   }, [isLoggedIn, userEmail]); // Depend on both isLoggedIn and userEmail
   
-  // Define categories with more specific icons where possible
-  // const categories = [
-  //   { 
-  //   name: 'Digital Shop', 
-  //   icon: <FaServicestack />, 
-  //   link: '/productsdata',
-  //   subcategories: [
-  //     { name: 'Ebooks', link: '/productsdata?cat=ebooks' },
-  //     { name: 'Business Blueprints', link: '/productsdata?cat=blueprints' }
-  //   ]
-  // },
-  //   { name: 'Wellness Product', icon: < FaAppleAlt />, link: '/productsdata' },
-  //   { name: 'Beauty and Hygiene', icon: <FaGift />, link: '/productsdata' }, // Example: maybe change icon
-  //   { name: 'Groceries', icon: < FaUtensils />, link: '/productsdata', isComingSoon: true },
-  //   { name: 'Home Improvement', icon: <FaConciergeBell />, link: '/productsdata', isComingSoon: true },
-  // ];
+  
 
    // Define categories with more specific icons where possible
   const categories = [
     { name: 'Digital Product', icon: <FaServicestack />, link: '/productsdata' },
+    { name: 'Content Creation',  link: '/productsdata' },
+    { name: 'Artificial Intelligence', link: '/productsdata' },
+    { name: 'Productivity Guides', link: '/productsdata' },
+    { name: 'Health and Fitness', link: '/productsdata' },
+    { name: 'Productivity Guides', link: '/productsdata' },
+    { name: 'Wellness', link: '/productsdata' },
+    { name: 'Parenting', link: '/productsdata' },
  
   ];
 
