@@ -107,12 +107,11 @@ const handleCloseOffcanvas = useCallback(() => {
 
    // Define categories with more specific icons where possible
   const categories = [
-    { name: 'Digital Product', icon: <FaServicestack />, link: '/productsdata' },
+    { name: 'Digital Product', link: '/productsdata' },
     { name: 'Content Creation',  link: '/productsdata' },
     { name: 'Artificial Intelligence', link: '/productsdata' },
     { name: 'Productivity Guides', link: '/productsdata' },
     { name: 'Health and Fitness', link: '/productsdata' },
-    { name: 'Productivity Guides', link: '/productsdata' },
     { name: 'Wellness', link: '/productsdata' },
     { name: 'Parenting', link: '/productsdata' },
  

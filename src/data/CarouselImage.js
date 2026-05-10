@@ -7,14 +7,14 @@ export const CarouselImage = [
     category: "digital product", // Pass category name instead of linking directly
     link:'/productsdata',
   },
-  {
-    id: 60,
-    name: "Health and Wellness Products",
-    url: `${process.env.PUBLIC_URL}/images/img1.jpg`,
-    caption: "Discover a wide range of products",
-    category: "wellness product", // Pass category name instead of linking directly
-    link:'/productsdata',
-  },
+  // {
+  //   id: 60,
+  //   name: "Health and Wellness Products",
+  //   url: `${process.env.PUBLIC_URL}/images/img1.jpg`,
+  //   caption: "Discover a wide range of products",
+  //   category: "wellness product", // Pass category name instead of linking directly
+  //   link:'/productsdata',
+  // },
   // {
   //   id: 61,
   //   name: "Fashion and Apparel",
@@ -39,11 +39,11 @@ export const CarouselImage = [
   //   category: "grocery items",
   //    link:'/productsdata',
   // },
-  {
-    id: 65,
-    name: "Services",
-    url: `${process.env.PUBLIC_URL}/images/img3.jpg`,
-    caption: "Click to View our Services",
-    link: "/brochure", // This is already a static link
-  },
+  // {
+  //   id: 65,
+  //   name: "Services",
+  //   url: `${process.env.PUBLIC_URL}/images/img3.jpg`,
+  //   caption: "Click to View our Services",
+  //   link: "/brochure", // This is already a static link
+  // },
 ];

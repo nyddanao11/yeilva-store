@@ -111,7 +111,7 @@ const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails,
           
           <Button 
             as={Link} 
-            to={`/clickproductpage/${id}`}
+            to={`/clickproductpagebestselling/${product.id}`}
             variant={isProductSoldOut ? "secondary" : "outline-primary"} 
             className="btn-sm rounded-pill px-3 fw-bold"
             disabled={isProductSoldOut}

@@ -112,7 +112,7 @@ const ImageCardFeaturedProduct = ({product, url, name, id, price, thumbnails, st
 
           <Button 
             as={Link} 
-            to={isProductSoldOut ? "#" : `/clickproductpage/${id}`}
+            to={isProductSoldOut ? "#" : `/clickproductpagefeaturedproduct/${id}`}
              variant={isProductSoldOut ? "secondary" : "outline-primary"} 
             className="btn-sm rounded-pill px-3 fw-bold"
             disabled={isProductSoldOut}
