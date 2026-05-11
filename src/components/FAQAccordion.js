@@ -1,82 +1,78 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
-
-
-
+import { Link } from 'react-router-dom';
 
 const Accordion = () => {
-
-   const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
 
   const handleToggle = (itemId) => {
     setActiveItem(activeItem === itemId ? null : itemId);
   };
 
   const accordionData = [
-  {
-    id: 1,
-    question: 'How can I place an order on your online store?',
-    answer:
-      "To place an order, simply browse our product catalog, select the items you wish to purchase, and add them to your cart. Follow the checkout process to enter your shipping information, select a payment method, and confirm your order.",
-  },
-  {
-    id: 2,
-    question: 'Can I modify or cancel my order after it has been placed?',
-    answer:
-      "Once an order is confirmed, it is processed promptly to ensure quick shipping. Therefore, modifications or cancellations may not be possible. Please contact our customer support team as soon as possible for assistance.",
-  },
-   {
-    id: 3,
-    question: 'What payment methods do you accept?',
-    answer:
-      "We accept a variety of payment methods, including E-wallets, credit/debit cards,  and other secure online payment options. You can choose your preferred payment method during the checkout ",
-  },
-   {
-    id: 4,
-    question: 'Are there any promotions or discounts available?',
-    answer:
-      "Yes, we frequently run promotions and offer discounts. Subscribe to our newsletter to receive updates on the latest promotions, or check our website for ongoing sales and special offers.",
-  },
- {
-  id: 5,
-  question: 'What is your return policy?',
-  answer: (
-    <>
-     Our return policy allows you to return items within 30 days of purchase for a refund or exchange. Please visit our{' '}
-          <Link to="/returnpolicy">Return Policy Page</Link> for detailed instructions on how to initiate a return.
-    </>
-  ),
-},
-
-  {
-    id: 6,
-    question: 'Are my personal and payment details secure when shopping on your site?',
-    answer:
-      "Yes, your security is our priority. We use industry-standard encryption protocols to ensure that your personal and payment information is secure. Our website is also regularly monitored for security vulnerabilities.",
-  },
-  
-];
-
- 
+    {
+      id: 1,
+      question: 'How do I receive my digital purchase?',
+      answer:
+        "Immediately after checkout, you will receive a download link on the confirmation page. We also send an automated email with your permanent download link so you can access your files anytime.",
+    },
+    {
+      id: 2,
+      question: 'What file formats are included?',
+      answer:
+        "Our digital products are typically delivered as high-quality ZIP files containing industry-standard formats (e.g., PDF, PNG, JPG, or source files depending on the product). Specific formats are listed on each product page.",
+    },
+    {
+      id: 3,
+      question: 'Do you offer refunds for digital products?',
+      answer: (
+        <>
+          Due to the nature of digital downloads, we generally do not offer refunds once a file has been accessed. However, if you experience technical issues or are unsatisfied, please check our{' '}
+          <Link to="/refundpolicy">Refund Policy</Link> for our satisfaction guarantee details.
+        </>
+      ),
+    },
+    {
+      id: 4,
+      question: 'Can I access my downloads on multiple devices?',
+      answer:
+        "Yes! Once purchased, the files are yours. You can download and save them to your computer, tablet, or smartphone for personal use.",
+    },
+    {
+      id: 5,
+      question: 'What should I do if I didn’t receive my download email?',
+      answer:
+        "First, check your spam/junk folder. If it’s not there, ensure your payment was processed successfully. You can always contact our support team with your order number for a manual link reset.",
+    },
+    {
+      id: 6,
+      question: 'Is my payment information secure?',
+      answer:
+        "Absolutely. We use SSL encryption and secure payment gateways (like Stripe/PayPal) to ensure your data is never stored on our servers and remains 100% protected.",
+    },
+  ];
 
   return (
-    <div className="accordion" id="accordionExample">
+    <div className="accordion custom-faq" id="accordionExample">
       {accordionData.map(({ id, question, answer }) => (
-        <div className="accordion-item" key={id}>
+        <div className="accordion-item mb-2 border-0 shadow-sm" key={id} style={{ borderRadius: '8px' }}>
           <h2 className="accordion-header">
             <button
-              className={`accordion-button ${activeItem === id ? '' : 'collapsed'}`}
+              className={`accordion-button rounded-3 ${activeItem === id ? '' : 'collapsed'}`}
               type="button"
               onClick={() => handleToggle(id)}
+              style={{ fontWeight: '600', backgroundColor: activeItem === id ? '#f8f9fa' : 'white' }}
             >
               {question}
             </button>
           </h2>
           <div
-            id={`collapse${id}`} 
+            id={`collapse${id}`}
             className={`accordion-collapse collapse ${activeItem === id ? 'show' : ''}`}
+            style={{ transition: 'all 0.3s ease' }}
           >
-            <div className="accordion-body">{answer}</div>
+            <div className="accordion-body text-muted" style={{ lineHeight: '1.6' }}>
+              {answer}
+            </div>
           </div>
         </div>
       ))}

@@ -6,7 +6,7 @@ import useFetchReviews from '../components/useFetchReviews';
 import'./SoldOutLabel.css';
 
 
-const ImageAllDeals = ({ url, name, price, id, stock, discount = 0}) => {
+const ImageAllDeals = ({ product, url, name, price, id, stock, discount = 0}) => {
    // console.log('Props in ImageProduct:', { url, name, price, id, thumbnails, stock, discount });
    const { reviewData, loading, error } = useFetchReviews(name);
      

@@ -59,7 +59,7 @@ const  ImageYouMayLikeProduct = ({product, url, name, id, price, thumbnails, sto
 
       {/* Image Container with Hover Effect */}
       <div className="card-image-container position-relative overflow-hidden group">
-         <Link to={`/clickproductpagefeaturedproduct/${product.id}`}>
+             <Link to={`/clickyoumaylike/${product.id}`}>
           <div style={{ paddingTop: '100%', position: 'relative' }}>
             <img
               src={url}
@@ -82,7 +82,7 @@ const  ImageYouMayLikeProduct = ({product, url, name, id, price, thumbnails, sto
           Ebook/Guides
         </small>
         
-        <Link to={`/clickproductpage/${id}`} className="text-decoration-none text-dark">
+              <Link to={`/clickyoumaylike/${product.id}`} className="text-decoration-none text-dark">
           <Card.Title className="h6 mb-2 text-truncate-2" style={{ height: '2.5rem', lineHeight: '1.25' }}>
             {name}
           </Card.Title>
@@ -111,7 +111,8 @@ const  ImageYouMayLikeProduct = ({product, url, name, id, price, thumbnails, sto
           
           <Button 
             as={Link} 
-            to={`/clickproductpage/${id}`}
+                 to={`/clickyoumaylike/${product.id}`}
+
             variant={isProductSoldOut ? "secondary" : "outline-primary"} 
             className="btn-sm rounded-pill px-3 fw-bold"
             disabled={isProductSoldOut}
