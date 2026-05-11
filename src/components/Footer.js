@@ -15,6 +15,8 @@ export default function Footer ({isLoggedIn}) {
           {icon}
         </a>
       );
+
+
   return (
     <footer className="footer">
       <Container >
@@ -22,13 +24,10 @@ export default function Footer ({isLoggedIn}) {
 
           <Col md={4} className="footer-content">
             <div>
-             <h5> Follow us</h5>
-             <div className="social-links d-flex justify-content-center gap-3">
-                <SocialLink  href="https://www.facebook.com/yeilvastore/" icon={<FaFacebook className="icons"/>} label="Follow us on Facebook" />
-              <SocialLink  href="https://www.youtube.com/" icon={<FaYoutube  className="icons"/>} label="Subscribe to our YouTube channel" />
-              <SocialLink  href="https://www.instagram.com/yeilvastore" icon={<FaInstagram  className="icons"/>} label="Follow us on Instagram" />
-              <SocialLink  href="https://shope.ee/5pZmnVEM3L" icon={<FaShopify  className="icons"/>} label="Shop on Shopee" />
-              </div>
+             <img src={`${process.env.PUBLIC_URL}/images/logostore.png`}
+              alt="storelogo"
+              style={{ height: "36px", width: "auto"}}
+              className="mb-3"/>
               <p>&copy; 2026 Yeilva Store. All rights reserved.</p>
             </div>
           </Col>
@@ -49,22 +48,34 @@ export default function Footer ({isLoggedIn}) {
            </div>      
           </Col>
 
-          <Col md={4} className="d-flex flex-column align-items-center justify-content-center mt-2" >
-       
-            <h5>We Accept</h5>
-            {/* Use icons for payment methods for better visual representation */}
-            <ul className="payment-methods">
-               <li>Paypal</li>
-               <li> debit/credit card</li>
-                          
-            </ul>
-            {/* Payment Icons Container */}
-          <div className="payment-icons d-flex gap-3 fs-2 primary">
-            <FaCcPaypal title="PayPal" />
-            <FaCcVisa title="Visa" />
-            <FaCcMastercard title="Mastercard" />
-          </div>
-          </Col>
+          <Col md={4} className="d-flex flex-column align-items-center align-items-md-start mt-4 mt-md-2">
+  <h6 className="text-uppercase fw-bold mb-3 mt-4">Secure Payments</h6>
+  
+  {/* Flex container for icons with wrapping for mobile responsiveness */}
+  <div className="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start align-items-center">
+    <img
+      src={`${process.env.PUBLIC_URL}/images/visa.png`}
+      alt="Visa"
+      style={{ height: "24px", width: "auto", filter: "grayscale(20%)" }}
+      className="payment-icon"
+    />
+    <img
+      src={`${process.env.PUBLIC_URL}/images/mastercard.png`}
+      alt="Mastercard"
+      style={{ height: "24px", width: "auto" }}
+      className="payment-icon"
+    />
+    <img
+      src={`${process.env.PUBLIC_URL}/images/paypal.png`}
+      alt="PayPal"
+      style={{ height: "24px", width: "auto" }}
+      className="payment-icon"
+    />
+    {/* Optional: Add a security badge icon like SSL or Norton for trust */}
+  </div>
+  
+  <p className="text-muted small mt-2">100% Secure Checkout</p>
+</Col>
         </Row>
       </Container>
       <BackToTopButton />

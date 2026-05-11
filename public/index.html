@@ -4,45 +4,71 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Yeilva Store is your go-to online shop for premium health and wellness products and high-quality sporting goods. Elevate your active lifestyle with our expertly curated solutions for fitness and self-care. Shop today for a healthier tomorrow!" />
-  <meta name="keywords" content="health and wellness products, sporting goods, online store, fitness, self-care, Yeilva Store" />
+  
+  <!-- SEO: Primary Meta Tags -->
+  <title>Yeilva Store | Premium Digital Blueprints, E-books & Code Assets</title>
+  <meta name="description" content="Unlock your potential with Yeilva Store. We provide high-quality digital products, including business e-books, side hustle blueprints, and developer code assets. Instant delivery, no shipping, pure value." />
+  <meta name="keywords" content="digital products, side hustle e-books, code assets, business blueprints, digital guides, Yeilva Store" />
   <meta name="robots" content="index, follow" />
   <meta name="google-site-verification" content="J_WWXRhWs2p8P8a9fAgL9_tEWm8G8FTr-AjxO42_kjs" />
+  
   <link rel="canonical" href="https://yeilvastore.com" />
   <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- Preconnect to external assets -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" as="style">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqFjcJ6pajs/rfdfs3SO+k4Uk9Kq6ERzBts2C2m3bahz7xS" crossorigin="anonymous" />
-  <title>Yeilva Store | Wellness & Digital Essentials</title>
-  <meta property="og:title" content="Yeilva Store | Health & Wellness & Sporting Goods" />
-  <meta property="og:description" content="Your go-to shop for premium health and wellness products and high-quality sporting goods. Elevate your lifestyle with Yeilva Store!" />
-  <meta property="og:image" content="https://yeilvastore.com/favicon.ico" />
-  <meta property="og:url" content="https://yeilvastore.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Open Graph / Facebook (Crucial for sharing digital guides) -->
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Yeilva Store | Health & Wellness & Sporting Goods" />
-  <meta name="twitter:description" content="Your go-to shop for premium health and wellness products and high-quality sporting goods. Elevate your lifestyle with Yeilva Store!" />
-  <meta name="twitter:image" content="https://yeilvastore.com/favicon.ico" />
+  <meta property="og:url" content="https://yeilvastore.com" />
+  <meta property="og:title" content="Yeilva Store | Level Up with Premium Digital Assets" />
+  <meta property="og:description" content="Download expert-led digital blueprints and code assets instantly. Start your next project or side hustle today." />
+  <meta property="og:image" content="https://yeilvastore.com/og-image.jpg" /> <!-- Use a high-quality 1200x630 image -->
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://yeilvastore.com" />
+  <meta property="twitter:title" content="Yeilva Store | Digital Blueprints & Assets" />
+  <meta property="twitter:description" content="Instant access to high-value digital products and e-books designed for growth." />
+  <meta property="twitter:image" content="https://yeilvastore.com/og-image.jpg" />
+
+  <!-- Schema.org JSON-LD for Digital Store -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "OnlineStore",
     "name": "Yeilva Store",
     "url": "https://yeilvastore.com",
-    "logo": "https://yeilvastore.com/favicon.ico",
+    "logo": "https://yeilvastore.com/logo.png",
+    "description": "Premium digital product store offering e-books, code assets, and business blueprints for modern creators and entrepreneurs.",
     "sameAs": [
       "https://www.facebook.com/yeilvastore",
-       "https://www.facebook.com/zvley",
-      "https://youtube.com/channel/UC8DTuYlTpkSAU3kgbo6-waw?sub_confirmation=1",
-      "https://www.instagram.com/yeilvastore?igsh=MWJ6anpib2o1ZjduYQ%3D%3D"
+      "https://youtube.com/@yeilvastore",
+      "https://www.instagram.com/yeilvastore"
     ],
-    "description": "Discover premium wellness products and digital guides at YeilvaStore. Your one-stop shop for physical health and digital growth."
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://yeilvastore.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
 </head>
+<body class="bg-light">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+
+  <!-- Modern Scripts: Consider moving these to your NPM dependencies if using React, 
+       but if keeping them here, use the latest stable versions. -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+</body>
+</html>
 <body class="bg-light">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
