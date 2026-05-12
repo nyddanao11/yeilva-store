@@ -8,6 +8,7 @@ import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { useCart } from './CartContext';
+import SEO from '../components/SEO';
 
 export default function ClickBestSelling ({ isLoggedIn, bestSellingProducts, youMayLikeProducts })  {
 
@@ -225,6 +226,11 @@ export default function ClickBestSelling ({ isLoggedIn, bestSellingProducts, you
 
   return (
     <>
+     <SEO 
+        title={product.name} 
+        description={product.description} 
+        type="product" 
+      />
       <Container className="my-4 product-page-container">
         {/* Breadcrumb Navigation */}
         {product &&  bestSellingProducts && (

@@ -49,10 +49,16 @@ export default function SearchPage({ searchProducts, addToCart, youMayLikeProduc
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="all">All</option>
-          <option value="wellness product">Wellness Products</option>
-          <option value="grocery items">Grocery</option>
-          <option value="beauty and hygiene">Beauty & Hygiene</option>
-          <option value="personal collection">Personal Collection</option>
+          <option value="content creation">Content Creation</option>
+          <option value="online business">Online Business</option>
+          <option value="artificial intelligence">artificial intelligence</option>
+          <option value="productivity guide">Productivity Guide</option>
+          <option value="health and fitness">Health and Fitness</option>
+          <option value="wellness">Wellness</option>
+          <option value="parenting">Parenting</option>
+          <option value="finance">Finance</option>
+          <option value="cybersecurity">Cybersecurity</option>
+
         </Form.Select>
       </Form.Group>
 

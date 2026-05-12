@@ -94,3 +94,10 @@
 .offcanvas-backdrop.show {
   /* ... your backdrop styles ... */
 }
+
+.offcanvas {
+  z-index: 1060 !important; /* Forces it above the Navbar */
+}
+.offcanvas-backdrop {
+  z-index: 1055 !important;
+}

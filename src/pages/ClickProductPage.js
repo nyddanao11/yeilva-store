@@ -155,7 +155,7 @@ export default function ClickProductPage({ isLoggedIn, storedProducts, allProduc
     if (isProductDiscounted()) {
       return (product.price * (1 - (product.discount || 0) / 100));
     }
-    return product.price;
+    return product.price.toFixed(2);
   };
 
   const originalPriceFormatted = product.price.toFixed(2);
@@ -173,8 +173,8 @@ export default function ClickProductPage({ isLoggedIn, storedProducts, allProduc
   const handleAddToCartClick = () => {
     const productToAdd = {
       ...product,
-      price: isProductDiscounted() ? discountedPriceCalculated : product.price,
-      originalPrice: product.price,
+      price: isProductDiscounted() ? discountedPriceCalculated :originalPriceFormatted,
+      originalPrice: originalPriceFormatted,
       discountApplied: isProductDiscounted() ? (product.discount || 0) : 0,
       displayPrice: discountedPriceFormatted
     };

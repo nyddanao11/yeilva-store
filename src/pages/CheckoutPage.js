@@ -10,8 +10,11 @@ import YouMayLike from '../components/YouMayLike';
 import './CheckoutPage.css';
 import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
-import { FaShippingFast, FaCheckCircle, FaMoneyBillWave } from 'react-icons/fa';
+import { FaShippingFast, FaCheckCircle, FaMoneyBillWave, FaLock, FaArrowLeft } from 'react-icons/fa';
 import { useCart } from './CartContext';
+import PayPalSection from '../components/CheckoutFormPaypal';
+import SuccessModal from'../components/modalCheckout';
+
 
 export default function CheckoutPage({
   selectedSize,
@@ -34,11 +37,17 @@ export default function CheckoutPage({
     voucherCode,
     applyVoucherDiscount,
     formattedGrandTotal,
+    clearPurchasedItems,
+    clearVoucherDiscount,
+    grandTotalAmount,
   } = useCart();
 
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [showFreeShippingAlert, setShowFreeShippingAlert] = useState(false);
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
+  const [modalType, setModalType] = useState(false);
+const [downloadUrl, setDownloadUrl] = useState(null);
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -147,54 +156,89 @@ export default function CheckoutPage({
               </Card>
             </Col>
 
-            <Col lg={5}>
-              <Card className="shadow-sm">
-                <Card.Header className="bg-info text-white">
-                  <h5 className="mb-0">Order Totals & Voucher</h5>
-                </Card.Header>
-                <Card.Body>
-                 <VoucherForm onVoucherValidate={applyVoucherDiscount} />
-                  <hr className="my-3" />
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <span className="text-muted">Items Total:</span>
-                    <strong>₱{totalItemsPrice.toFixed(2)}</strong>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <span className="text-muted">Shipping Rate:</span>
-                    {isFreeShipping? (
-                      <strong className="text-success">₱Free <FaShippingFast /></strong>
-                    ) : (
-                      <strong>₱{shippingRate.toFixed(2)}</strong>
-                    )}
-                  </div>
-                  {voucherDiscount > 0 && (
-                    <div className="d-flex justify-content-between align-items-center mb-2">
-                      <span className="text-muted">Voucher Discount:</span>
-                      <strong className="text-danger">-₱{voucherDiscount.toFixed(2)}</strong>
-                    </div>
-                  )}
-                  <hr className="my-3" />
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h5 className="mb-0">Grand Total:</h5>
-                    <h4 className="grand-total mb-0">{formattedGrandTotal}</h4>
-                  </div>
-                </Card.Body>
-                <Card.Footer className="d-flex justify-content-between p-3">
-                  <Link to="/cart">
-                    <Button variant="outline-secondary" className="me-2">
-                      Back to Cart
-                    </Button>
-                  </Link>
-                  <Button
-                    onClick={handleProceedToCheckout}
-                    style={{ backgroundColor: '#E92409', border: 'none' }}
-                    disabled={checkoutItemsForPayment.length === 0}
-                  >
-                    Continue to Shipping & Payment
-                  </Button>
-                </Card.Footer>
-              </Card>
-            </Col>
+           <Col lg={5} className="mt-4 mt-lg-0">
+  <Card className="shadow-border border-0 overflow-hidden">
+    {/* 1. Refined Header: More professional and trust-focused */}
+    <Card.Header className="bg-dark text-white py-3 border-0">
+      <h6 className="mb-0 text-uppercase fw-bold ls-1">Order Summary</h6>
+    </Card.Header>
+
+    <Card.Body className="p-4">
+      {/* 2. Voucher Section: Keeping it clean */}
+      <div className="mb-4">
+        <VoucherForm onVoucherValidate={applyVoucherDiscount} />
+      </div>
+
+      <div className="order-details">
+        <div className="d-flex justify-content-between mb-2">
+          <span className="text-muted">Subtotal</span>
+          <span className="fw-semibold">₱{totalItemsPrice.toFixed(2)}</span>
+        </div>
+
+        {/* 3. Digital Delivery Label: Replaced 'Shipping' with 'Delivery' */}
+        <div className="d-flex justify-content-between mb-2">
+          <span className="text-muted">Digital Delivery</span>
+          <span className="text-success fw-bold">FREE</span>
+        </div>
+
+        {voucherDiscount > 0 && (
+          <div className="d-flex justify-content-between mb-2 p-2 bg-danger-subtle rounded">
+            <span className="text-danger fw-bold small">Voucher Applied</span>
+            <span className="text-danger fw-bold">-₱{voucherDiscount.toFixed(2)}</span>
+          </div>
+        )}
+
+        <hr className="my-3 opacity-10" />
+
+        <div className="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <h5 className="mb-0 fw-bold">Total Amount</h5>
+            <small className="text-muted">VAT Inclusive (if applicable)</small>
+          </div>
+          <h3 className="text-primary mb-0 fw-bolder">
+            {formattedGrandTotal}
+          </h3>
+        </div>
+      </div>
+
+      {/* 4. Primary Call to Action */}
+      <div className="d-grid gap-2">
+        <PayPalSection
+          setShowCheckoutModal={setShowCheckoutModal}
+          setModalType={setModalType}
+          setDownloadUrl={setDownloadUrl}
+          clearPurchasedItems={clearPurchasedItems}
+          showCheckoutModal={showCheckoutModal}
+        />
+      </div>
+
+      {/* 5. Trust Badges & Back Action */}
+      <div className="text-center mt-3">
+        <p className="small text-muted mb-3">
+          <FaLock className="me-1 text-success" /> 
+          Secure Encrypted Transaction
+        </p>
+        <Link to="/cart" className="text-decoration-none text-secondary small hover-underline">
+          <FaArrowLeft className="me-1" /> Edit My Cart
+        </Link>
+      </div>
+    </Card.Body>
+  </Card>
+
+  {/* ✅ FIXED MODAL LOGIC */}
+            {showCheckoutModal && (
+              <SuccessModal 
+                show={showCheckoutModal} // Matches the state variable
+                downloadUrl={downloadUrl} // Receives the URL set by PayPalSection
+                onClose={() => {
+
+                  setShowCheckoutModal(false);
+                  navigate('/'); 
+                  window.location.reload(); // This forces the app to pull the fresh, empty cart from the DB
+                }} 
+              />
+            )}
+</Col>
           </Row>
         ) : (
           // --- STEP 2: SHIPPING ADDRESS & PAYMENT METHOD ---
