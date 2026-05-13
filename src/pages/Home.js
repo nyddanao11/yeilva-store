@@ -1,14 +1,13 @@
 import React from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaBolt, FaGlobe, FaHeadset, FaFileDownload } from 'react-icons/fa'; // Added icons
-import SEO from '../components/SEO'; // Added SEO
+import { FaBolt, FaGlobe, FaHeadset, FaFileDownload, FaStar, FaShieldAlt } from 'react-icons/fa'; 
+import SEO from '../components/SEO'; 
 import FeaturedProductSlides from '../components/FeaturedProductSlides';
 import BestSellingProductSlides from '../components/BestSellingProductSlides';
 import RecommendedProductSlides from '../components/RecommendedProductSlides';
 import Accordion from '../components/FAQAccordion';
 import ImageSlider from '../components/ImageSlider';
-import PopUpAdds from '../components/PopUpAdds'; 
 import './Home.css';
 
 export default function Home({ 
@@ -19,14 +18,16 @@ export default function Home({
 
   const sections = [
     { 
-      title: "Digital Wellness Blueprints", // Updated Title
+      title: "Premium Digital Blueprints", 
+      subtitle: "Curated guides for high-performance living",
       data: featuredProducts || [], 
       link: "/featuredproduct", 
       Component: FeaturedProductSlides,
       props: { featuredProducts: featuredProducts || [], loading, error } 
     },
     { 
-      title: "Most Popular Guides", // Updated Title
+      title: "Community Favorites", 
+      subtitle: "Most downloaded transformation guides this month",
       data: bestSellingProducts || [], 
       link: "/bestsellingproduct", 
       Component: BestSellingProductSlides,
@@ -35,92 +36,144 @@ export default function Home({
   ];
 
   return (
-    <div className="home-wrapper">
-      {/* 1. Global SEO Update */}
+    <div className="home-wrapper bg-white">
       <SEO 
-        title="Digital Wellness & Home Blueprints" 
-        description="Instant access to expert-led digital guides for holistic wellness and home optimization. Transform your life from anywhere in the world." 
+        title="YeilvaStore | Premium Digital Blueprints & Guides" 
+        description="Instant access to expert-led digital blueprints for wellness and home optimization. Start your transformation today." 
       />
 
-      <PopUpAdds delay={3000} autoCloseAfter={15000} isLoggedIn={isLoggedIn} />
-      
-      {/* 2. Updated Hero for Digital Transformation */}
-      <section className="hero-section text-white">
+      {/* 1. Hero Section - Sleeker with Overlay Refinement */}
+      <section className="hero-section position-relative text-white overflow-hidden">
         <ImageSlider />
-        <div className="hero-overlay-text text-center">
-          <h1 className="display-4 fw-bold">Master Your Wellness. Optimize Your Home.</h1>
-          <p className="lead">Instant-access digital blueprints designed for a healthier, smarter lifestyle.</p>
-          <Link to="/alldealsproduct" className="text-decoration-none"> 
-            <Button variant="primary" size="lg" className="shadow-lg px-5">
-              Access the Digital Vault
-            </Button>
-          </Link>
+        <div className="hero-content-wrapper d-flex align-items-center justify-content-center text-center">
+          <Container className="position-relative z-index-2">
+            <Badge bg="primary" className="mb-3 px-3 py-2 text-uppercase fw-bold shadow-sm">
+              New: 2026 Digital Collection Out Now
+            </Badge>
+            <h1 className="display-3 fw-extrabold mb-3" style={{ letterSpacing: '-1.5px' }}>
+              Knowledge Delivered <span className="text-primary">Instantly.</span>
+            </h1>
+            <p className="lead mb-4 mx-auto opacity-90" style={{ maxWidth: '700px' }}>
+              Skip the shipping. Access professional blueprints and e-books designed to 
+              optimize your health and living space.
+            </p>
+            <div className="d-flex gap-3 justify-content-center">
+              <Link to="/alldealsproduct"> 
+                <Button variant="primary" size="lg" className="rounded-pill px-5 py-3 fw-bold shadow-lg border-0">
+                  Enter the Vault
+                </Button>
+              </Link>
+              {!isLoggedIn && (
+                <Link to="/register">
+                  <Button variant="outline-light" size="lg" className="rounded-pill px-4 py-3 fw-bold border-2">
+                    Join Community
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </Container>
         </div>
       </section>
 
-      {/* 3. Rebranded Trust Bar for Digital Goods */}
-      <div className="trust-bar bg-white py-3 border-bottom shadow-sm">
-        <Container>
-          <Row className="text-center g-2 align-items-center">
-            <Col xs={4}><span className="fw-bold"><FaBolt className="text-warning me-1"/> Instant Download</span></Col>
-            <Col xs={4}><span className="fw-bold"><FaGlobe className="text-info me-1"/> Global Access</span></Col>
-            <Col xs={4}><span className="fw-bold"><FaHeadset className="text-success me-1"/> Lifetime Updates</span></Col>
-          </Row>
+      {/* 2. Enhanced Trust Bar (Modern Glassmorphism) */}
+      <div className="trust-bar-wrapper">
+        <Container className="mt-n4 position-relative z-index-3">
+          <div className="bg-white rounded-4 shadow-lg p-4 border border-light">
+            <Row className="text-center g-3">
+              <Col md={4} className="border-end-md">
+                <div className="d-flex align-items-center justify-content-center">
+                  <FaBolt className="text-warning fs-4 me-3"/>
+                  <div className="text-start">
+                    <div className="fw-bold mb-0">Auto-Fulfillment</div>
+                    <small className="text-muted">Instant link via email</small>
+                  </div>
+                </div>
+              </Col>
+              <Col md={4} className="border-end-md">
+                <div className="d-flex align-items-center justify-content-center">
+                  <FaShieldAlt className="text-info fs-4 me-3"/>
+                  <div className="text-start">
+                    <div className="fw-bold mb-0">Secure Checkout</div>
+                    <small className="text-muted">PayPal & GCash verified</small>
+                  </div>
+                </div>
+              </Col>
+              <Col md={4}>
+                <div className="d-flex align-items-center justify-content-center">
+                  <FaStar className="text-primary fs-4 me-3"/>
+                  <div className="text-start">
+                    <div className="fw-bold mb-0">Lifetime Access</div>
+                    <small className="text-muted">Free version updates</small>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
         </Container>
       </div>
 
-      <Container>
-        {/* 4. New "Why Digital?" Conversion Section */}
-        <Row className="py-5 text-center">
-          <Col xs={12}>
-            <h2 className="mb-4">The YeilvaStore Digital Advantage</h2>
-          </Col>
-          <Col md={4} className="mb-3">
-            <div className="p-4 border rounded bg-light h-100">
-              <FaFileDownload size={40} className="mb-3 text-primary" />
-              <h5>Zero Waiting</h5>
-              <p className="small text-muted">No shipping fees or delays. Receive your files immediately after checkout.</p>
-            </div>
-          </Col>
-          <Col md={4} className="mb-3">
-            <div className="p-4 border rounded bg-light h-100">
-              <FaGlobe size={40} className="mb-3 text-primary" />
-              <h5>Eco-Friendly</h5>
-              <p className="small text-muted">100% paperless products. Reduce your carbon footprint with digital wellness.</p>
-            </div>
-          </Col>
-          <Col md={4} className="mb-3">
-            <div className="p-4 border rounded bg-light h-100">
-              <FaBolt size={40} className="mb-3 text-primary" />
-              <h5>Portable Wisdom</h5>
-              <p className="small text-muted">Read on your phone, tablet, or laptop. Your wellness journey follows you anywhere.</p>
-            </div>
-          </Col>
+      <Container className="py-5">
+        {/* 3. The Advantage Grid (Modernized Cards) */}
+        <div className="text-center mb-5 mt-4">
+          <h2 className="fw-bold display-6 mb-2">Why Digital Blueprints?</h2>
+          <div className="bg-primary mx-auto mb-4" style={{ height: '4px', width: '60px', borderRadius: '2px' }}></div>
+        </div>
+        
+        <Row className="g-4 mb-5">
+          {[
+            { icon: <FaFileDownload />, title: "Instant Delivery", desc: "No logistics, no customs. Purchase and download to your device in under 60 seconds." },
+            { icon: <FaGlobe />, title: "Global Portability", desc: "Access your library from any device, anywhere. Optimized for Mobile, iPad, and Desktop." },
+            { icon: <FaHeadset />, title: "24/7 Support", desc: "Facing a download issue? Our tech team is ready to assist you round the clock." }
+          ].map((item, i) => (
+            <Col lg={4} key={i}>
+              <Card className="h-100 border-0 bg-light-subtle rounded-4 p-4 feature-card transition-hover">
+                <div className="icon-box bg-white shadow-sm rounded-3 d-inline-flex p-3 mb-3 text-primary fs-3">
+                  {item.icon}
+                </div>
+                <h5 className="fw-bold">{item.title}</h5>
+                <p className="text-muted small mb-0">{item.desc}</p>
+              </Card>
+            </Col>
+          ))}
         </Row>
 
+        {/* 4. Product Sections with Refined Headers */}
         {sections.map((section, idx) => (
-          <Row key={idx} className="justify-content-center mb-5">
-            <Col lg={10}>
-              <div className="d-flex justify-content-between align-items-end mb-3">
-                <div>
-                  <h3 className="h4 mb-0">{section.title}</h3>
-                  <small className="text-muted fw-bold text-uppercase" style={{fontSize: '0.7rem'}}>
-                    Instant Digital Delivery
-                  </small>
-                </div>
-                <Link to={section.link} className="view-all-link text-decoration-none fw-bold">Browse All →</Link>
+          <div key={idx} className="mb-5 py-3">
+            <div className="d-flex justify-content-between align-items-end mb-4 border-bottom pb-3">
+              <div>
+                <h3 className="fw-extrabold mb-1">{section.title}</h3>
+                <p className="text-muted mb-0">{section.subtitle}</p>
               </div>
-              <section.Component product={product} {...section.props} />
-            </Col>
-          </Row>
+              <Link to={section.link} className="btn btn-link text-decoration-none fw-bold p-0 text-primary">
+                Explore All <FaBolt className="ms-1" size={12}/>
+              </Link>
+            </div>
+            <section.Component product={product} {...section.props} />
+          </div>
         ))}
 
-        {/* 5. Updated FAQ for Digital Concerns */}
-        <Row className="justify-content-center py-5 bg-light rounded-3 my-5 shadow-sm">
-          <Col lg={8}>
-            <h3 className="text-center mb-2">Digital Delivery FAQ</h3>
-            <p className="text-center text-muted mb-4">Everything you need to know about your purchase.</p>
-            <Accordion />
+        {/* 5. Modern FAQ Section */}
+        <Row className="justify-content-center py-5">
+          <Col lg={10}>
+            <div className="p-5 rounded-5 bg-dark text-white shadow-2xl">
+              <Row className="align-items-center">
+                <Col md={5} className="mb-4 mb-md-0">
+                  <h2 className="fw-bold display-6">Got Questions?</h2>
+                  <p className="opacity-75">Everything you need to know about our digital delivery system and secure payments.</p>
+                  <Link className="text-decoration-none" to="/needhelp">
+                  <Button className="rounded-pill px-4" variant="outline-light">
+                    Contact Support
+                  </Button>
+                </Link>
+                </Col>
+                <Col md={7}>
+                  <div className="bg-white rounded-4 p-2 text-dark shadow-sm">
+                    <Accordion />
+                  </div>
+                </Col>
+              </Row>
+            </div>
           </Col>
         </Row>
       </Container>

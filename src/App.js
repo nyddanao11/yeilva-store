@@ -76,6 +76,7 @@ const InstallmentTerms = React.lazy(() => import('./pages/installmentTerms'));
 const Freebies = React.lazy(() => import('./components/Freebies'));
 const RaffleMechanics = React.lazy(() => import('./components/RaffleMechanics'));
 const BarleyGrassJuice = React.lazy(() => import('./components/SqueezePage/SqueezePageBarley'));
+const EbookLandingPage = React.lazy(() => import('./components/SqueezePage/EbookLandingPage'));
 const NewsletterForm = React.lazy(() => import('./components/Newsletter'));
 const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookingForm'));
 const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
@@ -87,7 +88,6 @@ const  ClickCartItem = React.lazy(() => import('./pages/ClickCartItem'));
 const  AddDeliveryAddress = React.lazy(() => import('./pages/AddDeliveryAddress'));
 const  SearchPage = React.lazy(() => import('./pages/SearchPage'));
 const DeveloperServices = React.lazy(() => import('./components/WebsitePernSetup'));
-const ServiceFab = React.lazy(() => import('./components/ServiceFab'));
 const WebContactForm = React.lazy(() => import('./components/WebContactForm'));
 const Onboarding= React.lazy(() => import('./components/Onboarding'));
 const ProductInventory= React.lazy(() => import('./components/ProductInventory'));
@@ -188,7 +188,7 @@ const handleLogout = () => {
      </div>
       <OfflineIndicator />
     <ScrollToTop />
-    <ServiceFab />
+   
 
       {/* Render the CombinedNavbar outside of the Routes */}
       <CombinedNavbar cartItems={cartItems} cartCount={cartCount} isLoggedIn={isLoggedIn} userEmail={userEmail} handleLogout={handleLogout}  
@@ -253,6 +253,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                              <Route path="/ebooklandingpage" element={<EbookLandingPage />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                            <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
                         <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -325,6 +326,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                              <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                              <Route path="/ebooklandingpage" element={<EbookLandingPage />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
@@ -405,6 +407,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                              <Route path="/ebooklandingpage" element={<EbookLandingPage />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                              <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
                           <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -480,6 +483,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                             <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
+                             <Route path="/ebooklandingpage" element={<EbookLandingPage />}/>
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
