@@ -160,8 +160,8 @@ export default function ClickProductPage({ isLoggedIn, storedProducts, allProduc
 
   const originalPriceFormatted = product.price.toFixed(2);
   const discountedPriceCalculated = calculateDiscountedPrice();
-  const discountedPriceFormatted = discountedPriceCalculated.toFixed(2);
-
+ const discountedPriceFormatted = Number(discountedPriceCalculated || 0).toFixed(2);
+ 
   const averageRating = reviewData.length > 0
     ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
     : 0;
