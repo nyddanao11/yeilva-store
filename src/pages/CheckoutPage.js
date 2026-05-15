@@ -134,147 +134,166 @@ const [downloadUrl, setDownloadUrl] = useState(null);
         {!showCheckoutForm ? (
           // --- STEP 1: ORDER SUMMARY & SHIPPING DETAILS ---
           <Row>
-            <Col lg={7} className="mb-4">
-              <Card className="shadow-sm">
-                <Card.Header className="bg-primary text-white">
-                  <h5 className="mb-0">Your Order Summary</h5>
-                </Card.Header>
-                <Card.Body>
-                  {checkoutItemsForPayment.length > 0 ? (
-                    checkoutItemsForPayment.map((item) => (
-                      <CartItem
-                        key={item.id || item.name}
-                        item={item}
-                        selectedSize={selectedSize}
-                        selectedColor={selectedColor}
-                      />
-                    ))
-                  ) : (
-                    <p className="text-center text-muted">No items selected for checkout. Please go back to cart.</p>
-                  )}
-                </Card.Body>
-              </Card>
-            </Col>
+         <Col lg={7} className="mb-4">
+          <Card className="border-0 shadow-sm rounded-4 overflow-hidden">
+            {/* Clean, Non-intrusive Modern Header */}
+            <Card.Header className="bg-white border-bottom border-light py-3 px-4">
+              <div className="d-flex align-items-center justify-content-between">
+                <h5 className="mb-0 fw-bold text-dark d-flex align-items-center">
+                  <span className="bg-primary text-white rounded-circle p-2 me-2 d-inline-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px', fontSize: '14px' }}>
+                    ✓
+                  </span>
+                  Review Your Order
+                </h5>
+                <span className="badge bg-soft-primary text-primary rounded-pill px-3 py-2 fw-bold" style={{ backgroundColor: '#e0f2fe' }}>
+                  {checkoutItemsForPayment.length} {checkoutItemsForPayment.length === 1 ? 'Digital Item' : 'Digital Items'}
+                </span>
+              </div>
+            </Card.Header>
+
+            {/* Content Container */}
+            <Card.Body className="p-4 bg-light-subtle">
+              {checkoutItemsForPayment.length > 0 ? (
+                <div className="d-flex flex-column gap-3">
+                  {checkoutItemsForPayment.map((item) => (
+                    <CartItem
+                      key={item.id || item.name}
+                      item={item}
+                      // Notice: physical props like selectedSize and selectedColor are removed here
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-5">
+                  <p className="text-muted mb-3 fs-5">No digital products selected for checkout.</p>
+                  <Button variant="outline-primary" className="rounded-pill px-4" onClick={() => navigate('/cart')}>
+                    Return to Shopping Cart
+                  </Button>
+                </div>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
 
            <Col lg={5} className="mt-4 mt-lg-0">
-  <Card className="shadow-border border-0 overflow-hidden">
-    {/* 1. Refined Header: More professional and trust-focused */}
-    <Card.Header className="bg-dark text-white py-3 border-0">
-      <h6 className="mb-0 text-uppercase fw-bold ls-1">Order Summary</h6>
-    </Card.Header>
+      <Card className="shadow-border border-0 overflow-hidden">
+        {/* 1. Refined Header: More professional and trust-focused */}
+        <Card.Header className="bg-dark text-white py-3 border-0">
+          <h6 className="mb-0 text-uppercase fw-bold ls-1">Order Summary</h6>
+        </Card.Header>
 
-    <Card.Body className="p-4">
-      {/* 2. Voucher Section: Keeping it clean */}
-      <div className="mb-4">
-        <VoucherForm onVoucherValidate={applyVoucherDiscount} />
-      </div>
-
-      <div className="order-details">
-        <div className="d-flex justify-content-between mb-2">
-          <span className="text-muted">Subtotal</span>
-          <span className="fw-semibold">₱{totalItemsPrice.toFixed(2)}</span>
-        </div>
-
-        {/* 3. Digital Delivery Label: Replaced 'Shipping' with 'Delivery' */}
-        <div className="d-flex justify-content-between mb-2">
-          <span className="text-muted">Digital Delivery</span>
-          <span className="text-success fw-bold">FREE</span>
-        </div>
-
-        {voucherDiscount > 0 && (
-          <div className="d-flex justify-content-between mb-2 p-2 bg-danger-subtle rounded">
-            <span className="text-danger fw-bold small">Voucher Applied</span>
-            <span className="text-danger fw-bold">-₱{voucherDiscount.toFixed(2)}</span>
+        <Card.Body className="p-4">
+          {/* 2. Voucher Section: Keeping it clean */}
+          <div className="mb-4">
+            <VoucherForm onVoucherValidate={applyVoucherDiscount} />
           </div>
-        )}
 
-        <hr className="my-3 opacity-10" />
+          <div className="order-details">
+            <div className="d-flex justify-content-between mb-2">
+              <span className="text-muted">Subtotal</span>
+              <span className="fw-semibold">₱{totalItemsPrice.toFixed(2)}</span>
+            </div>
 
-        <div className="d-flex justify-content-between align-items-end mb-4">
-          <div>
-            <h5 className="mb-0 fw-bold">Total Amount</h5>
-            <small className="text-muted">VAT Inclusive (if applicable)</small>
-          </div>
-          <h3 className="text-primary mb-0 fw-bolder">
-            {formattedGrandTotal}
-          </h3>
-        </div>
-      </div>
+            {/* 3. Digital Delivery Label: Replaced 'Shipping' with 'Delivery' */}
+            <div className="d-flex justify-content-between mb-2">
+              <span className="text-muted">Digital Delivery</span>
+              <span className="text-success fw-bold">FREE</span>
+            </div>
 
-      {/* 4. Primary Call to Action */}
-      <div className="d-grid gap-2">
-        <PayPalSection
-          setShowCheckoutModal={setShowCheckoutModal}
-          setModalType={setModalType}
-          setDownloadUrl={setDownloadUrl}
-          clearPurchasedItems={clearPurchasedItems}
-          showCheckoutModal={showCheckoutModal}
-        />
-      </div>
-
-      {/* 5. Trust Badges & Back Action */}
-      <div className="text-center mt-3">
-        <p className="small text-muted mb-3">
-          <FaLock className="me-1 text-success" /> 
-          Secure Encrypted Transaction
-        </p>
-        <Link to="/cart" className="text-decoration-none text-secondary small hover-underline">
-          <FaArrowLeft className="me-1" /> Edit My Cart
-        </Link>
-      </div>
-    </Card.Body>
-  </Card>
-
-  {/* ✅ FIXED MODAL LOGIC */}
-            {showCheckoutModal && (
-              <SuccessModal 
-                show={showCheckoutModal} // Matches the state variable
-                downloadUrl={downloadUrl} // Receives the URL set by PayPalSection
-                onClose={() => {
-
-                  setShowCheckoutModal(false);
-                  navigate('/'); 
-                  window.location.reload(); // This forces the app to pull the fresh, empty cart from the DB
-                }} 
-              />
+            {voucherDiscount > 0 && (
+              <div className="d-flex justify-content-between mb-2 p-2 bg-danger-subtle rounded">
+                <span className="text-danger fw-bold small">Voucher Applied</span>
+                <span className="text-danger fw-bold">-₱{voucherDiscount.toFixed(2)}</span>
+              </div>
             )}
-</Col>
-          </Row>
-        ) : (
-          // --- STEP 2: SHIPPING ADDRESS & PAYMENT METHOD ---
-          <Row className="justify-content-center">
-            <Col lg={8}>
-              <Card className="shadow-sm">
-                <Card.Header className="bg-success text-white">
-                  <h5 className="mb-0">Shipping & Payment</h5>
-                </Card.Header>
-                <Card.Body>
-                  <CheckoutForm
-                    formattedGrandTotal={formattedGrandTotal}
-                    fetchUserData={fetchUserData}
-                    totalItemsPrice={totalItemsPrice}
-                    shippingRate={shippingRate}
-                    voucherDiscount={voucherDiscount}
-                    voucherCode={voucherCode}
-                    checkoutItems={checkoutItemsForPayment} // Pass the items explicitly
-                    isLoggedIn={isLoggedIn}
-                    // Pass ewalletStatus from location.state if available
-                    ewalletStatus={location.state?.ewalletStatus || false}
-                    showCheckoutModal={showCheckoutModal}
-                    setShowCheckoutModal={setShowCheckoutModal}
+
+            <hr className="my-3 opacity-10" />
+
+            <div className="d-flex justify-content-between align-items-end mb-4">
+              <div>
+                <h5 className="mb-0 fw-bold">Total Amount</h5>
+                <small className="text-muted">VAT Inclusive (if applicable)</small>
+              </div>
+              <h3 className="text-primary mb-0 fw-bolder">
+                {formattedGrandTotal}
+              </h3>
+            </div>
+          </div>
+
+          {/* 4. Primary Call to Action */}
+          <div className="d-grid gap-2">
+            <PayPalSection
+              setShowCheckoutModal={setShowCheckoutModal}
+              setModalType={setModalType}
+              setDownloadUrl={setDownloadUrl}
+              clearPurchasedItems={clearPurchasedItems}
+              showCheckoutModal={showCheckoutModal}
+            />
+          </div>
+
+          {/* 5. Trust Badges & Back Action */}
+          <div className="text-center mt-3">
+            <p className="small text-muted mb-3">
+              <FaLock className="me-1 text-success" /> 
+              Secure Encrypted Transaction
+            </p>
+            <Link to="/cart" className="text-decoration-none text-secondary small hover-underline">
+              <FaArrowLeft className="me-1" /> Edit My Cart
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+
+      {/* ✅ FIXED MODAL LOGIC */}
+                {showCheckoutModal && (
+                  <SuccessModal 
+                    show={showCheckoutModal} // Matches the state variable
+                    downloadUrl={downloadUrl} // Receives the URL set by PayPalSection
+                    onClose={() => {
+
+                      setShowCheckoutModal(false);
+                      navigate('/'); 
+                      window.location.reload(); // This forces the app to pull the fresh, empty cart from the DB
+                    }} 
                   />
-                </Card.Body>
-                <Card.Footer className="text-end">
-                  <Button variant="outline-secondary" onClick={() => setShowCheckoutForm(false)}>
-                    Back to Order Summary
-                  </Button>
-                </Card.Footer>
-              </Card>
-            </Col>
-          </Row>
-        )}
-      </Container>
-      <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
-    </>
-  );
-}
+                )}
+    </Col>
+              </Row>
+            ) : (
+              // --- STEP 2: SHIPPING ADDRESS & PAYMENT METHOD ---
+              <Row className="justify-content-center">
+                <Col lg={8}>
+                  <Card className="shadow-sm">
+                    <Card.Header className="bg-success text-white">
+                      <h5 className="mb-0">Shipping & Payment</h5>
+                    </Card.Header>
+                    <Card.Body>
+                      <CheckoutForm
+                        formattedGrandTotal={formattedGrandTotal}
+                        fetchUserData={fetchUserData}
+                        totalItemsPrice={totalItemsPrice}
+                        shippingRate={shippingRate}
+                        voucherDiscount={voucherDiscount}
+                        voucherCode={voucherCode}
+                        checkoutItems={checkoutItemsForPayment} // Pass the items explicitly
+                        isLoggedIn={isLoggedIn}
+                        // Pass ewalletStatus from location.state if available
+                        ewalletStatus={location.state?.ewalletStatus || false}
+                        showCheckoutModal={showCheckoutModal}
+                        setShowCheckoutModal={setShowCheckoutModal}
+                      />
+                    </Card.Body>
+                    <Card.Footer className="text-end">
+                      <Button variant="outline-secondary" onClick={() => setShowCheckoutForm(false)}>
+                        Back to Order Summary
+                      </Button>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              </Row>
+            )}
+          </Container>
+          <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
+        </>
+      );
+    }

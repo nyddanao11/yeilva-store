@@ -14,15 +14,19 @@ export default function Cart({ isLoggedIn, youMayLikeProducts }) {
     cartCount,
     addToCart,
     removeFromCart,
-    setCheckoutItemsForPayment,
     setCartItems,
+    setCheckoutItemsForPayment,
+    checkoutItemsForPayment,
     confirmRemoveItem,
+    applyVoucherDiscount,
   } = useCart();
 
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
   const navigate = useNavigate();
+
+  console.log('cartItemsPrice', cartItems);
 
   // Ensure items have isSelected property
   useEffect(() => {
@@ -102,7 +106,13 @@ export default function Cart({ isLoggedIn, youMayLikeProducts }) {
                 {/* Pass a prop to ShoppingCart to hide quantity controls */}
                 <ShoppingCart 
                   cartItems={cartItems} 
+                 cartItems = {cartItems}
+                  cartCount= {cartCount}
+                  addToCart= {addToCart}
+                  removeFromCart= {removeFromCart}
+                  isLoggedIn={isLoggedIn} // Keep if prop
                   handleItemSelection={handleItemSelection}
+                  applyVoucherDiscount={applyVoucherDiscount}
                   isDigitalMode={true} // Add this flag to your ShoppingCart component logic
                 />
               </>

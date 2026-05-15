@@ -241,16 +241,32 @@ const addToCart = useCallback((product) => {
         setError('Not connected to server. Please try again.');
         return;
     }
+
+    // 1. Check if the digital product is already in the cart
+    const isAlreadyInCart = cartItems.some(item => item.id === product.id);
+
+    if (isAlreadyInCart) {
+        // Instead of adding a duplicate, trigger a notification or redirect
+        setNotificationProduct({
+            ...product,
+            alreadyInCart: true // Custom flag you can use in your UI toast/alert
+        });
+        return; 
+    }
+
+    // 2. If it's not in the cart, add exactly 1 quantity safely
     const finalPriceValue = Number(product.final_price ?? product.price) || 0;
+    
     socket.emit('cart:add', { 
-    product_id: product.id, 
-    quantity: 1, 
-    // Use the correctly converted number value here
-    final_price: finalPriceValue, 
-    isSelected: true 
-});
+        product_id: product.id, 
+        quantity: 1, 
+        final_price: finalPriceValue, 
+        isSelected: true 
+    });
+
     setNotificationProduct(product);
-}, [socket, setError, setNotificationProduct]);
+}, [socket, setError, setNotificationProduct, cartItems]); // added cartItems to dependencies
+
 
    // Inside CartProvider:
 
