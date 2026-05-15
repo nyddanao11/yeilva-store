@@ -1,202 +1,164 @@
 import React, { useEffect, useState } from 'react';
 import ShoppingCart from '../components/ShoppingCart';
-import { Button, Container, Row, Col, Modal, Form } from 'react-bootstrap';
+import { Button, Container, Row, Col, Modal, Form, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { ShieldCheck, Zap, Trash2, ShoppingBag } from 'lucide-react';
 import './Cart.css';
 import YouMayLike from '../components/YouMayLike';
 import AlertEmptyCart from '../components/AlertEmptyCart';
-import { useCart } from './CartContext'; // Correct path to your context
+import { useCart } from './CartContext';
 
-export default function Cart({
-  // ONLY keep props that are NOT managed by CartContext
-  handleSizeChange, // Keep if size/color are product-specific and passed down
-  handleColorChange, // Keep if size/color are product-specific and passed down
-  isLoggedIn, // Keep if login status is from a different context or App.js
-  youMayLikeProducts, // Keep if these products are from a different source
-}) {
-  // CORRECT: Destructure all cart-related state and functions from useCart()
+export default function Cart({ isLoggedIn, youMayLikeProducts }) {
   const {
     cartItems,
     cartCount,
     addToCart,
     removeFromCart,
-    handleIncrement,
-    handleDecrement,
-    setCheckoutItemsForPayment, // This is key for passing selected items to checkout
-    setCartItems, // IMPORTANT: If you need to modify the cartItems array directly
-                  // (e.g., to add `isSelected`), you MUST expose this from context.
-                  // As discussed, prefer specific actions if possible, but for `isSelected`,
-                  // this might be a necessary, carefully managed exposure.
-     confirmRemoveItem,
-        showConfirmModal,
-        itemToRemove,
-        setShowConfirmModal,
-        applyVoucherDiscount,
+    setCheckoutItemsForPayment,
+    setCartItems,
+    confirmRemoveItem,
   } = useCart();
 
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
-
   const navigate = useNavigate();
-  
-useEffect(() => {
-    // Check if initialization is necessary AND if cartItems is available
+
+  // Ensure items have isSelected property
+  useEffect(() => {
     if (cartItems.length > 0 && cartItems.some(item => item.isSelected === undefined)) {
-        
-        // Create the NEW array
-        const updatedCartItems = cartItems.map(item => ({
-            ...item,
-            isSelected: true, // Default to true
-        }));
-        
-        // Update the state once. The loop will stop because the next time 
-        // the component renders, `cartItems.some(item => item.isSelected === undefined)` 
-        // will be false, and this hook will not call the setter again.
-        setCartItems(updatedCartItems);
-    } 
-    
-    // Remove the `else if (cartItems.length === 0)` block, it's redundant and risky.
-}, [cartItems, setCartItems]);
+      const updatedCartItems = cartItems.map(item => ({
+        ...item,
+        isSelected: true,
+      }));
+      setCartItems(updatedCartItems);
+    }
+  }, [cartItems, setCartItems]);
 
-  // Handler for individual item selection
   const handleItemSelection = (itemId) => {
-    setCartItems(prevCartItems => // Use setCartItems from context
-      prevCartItems.map(item =>
-        item.id === itemId ? { ...item, isSelected: !item.isSelected } : item
-      )
-    );
+    setCartItems(prev => prev.map(item =>
+      item.id === itemId ? { ...item, isSelected: !item.isSelected } : item
+    ));
   };
 
-  // Handler for "Select All" checkbox
-  const handleSelectAll = (event) => {
-    const isChecked = event.target.checked;
-    setCartItems(prevCartItems => // Use setCartItems from context
-      prevCartItems.map(item => ({ ...item, isSelected: isChecked }))
-    );
-  };
-
- // Calculate total price only for selected items
-  const calculateTotalPrice = (items) => {
-    return items.reduce((total, item) => {
-      // ----------------------------------------------------
-      // FIX: Ensure both price and quantity are valid numbers.
-      const price = Number(item.final_price ?? item.price)||0;
-      const quantity = Number(item.quantity) || 0;
-      // ----------------------------------------------------
-
-      return item.isSelected ? total + price * quantity : total;
-    }, 0);
+  const handleSelectAll = (e) => {
+    const isChecked = e.target.checked;
+    setCartItems(prev => prev.map(item => ({ ...item, isSelected: isChecked })));
   };
 
   const selectedItems = cartItems.filter(item => item.isSelected);
-  const total = calculateTotalPrice(selectedItems);
+  
+  // Calculate Total (Quantity is always 1 for digital)
+  const total = selectedItems.reduce((acc, item) => {
+    const price = Number(item.final_price ?? item.price) || 0;
+    return acc + price; 
+  }, 0);
+
   const formattedPrice = new Intl.NumberFormat('fil-PH', {
     style: 'currency',
     currency: 'PHP',
   }).format(total);
 
-  const handleClose = () => setShowModal(false);
-  const handleShowModal = (message) => {
-    setModalMessage(message);
-    setShowModal(true);
-  };
-
-  const handleLoginRedirect = () => {
-    setShowModal(false);
-    window.location.href = '/login';
-  };
-
   const handleCheckoutClick = () => {
-    const itemsToProcessForCheckout = cartItems.filter(item => item.isSelected); // Filter to get only selected items
-
-    if (itemsToProcessForCheckout.length === 0) {
+    if (selectedItems.length === 0) {
       setShowEmptyCartAlert(true);
       return;
     }
-
     if (!isLoggedIn) {
-      handleShowModal('Please login to continue');
+      setModalMessage('Please login to securely access your digital downloads.');
+      setShowModal(true);
       return;
-    } else {
-      // CORRECT: Use setCheckoutItemsForPayment from context
-      setCheckoutItemsForPayment(itemsToProcessForCheckout);
-      // CORRECT: Navigate to the correct checkout route, without passing items in state (context holds them)
-      navigate('/checkout'); // Assuming your route is /checkoutform as per earlier discussion
     }
+    setCheckoutItemsForPayment(selectedItems);
+    navigate('/checkout');
   };
-
-  const allItemsSelected = cartItems.length > 0 && cartItems.every(item => item.isSelected);
-  const anyItemSelected = cartItems.some(item => item.isSelected);
 
   return (
     <>
-      {showEmptyCartAlert && (
-        <AlertEmptyCart onClose={() => setShowEmptyCartAlert(false)} />
-      )}
-      <Container className="cart-container">
-        <div className="d-flex justify-content-center aligned-items-center">
-          <h4 className="text-center mb-1" style={{ padding: '10px' }}>
-            Shopping Cart
-          </h4>
-        </div>
-        {cartItems.length > 0 && (
-          <div className="mb-3">
-            <Form.Check
-              type="checkbox"
-              id="selectAll"
-              label="Select all items"
-              checked={allItemsSelected}
-              onChange={handleSelectAll}
-              style={{ fontSize: '20px' }}
-            />
-          </div>
-        )}
+      {showEmptyCartAlert && <AlertEmptyCart onClose={() => setShowEmptyCartAlert(false)} />}
+      
+      <Container className="py-5">
+        <Row>
+          {/* Main Cart Area */}
+          <Col lg={8}>
+            <div className="d-flex align-items-center mb-4">
+              <ShoppingBag className="me-2 text-primary" />
+              <h2 className="fw-bold mb-0">Your Digital Library</h2>
+            </div>
 
-        <ShoppingCart
-         cartItems = {cartItems}
-          cartCount= {cartCount}
-          addToCart= {addToCart}
-          removeFromCart= {removeFromCart}
-          handleIncrement= {handleIncrement}
-          handleDecrement= {handleDecrement}
-          handleSizeChange={handleSizeChange} // Keep if prop
-          handleColorChange={handleColorChange} // Keep if prop
-          isLoggedIn={isLoggedIn} // Keep if prop
-          handleItemSelection={handleItemSelection}
-          applyVoucherDiscount={applyVoucherDiscount}
-        />
+            {cartItems.length > 0 ? (
+              <>
+                <div className="d-flex justify-content-between align-items-center bg-light p-3 rounded-3 mb-3">
+                  <Form.Check 
+                    type="checkbox" 
+                    label="Select All Items" 
+                    checked={cartItems.length > 0 && cartItems.every(i => i.isSelected)}
+                    onChange={handleSelectAll}
+                    className="fw-medium"
+                  />
+                  <small className="text-muted">{cartCount} items in cart</small>
+                </div>
 
-        <div className="sticky-footer">
-          <h2>Subtotal ({selectedItems.length} items): {formattedPrice}</h2>
-          <Button
-            className="w-100"
-            style={{ backgroundColor: '#E92409', border: 'none' }}
-            onClick={handleCheckoutClick}
-            disabled={!anyItemSelected}
-          >
-            Proceed to Checkout
-          </Button>
-        </div>
+                {/* Pass a prop to ShoppingCart to hide quantity controls */}
+                <ShoppingCart 
+                  cartItems={cartItems} 
+                  handleItemSelection={handleItemSelection}
+                  isDigitalMode={true} // Add this flag to your ShoppingCart component logic
+                />
+              </>
+            ) : (
+              <div className="text-center py-5 border rounded-4 bg-light">
+                <p className="lead text-muted">Your cart is empty.</p>
+                <Button variant="primary" onClick={() => navigate('/')}>Browse E-books</Button>
+              </div>
+            )}
+          </Col>
 
-        <Modal show={showModal} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Authentication Required</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{modalMessage}</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleLoginRedirect}>
-              Log In
-            </Button>
-          </Modal.Footer>
-        </Modal>
+          {/* Sidebar Summary (Modern Best Practice) */}
+          <Col lg={4} className="mt-4 mt-lg-0">
+            <Card className="border-0 shadow-sm rounded-4 sticky-top" style={{ top: '100px' }}>
+              <Card.Body className="p-4">
+                <h4 className="fw-bold mb-4">Order Summary</h4>
+                <div className="d-flex justify-content-between mb-2">
+                  <span>Selected Items ({selectedItems.length})</span>
+                  <span>{formattedPrice}</span>
+                </div>
+                <div className="d-flex justify-content-between mb-4 border-top pt-3">
+                  <span className="fw-bold h5">Total</span>
+                  <span className="fw-bold h5 text-primary">{formattedPrice}</span>
+                </div>
 
-       
+                <Button 
+                  className="w-100 py-3 fw-bold rounded-pill mb-3"
+                  style={{ backgroundColor: '#E92409', border: 'none' }}
+                  onClick={handleCheckoutClick}
+                  disabled={selectedItems.length === 0}
+                >
+                  Proceed to Checkout
+                </Button>
+
+                <div className="text-center small text-muted">
+                  <div className="mb-2"><ShieldCheck size={16} className="text-success" /> Encrypted & Secure Payment</div>
+                  <div><Zap size={16} className="text-warning" /> Instant Download After Purchase</div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       </Container>
-      <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
+
+      <YouMayLike youMayLikeProducts={youMayLikeProducts} />
+
+      {/* Auth Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Body className="text-center p-5">
+           <h3 className="fw-bold mb-3">Sign in Required</h3>
+           <p className="text-muted mb-4">{modalMessage}</p>
+           <Button variant="primary" className="w-100 py-2 rounded-pill" onClick={() => navigate('/login')}>
+              Log In to My Account
+           </Button>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
