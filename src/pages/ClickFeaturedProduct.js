@@ -300,9 +300,9 @@ export default function ClickFeaturedProduct ({ isLoggedIn, featuredProducts, yo
               )}
             </div>
 
-            <p className={`fw-bold fs-5 ${isOutOfStock ? "text-danger" : "text-success"} mb-3`}>
-              {isOutOfStock ? "Out of Stock" : `In Stock (${stockState} available)`}
-            </p>
+            // <p className={`fw-bold fs-5 ${isOutOfStock ? "text-danger" : "text-success"} mb-3`}>
+            //   {isOutOfStock ? "Out of Stock" : `In Stock (${stockState} available)`}
+            // </p>
 
             {/* Shipping Information */}
             {freeShippingPlace && (

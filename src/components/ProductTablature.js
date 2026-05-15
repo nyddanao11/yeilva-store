@@ -177,9 +177,7 @@ const TabbedComponent = ({ productId, storedProducts}) => {
               <Nav.Item>
                 <Nav.Link eventKey="reviews">Reviews</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="shipping">Shipping</Nav.Link>
-              </Nav.Item>
+             
             </Nav>
           </Col>
         </Row>
@@ -197,13 +195,7 @@ const TabbedComponent = ({ productId, storedProducts}) => {
               <Tab.Pane eventKey="reviews">
                 <Reviews selectedProduct={selectedProduct} />
               </Tab.Pane>
-              <Tab.Pane eventKey="shipping">
-                <Shipping 
-                  clickedTabs={clickedTabs} 
-                  handleItemClick={handleItemClick} 
-                  selectedProduct={selectedProduct} 
-                />
-              </Tab.Pane>
+             
             </Tab.Content>
           </Col>
         </Row>
