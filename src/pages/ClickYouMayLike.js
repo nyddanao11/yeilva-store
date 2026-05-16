@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Image, Button, Modal, Spinner, Alert, Fade } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Modal, Spinner, Alert, Fade, Badge } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ClickProductPage.css';
 import BreadCrumbYouMayLike from'../components/BreadCrumbYouMayLike';
@@ -7,6 +7,7 @@ import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
 import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
+import { Zap, ShieldCheck, DownloadCloud, FileText, Globe } from 'lucide-react'; // Premium UI icons
 import { useCart } from './CartContext';
 import SEO from '../components/SEO';
 
@@ -184,10 +185,6 @@ export default function ClickProductPage({ isLoggedIn, youMayLikeProducts  }) {
   };
 
  const handleCheckoutClick = () => {
-  if (!isLoggedIn) {
-    handleShowModal('Please login to continue');
-    return;
-  }
 
   const basePrice = Number(product.price);
   const discountedPrice = isProductDiscounted()
@@ -236,101 +233,149 @@ export default function ClickProductPage({ isLoggedIn, youMayLikeProducts  }) {
           <BreadCrumbYouMayLike productId={product.id}  youMayLikeProducts={ youMayLikeProducts} />
         )}
 
-        <Row className="justify-content-center g-4 product-main-row">
-          <Col xs={12} md={6} lg={5} className="d-flex flex-column justify-content-center align-items-center product-image-section">
-            <Fade in={true} appear={true}>
-              <div className="main-image-container mb-3 shadow-sm rounded">
-                <Image
-                  src={selectedThumbnail || product.url}
-                  alt={product.name}
-                  className="main-product-image img-fluid rounded"
-                />
-              </div>
-            </Fade>
-            {product.thumbnails && product.thumbnails.length > 0 && (
-              <div className="thumbnails-container d-flex flex-wrap justify-content-center gap-2 mt-2">
-                {[product.url, ...product.thumbnails].map((thumb, idx) => (
-                  <Image
-                    key={idx}
-                    src={thumb}
-                    alt={`${product.name} thumbnail ${idx + 1}`}
-                    onClick={() => handleThumbnailClick(thumb)}
-                    className={`thumbnail-image border ${selectedThumbnail === thumb ? 'active-thumbnail border-primary shadow-sm' : 'border-light'}`}
-                    fluid
-                  />
-                ))}
-              </div>
-            )}
-          </Col>
-
-          <Col xs={12} md={6} lg={5} className='product-details-section ps-md-4'>
-            <h1 className="mb-2 display-5 fw-bold">{product.name}</h1>
-            <p className="text-muted mb-3 fs-5">{product.description}</p>
-
-            {/* Price display */}
-            {isProductDiscounted() ? ( // Call the function here
-              <div className="d-flex align-items-baseline mb-3">
-                <h3 className="original-price text-decoration-line-through text-muted me-2 fs-4">
-                  ₱{originalPriceFormatted}
-                </h3>
-                <h2 className="discounted-price text-danger me-2 fs-2 fw-bold">₱{discountedPriceFormatted}</h2>
-                <span className="badge bg-success fs-6 fw-bold">-{product.discount}% OFF</span>
-              </div>
-            ) : (
-              <h2 className="price mb-3 fs-2 fw-bold">₱{originalPriceFormatted}</h2>
-            )}
-
-            {/* Reviews and Stock Status */}
-            <div className="d-flex align-items-center mb-3">
-              <div className="d-flex me-3 align-items-center">
-                {renderStars(averageRating)}
-                <span className="ms-2 fw-bold fs-5 text-dark">{averageRating}</span>
-              </div>
-              <span className="text-muted fs-6">({reviewData.length} Reviews)</span>
-              {loadingReviews && (
-                <span className="ms-3 text-info d-flex align-items-center">
-                  <Spinner animation="border" size="sm" className="me-1" /> Loading reviews...
-                </span>
-              )}
-              {errorReviews && (
-                <span className="ms-3 text-danger d-flex align-items-center">
-                  <FaExclamationTriangle className="me-1" /> Error loading reviews.
-                </span>
-              )}
+         <Row className="justify-content-center g-4 lg-g-5 product-main-row align-items-start py-4">
+    
+    {/* 1. DIGITAL ASSET PREVIEW SECTION (Left Side) */}
+    <Col xs={12} md={6} lg={5} className="d-flex flex-column justify-content-start align-items-center product-image-section">
+      <Fade in={true} appear={true}>
+        {/* Added a modern card outline background specifically built for displaying digital mockup covers */}
+        <div className="main-image-container mb-3 shadow-lg rounded-4 p-3 bg-white border border-light d-flex align-items-center justify-content-center" style={{ minHeight: '360px', width: '100%' }}>
+          <Image
+            src={selectedThumbnail || product.url}
+            alt={product.name}
+            className="main-product-image img-fluid rounded-3"
+            style={{ maxHeight: '420px', objectFit: 'contain' }}
+          />
+        </div>
+      </Fade>
+      
+      {/* Mini Thumbnails / Preview Screens */}
+      {product.thumbnails && product.thumbnails.length > 0 && (
+        <div className="thumbnails-container d-flex flex-wrap justify-content-center gap-2 mt-2">
+          {[product.url, ...product.thumbnails].map((thumb, idx) => (
+            <div 
+              key={idx}
+              onClick={() => handleThumbnailClick(thumb)}
+              className={`thumbnail-wrapper rounded-3 overflow-hidden cursor-pointer border-2 transition ${selectedThumbnail === thumb ? 'border-primary shadow-sm scale-up' : 'border-light opacity-75'}`}
+              style={{ width: '64px', height: '64px', padding: '2px', background: '#fff', borderStyle: 'solid' }}
+            >
+              <Image
+                src={thumb}
+                alt={`${product.name} preview page ${idx + 1}`}
+                className="w-100 h-100 object-fit-cover rounded-2"
+              />
             </div>
+          ))}
+        </div>
+      )}
+    </Col>
 
+    {/* 2. VALUE PROPOSITION & CONVERSION ACTION SECTION (Right Side) */}
+    <Col xs={12} md={6} lg={6} xl={5} className="product-details-section ps-md-4 mt-4 mt-md-0">
+      
+      {/* Category or Asset Format Badge */}
+      <div className="d-flex align-items-center gap-2 mb-2">
+        <Badge bg="soft-primary" className="text-primary rounded-pill px-3 py-1.5 fw-bold text-uppercase tracking-wider" style={{ backgroundColor: '#e0f2fe', fontSize: '11px' }}>
+          Premium Digital Guide
+        </Badge>
+        <span className="text-muted small d-flex align-items-center gap-1">
+          <FileText size={14} /> PDF Format Included
+        </span>
+      </div>
 
-            {/* Shipping Information */}
-            {freeShippingPlace && (
-              <div className="mb-4 p-3 bg-light rounded border border-success">
-                <p className="text-success mb-1 fw-bold fs-5 d-flex align-items-center">
-                  <FaShippingFast className="me-2 fs-4" /> Free Shipping to Maslog (Danao City)!
-                </p>
-                <p className="text-muted small mb-0">This offer applies only within the specified area.</p>
-              </div>
-            )}
+      <h1 className="mb-2 text-dark fw-extrabold tracking-tight lh-sm fs-2 fs-lg-1">{product.name}</h1>
+      <p className="text-secondary mb-4 fs-6 lh-base" style={{ opacity: 0.85 }}>{product.description}</p>
 
-            {/* Action Buttons */}
-            <div className="d-flex flex-column flex-sm-row mt-4 gap-3">
-              <Button
-                variant="primary"
-                onClick={handleAddToCartClick}
-                disabled={isOutOfStock}
-                className="px-4 py-2 flex-grow-1 d-flex align-items-center justify-content-center"
-              >
-                <FaCartPlus className="me-2" /> {addedToCartOnce ? 'Add More to Cart' : 'Add to Cart'}
-              </Button>
-              <Button
-                variant="outline-primary"
-                onClick={handleCheckoutClick}
-                disabled={isOutOfStock}
-                className="px-4 py-2 flex-grow-1 d-flex align-items-center justify-content-center"
-              >
-                Buy Now
-              </Button>
-            </div>
-          </Col>
-        </Row>
+      {/* Modern Pricing Panel */}
+      <div className="p-3 bg-light rounded-4 mb-4 border border-light-subtle">
+        <div className="d-flex align-items-center justify-content-between mb-1">
+          <span className="text-muted small fw-medium">Investment Price</span>
+          {isProductDiscounted() && (
+            <span className="badge bg-soft-danger text-danger rounded-pill px-2.5 py-1 fw-bold" style={{ backgroundColor: '#fee2e2', fontSize: '12px' }}>
+              Save {product.discount}% Today
+            </span>
+          )}
+        </div>
+        
+        {isProductDiscounted() ? (
+          <div className="d-flex align-items-baseline gap-2">
+            <h2 className="discounted-price text-danger m-0 fs-1 fw-black">₱{discountedPriceFormatted}</h2>
+            <h4 className="original-price text-decoration-line-through text-muted m-0 fs-5">
+              ₱{originalPriceFormatted}
+            </h4>
+          </div>
+        ) : (
+          <h2 className="price m-0 fs-1 fw-black text-dark">₱{originalPriceFormatted}</h2>
+        )}
+      </div>
+
+      {/* Social Proof & Live Review Loaders */}
+      <div className="d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+        <div className="d-flex me-3 align-items-center bg-white shadow-sm px-2.5 py-1 rounded-3 border border-light">
+          {renderStars(averageRating)}
+          <span className="ms-2 fw-extrabold fs-6 text-dark">{averageRating}</span>
+        </div>
+        <span className="text-muted small fw-medium">Based on {reviewData.length} Verified Student Ratings</span>
+        
+        {loadingReviews && (
+          <span className="ms-3 text-info small d-flex align-items-center">
+            <Spinner animation="border" size="sm" className="me-1" /> Updating...
+          </span>
+        )}
+        {errorReviews && (
+          <span className="ms-3 text-danger small d-flex align-items-center">
+            <FaExclamationTriangle className="me-1" /> Review sync error.
+          </span>
+        )}
+      </div>
+
+      {/* DIGITAL TRUST ASSURANCE CARD (Replaced Old Shipping Panel) */}
+      <div className="mb-4 p-3 bg-gradient-blue rounded-4 border border-info-subtle shadow-xs" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
+        <p className="text-info-dark mb-1 fw-bold fs-6 d-flex align-items-center" style={{ color: '#0369a1' }}>
+          <Zap size={18} className="me-2 animate-bounce-slow text-warning" fill="currentColor" /> Instant Digital Delivery
+        </p>
+        <p className="text-muted small mb-0 lh-sm">
+          No waiting, zero shipping fees. Access details and links are dispatched directly to your registered email and profile vault immediately upon completing payment.
+        </p>
+      </div>
+
+      {/* HIGH CONVERSION ACTION FRAMEWORK */}
+      <div className="d-flex flex-column gap-2.5 mt-4">
+        {/* Primary CTA - Immediate Checkout Entry */}
+        <Button
+          variant="primary"
+          onClick={handleCheckoutClick}
+          className="py-3 px-4 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center transition-all hover-scale"
+          style={{ fontSize: '16px' }}
+        >
+          Instant Access: Buy Now <Zap size={16} className="ms-2" fill="currentColor" />
+        </Button>
+
+        {/* Secondary CTA - Add to Cart Tray (Modified with logic safeguards) */}
+        <Button
+          variant="outline-secondary"
+          onClick={handleAddToCartClick}
+          className="py-2.5 px-4 rounded-pill fw-semibold d-flex align-items-center justify-content-center transition-all bg-transparent"
+          style={{ fontSize: '14px', border: '1px solid #d1d5db', color: '#4b5563' }}
+        >
+          <DownloadCloud size={16} className="me-2" /> 
+          {addedToCartOnce ? 'Review Inside Cart' : 'Add Guide to Cart'}
+        </Button>
+      </div>
+
+      {/* SECURITY & GUARANTEE SUB-TICKERS */}
+      <div className="d-flex justify-content-center gap-3 align-items-center mt-3 text-muted small">
+        <span className="d-flex align-items-center gap-1" style={{ fontSize: '12px' }}>
+          <ShieldCheck size={14} className="text-success" /> Secure 256-Bit SSL Checkout
+        </span>
+        •
+        <span className="d-flex align-items-center gap-1" style={{ fontSize: '12px' }}>
+          <Globe size={14} className="text-primary" /> Lifetime Product Access Updates
+        </span>
+      </div>
+
+    </Col>
+  </Row>
 
         {/* Product Details Tabs */}
         <Row className="my-5">

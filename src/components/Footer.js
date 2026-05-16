@@ -33,11 +33,7 @@ const currentYear = new Date().getFullYear();
               Empowering your digital transformation with expert-led blueprints 
               for wellness and home optimization. Instant access, lifetime value.
             </p>
-            <div className="d-flex justify-content-center align-items-center gap-3 mt-3">
-              <a href="#" className=" hover-primary"><FaFacebook size={20} /></a>
-              <a href="#" className="hover-primary"><FaInstagram size={20} /></a>
-              <a href="#" className="hover-primary"><FaYoutube size={20} /></a>
-           </div>
+           <p className=" d-flex justify-content-center align-items-center small pe-lg-5 mt-3">Cebu Philippines</p>
            </div>
           </Col>
           <Col md={4}  className="d-flex flex-column align-items-center justify-content-center mt-2 mb-3" >
