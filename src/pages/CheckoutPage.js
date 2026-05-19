@@ -11,7 +11,7 @@ import './CheckoutPage.css';
 import AlertFreeShipping from '../components/AlertFreeShipping';
 import AlertEmptyCart from '../components/AlertEmptyCart';
 import { FaShippingFast, FaCheckCircle, FaMoneyBillWave, FaLock, FaArrowLeft } from 'react-icons/fa';
-import { useCart } from './CartContext';
+import { useCart } from './CartContextGuest';
 import PayPalSection from '../components/CheckoutFormPaypal';
 import SuccessModal from'../components/modalCheckout';
 
@@ -21,7 +21,6 @@ export default function CheckoutPage({
   selectedColor,
   fetchUserData,
   youMayLikeProducts,
-  isLoggedIn,
   showCheckoutModal,
   setShowCheckoutModal,
 }) {
@@ -42,6 +41,8 @@ export default function CheckoutPage({
     grandTotalAmount,
   } = useCart();
 
+
+
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [showFreeShippingAlert, setShowFreeShippingAlert] = useState(false);
   const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
@@ -51,6 +52,8 @@ const [downloadUrl, setDownloadUrl] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+
 
   // Effect to handle initialization of checkoutItemsForPayment from location.state
   useEffect(() => {
@@ -85,6 +88,8 @@ const [downloadUrl, setDownloadUrl] = useState(null);
       setShowFreeShippingAlert(false);
     }
   }, [isFreeShipping]);
+
+
 
  const handleVoucherCode = (percentage, code) => { 
     applyVoucherDiscount(percentage, code);
@@ -267,7 +272,7 @@ const [downloadUrl, setDownloadUrl] = useState(null);
                     <Card.Header className="bg-success text-white">
                       <h5 className="mb-0">Shipping & Payment</h5>
                     </Card.Header>
-                    <Card.Body>
+                     <Card.Body>
                       <CheckoutForm
                         formattedGrandTotal={formattedGrandTotal}
                         fetchUserData={fetchUserData}
@@ -276,7 +281,7 @@ const [downloadUrl, setDownloadUrl] = useState(null);
                         voucherDiscount={voucherDiscount}
                         voucherCode={voucherCode}
                         checkoutItems={checkoutItemsForPayment} // Pass the items explicitly
-                        isLoggedIn={isLoggedIn}
+                        
                         // Pass ewalletStatus from location.state if available
                         ewalletStatus={location.state?.ewalletStatus || false}
                         showCheckoutModal={showCheckoutModal}

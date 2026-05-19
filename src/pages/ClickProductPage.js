@@ -8,7 +8,7 @@ import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { Zap, ShieldCheck, DownloadCloud, FileText, Globe } from 'lucide-react'; // Premium UI icons
-import { useCart } from './CartContext';
+import { useCart } from './CartContextGuest';
 import SEO from '../components/SEO';
 
 export default function ClickProductPage({ isLoggedIn, storedProducts, allProducts, youMayLikeProducts }) {

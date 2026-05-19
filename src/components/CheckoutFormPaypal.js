@@ -1,109 +1,135 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useCart } from '../pages/CartContext';
+import { useCart } from '../pages/CartContextGuest';
 
-export default function PayPalSection({ setShowCheckoutModal, setModalType, showCheckoutModal,setDownloadUrl }) {
-  const { clearPurchasedItems, cartItems,  checkoutItemsForPayment,
-    setCheckoutItemsForPayment, voucherCode,totalItemsPrice, 
-    shippingRate, voucherDiscount, grandTotalAmount } = useCart();
+export default function PayPalSection({ setShowCheckoutModal, setModalType, setDownloadUrl }) {
+  const { 
+    clearPurchasedItems, 
+    checkoutItemsForPayment,
+    shippingRate, 
+    voucherDiscount
+  } = useCart();
 
- const subtotal = (checkoutItemsForPayment || [])
+  // 1. Calculate prices
+  const subtotal = (checkoutItemsForPayment || [])
     .reduce((sum, item) => sum + Number(item.final_price || 0) * Number(item.quantity || 0), 0)
     .toFixed(2);
-   
-const total = (Number(subtotal) + Number(shippingRate)).toFixed(2) - voucherDiscount;
+    
+  const total = (Number(subtotal) - Number(voucherDiscount || 0)).toFixed(2);
 
-console.log("💰 PayPal total:", total);
-   const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
-   // Add this state to your main Checkout component
+  console.log("💰 PayPal total calculated:", total);
+  
+  const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+  const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:3001';
 
-if (!clientId) {
-  return <div>Error: PayPal Client ID is missing. Check your .env file.</div>;
-}
-  console.log("cartItems:", checkoutItemsForPayment); // 👈 debug this
+  if (!clientId) {
+    return <div className="p-4 text-red-500 font-bold">Error: PayPal Client ID is missing. Check your .env file.</div>;
+  }
 
   return (
-     <PayPalScriptProvider
-    key={`${clientId}`} 
+    <PayPalScriptProvider
+      key={`${clientId}`} 
       options={{
         "client-id": clientId,
         currency: "PHP",
         intent: "capture",
       }}
     >
-
-
-   <PayPalButtons
+      <PayPalButtons
         style={{ layout: "vertical", shape: "rect", label: "pay" }}
+        
+        onClick={(data, actions) => {
+          console.log("⚡ Checking client-side values before initialization...");
+          if (Number(total) <= 0) {
+            console.error("⛔ Cart validation failed: Total amount is zero or negative.");
+            return actions.reject(); 
+          }
+          return actions.resolve(); 
+        }}
 
         createOrder={async (data, actions) => {
           try {
-            const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/paypal/create-order`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json",
-        
-               },
-              body: JSON.stringify({ 
-               amount: subtotal, // e.g., 500
-               shipping: shippingRate,       // e.g., 50
-               discount: voucherDiscount,
-               
-              }),
-              credentials: 'include' // 👈 This "fetches" the cookies for the request
+            // 1. Initialize the draft order record in PostgreSQL using environment variables
+            const initRes = await fetch(`${serverUrl}/api/checkout/guest-initiate`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                items: checkoutItemsForPayment, // Cleaned: Unified to use checkout items
+                total_amount: total
+              })
             });
 
-            if (!res.ok) throw new Error("Failed to create PayPal order");
+            if (!initRes.ok) throw new Error('Failed to establish draft checkout record');
+            
+            const sessionResult = await initRes.json();
+            console.log("💾 Draft order row saved with database ID:", sessionResult.orderId);
 
-            const order = await res.json();
-            return order.id; // Correctly returns the ID to PayPal
+            // 2. Pass that database orderId directly to PayPal order creation endpoint
+            const paypalRes = await fetch(`${serverUrl}/api/paypal/create-order`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                orderId: sessionResult.orderId,
+                amount: total // Good practice to pass verified total
+              }) 
+            });
+
+            if (!paypalRes.ok) {
+              const errorResponse = await paypalRes.json();
+              throw new Error(errorResponse.error || 'PayPal order creation rejected.');
+            }
+
+            const paypalOrder = await paypalRes.json();
+            return paypalOrder.id; 
+
           } catch (err) {
-            console.error("❌ createOrder error:", err);
-            return actions.reject(); 
+            console.error("❌ createOrder loop caught:", err.message);
+            throw err;
           }
         }}
 
-onApprove={async (data) => {
-  try {
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/paypal/capture-order`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        orderID: data.orderID, 
-        items: checkoutItemsForPayment 
-      }),
-      credentials: 'include' 
-    });
+        onApprove={async (data) => {
+          try {
+            const res = await fetch(`${serverUrl}/api/paypal/capture-order`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ 
+                orderID: data.orderID, 
+                items: checkoutItemsForPayment 
+              }),
+              credentials: 'include' 
+            });
 
-    const result = await res.json();
-    console.log('Capture Result:', result);
+            const result = await res.json();
+            console.log('Capture Result from Backend:', result);
 
-    if (res.ok && result.success) {
-      
-      // ✅ 2. Lift the download URL to the Parent (for the modal to show it)
-      setDownloadUrl(result.downloadLinks);
-      
-      // ✅ 3. Call your specialized clear function if it exists
-      if (clearPurchasedItems) {
-        await clearPurchasedItems(result.deletedCartItemIds);
-      }
+            if (res.ok && result.success) {
+              // Lift download links to the success modal window
+              setDownloadUrl(result.downloadLinks || []);
+              
+              // Clear out processed database items
+              if (clearPurchasedItems) {
+                await clearPurchasedItems(result.deletedCartItemIds || []);
+              }
 
-      // ✅ 4. Trigger the Success Modal
-      setModalType("paypal"); 
-      setShowCheckoutModal(true); 
-      
-      console.log("✅ Payment successful and UI updated!");
-    } else {
-      // ❌ Handle Server-side Error (e.g., Insufficient funds or DB error)
-      console.error("Capture failed on server:", result.error);
-      alert(`Payment Error: ${result.error || 'Something went wrong.'}`);
-    }
-  } catch (error) {
-    // ❌ Handle Network/Frontend Error
-    console.error("❌ Frontend Error:", error);
-  }
-}}
+              // Open success modal
+              setModalType("paypal"); 
+              setShowCheckoutModal(true); 
+              console.log("✅ Payment successful and local UI updated!");
+            } else {
+              console.error("Capture failed on server:", result.error);
+              alert(`Payment Error: ${result.error || 'Something went wrong.'}`);
+            }
+          } catch (error) {
+            console.error("❌ Frontend Network Error:", error);
+            alert("Network error: Could not reach payment capture gateway.");
+          }
+        }}
+
+        onError={(err) => {
+          console.error("💥 PayPal Button Engine Crash:", err);
+        }}
       />
     </PayPalScriptProvider>
-   
   );
 }

@@ -6,9 +6,9 @@ import { ShieldCheck, Zap, Trash2, ShoppingBag } from 'lucide-react';
 import './Cart.css';
 import YouMayLike from '../components/YouMayLike';
 import AlertEmptyCart from '../components/AlertEmptyCart';
-import { useCart } from './CartContext';
+import { useCart } from './CartContextGuest';
 
-export default function Cart({ isLoggedIn, youMayLikeProducts }) {
+export default function Cart({  youMayLikeProducts }) {
   const {
     cartItems,
     cartCount,
@@ -68,11 +68,6 @@ export default function Cart({ isLoggedIn, youMayLikeProducts }) {
       setShowEmptyCartAlert(true);
       return;
     }
-    if (!isLoggedIn) {
-      setModalMessage('Please login to securely access your digital downloads.');
-      setShowModal(true);
-      return;
-    }
     setCheckoutItemsForPayment(selectedItems);
     navigate('/checkout');
   };
@@ -110,7 +105,7 @@ export default function Cart({ isLoggedIn, youMayLikeProducts }) {
                   cartCount= {cartCount}
                   addToCart= {addToCart}
                   removeFromCart= {removeFromCart}
-                  isLoggedIn={isLoggedIn} // Keep if prop
+                 
                   handleItemSelection={handleItemSelection}
                   applyVoucherDiscount={applyVoucherDiscount}
                   isDigitalMode={true} // Add this flag to your ShoppingCart component logic
@@ -159,16 +154,7 @@ export default function Cart({ isLoggedIn, youMayLikeProducts }) {
 
       <YouMayLike youMayLikeProducts={youMayLikeProducts} />
 
-      {/* Auth Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Body className="text-center p-5">
-           <h3 className="fw-bold mb-3">Sign in Required</h3>
-           <p className="text-muted mb-4">{modalMessage}</p>
-           <Button variant="primary" className="w-100 py-2 rounded-pill" onClick={() => navigate('/login')}>
-              Log In to My Account
-           </Button>
-        </Modal.Body>
-      </Modal>
+     
     </>
   );
 }

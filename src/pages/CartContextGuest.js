@@ -1,5 +1,5 @@
 // contexts/CartContext.js
-import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
+import React, { createContext, useState, useContext, useEffect, useMemo, useCallback } from 'react';
 import { CartContext } from './CartContext';
 // const CartContext = createContext();
 
@@ -14,6 +14,42 @@ export const CartProviderGuest = ({ children }) => {
     }
   });
 
+  const [activeOrderId, setActiveOrderId] = useState(null);
+
+const initializeGuestCheckout = useCallback(async (checkoutData) => {
+  try {
+    const { items, total, shipping, discount } = checkoutData;
+
+   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/checkout/guest-initiate`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ items, total, shipping, discount }),
+  
+  // 🛑 CRITICAL FRONTEND FIXED PIECE: Tells the browser to save the incoming cookie
+  credentials: 'include' 
+});
+
+    if (!response.ok) {
+      throw new Error('Failed to initialize checkout session');
+    }
+
+    const data = await response.json();
+    
+    // ✅ Safely update your state inside the async block
+    if (typeof setActiveOrderId === 'function') {
+      setActiveOrderId(data.orderId); 
+    }
+    
+    return data.orderId;
+
+  } catch (error) {
+    console.error("Error establishing guest checkout session:", error);
+    throw error;
+  }
+}, [setActiveOrderId]); // Added state setter dependency here safely
+
   const cartCount = useMemo(() => cartItems.length, [cartItems]);
   const [notificationProduct, setNotificationProduct] = useState(null);
   const [checkoutItemsForPayment, setCheckoutItemsForPayment] = useState([]);
@@ -25,23 +61,32 @@ export const CartProviderGuest = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-   const addToCart = (product) => {
-    // This will schedule the cart items update
-    setCartItems((prevCartItems) => {
-        const existingItem = prevCartItems.find((item) => item.id === product.id);
-        let updatedItems;
-        if (existingItem) {
-            updatedItems = prevCartItems.map((item) =>
-                item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-            );
-        } else {
-            updatedItems = [...prevCartItems, { ...product, quantity: 1 }];
-        }
-        return updatedItems;
+  const addToCart = useCallback((product) => {
+  // We use a flag to track if we found a duplicate inside the functional loop
+  let duplicateFound = false;
+
+  setCartItems((prevCartItems) => {
+    const isAlreadyInCart = prevCartItems.some(item => item.id === product.id);
+
+    if (isAlreadyInCart) {
+      duplicateFound = true;
+      return prevCartItems; // Return unchanged cart array
+    }
+
+    // Since it's a digital product, quantity is strictly capped at 1
+    return [...prevCartItems, { ...product, quantity: 1 }];
+  });
+
+  // Trigger your notification out here based on the result of the loop
+  if (duplicateFound) {
+    setNotificationProduct({
+      ...product,
+      alreadyInCart: true
     });
-    setNotificationProduct(product);
-    // alert('items successfully added to cart');
-};
+  } else {
+    setNotificationProduct(product); // Normal success alert
+  }
+}, []); // 🚀 Dynamic dependency array is now completely EMPTY!
 
 
   const removeFromCart = (itemId) => {
@@ -183,6 +228,8 @@ useEffect(() => {
     grandTotalAmount, // The numeric grand total
     formattedGrandTotal, // The formatted grand total string (from context)
     clearPurchasedItems,
+    initializeGuestCheckout, // 👈 Added
+    activeOrderId,            // 👈 Added
 
     // Other functions like clearEntireCart, clearPurchasedItems
   };
@@ -194,10 +241,11 @@ useEffect(() => {
   );
 };
 
+// At the bottom of CartContextGuest.js
 export const useCart = () => {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error('useCart must be used within a CartProviderGuest');
   }
   return context;
 };

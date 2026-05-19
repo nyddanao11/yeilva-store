@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button, Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaBolt, FaGlobe, FaHeadset, FaFileDownload, FaStar, FaShieldAlt } from 'react-icons/fa'; 
+import { FaBolt, FaGlobe, FaHeadset, FaFileDownload, FaStar, FaShieldAlt, FaArrowRight } from 'react-icons/fa'; 
 import SEO from '../components/SEO'; 
 import FeaturedProductSlides from '../components/FeaturedProductSlides';
 import BestSellingProductSlides from '../components/BestSellingProductSlides';
@@ -42,7 +42,7 @@ export default function Home({
         description="Instant access to expert-led digital blueprints for wellness and home optimization. Start your transformation today." 
       />
 
-      {/* 1. Hero Section - Sleeker with Overlay Refinement */}
+      {/* 1. Hero Section - Refined Singular Focus & Clarity */}
       <section className="hero-section position-relative text-white overflow-hidden">
         <ImageSlider />
         <div className="hero-content-wrapper d-flex align-items-center justify-content-center text-center">
@@ -57,17 +57,17 @@ export default function Home({
               Skip the shipping. Access professional blueprints and e-books designed to 
               optimize your health and living space.
             </p>
-            <div className="d-flex gap-3 justify-content-center">
+            
+            {/* CRO Fix: Clear, action-oriented primary button with clear expectations */}
+            <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center">
               <Link to="/alldealsproduct"> 
                 <Button variant="primary" size="lg" className="rounded-pill px-5 py-3 fw-bold shadow-lg border-0">
-                  Enter the Vault
+                  Browse Digital Blueprints
                 </Button>
               </Link>
               {!isLoggedIn && (
-                <Link to="/register">
-                  <Button variant="outline-light" size="lg" className="rounded-pill px-4 py-3 fw-bold border-2">
-                    Join Community
-                  </Button>
+                <Link to="/alldealsproduct" className="text-white fw-bold text-decoration-none transition-hover py-2">
+                  View Latest Deals <FaArrowRight size={14} className="ms-1" />
                 </Link>
               )}
             </div>
@@ -113,31 +113,7 @@ export default function Home({
       </div>
 
       <Container className="py-5">
-        {/* 3. The Advantage Grid (Modernized Cards) */}
-        <div className="text-center mb-5 mt-4">
-          <h2 className="fw-bold display-6 mb-2">Why Digital Blueprints?</h2>
-          <div className="bg-primary mx-auto mb-4" style={{ height: '4px', width: '60px', borderRadius: '2px' }}></div>
-        </div>
-        
-        <Row className="g-4 mb-5">
-          {[
-            { icon: <FaFileDownload />, title: "Instant Delivery", desc: "No logistics, no customs. Purchase and download to your device in under 60 seconds." },
-            { icon: <FaGlobe />, title: "Global Portability", desc: "Access your library from any device, anywhere. Optimized for Mobile, iPad, and Desktop." },
-            { icon: <FaHeadset />, title: "24/7 Support", desc: "Facing a download issue? Our tech team is ready to assist you round the clock." }
-          ].map((item, i) => (
-            <Col lg={4} key={i}>
-              <Card className="h-100 border-0 bg-light-subtle rounded-4 p-4 feature-card transition-hover">
-                <div className="icon-box bg-white shadow-sm rounded-3 d-inline-flex p-3 mb-3 text-primary fs-3">
-                  {item.icon}
-                </div>
-                <h5 className="fw-bold">{item.title}</h5>
-                <p className="text-muted small mb-0">{item.desc}</p>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        {/* 4. Product Sections with Refined Headers */}
+        {/* 3. Product Sections - CRO Optimization: Moved up directly below trust signals */}
         {sections.map((section, idx) => (
           <div key={idx} className="mb-5 py-3">
             <div className="d-flex justify-content-between align-items-end mb-4 border-bottom pb-3">
@@ -153,8 +129,47 @@ export default function Home({
           </div>
         ))}
 
-        {/* 5. Modern FAQ Section */}
-        <Row className="justify-content-center py-5">
+        {/* 4. The Advantage Grid - Repositioned lower as an objection-handler */}
+        <div className="my-5 pt-4">
+          <div className="text-center mb-5">
+            <h2 className="fw-bold display-6 mb-2">Why Choose Digital Blueprints?</h2>
+            <div className="bg-primary mx-auto mb-4" style={{ height: '4px', width: '60px', borderRadius: '2px' }}></div>
+          </div>
+          
+          <Row className="g-4">
+            {[
+              { icon: <FaFileDownload />, title: "Zero Logistics Friction", desc: "No delays, no delivery fees. Secure your purchase and start executing your plan in under 60 seconds." },
+              { icon: <FaGlobe />, title: "Cross-Device Portability", desc: "Your personal library syncs anywhere. Designed cleanly to read on Mobile, iPad, and Desktop layouts." },
+              { icon: <FaHeadset />, title: "Dedicated Support Pipeline", desc: "Ran into a downloading or access issue? Reach out to our technical team for immediate, rapid support." }
+            ].map((item, i) => (
+              <Col lg={4} key={i}>
+                <Card className="h-100 border-0 bg-light-subtle rounded-4 p-4 feature-card transition-hover">
+                  <div className="icon-box bg-white shadow-sm rounded-3 d-inline-flex p-3 mb-3 text-primary fs-3">
+                    {item.icon}
+                  </div>
+                  <h5 className="fw-bold">{item.title}</h5>
+                  <p className="text-muted small mb-0">{item.desc}</p>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
+
+        {/* 5. Bottom Catch-All Conversion Banner - Catches bottom-scrollers before the footer */}
+        <div className="text-center py-5 my-5 bg-light rounded-4 p-4 p-md-5 border border-light-subtle shadow-sm">
+          <h3 className="fw-extrabold mb-2 display-6">Ready to Optimize Your Space & Wellness?</h3>
+          <p className="text-muted mb-4 mx-auto" style={{ maxWidth: '600px' }}>
+            Get instant digital fulfillment and start your lifestyle transformation with our premium, curated blueprints today.
+          </p>
+          <Link to="/alldealsproduct">
+            <Button variant="primary" size="lg" className="rounded-pill px-5 py-3 fw-bold shadow">
+              Explore the Entire Vault
+            </Button>
+          </Link>
+        </div>
+
+        {/* 6. Modern FAQ Section */}
+        <Row className="justify-content-center py-4">
           <Col lg={10}>
             <div className="p-5 rounded-5 bg-dark text-white shadow-2xl">
               <Row className="align-items-center">
@@ -162,10 +177,10 @@ export default function Home({
                   <h2 className="fw-bold display-6">Got Questions?</h2>
                   <p className="opacity-75">Everything you need to know about our digital delivery system and secure payments.</p>
                   <Link className="text-decoration-none" to="/needhelp">
-                  <Button className="rounded-pill px-4" variant="outline-light">
-                    Contact Support
-                  </Button>
-                </Link>
+                    <Button className="rounded-pill px-4" variant="outline-light">
+                      Contact Support
+                    </Button>
+                  </Link>
                 </Col>
                 <Col md={7}>
                   <div className="bg-white rounded-4 p-2 text-dark shadow-sm">

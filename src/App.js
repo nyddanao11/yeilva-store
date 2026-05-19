@@ -7,7 +7,7 @@ import {Spinner} from 'react-bootstrap';
 
 import { useAuth} from './pages/loginContext';
 import { ProductContext} from './pages/ProductContext'; // Import context
-import { useCart } from './pages/CartContext'; // Correct path to your context
+import { useCart } from './pages/CartContextGuest';
 import useFeaturedProducts from './hooks/useFeaturedProducts';
 import useBestSellingProducts from './hooks/useBestSellingProducts'
 import useRecommendedProducts from './hooks/useRecommendedProducts';
@@ -131,6 +131,8 @@ const { youMayLikeProducts, mayLikeLoading, mayLikeError } = useYouMayLikeProduc
      confirmRemoveItem,
         showConfirmModal,
         itemToRemove,
+         initializeGuestCheckout, // 👈 Added
+    activeOrderId,  
   } = useCart();
 
 
@@ -213,8 +215,7 @@ const handleLogout = () => {
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
             <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
- 
-            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
+            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}   formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts} checkoutItemsForPayment={checkoutItemsForPayment}/>} />
            <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>} />
@@ -267,7 +268,7 @@ const handleLogout = () => {
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
-                  <Route path="/paypalsection" element={<PaypalSection addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/paypalsection" element={<PaypalSection addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } />} />
                   <Route path="/aboutus" element={<AboutUs addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
@@ -295,6 +296,7 @@ const handleLogout = () => {
             <Route path="/clickproductpage/:id" element={<ClickProductPage isLoggedIn={isLoggedIn}  storedProducts={storedProducts} searchProducts={searchProducts} youMayLikeProducts={youMayLikeProducts } />} />
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
            <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
+            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}   formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts} />} />
           <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts}/>}/>
@@ -337,6 +339,7 @@ const handleLogout = () => {
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/aboutus" element={<AboutUs addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/paypalsection" element={<PaypalSection addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } />} />
 
                  <Route component={NotFoundPage} />
                 
@@ -369,7 +372,7 @@ const handleLogout = () => {
             <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/checkoutbuyagain" element={<CheckoutPageBuyAgain  youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
 
-            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart} isLoggedIn={isLoggedIn}  formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
+            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}   formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
                <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts} />} />
             <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLogshowCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}gedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform" element={<LoanForm  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts}/>} />
@@ -422,7 +425,7 @@ const handleLogout = () => {
                   <Route path="/onboarding" element={<Onboarding  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
-                  <Route path="/paypalsection" element={<PaypalSection addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/paypalsection" element={<PaypalSection addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } />} />
                   <Route path="/aboutus" element={<AboutUs addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
 
                  <Route component={NotFoundPage} />
@@ -450,6 +453,7 @@ const handleLogout = () => {
             <Route path="/clickproductpage/:id" element={<ClickProductPage  isLoggedIn={isLoggedIn} storedProducts={storedProducts} searchProducts={searchProducts} youMayLikeProducts={youMayLikeProducts }/>} />
             <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn}  youMayLikeProducts={youMayLikeProducts}/>}/>                                    
             <Route path="/checkout" element={<CheckoutPage youMayLikeProducts = {youMayLikeProducts} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
+            <Route path="/checkoutform" element={<CheckoutForm  cartItems={cartItems} removeFromCart={removeFromCart} addToCart={addToCart}   formattedGrandTotal={formattedGrandTotal} showCheckoutModal={showCheckoutModal} setShowCheckoutModal={setShowCheckoutModal}/>} />
             <Route path="/shoppingcart" element={<ShoppingCart isLoggedIn={isLoggedIn} youMayLikeProducts = {youMayLikeProducts} />} />
            <Route path="/alldealsproduct" element={<AllDealsProduct addToCart={addToCart} cartItems={cartItems}  isLoggedIn={isLoggedIn} currentPage={currentPage} setCurrentPage={setCurrentPage} allDealsProduct={allDealsProduct} youMayLikeProducts={youMayLikeProducts } mayLikeLoading={mayLikeLoading} mayLikeError={mayLikeError}/>} />
              <Route path="/loanform"  element={<Login handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} youMayLikeProducts={youMayLikeProducts}/>}/>
@@ -494,6 +498,7 @@ const handleLogout = () => {
                   <Route path="/newuserdiscount" element={<NewUserDiscount  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/webdevsuccess" element={<WebDevSuccess addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                   <Route path="/aboutus" element={<AboutUs addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
+                  <Route path="/paypalsection" element={<PaypalSection addToCart={addToCart} youMayLikeProducts={youMayLikeProducts } />} />
 
                  <Route component={NotFoundPage} />
                         
