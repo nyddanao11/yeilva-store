@@ -7,7 +7,7 @@ import FeaturedProductSlides from '../components/FeaturedProductSlides';
 import BestSellingProductSlides from '../components/BestSellingProductSlides';
 import RecommendedProductSlides from '../components/RecommendedProductSlides';
 import Accordion from '../components/FAQAccordion';
-import ImageSlider from '../components/ImageSlider';
+/* Removed ImageSlider import to reduce network bundle overhead */
 import './Home.css';
 
 export default function Home({ 
@@ -35,6 +35,15 @@ export default function Home({
     }
   ];
 
+  /* Defined hero banner layout fallback styling config */
+  const heroStyle = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65)), url(${process.env.PUBLIC_URL}/digital/digitalproduct.png)`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    minHeight: '80vh'
+  };
+
   return (
     <div className="home-wrapper bg-white">
       <SEO 
@@ -42,11 +51,13 @@ export default function Home({
         description="Instant access to expert-led digital blueprints for wellness and home optimization. Start your transformation today." 
       />
 
-      {/* 1. Hero Section - Refined Singular Focus & Clarity */}
-      <section className="hero-section position-relative text-white overflow-hidden">
-        <ImageSlider />
-        <div className="hero-content-wrapper d-flex align-items-center justify-content-center text-center">
-          <Container className="position-relative z-index-2">
+      {/* 1. Hero Section - Refined Static Structural Focus */}
+      <section 
+        className="hero-section position-relative text-white overflow-hidden d-flex align-items-center" 
+        style={heroStyle}
+      >
+        <div className="hero-content-wrapper d-flex align-items-center justify-content-center text-center w-100">
+          <Container className="position-relative z-index-2 py-5">
             <Badge bg="primary" className="mb-3 px-3 py-2 text-uppercase fw-bold shadow-sm">
               New: 2026 Digital Collection Out Now
             </Badge>
