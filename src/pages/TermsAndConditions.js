@@ -1,106 +1,95 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export default function TermsAndConditionsPage () {
+export default function TermsAndConditionsPage() {
   return (
-    <Container>
-      <h3>Terms and Conditions</h3>
-      <p>
-        Please read these terms and conditions carefully before using our
-        website.
-      </p>
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col lg={9}>
+          <div className="text-center mb-5">
+            <h1 className="fw-extrabold text-dark mb-2">Terms and Conditions</h1>
+            <p className="text-muted">Last Updated: May 2026</p>
+            <p className="lead text-secondary">
+              Please read these terms and conditions carefully before purchasing or downloading any digital products from YeilvaStore.
+            </p>
+          </div>
 
-      <h5>1. Acceptance of Terms</h5>
-      <p>
-        By accessing or using this website, you agree to be bound by these terms
-        and conditions.
-      </p>
+          <hr className="my-4 opacity-25" />
 
-      <h5>2. Use of the Website</h5>
-      <p>
-        You must use this website in accordance with the laws of your
-        jurisdiction. Unauthorized use of this website may give rise to a claim
-        for damages and/or be a criminal offense.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">1. Acceptance of Terms</h5>
+            <p className="text-secondary">
+              By accessing our website, purchasing, or downloading digital goods from YeilvaStore, you agree to be bound by these Terms and Conditions. If you do not agree to all parts of these terms, you are not authorized to access the site or download our digital content.
+            </p>
+          </section>
 
-      <h5>3. Disclaimer of Warranty</h5>
-      <p>
-        The content of the pages of this website is for your general
-        information and use only. It is subject to change without notice.
-        <br />
-        The use of any information or materials on this website is entirely at
-        your own risk, for which we shall not be liable. It shall be your own
-        responsibility to ensure that any products, services, or information
-        available through this website meet your specific requirements.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">2. Digital Product Delivery</h5>
+            <p className="text-secondary">
+              All products sold on YeilvaStore are digital assets, ebooks, or virtual content. No physical items will be shipped. Upon successful completion of your payment, digital products will be delivered instantly via an on-screen download link, a modal checkout confirmation, and/or an automated email sent to the address provided during checkout. 
+            </p>
+          </section>
 
-      <h5>4. Privacy</h5>
-      <p>
-        Your use of this website is also governed by our{' '}
-        <Link to="/privacypolicy">Privacy Policy</Link>.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">3. Strict No-Refund Policy</h5>
+            <p className="text-secondary">
+              Due to the intangible and irreversible nature of digital downloads, <strong>all sales are final</strong>. Once download links are generated, accessed, or emailed, the product cannot be "returned." Therefore, YeilvaStore cannot offer refunds, chargebacks, or exchanges for any reason. By completing your purchase, you acknowledge and agree to this policy.
+            </p>
+          </section>
 
-      <h5>5. Changes to Terms</h5>
-      <p>
-        We may revise and update these terms and conditions from time to time.
-        Please check this page regularly to ensure you are familiar with the
-        current version.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">4. Intellectual Property & Digital License</h5>
+            <p className="text-secondary">
+              When you purchase a digital product from YeilvaStore, you are buying a <strong>single-user, non-transferable, non-exclusive license</strong> for personal or internal business use only. 
+              <br /><br />
+              You are strictly prohibited from reselling, redistributing, duplicating, sharing access keys, uploading files to public servers, or sub-licensing any content purchased from this site. All text, layout designs, code, graphics, and ebooks remain the sole intellectual property of YeilvaStore and are protected by global copyright laws.
+            </p>
+          </section>
 
-      <h5>6. Product Information</h5>
-      <p>
-        We strive to provide accurate and up-to-date product information on the
-        website. However, we do not guarantee the accuracy, completeness, or
-        reliability of any product information. Prices and availability are
-        subject to change without notice.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">5. Ordering and Payment Gateways</h5>
+            <p className="text-secondary">
+              We process secure transactions using certified, encrypted payment gateways (such as PayPal). You agree to provide accurate email and billing details to ensure successful delivery. We reserve the right to cancel or refuse access to products if fraudulent activity or unauthorized multi-user file-sharing is detected on your account or checkout session.
+            </p>
+          </section>
 
-      <h5>7. Ordering and Payment</h5>
-      <p>
-        When you place an order on our website, you are making an offer to
-        purchase the products in your cart. We reserve the right to refuse
-        orders for any reason.
-        <br />
-        Payment is required at the time of placing your order. We use secure
-        payment gateways to protect your financial information.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">6. Disclaimer of Warranty & Liability</h5>
+            <p className="text-secondary">
+              Digital products and educational materials are provided "as is" without warranties of any kind, either express or implied. While we strive for absolute accuracy, YeilvaStore does not guarantee that the digital files will be completely error-free or compatible with every specific software platform or third-party e-reader. You are responsible for ensuring your devices support standard formats (like PDF or EPUB) prior to purchase.
+            </p>
+          </section>
 
-      <h5>8. Shipping and Delivery</h5>
-      <p>
-        Shipping costs and estimated delivery times are provided during the
-        checkout process. Actual delivery times may vary depending on your
-        location and other factors beyond our control.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">7. Privacy and Data Governance</h5>
+            <p className="text-secondary">
+              Your security and privacy matter to us. Data collected during checkout or account creation is safely managed in accordance with our <Link to="/privacypolicy" className="text-primary fw-semibold text-decoration-none">Privacy Policy</Link>.
+            </p>
+          </section>
 
-      <h5>9. Returns and Refunds</h5>
-      <p>
-        Please refer to our <Link to="/returnpolicy">Return Policy</Link> for
-        information on returns and refunds.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">8. Modifications to Service and Pricing</h5>
+            <p className="text-secondary">
+              Prices for our digital items are subject to change without notice. We reserve the right at any time to modify, patch, or discontinue a digital asset (or any part of its content) without liability to you or any third party.
+            </p>
+          </section>
 
-      <h5>10. Intellectual Property</h5>
-      <p>
-        All content on this website, including text, graphics, logos, images,
-        and software, is the property of 'YeilvaSTORE' and is protected by
-        intellectual property laws.
-      </p>
+          <section className="mb-4">
+            <h5 className="fw-bold text-dark">9. Governing Law</h5>
+            <p className="text-secondary">
+              These terms and conditions are governed by and construed in accordance with local e-commerce regulations and international copyright treaties. Any disputes arising out of your use of this digital store shall be handled in the designated legal courts of your jurisdiction.
+            </p>
+          </section>
 
-      <h5>11. Governing Law</h5>
-      <p>
-        These terms and conditions are governed by and construed in accordance
-        with the laws of [Your Jurisdiction]. Any disputes arising out of or in
-        connection with these terms shall be subject to the exclusive
-        jurisdiction of the courts of [Your Jurisdiction].
-      </p>
-
-      <h5>12. Contact Information</h5>
-      <p>
-        If you have any questions or concerns regarding these terms and
-        conditions, you can contact us at{' '}
-         <Link to="/needhelp"> Customer Support </Link>
-      </p>
+          <section className="mb-5">
+            <h5 className="fw-bold text-dark">10. Help and Contact Information</h5>
+            <p className="text-secondary">
+              If you experience any technical difficulties downloading your files, or if you have questions regarding your digital access rights, please visit our <Link to="/needhelp" className="text-primary fw-semibold text-decoration-none">Customer Support Portal</Link> immediately for assistance.
+            </p>
+          </section>
+        </Col>
+      </Row>
     </Container>
   );
-};
-
+}
