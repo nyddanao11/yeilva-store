@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button, Modal, Spinner, Alert, Fade, Badge 
 import { useParams, useNavigate } from 'react-router-dom';
 import './ClickProductPage.css';
 import BreadCrumbYouMayLike from'../components/BreadCrumbYouMayLike';
-import TabbedComponentYouMayLike from'../components/ProductTablatureYouMayLike';
+import HighConversionProductLike from'../components/ProductTablatureYouMayLike';
 import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
@@ -381,7 +381,7 @@ export default function ClickProductPage({ isLoggedIn, youMayLikeProducts  }) {
         <Row className="my-5">
           <Col xs={12}>
             {/* Ensure product is available before passing to TabbedComponent */}
-            {product && <TabbedComponentYouMayLike  productId={product.id} youMayLikeProducts={youMayLikeProducts}/>}
+            {product && <HighConversionProductLike  productId={product.id} youMayLikeProducts={youMayLikeProducts} handleCheckoutClick={handleCheckoutClick} discountedPriceFormatted={discountedPriceFormatted}/>}
           </Col>
         </Row>
 

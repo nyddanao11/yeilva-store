@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Spinner, Alert, Modal, Row, Col, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from './CartContext';
+import { useCart } from './CartContextGuest';
 import { FiCreditCard,FiBook, FiPhone } from 'react-icons/fi'; // Import icons for better visuals
 
 const CheckoutButton = () => {

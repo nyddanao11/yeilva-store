@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button, Modal, Spinner, Alert, Fade, Badge 
 import { useParams, useNavigate } from 'react-router-dom';
 import './ClickProductPage.css';
 import BreadCrumbSearchPage from'../components/BreadCrumbSearchPage';
-import TabbedComponent from'../components/ProductTablatureSearchProducts';
+import HighConversionProductSearch from'../components/ProductTablatureSearchProducts';
 import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
@@ -378,7 +378,7 @@ if ( searchProducts && searchProducts.length > 0) {
         <Row className="my-5">
           <Col xs={12}>
             {/* Ensure product is available before passing to TabbedComponent */}
-            {product && <TabbedComponent  productId={product.id} searchProducts={searchProducts}/>}
+            {product && <HighConversionProductSearch  productId={product.id} searchProducts={searchProducts} handleCheckoutClick={handleCheckoutClick} discountedPriceFormatted={discountedPriceFormatted}/>}
           </Col>
         </Row>
 

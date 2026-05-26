@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button, Modal, Spinner, Alert, Fade, Badge 
 import { useParams, useNavigate } from 'react-router-dom';
 import './ClickProductPage.css';
 import BreadCrumbCartItems from'../components/BreadCrumbCartItems';
-import TabbedComponent from'../components/ProductTablatureCartItems';
+import HighConversionProductItem from'../components/ProductTablatureCartItems';
 import axios from 'axios';
 import YouMayLike from '../components/YouMayLike';
 import { FaShippingFast, FaStar, FaCartPlus, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
@@ -369,14 +369,14 @@ if ( cartItems && cartItems.length > 0) {
         <Row className="my-5">
           <Col xs={12}>
             {/* Ensure product is available before passing to TabbedComponent */}
-            {product && <TabbedComponent  productId={product.id} cartItems={cartItems}/>}
+            {product && <HighConversionProductItem  productId={product.id} cartItems={cartItems} handleCheckoutClick={handleCheckoutClick} discountedPriceFormatted={discountedPriceFormatted}/>}
           </Col>
         </Row>
 
         {/* "You May Like" Section */}
         <Row className="my-5">
           <Col xs={12}>
-            <YouMayLike addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts} />
+            <YouMayLike addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts} handleCheckoutClick={handleCheckoutClick} discountedPriceFormatted={discountedPriceFormatted}/>}
           </Col>
         </Row>
       </Container>
