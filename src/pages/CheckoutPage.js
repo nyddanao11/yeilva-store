@@ -30,8 +30,7 @@ export default function CheckoutPage({
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [downloadUrl, setDownloadUrl] = useState(null);
-  const [setModalType] = useState(false); // Kept to satisfy PayPalSection prop signature
-
+const [modalType, setModalType] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 

@@ -88,47 +88,50 @@ export default function PayPalSection({ setShowCheckoutModal, setModalType, setD
           }
         }}
 
-        onApprove={async (data) => {
+      onApprove={async (data) => {
+        try {
+          const res = await fetch(`${serverUrl}/api/paypal/capture-order`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              orderID: data.orderID, 
+              items: checkoutItemsForPayment 
+            }),
+            credentials: 'include' 
+          });
+
+          // Bulletproof parsing fallback
+          let result = {};
           try {
-            const res = await fetch(`${serverUrl}/api/paypal/capture-order`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ 
-                orderID: data.orderID, 
-                items: checkoutItemsForPayment 
-              }),
-              credentials: 'include' 
-            });
-
-            const result = await res.json();
-            console.log('Capture Result from Backend:', result);
-
-            if (res.ok && result.success) {
-              // Lift download links to the success modal window
-              setDownloadUrl(result.downloadLinks || []);
-              
-              // Clear out processed database items
-              if (clearPurchasedItems) {
-                await clearPurchasedItems(result.deletedCartItemIds || []);
-              }
-
-              // Open success modal
-              setModalType("paypal"); 
-              setShowCheckoutModal(true); 
-              console.log("✅ Payment successful and local UI updated!");
-            } else {
-              console.error("Capture failed on server:", result.error);
-              alert(`Payment Error: ${result.error || 'Something went wrong.'}`);
-            }
-          } catch (error) {
-            console.error("❌ Frontend Network Error:", error);
-            alert("Network error: Could not reach payment capture gateway.");
+            result = await res.json();
+          } catch (jsonParseError) {
+            console.error("⚠️ Server did not respond with JSON format:", jsonParseError);
           }
-        }}
 
-        onError={(err) => {
-          console.error("💥 PayPal Button Engine Crash:", err);
-        }}
+          console.log('Capture Result from Backend:', result);
+
+          // Check for standard server response OR basic ok status fallback
+          if (res.ok && (result.success || res.status === 200)) {
+            // Safely apply arguments with fallbacks
+            setDownloadUrl(result.downloadLinks || []);
+            
+            if (clearPurchasedItems) {
+              await clearPurchasedItems(result.deletedCartItemIds || []);
+            }
+
+            // Open success modal
+            setModalType("paypal"); 
+            setShowCheckoutModal(true); 
+            console.log("✅ Payment successful and local UI updated!");
+          } else {
+            console.error("Capture failed on server:", result.error);
+            alert(`Payment Error: ${result.error || 'Something went wrong.'}`);
+          }
+        } catch (error) {
+          console.error("❌ Frontend Network Error:", error);
+          alert("Network error: Could not reach payment capture gateway.");
+        }
+      }}
       />
     </PayPalScriptProvider>
   );

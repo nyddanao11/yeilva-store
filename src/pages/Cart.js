@@ -52,25 +52,45 @@ export default function Cart({  youMayLikeProducts }) {
 
   const selectedItems = cartItems.filter(item => item.isSelected);
   
-  // Calculate Total (Quantity is always 1 for digital)
-  const total = selectedItems.reduce((acc, item) => {
+  // // Calculate Total (Quantity is always 1 for digital)
+  // const total = selectedItems.reduce((acc, item) => {
+  //   const price = Number(item.final_price ?? item.price) || 0;
+  //   return acc + price; 
+  // }, 0);
+
+  // ✅ NEW BULLETPROOF DIGITAL LOGIC:
+const total = (selectedItems || [])
+  .reduce((sum, item) => {
+    // Fallback safely to .price if .final_price doesn't exist
     const price = Number(item.final_price ?? item.price) || 0;
-    return acc + price; 
-  }, 0);
+    // Fallback safely to 1 if quantity is missing/undefined for digital items
+    const quantity = Number(item.quantity) || 1; 
+    
+    return sum + (price * quantity);
+  }, 0)
+  .toFixed(2);
 
   const formattedPrice = new Intl.NumberFormat('fil-PH', {
     style: 'currency',
     currency: 'PHP',
   }).format(total);
 
-  const handleCheckoutClick = () => {
-    if (selectedItems.length === 0) {
-      setShowEmptyCartAlert(true);
-      return;
-    }
-    setCheckoutItemsForPayment(selectedItems);
-    navigate('/checkout');
-  };
+ const handleCheckoutClick = () => {
+  if (selectedItems.length === 0) {
+    setShowEmptyCartAlert(true);
+    return;
+  }
+  
+  // Explicitly ensure every item carries a base quantity metric of 1 
+  const preparedItems = selectedItems.map(item => ({
+    ...item,
+    quantity: Number(item.quantity) || 1,
+    final_price: item.final_price ?? item.price // Make sure final_price is populated
+  }));
+
+  setCheckoutItemsForPayment(preparedItems);
+  navigate('/checkout');
+};
 
   return (
     <>
@@ -101,11 +121,9 @@ export default function Cart({  youMayLikeProducts }) {
                 {/* Pass a prop to ShoppingCart to hide quantity controls */}
                 <ShoppingCart 
                   cartItems={cartItems} 
-                 cartItems = {cartItems}
                   cartCount= {cartCount}
                   addToCart= {addToCart}
-                  removeFromCart= {removeFromCart}
-                 
+                  removeFromCart= {removeFromCart} 
                   handleItemSelection={handleItemSelection}
                   applyVoucherDiscount={applyVoucherDiscount}
                   isDigitalMode={true} // Add this flag to your ShoppingCart component logic
