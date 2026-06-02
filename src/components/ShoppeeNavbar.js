@@ -107,9 +107,9 @@ const handleCloseOffcanvas = useCallback(() => {
 
    // Define categories with more specific icons where possible
   const categories = [
+     { name: 'Artificial Intelligence', link: '/productsdata' },
     { name: 'Content Creation',  link: '/productsdata' },
     { name: 'Online Business', link: '/productsdata' },
-    { name: 'Artificial Intelligence', link: '/productsdata' },
     { name: 'Productivity Guides', link: '/productsdata' },
     { name: 'Health and Fitness', link: '/productsdata' },
     { name: 'Wellness', link: '/productsdata' },
@@ -282,9 +282,7 @@ const handleCategorySelect = (categoryName) => {
                 <Nav.Link as={NavLink} to="/alldealsproduct" className="nav-highlight ms-lg-2">
                   <FaPercent className="me-1" /> Deals
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/freebies" className="ms-lg-2">
-                  <FaGift className="me-1" /> Freebies
-                </Nav.Link>
+              
               </>
             )}
           </Nav>
