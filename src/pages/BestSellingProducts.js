@@ -19,93 +19,94 @@ const handlePageChange = (newPage) => {
 if (bestLoading) return <div>Loading...</div>;
   if (bestError) return <div>Error fetching reviews</div>;
 
-  return (
-    <Container>
-      <Row className="d-flex justify-content-center align-items-center ">
-        <div className="d-flex justify-content-center align-items-center mb-2 mt-3">
-          <h4
-            className="text-center"
-            style={{
-              color: 'green',
-              border: '1px solid green',
-              borderRadius: '10px',
-              maxWidth: '530px',
-              padding: '8px',
-            }}
-          >
-          Best Selling Products
-          </h4>
-        </div>
+ return (
+    <Container className="my-5 px-3 px-md-4">
+      {/* SECTION HEADER: Re-engineered for a clean, modern aesthetic */}
+      <div className="text-center mb-4.5">
+        <span className="text-primary text-uppercase tracking-widest fw-black small d-block mb-1.5" style={{ fontSize: '0.72rem' }}>
+          Premium Blueprints
+        </span>
+        <h2 className="fw-black text-dark tracking-tight mb-2" style={{ fontSize: '1.75rem' }}>
+          Content Creation Creative Blueprints
+        </h2>
+        <div className="bg-primary mx-auto rounded-pill mb-4" style={{ width: '40px', height: '3px' }}></div>
+      </div>
+
+      {/* GRID CONFIGURATION: Engineered to balance density with breathing room */}
+      <Row className="g-3 g-md-4 justify-content-center align-items-stretch">
         {visibleProducts.map((product) => (
-         
-          <Col key={product.id} md={3} xs={6} lg={2}>
-            <div >
-              <ImageCardBestSellingProduct
+          <Col key={product.id} xs={6} md={4} lg={3} className="d-flex">
+            <div className="w-100 h-100 transition-hover">
+             <ImageCardBestSellingProduct
                 url={product.url}
                 name={product.name}
                 price={product.price}
                 thumbnails={product.thumbnails}
                 stock={product.stock}
-               discount={product.discount}
+                discount={product.discount}
                 addToCart={addToCart}
                 product={product}
               />
             </div>
-          </Col>     
-
+          </Col>
         ))}
       </Row>
-  <div className="pagination d-flex justify-content-center align-items-center mt-2 ">
-  <button
-    onClick={() => handlePageChange(currentPage - 1)}
-    disabled={currentPage === 1}
-    style={{
-      marginRight: "5px",
-      border: "none",
-      background: currentPage === 1 ? '#EFEFEF' : '#0D6EFD',
-      color: currentPage === 1 ? 'gray' : 'white',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
-  >
-    <BsChevronLeft />
-  </button>
 
-  {pageNumbers.map((page) => (
-    <button
-      key={page}
-      onClick={() => handlePageChange(page)}
-      className={currentPage === page ? 'active-page' : ''}
-      style={{
-        marginRight: "5px",
-        border: "none",
-        background: currentPage === page ? '#0D6EFD' : '#EFEFEF',
-        color: currentPage === page ? 'white' : 'black',
-      }}
-    >
-      {page}
-    </button>
-  ))}
+      {/* PAGINATION: Streamlined controls to eliminate visual noise */}
+      {totalPages > 1 && (
+        <div className="d-flex justify-content-center align-items-center gap-1 mt-4.5 pt-2">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="btn d-inline-flex align-items-center justify-content-center rounded-3 p-0 shadow-sm transition"
+            style={{
+              width: '38px',
+              height: '38px',
+              border: '1px solid #EAEAEA',
+              background: currentPage === 1 ? '#F9F9F9' : '#FFFFFF',
+              color: currentPage === 1 ? '#BFBFBF' : '#1A1A1A',
+            }}
+            aria-label="Previous Page"
+          >
+            <BsChevronLeft size={14} strokeWidth={0.5} />
+          </button>
 
-  <button
-    onClick={() => handlePageChange(currentPage + 1)}
-    disabled={currentPage === totalPages}
-    style={{
-      marginLeft: "5px",
-      border: "none",
-      background: currentPage === totalPages ? '#EFEFEF' : '#0D6EFD',
-      color: currentPage === totalPages ? 'gray' : 'white',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
-  >
-    <BsChevronRight />
-  </button>
-</div>
+          {pageNumbers.map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className="btn p-0 d-inline-flex align-items-center justify-content-center rounded-3 font-monospace fw-bold transition"
+              style={{
+                width: '38px',
+                height: '38px',
+                fontSize: '0.85rem',
+                border: page === currentPage ? '1px solid transparent' : '1px solid #EAEAEA',
+                background: page === currentPage ? '#0D6EFD' : '#FFFFFF',
+                color: page === currentPage ? '#FFFFFF' : '#1A1A1A',
+                boxShadow: page === currentPage ? '0 4px 10px rgba(13, 110, 253, 0.2)' : 'none'
+              }}
+            >
+              {page}
+            </button>
+          ))}
 
-
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="btn d-inline-flex align-items-center justify-content-center rounded-3 p-0 shadow-sm transition"
+            style={{
+              width: '38px',
+              height: '38px',
+              border: '1px solid #EAEAEA',
+              background: currentPage === totalPages ? '#F9F9F9' : '#FFFFFF',
+              color: currentPage === totalPages ? '#BFBFBF' : '#1A1A1A',
+            }}
+            aria-label="Next Page"
+          >
+            <BsChevronRight size={14} strokeWidth={0.5} />
+          </button>
+        </div>
+      )}
     </Container>
   );
 }

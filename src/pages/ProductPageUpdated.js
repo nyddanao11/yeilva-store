@@ -65,12 +65,14 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
 
 export default function ProductsData({ addToCart, currentPage, setCurrentPage, storedProducts, youMayLikeProducts}) {
   const visibleProducts = storedProducts.filter((item) => item.page === currentPage);
-    const categoryLabels = [...new Set(storedProducts.map((item) =>
-      item.category
+   // Safe extraction of the active page's current category identity
+  const currentCategoryName = visibleProducts.length > 0 && visibleProducts[0].category
+    ? visibleProducts[0].category
         .split(" ")
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ")
-    ))];
+    : "Premium Assets";
+
   const totalPages = storedProducts.length > 0 ? Math.max(...storedProducts.map((item) => item.page)) : 1;
 
   const handlePageChange = (newPage) => {
@@ -78,11 +80,15 @@ export default function ProductsData({ addToCart, currentPage, setCurrentPage, s
   };
 
   return (
-    <Container>
+    <Container className="my-4 px-2 px-sm-3">
       <Row className="d-flex justify-content-center align-items-center">
-        <div className="category-header">
-          <h4>{categoryLabels[0]}</h4>
-        </div>
+       
+        <div className="category-header-wrapper mb-4 border-bottom border-light-subtle pb-2">
+        <h4 className="fw-black text-dark tracking-tight mb-0 position-relative d-inline-block pb-2">
+          {currentCategoryName}
+          <span className="position-absolute bottom-0 start-0 bg-primary rounded-pill" style={{ width: '40px', height: '3px' }}></span>
+        </h4>
+      </div>
         {visibleProducts.map((product) => (
           <ProductCard key={product.id} product={product} addToCart={addToCart} />
         ))}
