@@ -12,10 +12,8 @@ const ImageCardRecommendedProduct = ({product, url, name, id, price, thumbnails,
    const { reviewData, loading, error } = useFetchReviews(name);
       const handleShare = useShare(); // Use the custom hook
 
-      const isProductSoldOut = () => {
-    // Replace this condition with your own logic for determining if a product is sold out
-    return stock <= 0;
-  };
+const isProductSoldOut = stock !== undefined && stock <= 0;
+
   const isProductDiscounted = () => {
     return discount > 0; // Ensure discount is not undefined/null and is greater than 0
   };
