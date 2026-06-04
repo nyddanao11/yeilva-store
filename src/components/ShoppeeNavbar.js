@@ -110,7 +110,6 @@ const handleCloseOffcanvas = useCallback(() => {
      { name: 'Artificial Intelligence', link: '/productsdata' },
     { name: 'Content Creation',  link: '/productsdata' },
     { name: 'Online Business', link: '/productsdata' },
-    { name: 'Productivity Guides', link: '/productsdata' },
     { name: 'Health and Fitness', link: '/productsdata' },
     { name: 'Wellness', link: '/productsdata' },
     { name: 'Parenting', link: '/productsdata' },
