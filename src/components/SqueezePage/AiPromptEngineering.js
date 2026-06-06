@@ -3,13 +3,17 @@ import { Container, Row, Col, Button, Card, Accordion, Badge } from 'react-boots
 import { Bot, CheckCircle, Cpu, Clock, ShieldCheck, Zap, Sparkles, BrainCircuit } from 'lucide-react'; 
 import { Link } from 'react-router-dom';
 
-export default function AIPromptLandingPage() {
-  const price = "659.00";
-  const productID = "119"; // Your specific product ID
+export default function AiPromptEngineering({product, url, name, id, price, thumbnails, stock, discount}) {
+// If the prop data hasn't loaded yet, prevent a crash by showing a skeleton or null
+  if (!product) return <div className="text-center py-5">Loading digital asset...</div>;
+
+  // Pull your ID and compute the price dynamically using the incoming data
+  const targetID = id || "119"; 
+  const displayPrice = Number(product.final_price ?? product.price ?? 659.00).toFixed(2);
 
   return (
     <div className="ebook-landing bg-white">
-      {/* 1. HERO SECTION: High-Tech Authority */}
+      {/* 1. HERO SECTION */}
       <section className="bg-dark text-white py-5 position-relative overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f172a 0%, #1e293b 100%)' }}>
         <Container className="py-5">
           <Row className="align-items-center">
@@ -25,12 +29,12 @@ export default function AIPromptLandingPage() {
               <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-lg-start">
                 <Button 
                   as={Link} 
-                  to={`/clickproductpage/${productID}`} 
+                  to={`/clickproductpage/${targetID}`} 
                   variant="primary" 
                   size="lg" 
                   className="px-5 py-3 fw-bold shadow-lg rounded-pill"
                 >
-                  Get the Guide — ₱{price}
+                  Get the Guide — ₱{displayPrice}
                 </Button>
               </div>
               <div className="mt-4 d-flex justify-content-center justify-content-lg-start gap-4 opacity-75 small">
@@ -159,7 +163,7 @@ export default function AIPromptLandingPage() {
           <br />
           <Button 
             as={Link} 
-            to={`/clickproductpage/${productID}`}
+            to={`/clickproductpage/${targetID}`} 
             variant="primary" 
             size="lg" 
             className="px-5 py-3 fw-bold shadow rounded-pill"

@@ -75,8 +75,8 @@ const Footer = React.lazy(() => import('./components/Footer'));
 const InstallmentTerms = React.lazy(() => import('./pages/installmentTerms'));
 const Freebies = React.lazy(() => import('./components/Freebies'));
 const RaffleMechanics = React.lazy(() => import('./components/RaffleMechanics'));
-const BarleyGrassJuice = React.lazy(() => import('./components/SqueezePage/SqueezePageBarley'));
-const AiPromptEngineering = React.lazy(() => import('./components/SqueezePage/EbookLandingPage'));
+const AiPromptEngineering = React.lazy(() => import('./components/SqueezePage/AiPromptEngineering'));
+const FacelessProfitForGlobalIncome = React.lazy(() => import('./components/SqueezePage/FacelessProfitForGlobalIncome'));
 const NewsletterForm = React.lazy(() => import('./components/Newsletter'));
 const  AirLineBookingForm  = React.lazy(() => import('./components/AirLineBookingForm'));
 const  GcashToRecieved  = React.lazy(() => import('./pages/GcashToRecieved'));
@@ -253,8 +253,8 @@ const handleLogout = () => {
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
                             <Route path="/freebies" element={<Freebies  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
-                            <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                              <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
+                            <Route path="/facelessprofitforglobalincome" element={< FacelessProfitForGlobalIncome />}/>                         
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                            <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
                         <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -328,8 +328,8 @@ const handleLogout = () => {
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                              <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
-                            <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                               <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
+                             <Route path="/facelessprofitforglobalincome" element={< FacelessProfitForGlobalIncome />}/>                         
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
@@ -410,8 +410,8 @@ const handleLogout = () => {
                              <Route path="/reviewcomponent/:selectedProd" element={<ReviewComponent />} />
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
-                            <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                               <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
+                            <Route path="/facelessprofitforglobalincome" element={< FacelessProfitForGlobalIncome />}/>                         
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                              <Route path="/airlinebookingform" element={<AirLineBookingForm />} />
                           <Route path="/termsandconditions" element={<TermsAndConditionsPage handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -487,8 +487,8 @@ const handleLogout = () => {
                           
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
-                            <Route path="/barleygrassjuice" element={<BarleyGrassJuice />}/>
                               <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
+                              <Route path="/facelessprofitforglobalincome" element={< FacelessProfitForGlobalIncome />}/>                         
                            <Route path="/newsletterform" element={<NewsletterForm />} />
                     <Route path="/gcashtorecieved" element={<GcashToRecieved handleLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
                   <Route path="/search" element={<SearchPage searchProducts={searchProducts} addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
