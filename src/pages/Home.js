@@ -173,7 +173,7 @@ export default function Home({
                 Explore All <FaBolt className="ms-1" size={12}/>
               </Link>
             </div>
-            <section.Component product={product} {...section.props} />
+            <section.Component featuredProducts={featuredProducts} bestSellingProducts={bestSellingProducts} recommendedProducts={recommendedProducts} {...section.props} />
           </div>
         ))}
 
