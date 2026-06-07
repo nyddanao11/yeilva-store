@@ -250,14 +250,19 @@ export default function ClickDeals({ isLoggedIn, allDealsProduct, youMayLikeProd
         </div>
       </Fade>
       
-      {/* Mini Thumbnails / Preview Screens */}
+           {/* Mini Thumbnails / Preview Screens */}
       {product.thumbnails && product.thumbnails.length > 0 && (
         <div className="thumbnails-container d-flex flex-wrap justify-content-center gap-2 mt-2">
-          {[product.url, ...product.thumbnails].map((thumb, idx) => (
+          {/* 1. Combine arrays, 2. Filter out empty strings, 3. Deduplicate URLs using Set */}
+          {[...new Set([product.url, ...product.thumbnails].filter(Boolean))].map((thumb, idx) => (
             <div 
               key={idx}
               onClick={() => handleThumbnailClick(thumb)}
-              className={`thumbnail-wrapper rounded-3 overflow-hidden cursor-pointer border-2 transition ${selectedThumbnail === thumb ? 'border-primary shadow-sm scale-up' : 'border-light opacity-75'}`}
+              className={`thumbnail-wrapper rounded-3 overflow-hidden cursor-pointer border-2 transition ${
+                (selectedThumbnail || product.url) === thumb 
+                  ? 'border-primary shadow-sm scale-up' 
+                  : 'border-light opacity-75'
+              }`}
               style={{ width: '64px', height: '64px', padding: '2px', background: '#fff', borderStyle: 'solid' }}
             >
               <Image
