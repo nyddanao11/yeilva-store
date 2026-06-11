@@ -1,7 +1,442 @@
-@keyframes pulse {
+/*@keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: .8; transform: scale(1.03); }
 }
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}*/
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+.dlp-root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a1a1a;
+  background: #f8f8f6;
+}
+
+.dlp-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ─── Loading / Error ───────────────────────────────────────────────────────── */
+.dlp-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f6;
+}
+
+.dlp-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #f5a623;
+  border-radius: 50%;
+  animation: dlp-spin 0.7s linear infinite;
+}
+
+@keyframes dlp-spin { to { transform: rotate(360deg); } }
+
+.dlp-error-card {
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 360px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+}
+.dlp-error-card h3 { color: #c0392b; margin: 0 0 0.5rem; font-size: 1.2rem; }
+.dlp-error-card p  { color: #666; font-size: 0.9rem; margin: 0 0 1.25rem; }
+.dlp-error-card a  {
+  display: block;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ─── Countdown banner ──────────────────────────────────────────────────────── */
+.dlp-banner {
+  background: #1a1a1a;
+  color: #fff;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.dlp-banner-text { opacity: 0.85; }
+.dlp-timer {
+  font-variant-numeric: tabular-nums;
+  color: #f5a623;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+/* ─── Badges ────────────────────────────────────────────────────────────────── */
+.dlp-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+.dlp-badge-fire { background: #fff3cd; color: #7a4a00; }
+.dlp-badge-info { background: #dbeafe; color: #1e40af; }
+
+/* ─── Hero ──────────────────────────────────────────────────────────────────── */
+.dlp-hero {
+  background: #111;
+  color: #fff;
+  padding: 4rem 0 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dlp-hero-glow {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(245,166,35,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dlp-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.dlp-headline {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0.75rem 0 1rem;
+  color: #fff;
+}
+
+.dlp-subhead {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.7);
+  margin: 0 0 1.25rem;
+}
+
+/* Stars */
+.dlp-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.dlp-stars-filled { color: #f5a623; font-size: 1.1rem; letter-spacing: 1px; }
+.dlp-stars-label  { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+/* Product image strip */
+.dlp-product-image-wrap {
+  display: flex;
+  gap: 0.75rem;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.dlp-product-image {
+  width: 50%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  filter: brightness(0.85);
+  display: block;
+}
+.dlp-image-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.6rem 0.9rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ─── Purchase card ─────────────────────────────────────────────────────────── */
+.dlp-purchase-card {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 1rem;
+}
+
+.dlp-purchase-card-header {
+  margin-bottom: 1.25rem;
+}
+
+.dlp-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0.6rem 0 0.25rem;
+}
+
+.dlp-price-final {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+.dlp-price-original {
+  font-size: 1.1rem;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.dlp-price-caption {
+  font-size: 0.82rem;
+  color: #777;
+  margin: 0.25rem 0 0;
+}
+
+/* Includes checklist */
+.dlp-includes-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 1rem 0;
+}
+.dlp-includes-list li {
+  font-size: 0.875rem;
+  color: #333;
+  padding: 0.35rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  line-height: 1.4;
+}
+
+/* CTA button */
+.dlp-cta-btn {
+  display: block;
+  width: 100%;
+  background: #f5a623;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  letter-spacing: 0.01em;
+}
+.dlp-cta-btn:hover  { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,166,35,0.4); }
+.dlp-cta-btn:active { transform: scale(0.98); }
+
+.dlp-cta-btn-light {
+  margin-top: 1.5rem;
+}
+
+/* Trust row */
+.dlp-trust-row {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.85rem;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Guarantee block */
+.dlp-guarantee {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: #f7fdf4;
+  border: 1px solid #c3e6cb;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-top: 1.25rem;
+}
+.dlp-guarantee-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.dlp-guarantee strong { display: block; font-size: 0.85rem; color: #1a5c2e; margin-bottom: 0.2rem; }
+.dlp-guarantee p { font-size: 0.78rem; color: #4a7a5a; margin: 0; line-height: 1.5; }
+
+/* ─── Sections ──────────────────────────────────────────────────────────────── */
+.dlp-section { padding: 5rem 0; }
+.dlp-section-white { background: #fff; }
+.dlp-section-light { background: #f8f8f6; }
+.dlp-section-dark  { background: #111; color: #fff; }
+
+.dlp-section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem;
+}
+.dlp-section-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+.dlp-section-dark .dlp-section-header h2 { color: #fff; }
+.dlp-section-header p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+.dlp-section-dark .dlp-section-header p { color: rgba(255,255,255,0.6); }
+
+/* ─── Table of Contents ─────────────────────────────────────────────────────── */
+.dlp-contents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.dlp-contents-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: #f8f8f6;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+.dlp-contents-num {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #f5a623;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  background: #fff8ee;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dlp-contents-text { font-size: 0.875rem; color: #333; line-height: 1.4; }
+
+/* ─── Benefits ──────────────────────────────────────────────────────────────── */
+.dlp-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+.dlp-benefit-card {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem;
+}
+.dlp-benefit-icon { font-size: 2rem; margin-bottom: 0.85rem; }
+.dlp-benefit-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 0.5rem; color: #1a1a1a; }
+.dlp-benefit-card p  { font-size: 0.875rem; color: #666; margin: 0; line-height: 1.6; }
+
+/* ─── Testimonials ──────────────────────────────────────────────────────────── */
+.dlp-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.dlp-testimonial {
+  background: #f8f8f6;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+.dlp-testimonial-stars { color: #f5a623; margin-bottom: 0.75rem; letter-spacing: 1px; }
+.dlp-testimonial p { font-size: 0.9rem; color: #444; line-height: 1.65; margin: 0 0 1rem; font-style: italic; }
+.dlp-testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+.dlp-testimonial-avatar {
+  width: 36px; height: 36px;
+  background: #fff3cd;
+  color: #7a4a00;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.dlp-testimonial-author strong { display: block; font-size: 0.875rem; color: #1a1a1a; }
+.dlp-testimonial-author span   { font-size: 0.78rem; color: #888; }
+
+/* ─── Bottom CTA section ────────────────────────────────────────────────────── */
+.dlp-bottom-cta {
+  text-align: center;
+  max-width: 600px;
+}
+.dlp-bottom-cta h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #fff; margin: 0 0 0.75rem; }
+.dlp-bottom-cta > p { color: rgba(255,255,255,0.65); font-size: 1rem; margin: 0 0 1.5rem; }
+.dlp-bottom-price-row { display: flex; align-items: baseline; gap: 0.6rem; justify-content: center; }
+.dlp-price-light { color: #fff !important; }
+.dlp-price-original-light { color: rgba(255,255,255,0.45) !important; }
+.dlp-bottom-guarantee { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 1rem; }
+
+/* ─── Sticky bar ────────────────────────────────────────────────────────────── */
+.dlp-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+}
+.dlp-sticky-bar--visible { transform: translateY(0); }
+
+.dlp-sticky-inner {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.dlp-sticky-price { display: flex; align-items: baseline; gap: 0.4rem; }
+.dlp-sticky-final { font-size: 1.3rem; font-weight: 900; color: #1a1a1a; }
+.dlp-sticky-original { font-size: 0.85rem; color: #aaa; text-decoration: line-through; }
+.dlp-cta-btn-sticky { flex: 1; padding: 0.75rem 1rem; font-size: 0.9rem; }
+
+/* ─── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .dlp-hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .dlp-purchase-card {
+    position: static;
+  }
+  .dlp-hero {
+    padding: 2.5rem 0 3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .dlp-section { padding: 3.5rem 0; }
+  .dlp-banner { font-size: 0.78rem; }
+  .dlp-trust-row { font-size: 0.7rem; gap: 0.25rem; }
 }
