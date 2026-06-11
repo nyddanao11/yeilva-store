@@ -207,17 +207,8 @@ export default function DynamicLandingPage() {
                 {/* Trust signals */}
                 <div className="dlp-trust-row">
                   <span>🔒 256-bit SSL</span>
-                  <span>↩ 30-day refund</span>
+                 
                   <span>📧 Instant delivery</span>
-                </div>
-
-                {/* Guarantee */}
-                <div className="dlp-guarantee">
-                  <span className="dlp-guarantee-icon">🛡️</span>
-                  <div>
-                    <strong>30-Day Money-Back Guarantee</strong>
-                    <p>If you go through the material and don't feel it was worth it, email us within 30 days for a full refund — no questions asked.</p>
-                  </div>
                 </div>
 
               </div>
@@ -317,7 +308,7 @@ export default function DynamicLandingPage() {
             <button className="dlp-cta-btn dlp-cta-btn-light" onClick={handleCheckout}>
               Yes, I want instant access →
             </button>
-            <p className="dlp-bottom-guarantee">🛡️ 30-day money-back guarantee · 🔒 Secure checkout</p>
+           
           </div>
         </section>
 
