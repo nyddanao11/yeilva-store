@@ -29,9 +29,8 @@ const currentYear = new Date().getFullYear();
               alt="storelogo"
               style={{ height: "36px", width: "auto"}}
               className="mb-3"/>
-             <p className=" d-flex justify-content-center align-items-center small pe-lg-5">
-              Empowering your digital transformation with expert-led blueprints 
-              for wellness and home optimization. Instant access, lifetime value.
+             <p className="d-flex justify-content-center align-items-center small pe-lg-5">
+              Discover practical digital guides designed to help you learn AI, create better content, grow your online business, and achieve more with modern digital skills.
             </p>
            <p className=" d-flex justify-content-center align-items-center small pe-lg-5 mt-3">Cebu Philippines</p>
            </div>
