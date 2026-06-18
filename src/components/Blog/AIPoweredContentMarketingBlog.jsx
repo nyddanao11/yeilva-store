@@ -6,6 +6,53 @@ import { Row, Col} from 'react-bootstrap';
 import { useCart } from '../../pages/CartContext';
 import'./AIPoweredContentMarketingBlog.css';
 
+
+const chapters = [
+    {
+      icon: "🎯",
+      title: "Content Strategy",
+      desc: "Prompts that build a solid content strategy aligned with clear, measurable goals — so every piece of content has a job to do.",
+    },
+    {
+      icon: "🔍",
+      title: "Audience Research",
+      desc: "Understand exactly who you're talking to, what they search for, and what keeps them up at night — before you write a single word.",
+    },
+    {
+      icon: "💡",
+      title: "Idea Generation",
+      desc: "Never stare at a blank page again. Generate blog posts, video scripts, email sequences, and social content on demand.",
+    },
+    {
+      icon: "✍️",
+      title: "Writing & Voice",
+      desc: "Improve structure, sharpen your voice, and produce cleaner copy across every format — faster than you thought possible.",
+    },
+    {
+      icon: "📈",
+      title: "SEO & Performance",
+      desc: "Optimise every piece for search engines and human readers at the same time. More reach, better rankings, higher click-through.",
+    },
+    {
+      icon: "♻️",
+      title: "Content Repurposing",
+      desc: "Turn one piece of content into five. One blog post becomes a video script, email, carousel, and tweet thread — automatically.",
+    },
+    {
+      icon: "📊",
+      title: "Analytics & Improvement",
+      desc: "Analyse what's working, understand why, and feed those insights back into your next campaign. Close the loop.",
+    },
+  ];
+
+  const problems = [
+    "Spending hours writing content that gets no traction",
+    "Not knowing what to post or where to start",
+    "Running out of ideas after the first few weeks",
+    "Writing content that doesn't convert to sales",
+    "Posting inconsistently because it takes too long",
+  ];
+
 export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
   const [timeLeft, setTimeLeft] = useState({ hours: 11, minutes: 47, seconds: 0 });
   const [visible, setVisible] = useState({});
@@ -70,51 +117,7 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
   
   const pad = (n) => String(n).padStart(2, "0");
 
-  const chapters = [
-    {
-      icon: "🎯",
-      title: "Content Strategy",
-      desc: "Prompts that build a solid content strategy aligned with clear, measurable goals — so every piece of content has a job to do.",
-    },
-    {
-      icon: "🔍",
-      title: "Audience Research",
-      desc: "Understand exactly who you're talking to, what they search for, and what keeps them up at night — before you write a single word.",
-    },
-    {
-      icon: "💡",
-      title: "Idea Generation",
-      desc: "Never stare at a blank page again. Generate blog posts, video scripts, email sequences, and social content on demand.",
-    },
-    {
-      icon: "✍️",
-      title: "Writing & Voice",
-      desc: "Improve structure, sharpen your voice, and produce cleaner copy across every format — faster than you thought possible.",
-    },
-    {
-      icon: "📈",
-      title: "SEO & Performance",
-      desc: "Optimise every piece for search engines and human readers at the same time. More reach, better rankings, higher click-through.",
-    },
-    {
-      icon: "♻️",
-      title: "Content Repurposing",
-      desc: "Turn one piece of content into five. One blog post becomes a video script, email, carousel, and tweet thread — automatically.",
-    },
-    {
-      icon: "📊",
-      title: "Analytics & Improvement",
-      desc: "Analyse what's working, understand why, and feed those insights back into your next campaign. Close the loop.",
-    },
-  ];
-
-  const problems = [
-    "Spending hours writing content that gets no traction",
-    "Not knowing what to post or where to start",
-    "Running out of ideas after the first few weeks",
-    "Writing content that doesn't convert to sales",
-    "Posting inconsistently because it takes too long",
-  ];
+  
 
   if (loading) {
     return (
@@ -244,7 +247,7 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
                   </p>
                 </div>
 
-                <div data-reveal="problems" className={visible.problems ? "revealed" : ""}>
+                <div >
                   <ul className="problem-list">
                     {problems.map((p, i) => <li key={i}>{p}</li>)}
                   </ul>
@@ -266,8 +269,7 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
                 </div>
 
                 <div
-                  data-reveal="chapters"
-                  className={`chapters-grid ${visible.chapters ? "revealed" : ""}`}
+                 
                 >
                   {chapters.map((c, i) => (
                     <div className="chapter-card" key={i}>
@@ -295,7 +297,7 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
                 </div>
 
                 {/* Value stack */}
-                <div data-reveal="value" className={visible.value ? "revealed" : ""}>
+                <div >
                   <div className="value-stack">
                     <h3>What you get</h3>
                     {[

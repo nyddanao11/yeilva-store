@@ -172,7 +172,7 @@ const gridRef = useRef(null);
                   </div>
                   <div className="fp-stat">
                    <div className="dlp-price-row">
-                    <span className="dlp-price-final">{fmt(finalPrice)}</span>
+                    <span className="dlp-price-final" style={{color:"white"}}>{fmt(finalPrice)}</span>
                     {discountPct > 0 && (
                       <span className="dlp-price-original">{fmt(originalPrice)}</span>
                     )}
@@ -219,8 +219,7 @@ const gridRef = useRef(null);
 
                 {/* What's inside */}
                <div 
-                  data-reveal="inside"
-                  className={visible.inside ? "revealed" : ""}
+                  
                 >
                   <div className="inside-box">
                     <h3>What's inside the ebook</h3>
@@ -252,8 +251,7 @@ const gridRef = useRef(null);
                 </div>
 
                 <div 
-                  data-reveal="models"
-                  className={visible.models ? "revealed" : ""}
+                  
                 >
                   <div className="models-grid">
                     {models.map((m) => {
@@ -292,8 +290,7 @@ const gridRef = useRef(null);
                 {/* Core pillars */}
                 <p className="section-label">The three things every model is built on</p>
                 <div
-                  data-reveal="pillars"
-                  className={visible.pillars ? "revealed" : ""}
+                 
                 >
                   <div className="pillars-grid">
                     <div className="pillar-card">
