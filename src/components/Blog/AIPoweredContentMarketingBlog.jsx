@@ -45,20 +45,29 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Scroll reveal
   useEffect(() => {
+  const timer = setTimeout(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setVisible((v) => ({ ...v, [e.target.dataset.reveal]: true }));
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const key = entry.target.dataset.reveal;
+            setVisible((prev) => ({ ...prev, [key]: true }));
+            observer.unobserve(entry.target);
+          }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
-    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
+    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, 100); // small delay lets the DOM settle
+
+  return () => clearTimeout(timer);
+}, []);
+  
   const pad = (n) => String(n).padStart(2, "0");
 
   const chapters = [

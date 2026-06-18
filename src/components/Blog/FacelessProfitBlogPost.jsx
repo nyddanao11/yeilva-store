@@ -6,44 +6,7 @@ import { Row, Col} from 'react-bootstrap';
 import { useCart } from '../../pages/CartContext';
 import './FacelessProfitBlogPost.css';
 
-export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
-   const { slug } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
- const [openModel, setOpenModel] = useState(null);
-  const [visible, setVisible] = useState({});
-
-  const heroRef = useRef(null);
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
-
-
-  useEffect(() => {
-    if (!slug) return;
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/landingproduct/${slug}`)
-      .then((res) => { if (!res.ok) throw new Error('Not found'); return res.json(); })
-      .then((data) => { data ? setProduct(data) : setError(true); setLoading(false); })
-      .catch(() => { setError(true); setLoading(false); });
-  }, [slug]);
-
- const [scrolled, setScrolled] = useState(false);
-
- useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting)
-            setVisible((v) => ({ ...v, [e.target.dataset.reveal]: true }));
-        });
-      },
-      { threshold: 0.12 }
-    );
-    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const models = [
+const models = [
     { id: 1,  icon: "📄", title: "Faceless Digital Products",      teaser: "Sell ebooks, templates, or guides — no name, no face required.",         category: "Digital Products" },
     { id: 2,  icon: "🤖", title: "AI-Generated Content Stores",    teaser: "Use AI to produce and sell content at scale without lifting a pen.",      category: "AI & Automation" },
     { id: 3,  icon: "🎙️", title: "Faceless Podcast",               teaser: "Build an audio brand around a topic — no personal identity needed.",       category: "Content" },
@@ -66,6 +29,53 @@ export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
     { id: 20, icon: "📦", title: "Digital Bundle Store",           teaser: "Bundle existing digital products into high-value packs for more per sale.", category: "Digital Products" },
     { id: 21, icon: "⚙️", title: "Automation & Systems Agency",    teaser: "Sell business automations and workflows — delivered digitally, not in person.", category: "AI & Automation" },
   ];
+
+export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
+   const { slug } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+ const [openModel, setOpenModel] = useState(null);
+  const [visible, setVisible] = useState({});
+
+  const heroRef = useRef(null);
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+const gridRef = useRef(null);
+
+  useEffect(() => {
+    if (!slug) return;
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/landingproduct/${slug}`)
+      .then((res) => { if (!res.ok) throw new Error('Not found'); return res.json(); })
+      .then((data) => { data ? setProduct(data) : setError(true); setLoading(false); })
+      .catch(() => { setError(true); setLoading(false); });
+  }, [slug]);
+
+ const [scrolled, setScrolled] = useState(false);
+
+ useEffect(() => {
+  const timer = setTimeout(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const key = entry.target.dataset.reveal;
+            setVisible((prev) => ({ ...prev, [key]: true }));
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, 100); // small delay lets the DOM settle
+
+  return () => clearTimeout(timer);
+}, []);
+  
 
   const categories = [...new Set(models.map((m) => m.category))];
   const categoryColors = {
@@ -138,8 +148,6 @@ export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
       type="product"
     />
 
-   
-
       <div className="fp-wrap">
 
         {/* ── HERO ── */}
@@ -210,7 +218,7 @@ export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
                 </div>
 
                 {/* What's inside */}
-                <div
+               <div 
                   data-reveal="inside"
                   className={visible.inside ? "revealed" : ""}
                 >
@@ -243,7 +251,7 @@ export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
                   </p>
                 </div>
 
-                <div
+                <div 
                   data-reveal="models"
                   className={visible.models ? "revealed" : ""}
                 >
@@ -252,14 +260,14 @@ export default function FacelessProfitBlogPost({ youMayLikeProducts }) {
                       const color = categoryColors[m.category] || "#00e5a0";
                       const isOpen = openModel === m.id;
                       return (
-                        <div
-                          key={m.id}
-                          className={`model-card${isOpen ? " open" : ""}`}
-                          onClick={() => setOpenModel(isOpen ? null : m.id)}
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => e.key === "Enter" && setOpenModel(isOpen ? null : m.id)}
-                        >
+                       <div
+                            key={m.id}
+                            className={`model-card${isOpen ? " open" : ""}`}  // no data-reveal here
+                            onClick={() => setOpenModel(isOpen ? null : m.id)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === "Enter" && setOpenModel(isOpen ? null : m.id)}
+                          >
                           <span className="model-arrow">▼</span>
                           <div className="model-num">#{String(m.id).padStart(2, "0")}</div>
                           <span className="model-icon">{m.icon}</span>

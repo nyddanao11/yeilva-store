@@ -1,14 +1,375 @@
-.sticky-navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1050;
-  background-color: var(--bs-navbar-bg, #343a40); /* Use Bootstrap var or ensure it's dark to match Navbar */
-  transition: all 0.3s ease-in-out;
-}
+    
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap');
 
-.scrolled {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
-  /* transform: translateY(-5px); /* Slight upward movement - often better to avoid this on a sticky element */
-  opacity: 0.98; /* Slight transparency, less than 1 to show shadow better */
-}
+        :root {
+          --cn-ink:    #0f0f0f;
+          --cn-signal: #00e5a0;
+          --cn-muted:  #6b7280;
+          --cn-border: #efefef;
+          --cn-radius: 8px;
+          --cn-dark:   #1a1a2e;
+        }
 
+        /* ── Shell ── */
+        .cn-navbar {
+          background: #fff !important;
+          border-bottom: 1px solid var(--cn-border);
+          transition: box-shadow 0.2s;
+          padding: 0 !important;
+        }
+        .cn-navbar.cn-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
+
+        /* ── Top strip (desktop): logo + search + cart/auth ── */
+        .cn-top {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 12px 0;
+          width: 100%;
+        }
+
+        /* ── Wordmark ── */
+        .cn-brand {
+          font-family: 'Syne', sans-serif;
+          font-weight: 800;
+          font-size: 1.2rem;
+          letter-spacing: -0.03em;
+          color: var(--cn-ink) !important;
+          text-decoration: none !important;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .cn-dot { color: var(--cn-signal); }
+
+        /* ── Search ── */
+        .cn-search-wrap {
+          flex: 1;
+          position: relative;
+          max-width: 520px;
+        }
+        .cn-search-row {
+          display: flex;
+          align-items: center;
+          border: 1.5px solid var(--cn-border);
+          border-radius: var(--cn-radius);
+          overflow: hidden;
+          transition: border-color 0.15s, box-shadow 0.15s;
+          background: #fafafa;
+        }
+        .cn-search-row:focus-within {
+          border-color: var(--cn-ink);
+          box-shadow: 0 0 0 3px rgba(0,229,160,0.12);
+          background: #fff;
+        }
+        .cn-search-input {
+          flex: 1;
+          border: none !important;
+          box-shadow: none !important;
+          background: transparent !important;
+          font-size: 0.875rem;
+          padding: 9px 12px !important;
+          color: var(--cn-ink);
+        }
+        .cn-search-input::placeholder { color: #aaa; }
+        .cn-search-btn {
+          background: var(--cn-ink);
+          border: none;
+          color: #fff;
+          padding: 9px 14px;
+          cursor: pointer;
+          font-size: 0.8rem;
+          display: flex;
+          align-items: center;
+          transition: background 0.15s;
+          flex-shrink: 0;
+        }
+        .cn-search-btn:hover { background: #333; }
+
+        /* Suggestions */
+        .cn-suggestions {
+          position: absolute;
+          top: calc(100% + 6px);
+          left: 0; right: 0;
+          background: #fff;
+          border: 1px solid #e8e8e8;
+          border-radius: 10px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+          z-index: 1080;
+          overflow: hidden;
+          max-height: 380px;
+          overflow-y: auto;
+        }
+        .cn-suggestion-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 14px;
+          cursor: pointer;
+          transition: background 0.12s;
+          font-size: 0.875rem;
+        }
+        .cn-suggestion-item:hover { background: #f7f7f7; }
+        .cn-sug-img { width: 38px; height: 38px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+        .cn-sug-name { font-size: 0.875rem; color: var(--cn-ink); line-height: 1.3; }
+        .cn-sug-price { font-size: 0.78rem; color: var(--cn-muted); margin-top: 2px; }
+        .cn-sug-footer {
+          padding: 10px 14px;
+          border-top: 1px solid var(--cn-border);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .cn-sug-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cn-muted); }
+        .cn-sug-link { font-size: 0.83rem; color: var(--cn-ink); text-decoration: none; font-weight: 500; }
+        .cn-sug-link:hover { color: #000; text-decoration: underline; }
+
+        /* ── Cart ── */
+        .cn-cart-btn {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: none;
+          border: 1.5px solid var(--cn-border);
+          border-radius: var(--cn-radius);
+          padding: 8px 16px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          color: var(--cn-ink);
+          text-decoration: none;
+          transition: border-color 0.15s, background 0.15s;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .cn-cart-btn:hover { border-color: #bbb; background: #fafafa; color: var(--cn-ink);}
+        .cn-cart-count {
+          position: absolute;
+          top: -7px; right: -7px;
+          background: var(--cn-signal);
+          color: #0a0a0a;
+          font-size: 0.6rem;
+          font-weight: 800;
+          width: 18px; height: 18px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 3px;
+        }
+
+        /* ── Auth ── */
+        .cn-cta {
+          background: var(--cn-ink);
+          color: #fff !important;
+          font-size: 0.85rem;
+          font-weight: 600;
+          padding: 9px 20px;
+          border-radius: var(--cn-radius);
+          text-decoration: none !important;
+          white-space: nowrap;
+          transition: opacity 0.15s;
+          flex-shrink: 0;
+        }
+        .cn-cta:hover { opacity: 0.82; }
+        .cn-login-link {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #444 !important;
+          text-decoration: none;
+          white-space: nowrap;
+          padding: 8px 6px;
+          flex-shrink: 0;
+        }
+        .cn-login-link:hover { color: var(--cn-ink) !important; }
+
+        /* ── Bottom nav strip (desktop) ── */
+        .cn-bottom {
+          border-top: 1px solid var(--cn-border);
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          padding: 0;
+          width: 100%;
+        }
+
+        /* Nav buttons */
+        .cn-dd-toggle {
+          background: none !important;
+          border: none !important;
+          font-size: 0.83rem;
+          font-weight: 500;
+          color: #444 !important;
+          padding: 10px 12px !important;
+          border-radius: 0;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+          transition: background 0.15s, color 0.15s;
+          white-space: nowrap;
+          box-shadow: none !important;
+          border-bottom: 2px solid transparent !important;
+        }
+        .cn-dd-toggle:hover,
+        .cn-dd-toggle:focus,
+        .cn-dd-toggle.show {
+          background: #f8f8f8 !important;
+          color: var(--cn-ink) !important;
+          border-bottom-color: var(--cn-signal) !important;
+        }
+        .cn-dd-toggle::after { display: none !important; }
+        .cn-caret { font-size: 0.52rem; opacity: 0.4; transition: transform 0.2s; }
+        .show > .cn-dd-toggle .cn-caret { transform: rotate(180deg); }
+
+        .cn-nav-link {
+          font-size: 0.83rem;
+          font-weight: 500;
+          color: #444 !important;
+          padding: 10px 12px;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          transition: background 0.15s, color 0.15s;
+          white-space: nowrap;
+          border-bottom: 2px solid transparent;
+        }
+        .cn-nav-link:hover { background: #f8f8f8; color: var(--cn-ink) !important; border-bottom-color: var(--cn-signal); }
+        .cn-nav-link.cn-deals { color: #dc2626 !important; font-weight: 600; }
+        .cn-nav-link.cn-deals:hover { background: #fff5f5 !important; border-bottom-color: #dc2626; }
+
+        /* Dropdown menus */
+        .cn-menu {
+          border: 1px solid #e8e8e8 !important;
+          border-radius: 10px !important;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.09) !important;
+          padding: 6px 0 !important;
+          margin-top: 2px !important;
+        }
+        .cn-menu .dropdown-item { font-size: 0.875rem; color: #333; padding: 9px 16px; transition: background 0.12s; }
+        .cn-menu .dropdown-item:hover { background: #f7f7f7; color: var(--cn-ink); }
+        .cn-menu .dropdown-divider { margin: 4px 0; }
+
+        /* Blog items */
+        .cn-blog-icon { color: var(--cn-muted); }
+        .cn-blog-item:hover .cn-blog-icon { color: var(--cn-signal); }
+        .cn-post-tag {
+          font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
+          text-transform: uppercase; padding: 2px 7px; border-radius: 100px;
+          white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+        }
+        .cn-tag-popular { background: rgba(0,229,160,0.15); color: #0a6647; }
+        .cn-tag-new     { background: rgba(124,92,252,0.15); color: #5b3fd4; }
+        .cn-view-all    { color: var(--cn-muted) !important; font-weight: 500; }
+        .cn-view-all:hover { color: var(--cn-ink) !important; }
+
+        /* ── MOBILE bar ── */
+        .cn-mobile-bar {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding: 10px 0;
+          position: relative;
+          gap: 8px;
+        }
+        .cn-icon-btn {
+          background: none;
+          border: 1.5px solid var(--cn-border);
+          border-radius: 7px;
+          width: 38px; height: 38px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: var(--cn-ink);
+          flex-shrink: 0;
+          transition: background 0.15s;
+          padding: 0;
+        }
+        .cn-icon-btn:hover { background: #f5f5f5; }
+        .cn-icon-btn.cn-filled { background: var(--cn-ink); color: #fff; border-color: var(--cn-ink); }
+        .cn-mobile-brand {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          pointer-events: none;
+        }
+        .cn-mobile-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+
+        /* Mobile search overlay */
+        .cn-mobile-search-bar {
+          padding: 10px 0 6px;
+          border-top: 1px solid var(--cn-border);
+          position: relative;
+        }
+
+        /* ── Offcanvas ── */
+        .cn-offcanvas { width: 290px !important; }
+        .cn-offcanvas .offcanvas-header { border-bottom: 1px solid var(--cn-border); padding: 15px 18px; }
+        .cn-offcanvas .offcanvas-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
+        .cn-user-hero { background: #f8f8f8; padding: 18px; border-bottom: 1px solid var(--cn-border); }
+        .cn-avatar {
+          width: 42px; height: 42px; border-radius: 50%;
+          background: var(--cn-ink); color: #fff;
+          display: flex; align-items: center; justify-content: center;
+          font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; flex-shrink: 0;
+        }
+        .cn-sec-label {
+          font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+          text-transform: uppercase; color: var(--cn-muted); padding: 14px 18px 5px;
+        }
+        .cn-canvas-link {
+          display: flex; align-items: center; gap: 10px;
+          padding: 10px 18px; font-size: 0.88rem; font-weight: 500;
+          color: #222; text-decoration: none;
+          transition: background 0.12s; cursor: pointer;
+          background: none; border: none; width: 100%; text-align: left;
+        }
+        .cn-canvas-link:hover { background: #f5f5f5; color: #000; }
+        .cn-canvas-link .cn-li { color: var(--cn-muted); width: 16px; flex-shrink: 0; }
+        .cn-canvas-link.cn-danger { color: #dc2626; }
+        .cn-canvas-link.cn-danger .cn-li { color: #dc2626; }
+        .cn-canvas-link.cn-deals-c { color: #dc2626 !important; }
+        .cn-canvas-divider { border-color: var(--cn-border); margin: 6px 0; }
+        .cn-cat-row {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 9px 18px 9px 36px; font-size: 0.85rem; color: #444;
+          text-decoration: none; transition: background 0.12s;
+        }
+        .cn-cat-row:hover { background: #f5f5f5; color: #000; }
+        .cn-blog-row {
+          display: flex; align-items: flex-start; gap: 8px;
+          padding: 9px 18px 9px 36px; font-size: 0.83rem; color: #444;
+          text-decoration: none; line-height: 1.4; transition: background 0.12s;
+        }
+        .cn-blog-row:hover { background: #f5f5f5; color: #000; }
+        .cn-canvas-cta { padding: 14px 18px; display: grid; gap: 10px; }
+
+        /* Accordion */
+        .cn-offcanvas .accordion-button {
+          font-size: 0.88rem; font-weight: 500; color: #222;
+          background: none !important; box-shadow: none !important;
+          padding: 10px 18px; gap: 10px;
+        }
+        .cn-offcanvas .accordion-button:not(.collapsed) { color: var(--cn-ink); background: #f8f8f8 !important; }
+        .cn-offcanvas .accordion-item { border: none; }
+        .cn-offcanvas .accordion-body { padding: 4px 0 6px; }
+
+        /* User dropdown toggle */
+        .cn-user-toggle {
+          background: none !important;
+          border: 1.5px solid var(--cn-border) !important;
+          border-radius: var(--cn-radius) !important;
+          font-size: 0.85rem;
+          font-weight: 500;
+          color: var(--cn-ink) !important;
+          padding: 7px 14px !important;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          box-shadow: none !important;
+          transition: background 0.15s, border-color 0.15s;
+        }
+        .cn-user-toggle:hover { background: #f5f5f5 !important; border-color: #ccc !important; }
+        .cn-user-toggle::after { display: none !important; }
+      
