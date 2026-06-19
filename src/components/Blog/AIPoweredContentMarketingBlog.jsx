@@ -282,7 +282,7 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
 
                 {/* Who it's for */}
                 <p className="section-eyebrow mt-4">Who this is for</p>
-                <div className="for-grid" data-reveal="audience" className={visible.audience ? "for-grid revealed" : "for-grid"}>
+                <div className="for-grid" >
                   {["Solo creators", "Small business owners", "Freelance writers", "Digital marketers", "Coaches & consultants", "Ecom store owners"].map((w, i) => (
                     <div className="for-pill" key={i}>{w}</div>
                   ))}

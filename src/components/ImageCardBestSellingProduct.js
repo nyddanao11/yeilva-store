@@ -1,18 +1,19 @@
 import React from 'react';
 import { Card, Badge, Button } from 'react-bootstrap';
 import { FaShareAlt, FaStar, FaRegStar, FaDownload } from 'react-icons/fa';
+import { BsCartPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import useFetchReviews from '../components/useFetchReviews';
-import'./SoldOutLabel.css';
+// import'./SoldOutLabel.css';
+import { useCart } from '../pages/CartContext';
 
 const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails, stock, discount}) => {
     // console.log('Props in ImageProduct:', { url, name, price, id, thumbnails, stock, discount });
    const { reviewData, loading, error } = useFetchReviews(name);
+    const { addToCart } = useCart();
      
      const isProductSoldOut = stock !== undefined && stock <= 0;
-  const isProductDiscounted = () => {
-    return discount > 0; // Ensure discount is not undefined/null and is greater than 0
-  };
+  const isProductDiscounted = () => discount > 0;
 
   const calculateDiscountedPrice = () => {
     if (isProductDiscounted()) {
@@ -27,6 +28,20 @@ const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails,
   const averageRating = reviewData.length > 0
     ? Math.round(reviewData.reduce((acc, review) => acc + review.rating, 0) / reviewData.length)
     : 0;
+
+    const handleAddToCart = (e) => {
+    // Prevent this click from bubbling up into the surrounding <Link> to the PDP
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart({
+      id,
+      name,
+      url,
+      price,
+      discount,
+      finalPrice: Number(discountedPrice),
+    });
+  }; 
 
   const renderStars = (rating) => {
     const stars = [];
@@ -96,28 +111,52 @@ const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails,
           <span className="text-muted small">({reviewData?.length || 0})</span>
         </div>
 
-        {/* Pricing & CTA */}
+      {/* Pricing & CTA */}
         <div className="mt-auto d-flex flex-column align-items-center justify-content-center">
-          <div className="d-flex ">
-            {isProductDiscounted && (
-              <span className="text-muted text-decoration-line-through small mx-1" style={{ fontSize: '0.9rem' }}>
+          <div className="d-flex">
+            {isProductDiscounted() && (
+              <span
+                className="text-muted text-decoration-line-through small mx-1"
+                style={{ fontSize: '0.9rem' }}
+              >
                 ₱{price.toFixed(2)}
               </span>
             )}
-            <span className="fw-bold h5 mb-0 text-primary">
-              ₱{discountedPrice}
-            </span>
+            <span className="fw-bold h5 mb-0 text-primary">₱{discountedPrice}</span>
           </div>
-          
-          <Button 
-            as={Link} 
-            to={`/clickproductpagebestselling/${product.id}`}
-            variant={isProductSoldOut ? "secondary" : "outline-primary"} 
-            className="btn-sm rounded-pill px-3 fw-bold"
-            disabled={isProductSoldOut}
-          >
-            {isProductSoldOut ? "Sold Out" : "View"}
-          </Button>
+
+          {isProductSoldOut ? (
+            <Button
+              as={Link}
+              to={`/clickdeals/${id}`}
+              variant="secondary"
+              className="btn-sm rounded-pill px-3 fw-bold"
+              disabled
+            >
+              Sold Out
+            </Button>
+          ) : (
+            <div className="d-flex gap-2 w-100 justify-content-center">
+              <Button
+                as={Link}
+                to={`/clickdeals/${id}`}
+                variant="outline-secondary"
+                className="btn-sm rounded-pill px-3"
+                aria-label={`View ${name}`}
+              >
+                View
+              </Button>
+              <Button
+                variant="primary"
+                className="btn-sm rounded-pill px-3 fw-bold d-flex align-items-center justify-content-center"
+                onClick={handleAddToCart}
+                aria-label={`Add ${name} to cart`}
+                title="Add to cart"
+              >
+                <BsCartPlus size={16} />
+              </Button>
+            </div>
+          )}
         </div>
       </Card.Body>
     </Card>

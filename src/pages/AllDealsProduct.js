@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import Slider from 'react-slick';
 import ImageAllDeals from '../components/ImageAllDeals';
 import YouMayLike from '../components/YouMayLike';
 import './AllDealsProduct.css';
 
+const PRODUCTS_PER_PAGE = 10;
+
 const ProductCard = ({ product, addToCart }) => {
   if (!product?.url || !product?.name || !product?.price || !product?.id) {
-    return <Col md={2} xs={6} lg={2}><div>Product data missing.</div></Col>;
+    return null;
   }
 
-
   return (
-    <div className="product-card px-2">
+    <Col xs={6} md={4} lg={3} xl={2} className="mb-4">
       <ImageAllDeals
         url={product.url}
         name={product.name}
@@ -23,16 +23,28 @@ const ProductCard = ({ product, addToCart }) => {
         discount={product.discount}
         addToCart={addToCart}
       />
-    </div>
+    </Col>
   );
 };
 
+const ProductCardSkeleton = () => (
+  <Col xs={6} md={4} lg={3} xl={2} className="mb-4">
+    <div className="product-skeleton" />
+  </Col>
+);
+
 const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
+  if (totalPages <= 1) return null;
+
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="pagination d-flex justify-content-center align-items-center mt-2">
-      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+    <div className="pagination d-flex justify-content-center align-items-center mt-2 flex-wrap">
+      <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        aria-label="Previous page"
+      >
         <BsChevronLeft />
       </button>
 
@@ -41,68 +53,115 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
           key={page}
           onClick={() => handlePageChange(page)}
           className={currentPage === page ? 'active-page' : ''}
+          aria-current={currentPage === page ? 'page' : undefined}
         >
           {page}
         </button>
       ))}
 
-      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        aria-label="Next page"
+      >
         <BsChevronRight />
       </button>
     </div>
   );
 };
 
-export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage, allDealsProduct, youMayLikeProducts, mayLikeLoading, mayLikeError }) {
+const EmptyCategoryState = ({ selectedCategory, onReset }) => (
+  <div className="empty-deals-state text-center py-5">
+    <p className="mb-2 fw-bold">No deals in {selectedCategory} right now</p>
+    <p className="text-muted mb-3">New deals get added all the time — check back soon.</p>
+    <Button variant="outline-dark" size="sm" onClick={onReset}>
+      View all deals
+    </Button>
+  </div>
+);
+
+export default function AllDealsProduct({
+  addToCart,
+  allDealsProduct,
+  youMayLikeProducts,
+  mayLikeLoading,
+  mayLikeError,
+  dealsLoading = false,
+}) {
   const [selectedCategory, setSelectedCategory] = useState('All Deals');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const formattedCategory = (cat) =>
     cat
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-  const categoryLabels = [
-    'All Deals',
-    ...new Set(allDealsProduct.map((item) => formattedCategory(item.category))),
-  ];
+  const categoryLabels = useMemo(() => {
+    if (!Array.isArray(allDealsProduct)) return ['All Deals'];
+    return [
+      'All Deals',
+      ...new Set(allDealsProduct.map((item) => formattedCategory(item.category))),
+    ];
+  }, [allDealsProduct]);
 
-  const totalPages = allDealsProduct.length > 0
-    ? Math.max(...allDealsProduct.map((item) => item.page))
-    : 1;
+  // Filter by category FIRST, then paginate over the filtered set.
+  // This guarantees pagination always matches what's actually visible.
+  const categoryFilteredProducts = useMemo(() => {
+    if (!Array.isArray(allDealsProduct)) return [];
+    if (selectedCategory === 'All Deals') return allDealsProduct;
+    return allDealsProduct.filter(
+      (item) => formattedCategory(item.category) === selectedCategory
+    );
+  }, [allDealsProduct, selectedCategory]);
 
-  const filteredProducts = allDealsProduct.filter((item) => {
-    const matchCategory = selectedCategory === 'All Deals' ||
-      formattedCategory(item.category) === selectedCategory;
-    return item.page === currentPage && matchCategory;
-  });
+  const totalPages = Math.max(
+    1,
+    Math.ceil(categoryFilteredProducts.length / PRODUCTS_PER_PAGE)
+  );
+
+  // Keep currentPage valid whenever the filtered set shrinks (e.g. category switch)
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    return categoryFilteredProducts.slice(start, start + PRODUCTS_PER_PAGE);
+  }, [categoryFilteredProducts, currentPage]);
 
   const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 576,
-        settings: { slidesToShow: 2 },
-      },
-    ],
-  };
+  const handleResetCategory = () => setSelectedCategory('All Deals');
 
-   // IMPORTANT: Add this check
+  if (dealsLoading) {
+    return (
+      <Container>
+        <div className="category-buttons-wrapper mb-3 mt-3 d-flex overflow-auto">
+          <div className="category-skeleton" />
+        </div>
+        <Row>
+          {Array.from({ length: PRODUCTS_PER_PAGE }).map((_, i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </Row>
+      </Container>
+    );
+  }
+
   if (!Array.isArray(allDealsProduct) || allDealsProduct.length === 0) {
-    // You can return null, a message, or a skeleton loader for no products
-    return <div>No "Deals" product available.</div>;
+    return (
+      <Container>
+        <div className="empty-deals-state text-center py-5">
+          <p className="mb-0 fw-bold">No deals available right now</p>
+          <p className="text-muted">Check back soon for new offers.</p>
+        </div>
+      </Container>
+    );
   }
 
   return (
@@ -120,11 +179,15 @@ export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage
         ))}
       </div>
 
-      <Slider {...sliderSettings}>
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} addToCart={addToCart} />
-        ))}
-      </Slider>
+      {paginatedProducts.length === 0 ? (
+        <EmptyCategoryState selectedCategory={selectedCategory} onReset={handleResetCategory} />
+      ) : (
+        <Row>
+          {paginatedProducts.map((product) => (
+            <ProductCard key={product.id} product={product} addToCart={addToCart} />
+          ))}
+        </Row>
+      )}
 
       <Pagination
         currentPage={currentPage}
@@ -132,7 +195,7 @@ export default function AllDealsProduct({ addToCart, currentPage, setCurrentPage
         handlePageChange={handlePageChange}
       />
 
-      <YouMayLike addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts }/>
+      <YouMayLike addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />
     </Container>
   );
 }
