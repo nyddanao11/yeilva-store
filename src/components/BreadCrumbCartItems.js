@@ -1,31 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Breadcrumb } from 'react-bootstrap'; // Import Breadcrumb from react-bootstrap
+import React from 'react';
+import BreadCrumb from './BreadCrumb';
+
+/**
+ * Deals-page breadcrumb. Looks up the product from allDealsProduct and
+ * delegates rendering to the shared BreadCrumb component.
+ *
+ * NOTE: previously this component also tracked a `clickedItems` state array
+ * intended to build up a clickable trail, but it was never actually
+ * populated on navigation and the rendered items had no working link, so
+ * it never functioned. Removed in favor of a real category breadcrumb.
+ */
 
 const BreadCrumbCartItems = ({ productId, cartItems}) => {
-  const [clickedItems, setClickedItems] = useState([]);
-
-  const selectedProduct = cartItems.find((item) => item.id === productId);
-
-  const handleItemClick = (item) => {
-    console.log('Clicked item:', item);
-    // Adding the clicked item to the state
-    setClickedItems([...clickedItems, item]);
-  };
+ const selectedProduct = cartItems?.find((item) => item.id === productId);
 
   return (
-   <Breadcrumb className="mb-4" style={{ fontSize: "0.9rem" }}>
-      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
-       
-
-      {clickedItems.map((item, index) => (
-        <Breadcrumb.Item key={index} onClick={() => handleItemClick(item)}>{item.name}</Breadcrumb.Item>
-      ))}
-      {selectedProduct && (
-        <Breadcrumb.Item>{selectedProduct.name}</Breadcrumb.Item>
-      )}
-    </Breadcrumb>
-    );
+    <BreadCrumb
+      rootLabel="Cart Items"
+      rootPath="/cartItemsproduct"
+      product={selectedProduct}
+      categoryParam="category"
+    />
+  );
 };
 
 export default BreadCrumbCartItems;
+
