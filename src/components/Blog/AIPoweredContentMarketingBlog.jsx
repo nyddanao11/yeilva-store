@@ -122,7 +122,14 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
   if (loading) {
     return (
       <div className="dlp-loading">
-        <div className="dlp-spinner" />
+        <div className="dlp-skeleton">
+          <div className="dlp-skeleton-badge" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--title" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--title-short" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--text" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--text-short" />
+          <div className="dlp-skeleton-card" />
+        </div>
       </div>
     );
   }
@@ -131,9 +138,10 @@ export default function AIPoweredContentMarketingBlog({ youMayLikeProducts }) {
     return (
       <div className="dlp-loading">
         <div className="dlp-error-card">
+          <span className="dlp-error-icon" aria-hidden="true">⚠</span>
           <h3>Blueprint unavailable</h3>
           <p>We couldn't find this offer, or it has expired.</p>
-          <a href="/">Return to catalog</a>
+          <a href="/" className="dlp-error-link">Browse all guides →</a>
         </div>
       </div>
     );

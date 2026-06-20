@@ -26,6 +26,16 @@ const allPosts = [
     accentColor: "#7c5cfc",
     icon:        "🤖",
   },
+  {
+  slug:        "build-your-content-machine",
+  title:       "Build Your Content Machine — Guide",
+  excerpt:     "A 5-part system for capturing ideas, planning your calendar, and producing content on repeat — templates and time-saving workflows included.",
+  category:    "Content Creation",
+  tag:         "New",
+  readTime:    "7 min read",
+  accentColor: "#D9622B",
+  icon:        "⚙️",
+  },
 ];
 
 const TAG_STYLES = {

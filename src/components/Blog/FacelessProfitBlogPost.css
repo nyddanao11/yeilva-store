@@ -397,4 +397,116 @@
         color: red;
         text-decoration: line-through;
       }
+
+      /* ─── Loading / Error ───────────────────────────────────────────────────────── */
+.dlp-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f6;
+}
+
+.dlp-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #f5a623;
+  border-radius: 50%;
+  animation: dlp-spin 0.7s linear infinite;
+}
+
+@keyframes dlp-spin { to { transform: rotate(360deg); } }
+
+/* ─── Skeleton (perceived-performance loading state) ───────────────────────── */
+.dlp-skeleton {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 1.5rem;
+}
+
+.dlp-skeleton-badge {
+  width: 110px;
+  height: 24px;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+}
+
+.dlp-skeleton-line {
+  height: 18px;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+.dlp-skeleton-line--title       { height: 32px; width: 100%; border-radius: 8px; }
+.dlp-skeleton-line--title-short { height: 32px; width: 70%; border-radius: 8px; margin-bottom: 1.5rem; }
+.dlp-skeleton-line--text        { width: 100%; }
+.dlp-skeleton-line--text-short  { width: 60%; margin-bottom: 1.75rem; }
+
+.dlp-skeleton-card {
+  height: 220px;
+  border-radius: 16px;
+}
+
+.dlp-skeleton-badge,
+.dlp-skeleton-line,
+.dlp-skeleton-card {
+  background: linear-gradient(
+    100deg,
+    #ececec 8%,
+    #f5f5f5 18%,
+    #ececec 33%
+  );
+  background-size: 200% 100%;
+  animation: dlp-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes dlp-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dlp-skeleton-badge, .dlp-skeleton-line, .dlp-skeleton-card {
+    animation: none;
+    background: #ececec;
+  }
+}
+
+/* ─── Error state ───────────────────────────────────────────────────────────── */
+.dlp-error-card {
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 360px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+  border: 1px solid #f0f0f0;
+}
+.dlp-error-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff3e0;
+  color: #d9622b;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.dlp-error-card h3 { color: #1a1a1a; margin: 0 0 0.5rem; font-size: 1.2rem; font-weight: 800; }
+.dlp-error-card p  { color: #777; font-size: 0.9rem; margin: 0 0 1.5rem; line-height: 1.5; }
+.dlp-error-link {
+  display: block;
+  background: #f5a623;
+  color: #1a1a1a;
+  padding: 0.7rem 1.25rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: transform 0.15s ease;
+}
+.dlp-error-link:hover { transform: translateY(-1px); color: #1a1a1a; }
+
       
