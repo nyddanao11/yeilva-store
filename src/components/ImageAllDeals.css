@@ -1,0 +1,11 @@
+/* Multi-line text truncation with ellipsis.
+   Bootstrap only ships single-line .text-truncate; this is the standard
+   line-clamp technique for clamping to N lines and adding "..." */
+.text-truncate-2-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

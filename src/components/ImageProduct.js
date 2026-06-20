@@ -4,8 +4,9 @@ import { FaShareAlt, FaStar, FaRegStar, FaDownload } from 'react-icons/fa';
 import { BsCartPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import useFetchReviews from './useFetchReviews';
-// import'./SoldOutLabel.css';
+import'./SoldOutLabel.css';
 import { useCart } from '../pages/CartContext';
+import './ImageAllDeals.css';
 
 const ImageProduct = ({ url, name, price, id, stock, discount = 0}) => {
   const { reviewData, loading } = useFetchReviews(name);
@@ -84,8 +85,12 @@ const handleAddToCart = (e) => {
           Ebook/Guides
         </small>
         
-        <Link to={`/clickproductpage/${id}`} className="text-decoration-none text-dark mb-2">
-          <Card.Title className="h6 mb-2 text-truncate-2" style={{ height: '2.5rem', lineHeight: '1.25' }}>
+        <Link to={`/clickproductpage/${id}`} className="text-decoration-none text-dark ">
+          <Card.Title
+            className="h6 mb-2 text-truncate-2-lines"
+            style={{ minHeight: '2.5rem', lineHeight: '1.25' }}
+            title={name}
+          >
             {name}
           </Card.Title>
         </Link>

@@ -3,8 +3,9 @@ import { Card, Badge, Button } from 'react-bootstrap';
 import { BsCartPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import useFetchReviews from '../components/useFetchReviews';
-// import './SoldOutLabel.css';
+import './SoldOutLabel.css';
 import { useCart } from '../pages/CartContext';
+import './ImageAllDeals.css';
 
 const ImageAllDeals = ({ url, name, price, id, stock, discount = 0}) => {
   const { reviewData, loading, error } = useFetchReviews(name);
@@ -100,10 +101,11 @@ const ImageAllDeals = ({ url, name, price, id, stock, discount = 0}) => {
           Ebook/Guides
         </small>
 
-        <Link to={`/clickdeals/${id}`} className="text-decoration-none text-dark mb-2">
+       <Link to={`/clickdeals/${id}`} className="text-decoration-none text-dark">
           <Card.Title
-            className="h6 mb-2 text-truncate-2"
-            style={{ height: '2.5rem', lineHeight: '1.25' }}
+            className="h6 mb-2 text-truncate-2-lines"
+            style={{ minHeight: '2.5rem', lineHeight: '1.25' }}
+            title={name}
           >
             {name}
           </Card.Title>

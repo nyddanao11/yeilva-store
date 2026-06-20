@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import useFetchReviews from '../components/useFetchReviews';
 // import'./SoldOutLabel.css';
 import { useCart } from '../pages/CartContext';
+import './ImageAllDeals.css';
+
 
 const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails, stock, discount}) => {
     // console.log('Props in ImageProduct:', { url, name, price, id, thumbnails, stock, discount });
@@ -97,8 +99,12 @@ const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails,
           Ebook/Guides
         </small>
         
-         <Link to={`/clickproductpagebestselling/${product.id}`} className="text-decoration-none text-dark mb-2">
-          <Card.Title className="h6 mb-2 text-truncate-2" style={{ height: '2.5rem', lineHeight: '1.25' }}>
+         <Link to={`/clickproductpagebestselling/${product.id}`} className="text-decoration-none text-dark">
+          <Card.Title
+            className="h6 mb-2 text-truncate-2-lines"
+            style={{ minHeight: '2.5rem', lineHeight: '1.25' }}
+            title={name}
+          >
             {name}
           </Card.Title>
         </Link>
