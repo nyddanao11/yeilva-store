@@ -100,7 +100,7 @@ const ImageAllDeals = ({ url, name, price, id, stock, discount = 0}) => {
           Ebook/Guides
         </small>
 
-        <Link to={`/clickdeals/${id}`} className="text-decoration-none text-dark">
+        <Link to={`/clickdeals/${id}`} className="text-decoration-none text-dark mb-2">
           <Card.Title
             className="h6 mb-2 text-truncate-2"
             style={{ height: '2.5rem', lineHeight: '1.25' }}

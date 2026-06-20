@@ -97,7 +97,7 @@ const ImageCardBestSellingProduct = ({product, url, name, id, price, thumbnails,
           Ebook/Guides
         </small>
         
-         <Link to={`/clickproductpagebestselling/${product.id}`} className="text-decoration-none text-dark">
+         <Link to={`/clickproductpagebestselling/${product.id}`} className="text-decoration-none text-dark mb-2">
           <Card.Title className="h6 mb-2 text-truncate-2" style={{ height: '2.5rem', lineHeight: '1.25' }}>
             {name}
           </Card.Title>

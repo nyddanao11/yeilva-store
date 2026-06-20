@@ -97,7 +97,7 @@ const  ImageYouMayLikeProduct = ({product, url, name, id, price, thumbnails, sto
           Ebook/Guides
         </small>
         
-              <Link to={`/clickyoumaylike/${product.id}`} className="text-decoration-none text-dark">
+              <Link to={`/clickyoumaylike/${product.id}`} className="text-decoration-none text-dark mb-2">
           <Card.Title className="h6 mb-2 text-truncate-2" style={{ height: '2.5rem', lineHeight: '1.25' }}>
             {name}
           </Card.Title>
