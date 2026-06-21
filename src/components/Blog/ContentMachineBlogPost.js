@@ -245,17 +245,24 @@ export default function ContentMachineBlogPost() {
                 Get the guide and have your content machine running by this
                 time next week.
               </p>
-               <button           
-              className="btn-signal"
-             onClick={handleCheckout}
-            >
-              Get the guide → <div className="dlp-price-row">
-                    <span className="dlp-price-final">{fmt(finalPrice)}</span>
-                    {discountPct > 0 && (
-                      <span className="dlp-price-original">{fmt(originalPrice)}</span>
-                    )}
-                  </div> 
-            </button>
+          <button
+      type="button"
+      className="btn-signal"
+      onClick={handleCheckout}
+      aria-label={`Get the ebook for ${fmt(finalPrice)}`}
+    >
+      <span className="btn-signal-main">
+        Get the ebook
+        <span className="btn-signal-arrow" aria-hidden="true">→</span>
+      </span>
+      <span className="btn-signal-divider" aria-hidden="true" />
+      <span className="btn-signal-price">
+        <span className="btn-signal-price-final">{fmt(finalPrice)}</span>
+        {discountPct > 0 && (
+          <span className="btn-signal-price-original">{fmt(originalPrice)}</span>
+        )}
+      </span>
+    </button>
               <p className="cm-cta-footnote">Instant digital delivery · Lifetime access</p>
             </Col>
           </Row>

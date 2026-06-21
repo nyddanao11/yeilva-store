@@ -36,18 +36,32 @@ const allPosts = [
   accentColor: "#D9622B",
   icon:        "⚙️",
   },
+  {
+  slug:        "zero-to-content-hero",
+  title:       "From Zero to Content Hero",
+  excerpt:     "A beginner's path to consistent content: pick the right topics, build a strategy that lasts, stay consistent without burning out — with real creator examples.",
+  category:    "Content Creation",
+  tag:         "New",
+  readTime:    "6 min read",
+  accentColor: "#FF5D73",
+  icon:        "🚀",
+  },
 ];
 
-const TAG_STYLES = {
+
+
+export default function BlogListPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const TAG_STYLES = {
   Popular: { bg: "rgba(0,229,160,0.13)",  color: "#0a6647",  dot: "#00e5a0" },
   New:     { bg: "rgba(124,92,252,0.13)", color: "#5b3fd4",  dot: "#7c5cfc" },
   Default: { bg: "rgba(107,114,128,0.1)", color: "#374151",  dot: "#9ca3af" },
 };
 
-const CATEGORIES = ["All", ...new Set(allPosts.map(p => p.category))];
 
-export default function BlogListPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const CATEGORIES = ["All", ...new Set(allPosts.map(p => p.category))];
+
 
   const filtered = activeCategory === "All"
     ? allPosts

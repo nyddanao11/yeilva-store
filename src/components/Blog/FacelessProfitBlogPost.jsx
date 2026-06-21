@@ -180,11 +180,13 @@ const gridRef = useRef(null);
                   </div>
                   <div className="fp-stat">
                    <div className="dlp-price-row">
-                    <span className="dlp-price-final" style={{color:"white"}}>{fmt(finalPrice)}</span>
-                    {discountPct > 0 && (
-                      <span className="dlp-price-original">{fmt(originalPrice)}</span>
-                    )}
+                                <span className="btn-signal-price-final" style={{color:'white'}}>{fmt(finalPrice)}</span>
+            {discountPct > 0 && (
+              <span className="btn-signal-price-original">{fmt(originalPrice)}</span>
+            )}
                   </div>
+                    
+     
                     <span className="lbl">One-time investment</span>
                   </div>
                   <div className="fp-stat">
@@ -350,28 +352,40 @@ const gridRef = useRef(null);
           </div>
         </section>
 
-        {/* ── CTA ── */}
-        <section className="fp-cta">
-          <div className="container position-relative">
-            <h2>21 models.  Start today.</h2>
-            <p className="sub">
-              Pick the model that fits your life. The ebook shows you exactly
-              how each one works — and how to get moving right now.
-            </p>
-            <button           
-              className="btn-signal"
-             onClick={handleCheckout}
-            >
-              Get the ebook → <div className="dlp-price-row">
-                    <span className="dlp-price-final">{fmt(finalPrice)}</span>
-                    {discountPct > 0 && (
-                      <span className="dlp-price-original">{fmt(originalPrice)}</span>
-                    )}
-                  </div> 
-            </button>
-            <p className="cta-micro">Instant download · No camera needed · No experience required</p>
-          </div>
-        </section>
+     {/* ── CTA ── */}
+<section className="fp-cta">
+  <div className="container position-relative text-center">
+    <h2>21 models. Start today.</h2>
+    <p className="sub">
+      Pick the model that fits your life. The ebook shows you exactly
+      how each one works — and how to get moving right now.
+    </p>
+
+    <button
+      type="button"
+      className="btn-signal"
+      onClick={handleCheckout}
+      aria-label={`Get the ebook for ${fmt(finalPrice)}`}
+    >
+      <span className="btn-signal-main">
+        Get the ebook
+        <span className="btn-signal-arrow" aria-hidden="true">→</span>
+      </span>
+      <span className="btn-signal-divider" aria-hidden="true" />
+      <span className="btn-signal-price">
+        <span className="btn-signal-price-final">{fmt(finalPrice)}</span>
+        {discountPct > 0 && (
+          <span className="btn-signal-price-original">{fmt(originalPrice)}</span>
+        )}
+      </span>
+    </button>
+
+    <p className="cta-micro">
+      📷 No camera needed · 🎓 No experience required · ⚡ Instant download
+    </p>
+
+  </div>
+</section>
   {/* "You May Like" Section */}
         <Row className="my-5">
           <Col xs={12}>

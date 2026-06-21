@@ -2,6 +2,7 @@ import React from'react';
 import FacelessProfitBlogPost from './FacelessProfitBlogPost';
 import AIPoweredContentMarketingBlog from './AIPoweredContentMarketingBlog';
 import ContentMachineBlogPost from './ContentMachineBlogPost';
+import ZeroToHeroBlogPost from './ZeroToHeroBlogPost';
 import { useParams } from 'react-router-dom';
 
 export default function BlogRouter({ addToCart, youMayLikeProducts }) {
@@ -15,6 +16,9 @@ export default function BlogRouter({ addToCart, youMayLikeProducts }) {
   }
   if (slug === 'build-your-content-machine') {
     return <ContentMachineBlogPost addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />;
+  }
+   if (slug === 'zero-to-content-hero') {
+    return <ZeroToHeroBlogPost addToCart={addToCart} youMayLikeProducts={youMayLikeProducts} />;
   }
   return <div>Blog post not found.</div>;
 }

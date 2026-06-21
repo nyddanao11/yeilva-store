@@ -347,7 +347,7 @@
           margin: 0 auto 36px;
           line-height: 1.7;
         }
-        .btn-violet {
+       /* .btn-violet {
           background: linear-gradient(135deg, #a78bfa, #7c5cfc);
           color: #fff;
           font-weight: 600;
@@ -366,7 +366,7 @@
           opacity: 0.9;
           transform: translateY(-2px);
           color: #fff;
-        }
+        }*/
         .cta-reassure {
           margin-top: 18px;
           font-size: 0.78rem;
@@ -381,25 +381,7 @@
           .aicm-body { padding: 52px 0; }
         }
         
-        .dlp-price-row {
-        display: flex;
-        align-items: baseline;
-        gap: 0.6rem;
-        margin: 0.6rem 0 0.25rem;
-      }
-
-      .dlp-price-final {
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: black;
-        line-height: 1;
-      }
-
-      .dlp-price-original {
-        font-size: 1.1rem;
-        color: red;
-        text-decoration: line-through;
-      }
+       
 
       /* ─── Loading / Error ───────────────────────────────────────────────────────── */
 .dlp-loading {
@@ -513,3 +495,50 @@
 .dlp-error-link:hover { transform: translateY(-1px); color: #1a1a1a; }
 
       
+      .btn-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.95rem 1.25rem 0.95rem 1.75rem;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background-color: #161b27;
+}
+.btn-signal:hover  { transform: translateY(-2px); }
+.btn-signal:active { transform: translateY(0) scale(0.98); }
+.btn-signal:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+.btn-signal-main   { display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+.btn-signal-arrow  { transition: transform 0.15s ease; }
+.btn-signal:hover .btn-signal-arrow { transform: translateX(3px); }
+
+.btn-signal-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.35); flex-shrink: 0; }
+
+.btn-signal-price        { display: flex; align-items: baseline; gap: 0.45rem; background: rgba(255,255,255,0.16); padding: 0.4rem 0.85rem; border-radius: 9px; white-space: nowrap; }
+.btn-signal-price-final  { font-size: 1.1rem; font-weight: 800; }
+.btn-signal-price-original { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: line-through; }
+
+.cta-micro {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 0.9rem;
+}
+
+.cta-guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .btn-signal { flex-wrap: wrap; justify-content: center; padding: 0.9rem 1.25rem; }
+  .btn-signal-divider { display: none; }
+}
