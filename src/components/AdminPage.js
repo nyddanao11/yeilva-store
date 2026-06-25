@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Nav, Card, Navbar } from 'react-bootstrap';
 
 // Import your components
@@ -13,6 +13,7 @@ import AddProduct from '../pages/ProductUpload';
 import ProductDetailsUpdateForm from './ProductDetailsUpdateForm';
 import AdminInquiries from './AdminInquiries';
 import ProductInventory from './ProductInventory';
+import AdminManualOrderFulfillment from './AdminManualOrderFulfillment';
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('LoanHistory');
@@ -34,7 +35,11 @@ export default function AdminPage() {
     { id: 'ProductDetails', label: 'Product Details', component: <ProductDetailsUpdateForm /> },
     { id: 'AdminInquiries', label: 'Inquiries', component: <AdminInquiries /> },
     { id: 'ProductInventory', label: 'Product Inventory', component: <ProductInventory /> },
-
+    {
+      id: 'AdminManualOrderFulfillment',
+      label: 'Manual Order Fullfillment',
+      component: <AdminManualOrderFulfillment />
+    },
   ];
 
   const handleTabChange = (tabId) => setActiveTab(tabId);
@@ -50,9 +55,9 @@ export default function AdminPage() {
       </header>
 
       <Row>
-      {/* Sidebar Navigation - Better for responsiveness than top tabs */}
+        {/* Sidebar Navigation - Better for responsiveness than top tabs */}
         <Col md={3} lg={2} className="mb-4">
-          
+
           {/* Mobile Hamburger Menu Toggle Button - Visible only on small screens */}
           <Navbar expand="md" className="p-0 mb-3 d-md-none border-0">
             <Container fluid className="px-0">
@@ -63,18 +68,17 @@ export default function AdminPage() {
 
           {/* Sidebar Nav - Collapsible on small screens, fixed on larger screens */}
           <Navbar.Collapse id="admin-sidebar-nav" in={mobileMenuOpen} className="d-md-block">
-            <Card className="shadow-sm border-0 w-100"> {/* Ensure Card takes full width */}
-              <Nav variant="pills" className="flex-column p-2 w-100"> {/* Ensure Nav takes full width */}
+            <Card className="shadow-sm border-0 w-100">
+              <Nav variant="pills" className="flex-column p-2 w-100">
                 {tabs.map((tab) => (
                   <Nav.Item key={tab.id}>
                     <Nav.Link
-                      // ... (rest of Nav.Link props, including icons from Step 1) ...
                       onClick={() => {
                         handleTabChange(tab.id);
                         if (mobileMenuOpen) toggleMobileMenu(); // Close mobile menu after selection
                       }}
                     >
-                      <span className="me-2 d-inline-flex align-items-center">{tab.icon}</span> 
+                      <span className="me-2 d-inline-flex align-items-center">{tab.icon}</span>
                       {tab.label}
                     </Nav.Link>
                   </Nav.Item>
@@ -93,7 +97,7 @@ export default function AdminPage() {
               </h3>
               {loading && <div className="spinner-border spinner-border-sm text-success" role="status" />}
             </div>
-            
+
             {/* Render the selected component */}
             <div className="fade-in">
               {ActiveComponent}

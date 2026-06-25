@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button, Container, Row, Col, Spinner, Card, InputGroup, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './loginContext';
@@ -11,25 +11,43 @@ export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-
   });
 
   const [loading, setLoading] = useState(false);
   const [serverMessage, setServerMessage] = useState({ type: '', text: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
-    const [captchaToken, setCaptchaToken] = useState(null);
-    const [isRecaptchaLoading, setIsRecaptchaLoading] = useState(true);
-// This function runs once the Google Script is fully ready
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [isRecaptchaLoading, setIsRecaptchaLoading] = useState(true);
+  const [recaptchaUnavailable, setRecaptchaUnavailable] = useState(false);
+
+  const recaptchaRef = useRef(null);
+
   const handleOnLoad = () => {
     setIsRecaptchaLoading(false);
   };
   const GOOGLE_SITE_KEY = process.env.REACT_APP_GOOGLE_SITE_KEY;
+
+  useEffect(() => {
+    if (!GOOGLE_SITE_KEY) {
+      // Keep the technical detail in the console for developers;
+      // never show infra/config details to real users.
+      console.error('REACT_APP_GOOGLE_SITE_KEY is missing from environment variables.');
+      setRecaptchaUnavailable(true);
+      setIsRecaptchaLoading(false);
+    }
+  }, [GOOGLE_SITE_KEY]);
+
   const handleCaptchaChange = (token) => {
-    setCaptchaToken(token); // Store the token when user clicks the checkbox
+    setCaptchaToken(token);
   };
 
-  const { login } = useAuth(); // Get the login function from context
+  const resetCaptcha = () => {
+    setCaptchaToken(null);
+    recaptchaRef.current?.reset?.();
+  };
+
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,8 +59,12 @@ export default function Login() {
     }
   }, [serverMessage]);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const handleTogglePasswordKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      togglePasswordVisibility();
+    }
   };
 
   const validateForm = () => {
@@ -73,16 +95,10 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // 2. Added Validation for Captcha
     if (!validateForm()) return;
-    
+
     if (!captchaToken) {
       setServerMessage({ type: 'danger', text: 'Please complete the reCAPTCHA.' });
-      return;
-    }
-
-    if (!validateForm()) {
-      setServerMessage({ type: 'danger', text: 'Please correct the errors in the form.' });
       return;
     }
 
@@ -90,19 +106,22 @@ export default function Login() {
     setServerMessage({ type: '', text: '' });
 
     try {
-      // Call the login function from the context
       const result = await login(formData.email, formData.password, captchaToken);
-      
+
       if (result.success) {
         setServerMessage({ type: 'success', text: 'Login successful. Redirecting...' });
-        navigate('/');
+        // Brief pause so the success message is actually visible before navigating away.
+        setTimeout(() => navigate('/'), 600);
       } else {
         setServerMessage({ type: 'danger', text: result.error });
+        // The token is single-use and may now be stale/expired — force re-verification
+        // so the next attempt isn't silently rejected by a reused captcha token.
+        resetCaptcha();
       }
     } catch (error) {
-      // This catch block handles network errors, not API response errors
       console.error('An unexpected error occurred during login:', error);
       setServerMessage({ type: 'danger', text: 'An unexpected error occurred. Please try again.' });
+      resetCaptcha();
     } finally {
       setLoading(false);
     }
@@ -133,9 +152,8 @@ export default function Login() {
               <Card.Body className="p-4 ">
                 <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h4>
 
-                {/* Server Response Messages */}
                 {serverMessage.text && (
-                  <Alert variant={serverMessage.type} className="mb-3">
+                  <Alert variant={serverMessage.type} className="mb-3" role="alert" aria-live="polite">
                     {serverMessage.text}
                   </Alert>
                 )}
@@ -146,10 +164,11 @@ export default function Login() {
                     <Form.Control
                       type="email"
                       name="email"
+                      autoComplete="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      isInvalid={!!validationErrors.email} // Highlight invalid input
-                      aria-describedby="email-error" // For accessibility
+                      isInvalid={!!validationErrors.email}
+                      aria-describedby="email-error"
                       required
                     />
                     <Form.Control.Feedback type="invalid" id="email-error">
@@ -159,20 +178,24 @@ export default function Login() {
 
                   <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <InputGroup className="mb-3">
+                    <InputGroup className="mb-3 has-validation">
                       <Form.Control
                         type={showPassword ? "text" : "password"}
                         name="password"
+                        autoComplete="current-password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        isInvalid={!!validationErrors.password} // Highlight invalid input
-                        aria-describedby="password-error" // For accessibility
+                        isInvalid={!!validationErrors.password}
+                        aria-describedby="password-error"
                         required
                       />
                       <InputGroup.Text
                         onClick={togglePasswordVisibility}
+                        onKeyDown={handleTogglePasswordKeyDown}
+                        role="button"
+                        tabIndex={0}
                         style={{ cursor: "pointer", background: '#E8F0FE' }}
-                        aria-label={showPassword ? "Hide password" : "Show password"} // For accessibility
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                       >
                         <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                       </InputGroup.Text>
@@ -182,35 +205,35 @@ export default function Login() {
                     </InputGroup>
                   </Form.Group>
 
-                   <div className="mb-3">
-                  {/* 1. The Placeholder (Shown only while loading) */}
-                  {isRecaptchaLoading && (
-                    <div 
-                      className="d-flex align-items-center justify-content-center border rounded bg-light" 
-                      style={{ width: "304px", height: "78px", margin: "0 auto" }}
-                    >
-                      <Spinner animation="border" size="sm" variant="secondary" className="me-2" />
-                      <span className="text-muted small">Loading Security...</span>
-                    </div>
-                  )}
-
-                  {/* 2. The Actual reCAPTCHA (Hidden until loaded) */}
-                 <div className="mb-3 d-flex justify-content-center">
-                    {GOOGLE_SITE_KEY ? (
-                      <ReCAPTCHA
-                        sitekey={GOOGLE_SITE_KEY}
-                        asyncScriptOnLoad={handleOnLoad}
-                        onChange={handleCaptchaChange}
-                      />
-                    ) : (
-                      <div className="p-3 border rounded border-danger text-danger bg-light small">
-                        <strong>Developer Note:</strong> The reCAPTCHA Site Key is missing from the environment variables. 
-                        Please check your Railway settings and redeploy.
+                  <div className="mb-3">
+                    {isRecaptchaLoading && !recaptchaUnavailable && (
+                      <div
+                        className="d-flex align-items-center justify-content-center border rounded bg-light"
+                        style={{ width: "304px", height: "78px", margin: "0 auto" }}
+                      >
+                        <Spinner animation="border" size="sm" variant="secondary" className="me-2" />
+                        <span className="text-muted small">Loading Security...</span>
                       </div>
                     )}
-                  </div>
-                </div>
 
+                    <div
+                      className="mb-3 d-flex justify-content-center"
+                      style={{ display: isRecaptchaLoading ? 'none' : 'flex' }}
+                    >
+                      {GOOGLE_SITE_KEY ? (
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={GOOGLE_SITE_KEY}
+                          asyncScriptOnLoad={handleOnLoad}
+                          onChange={handleCaptchaChange}
+                        />
+                      ) : (
+                        <div className="p-3 border rounded border-warning text-muted bg-light small text-center">
+                          Security verification is temporarily unavailable. Please try again shortly or contact support.
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
                   <Button variant="primary" type="submit" className="w-100 mt-4" disabled={loading || isRecaptchaLoading || !captchaToken}>
                     {loading ? (
@@ -231,12 +254,10 @@ export default function Login() {
                   </Button>
                 </Form>
 
-                
                 <div className="mt-3 text-center">
                   <p>
                     <Link to="/forgotpassword" style={{ textDecoration: 'none' }}>Forgot password?</Link>
                   </p>
-                  {/* This "Don't have an account?" is redundant on desktop as it's shown on the left */}
                   <p className="d-md-none">
                     Don't have an account? <Link to="/signupform" style={{ textDecoration: 'none' }}>Sign up</Link>
                   </p>
