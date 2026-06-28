@@ -5,6 +5,7 @@ import YouMayLike from '../YouMayLike';
 import { Row, Col} from 'react-bootstrap';
 import { useCart } from '../../pages/CartContext';
 import './FacelessProfitBlogPost.css';
+import LeadMagnetQuiz from '../SqueezePage/LeadMagnetQuiz';
 
 const models = [
     { id: 1,  icon: "📄", title: "Faceless Digital Products",      teaser: "Sell ebooks, templates, or guides — no name, no face required.",         category: "Digital Products" },
@@ -347,6 +348,20 @@ const gridRef = useRef(null);
 
               </div>
             </div>
+          </div>
+        </section>
+
+         {/* ── LEAD MAGNET (for not-ready-to-buy visitors) ───────────────────── */}
+        <section className="dlp-section dlp-section-light">
+          <div className="dlp-container">
+            <div className="dlp-section-header">
+              <h2>Not ready to buy yet? Find your fit first.</h2>
+              <p>Take the 60-second quiz to see which faceless model matches your time, skills, and comfort level.</p>
+            </div>
+            <LeadMagnetQuiz
+              variant="light"
+              source={`landing-${slug || 'unknown'}`}
+            />
           </div>
         </section>
 

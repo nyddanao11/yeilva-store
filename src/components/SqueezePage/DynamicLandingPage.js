@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './DynamicLandingPage.css';
 import SEO from '../SEO';
+import LeadMagnetQuiz from './LeadMagnetQuiz';
 
 // ─── Countdown: computes distance to a deadline ───────────────────────────────
 function useCountdown(targetDate) {
@@ -58,7 +59,14 @@ export default function DynamicLandingPage() {
   if (loading) {
     return (
       <div className="dlp-loading">
-        <div className="dlp-spinner" />
+        <div className="dlp-skeleton">
+          <div className="dlp-skeleton-badge" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--title" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--title-short" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--text" />
+          <div className="dlp-skeleton-line dlp-skeleton-line--text-short" />
+          <div className="dlp-skeleton-card" />
+        </div>
       </div>
     );
   }
@@ -67,9 +75,10 @@ export default function DynamicLandingPage() {
     return (
       <div className="dlp-loading">
         <div className="dlp-error-card">
+          <span className="dlp-error-icon" aria-hidden="true">⚠</span>
           <h3>Blueprint unavailable</h3>
           <p>We couldn't find this offer, or it has expired.</p>
-          <a href="/">Return to catalog</a>
+          <a href="/" className="dlp-error-link">Browse all guides →</a>
         </div>
       </div>
     );
@@ -207,9 +216,10 @@ export default function DynamicLandingPage() {
                 {/* Trust signals */}
                 <div className="dlp-trust-row">
                   <span>🔒 256-bit SSL</span>
-                 
+                  <span>↩ 30-day refund</span>
                   <span>📧 Instant delivery</span>
                 </div>
+
 
               </div>
             </div>
@@ -221,13 +231,17 @@ export default function DynamicLandingPage() {
         <section className="dlp-section dlp-section-white">
           <div className="dlp-container">
             <div className="dlp-section-header">
-              <h2>Introduction</h2>
-              <p>If you're an introvert, a private person, or someone who just 
-                wants to build without broadcasting your entire life online, this 
-                list changes everything. You don't need to be the face of your 
-                business to win. You just need to pick a model, execute 
-                consistently, and let the systems work. 
-                Ready? Let's go. </p>
+              <h2>What's inside the blueprint</h2>
+              <p>Six modules built around one goal: your first international sale.</p>
+            </div>
+
+            <div className="dlp-contents-grid">
+              {contents.map((item, i) => (
+                <div className="dlp-contents-item" key={i}>
+                  <span className="dlp-contents-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="dlp-contents-text">{item}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -294,6 +308,20 @@ export default function DynamicLandingPage() {
           </div>
         </section>
 
+        {/* ── LEAD MAGNET (for not-ready-to-buy visitors) ───────────────────── */}
+        <section className="dlp-section dlp-section-light">
+          <div className="dlp-container">
+            <div className="dlp-section-header">
+              <h2>Not ready to buy yet? Find your fit first.</h2>
+              <p>Take the 60-second quiz to see which faceless model matches your time, skills, and comfort level.</p>
+            </div>
+            <LeadMagnetQuiz
+              variant="light"
+              source={`landing-${slug || 'unknown'}`}
+            />
+          </div>
+        </section>
+
         {/* ── BOTTOM CTA ───────────────────────────────────────────────────── */}
         <section className="dlp-section dlp-section-dark">
           <div className="dlp-container dlp-bottom-cta">
@@ -308,7 +336,7 @@ export default function DynamicLandingPage() {
             <button className="dlp-cta-btn dlp-cta-btn-light" onClick={handleCheckout}>
               Yes, I want instant access →
             </button>
-           
+            <p className="dlp-bottom-guarantee">🛡️ 30-day money-back guarantee · 🔒 Secure checkout</p>
           </div>
         </section>
 
