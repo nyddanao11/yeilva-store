@@ -180,10 +180,8 @@ const gridRef = useRef(null);
                   </div>
                   <div className="fp-stat">
                    <div className="dlp-price-row">
-                                <span className="btn-signal-price-final" style={{color:'white'}}>{fmt(finalPrice)}</span>
-            {discountPct > 0 && (
-              <span className="btn-signal-price-original">{fmt(originalPrice)}</span>
-            )}
+                  <span className="dlp-price-final " >{fmt(finalPrice)}</span>
+          
                   </div>
                     
      

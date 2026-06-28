@@ -347,32 +347,7 @@
           margin: 0 auto 36px;
           line-height: 1.7;
         }
-       /* .btn-violet {
-          background: linear-gradient(135deg, #a78bfa, #7c5cfc);
-          color: #fff;
-          font-weight: 600;
-          font-size: 1rem;
-          padding: 16px 44px;
-          border-radius: 8px;
-          border: none;
-          cursor: pointer;
-          letter-spacing: 0.01em;
-          transition: opacity 0.15s, transform 0.15s;
-          display: inline-block;
-          text-decoration: none;
-          box-shadow: 0 8px 32px rgba(124,92,252,0.35);
-        }
-        .btn-violet:hover {
-          opacity: 0.9;
-          transform: translateY(-2px);
-          color: #fff;
-        }*/
-        .cta-reassure {
-          margin-top: 18px;
-          font-size: 0.78rem;
-          color: rgba(255,255,255,0.28);
-          letter-spacing: 0.04em;
-        }
+   
 
         @media (max-width: 576px) {
           .aicm-hero { padding: 52px 0 60px; }
@@ -494,6 +469,7 @@
 }
 .dlp-error-link:hover { transform: translateY(-1px); color: #1a1a1a; }
 
+  /* ─── buy button ───────────────────────────────────────────────────────────── */
       
       .btn-signal {
   display: inline-flex;
@@ -509,7 +485,12 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   background-color: #161b27;
 }
-.btn-signal:hover  { transform: translateY(-2px); }
+.btn-signal:hover  { 
+  transform: translateY(-2px);
+   opacity: 0.9;
+          transform: translateY(-2px);
+          color: #fff;
+   }
 .btn-signal:active { transform: translateY(0) scale(0.98); }
 .btn-signal:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
 
@@ -537,6 +518,12 @@
   opacity: 0.85;
   margin-top: 0.75rem;
 }
+        .cta-reassure {
+          margin-top: 18px;
+          font-size: 0.78rem;
+          color: rgba(255,255,255,0.28);
+          letter-spacing: 0.04em;
+        }
 
 @media (max-width: 480px) {
   .btn-signal { flex-wrap: wrap; justify-content: center; padding: 0.9rem 1.25rem; }

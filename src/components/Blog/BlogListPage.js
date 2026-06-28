@@ -46,6 +46,16 @@ const allPosts = [
   accentColor: "#FF5D73",
   icon:        "🚀",
   },
+  {
+  slug:        "ai-content-vault",
+  title:       "Every Vault Needs a Combination",
+  excerpt:     "Most creators don't have a content problem — they have a prompt problem. Here's the 10-stage system (and 113 ready-made AI prompts) behind never running out of content again.",
+  category:    "AI Tools",
+  tag:         "New",
+  readTime:    "5 min read",
+  accentColor: "#C8932F",
+  icon:        "🔐",
+},
 ];
 
 

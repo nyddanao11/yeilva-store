@@ -341,7 +341,7 @@
           margin: 0 auto 36px;
           line-height: 1.7;
         }
-        .btn-signal {
+        /*.btn-signal {
           background: var(--signal);
           color: #0a0a0a;
           font-weight: 700;
@@ -355,18 +355,18 @@
           display: inline-block;
           text-decoration: none;
           box-shadow: 0 8px 28px rgba(0,229,160,0.25);
-        }
-        .btn-signal:hover {
+        }*/
+       /* .btn-signal:hover {
           opacity: 0.88;
           transform: translateY(-2px);
           color: #0a0a0a;
-        }
-        .cta-micro {
+        }*/
+       /* .cta-micro {
           margin-top: 16px;
           font-size: 0.76rem;
           color: rgba(255,255,255,0.28);
           letter-spacing: 0.04em;
-        }
+        }*/
 
         @media (max-width: 576px) {
           .fp-hero { padding: 56px 0 60px; }
@@ -386,9 +386,9 @@
       }
 
       .dlp-price-final {
-        font-size: 2.2rem;
+        font-size: 1.1rem;
         font-weight: 900;
-        color: white;
+        color: #00E5A0;
         line-height: 1;
       }
 
@@ -523,8 +523,12 @@
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.btn-signal:hover  { transform: translateY(-2px); }
-.btn-signal:active { transform: translateY(0) scale(0.98); }
+.btn-signal:hover {
+          opacity: 0.88;
+          transform: translateY(-2px);
+          color: #0a0a0a;
+        }
+        .btn-signal:active { transform: translateY(0) scale(0.98); }
 .btn-signal:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
 
 .btn-signal-main   { display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
@@ -537,11 +541,12 @@
 .btn-signal-price-final  { font-size: 1.1rem; font-weight: 800; }
 .btn-signal-price-original { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: line-through; }
 
-.cta-micro {
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin-top: 0.9rem;
-}
+ .cta-micro {
+          margin-top: 16px;
+          font-size: 0.76rem;
+          color: rgba(255,255,255,0.28);
+          letter-spacing: 0.04em;
+        }
 
 .cta-guarantee {
   display: inline-flex;

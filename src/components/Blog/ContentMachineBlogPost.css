@@ -386,8 +386,9 @@
 }
 .dlp-error-link:hover { transform: translateY(-1px); color: #1a1a1a; }
 
-   
-      .btn-signal {
+  /* ─── buy button ───────────────────────────────────────────────────────────── */
+ 
+  .btn-signal {
   display: inline-flex;
   align-items: center;
   gap: 1rem;
@@ -401,8 +402,13 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   background-color: #D9622B;
 }
-.btn-signal:hover  { transform: translateY(-2px); }
-.btn-signal:active { transform: translateY(0) scale(0.98); }
+.btn-signal:hover  { 
+  transform: translateY(-2px);
+   opacity: 0.9;
+          transform: translateY(-2px);
+          color: #fff;
+   }
+   .btn-signal:active { transform: translateY(0) scale(0.98); }
 .btn-signal:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
 
 .btn-signal-main   { display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
@@ -429,6 +435,12 @@
   opacity: 0.85;
   margin-top: 0.75rem;
 }
+  .cta-reassure {
+          margin-top: 18px;
+          font-size: 0.78rem;
+          color: rgba(255,255,255,0.28);
+          letter-spacing: 0.04em;
+        }
 
 @media (max-width: 480px) {
   .btn-signal { flex-wrap: wrap; justify-content: center; padding: 0.9rem 1.25rem; }
