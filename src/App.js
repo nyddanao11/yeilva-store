@@ -248,7 +248,7 @@ const handleLogout = () => {
                       <Route path="/paymongopayment" element={<CheckoutButton addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal} cartItems={cartItems}/>} /> 
                         <Route path="/successpage" element={<SuccessPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} /> 
                       <Route path="/cancelpage" element={<CancelPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} /> 
-                      <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
+                      <Route path="/adminpage" element={<PrivateRoute element={<AdminPage storedProducts={storedProducts}/>} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
@@ -256,7 +256,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies  addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                              <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
-                            <Route path="/landing/:slug" element={<DynamicLandingPage />} />
+                            <Route path="/post/:slug" element={<DynamicLandingPage />} />
                             <Route path="/blog/:slug" element={<BlogRouter addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} />
                             <Route path="/bloglistpage" element={<BlogListPage addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} />  
                            <Route path="/newsletterform" element={<NewsletterForm />} />
@@ -333,7 +333,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                              <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                               <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
-                            <Route path="/landing/:slug" element={<DynamicLandingPage />} />
+                            <Route path="/post/:slug" element={<DynamicLandingPage />} />
                             <Route path="/blog/:slug" element={<BlogRouter addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} /> 
                             <Route path="/bloglistpage" element={<BlogListPage addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} />  
                            <Route path="/newsletterform" element={<NewsletterForm />} />
@@ -409,7 +409,7 @@ const handleLogout = () => {
                       <Route path="/paymongopayment" element={<CheckoutButton addToCart={addToCart}  isLoggedIn={isLoggedIn} formattedGrandTotal={formattedGrandTotal} cartItems={cartItems}/>} />  
                         <Route path="/successpage" element={<SuccessPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} /> 
                       <Route path="/cancelpage" element={<CancelPage addToCart={addToCart}  isLoggedIn={isLoggedIn} />} />  
-                      <Route path="/adminpage" element={<PrivateRoute element={<AdminPage />} />} />
+                      <Route path="/adminpage" element={<PrivateRoute element={<AdminPage storedProducts={storedProducts}/>} />} />
                         <Route path="/deleteaccount" element={<DeleteAccount />} />
                          <Route path="/loanterms" element={<LoanTerms />} />
                            <Route path="/needhelp" element={<NeedHelp />} />
@@ -417,7 +417,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                             <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                               <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
-                            <Route path="/landing/:slug" element={<DynamicLandingPage />} />
+                            <Route path="/post/:slug" element={<DynamicLandingPage />} />
                             <Route path="/blog/:slug" element={<BlogRouter addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} /> 
                             <Route path="/bloglistpage" element={<BlogListPage addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} />                             
                            <Route path="/newsletterform" element={<NewsletterForm />} />
@@ -496,7 +496,7 @@ const handleLogout = () => {
                             <Route path="/freebies" element={<Freebies addToCart={addToCart} youMayLikeProducts={youMayLikeProducts }/>} />
                            <Route path="/rafflemechanics" element={<RaffleMechanics/>}/>
                               <Route path="/aipromptengineering" element={<AiPromptEngineering />}/>
-                              <Route path="/landing/:slug" element={<DynamicLandingPage />} />
+                            <Route path="/post/:slug" element={<DynamicLandingPage />} />
                             <Route path="/blog/:slug" element={<BlogRouter addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} /> 
                             <Route path="/bloglistpage" element={<BlogListPage addToCart={addToCart}  youMayLikeProducts={youMayLikeProducts}/>} />                            
                            <Route path="/newsletterform" element={<NewsletterForm />} />
