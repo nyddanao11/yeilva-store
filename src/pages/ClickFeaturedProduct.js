@@ -11,7 +11,7 @@ import { Zap, ShieldCheck, DownloadCloud, FileText, Globe } from 'lucide-react';
 import { useCart } from './CartContext';
 import SEO from '../components/SEO';
 
-export default function ClickFeaturedProduct ({ isLoggedIn, featuredProducts, youMayLikeProducts })  {
+export default function ClickFeaturedProduct ({ featuredProducts, youMayLikeProducts })  {
 
   const { addToCart } = useCart();
   const { id } = useParams();
@@ -182,18 +182,14 @@ export default function ClickFeaturedProduct ({ isLoggedIn, featuredProducts, yo
   };
 
   const handleCheckoutClick = () => {
-    if (isOutOfStock) return;
-    if (!isLoggedIn) {
-      handleShowModal('Please log in to continue to checkout.');
-      return;
-    }
-    const productToCheckout = {
-      ...buildCartPayload(),
-      quantity: 1,
-      isSelected: true,
-    };
-    navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+  if (isOutOfStock) return;
+  const productToCheckout = {
+    ...buildCartPayload(),
+    quantity: 1,
+    isSelected: true,
   };
+  navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+};
 
   const renderStars = (rating) => {
     const stars = [];

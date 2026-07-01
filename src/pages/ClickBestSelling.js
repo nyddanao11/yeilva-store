@@ -181,19 +181,15 @@ export default function ClickBestSelling ({ isLoggedIn, bestSellingProducts, you
     setAddedToCartOnce(true);
   };
 
-  const handleCheckoutClick = () => {
-    if (isOutOfStock) return;
-    if (!isLoggedIn) {
-      handleShowModal('Please log in to continue to checkout.');
-      return;
-    }
-    const productToCheckout = {
-      ...buildCartPayload(),
-      quantity: 1,
-      isSelected: true,
-    };
-    navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+ const handleCheckoutClick = () => {
+  if (isOutOfStock) return;
+  const productToCheckout = {
+    ...buildCartPayload(),
+    quantity: 1,
+    isSelected: true,
   };
+  navigate('/checkout', { state: { selectedItems: [productToCheckout] } });
+};
 
   const renderStars = (rating) => {
     const stars = [];
