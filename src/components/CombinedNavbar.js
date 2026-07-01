@@ -28,7 +28,7 @@ const categories = [
   { name: 'Health and Fitness',      link: '/productsdata' },
   { name: 'Wellness',                link: '/productsdata' },
   { name: 'Parenting',               link: '/productsdata' },
-  { name: 'Finance',                 link: '/productsdata' },
+  { name: 'Apps',                    link: '/productsdata' },
   { name: 'Cybersecurity',           link: '/productsdata' },
 ];
 
