@@ -1,69 +1,151 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
+import SEO from '../components/SEO'; 
+import './ReturnPolicy.css';
 
-export default function ReturnPolicyPage () {
+const LAST_UPDATED = 'July 3, 2026';
+const STORE_EMAIL  = 'support@yeilvastore.com'; // ← update to your actual address
+
+const PRE_PURCHASE_CHECKLIST = [
+  {
+    label: 'Read the product description fully.',
+    detail: 'Every listing describes exactly what is included — format, length, what you will receive, and what it covers.',
+  },
+  {
+    label: 'Check the format.',
+    detail: 'Most Yeilvastore products are delivered as PDF files. There is no physical shipment, no login portal, and no recurring access fee.',
+  },
+  {
+    label: 'Confirm your email address at checkout.',
+    detail: 'Your download link is sent immediately to the email you provide. Typos in your email mean the link goes nowhere — double-check before completing payment.',
+  },
+  {
+    label: 'Understand what "instant delivery" means.',
+    detail: 'Once payment is confirmed, the file is dispatched automatically. There is no cancellation window after that point.',
+  },
+];
+
+const POLICY_SECTIONS = [
+  {
+    heading: 'All sales are final.',
+    body: `Because our products are digital files delivered instantly upon payment, we do not offer refunds, exchanges, or credits under any circumstances. The moment your payment is confirmed, the product is made available to you — there is no way for us to verify whether a file has been opened, read, or used, and we cannot retrieve it once delivered.
+
+This policy is consistent with standard practice for digital products and is in place to protect the integrity of the store.`,
+  },
+  {
+    heading: 'We do not offer refunds for these reasons.',
+    body: `The following are not grounds for a refund at Yeilvastore:
+
+• You changed your mind after purchase.
+• You did not read the product description before buying.
+• You made a duplicate purchase.
+• The content did not meet your personal expectations.
+• You no longer need the product.
+• Technical issues on your own device or email provider.
+
+If you are unsure whether a product is right for you, please read the full listing carefully or contact us before buying.`,
+  },
+  {
+    heading: 'Exceptions we will review.',
+    body: `We will look into your case if:
+
+• You were charged but never received a download link (and you have confirmed the email address you used at checkout).
+• You were charged more than once for the same product.
+
+In either case, email us within 7 days of purchase at the address below with your order details. We will verify the issue and either resend your link or reverse the duplicate charge.`,
+  },
+  {
+    heading: 'Chargebacks and payment disputes.',
+    body: `Filing a chargeback or payment dispute without contacting us first will result in your email address being permanently blocked from future purchases at Yeilvastore.
+
+If you have a genuine issue with your order, we are reachable and we will respond. Please contact us before escalating to your payment provider.`,
+  },
+  {
+    heading: 'Contact.',
+    body: `For order issues, delivery problems, or questions about a product before purchase, reach us at:
+
+${STORE_EMAIL}
+
+We typically respond within 1–2 business days.`,
+  },
+];
+
+export default function RefundPolicy() {
   return (
-    <Container>
-      <h3>Return Policy</h3>
-      <p>
-        We want you to be completely satisfied with your purchase from YeilvaSTORE. 
-        If for any reason you are not satisfied, we will gladly
-        accept returns within 30 days of the purchase date.
-      </p>
+    <>
+      <SEO
+        title="Refund Policy — Yeilvastore"
+        description="Yeilvastore sells instant-delivery digital products. All sales are final. Read our full refund and returns policy before purchasing."   
+        />
+      />
 
-      <h5>Return Eligibility</h5>
-      <p>
-        To be eligible for a return, your item must be unused and in the same
-        condition that you received it. It must also be in the original
-        packaging.
-      </p>
+      <div className="rp-root">
 
-      <h5>Return Process</h5>
-      <ol>
-        <li>Contact Customer Support: Before returning any item, please contact
-          our customer support at <Link to='/needhelp'>Customer Support </Link>
-          to initiate the return process.</li>
-        <li>Package Your Item: Please pack the item securely in the original
-          packaging, if possible.</li>
-        <li>Include Documentation: Include a copy of the packing slip or your
-          order confirmation email in the package.</li>
-        <li>Send the Package: Ship the package to the following address:</li>
-      </ol>
+        {/* ── PAGE HEADER ─────────────────────────────────────────────── */}
+        <header className="rp-header">
+          <Container>
+            <Row className="justify-content-center">
+              <Col lg={7}>
+                <span className="rp-store-name">Yeilvastore</span>
+                <h1 className="rp-title">Refund Policy</h1>
+                <p className="rp-updated">Last updated: {LAST_UPDATED}</p>
+              </Col>
+            </Row>
+          </Container>
+        </header>
 
-      <address>
-        YeilvaSTORE<br />
-      071 purok pati Maslog<br />
-        Danao City, Cebu, 6004<br />
-        Philippines
-      </address>
+        <Container>
+          <Row className="justify-content-center">
+            <Col lg={7} className="rp-body-col">
 
-      <h5>Refunds</h5>
-      <p>
-        Once your return is received and inspected, we will send you an email to
-        notify you that we have received your returned item. We will also notify
-        you of the approval or rejection of your refund.
-        <br />
-        If your return is approved, your refund will be processed, and a credit
-        will automatically be applied to your original method of payment within
-        7 days.
-      </p>
+              {/* ── PRE-PURCHASE CHECKLIST (signature element) ──────────── */}
+              <div className="rp-checklist-block">
+                <p className="rp-checklist-eyebrow">BEFORE YOU BUY</p>
+                <h2 className="rp-checklist-title">
+                  Because all sales are final, please confirm the following before completing your purchase.
+                </h2>
+                <ul className="rp-checklist">
+                  {PRE_PURCHASE_CHECKLIST.map((item, i) => (
+                    <li key={i} className="rp-checklist-item">
+                      <span className="rp-check-icon" aria-hidden="true">✓</span>
+                      <div>
+                        <strong>{item.label}</strong>
+                        <span>{' '}{item.detail}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-      <h5>Exchanges</h5>
-      <p>
-        If you need to exchange an item for a different size or color, please
-        contact our customer support at{' 09497042268 '}
-        <Link to='/needhelp'>Customer Support </Link>
-        to arrange for an exchange.
-      </p>
+              {/* ── POLICY SECTIONS ─────────────────────────────────────── */}
+              <div className="rp-policy">
+                {POLICY_SECTIONS.map((section, i) => (
+                  <section key={i} className="rp-section">
+                    <h2 className="rp-section-heading">{section.heading}</h2>
+                    <div className="rp-section-body">
+                      {section.body.split('\n\n').map((para, j) => (
+                        <p key={j}>{para}</p>
+                      ))}
+                    </div>
+                    {i < POLICY_SECTIONS.length - 1 && (
+                      <hr className="rp-divider" aria-hidden="true" />
+                    )}
+                  </section>
+                ))}
+              </div>
 
-      <h5>Questions</h5>
-      <p>
-        If you have any questions about our return policy, please contact our
-        customer support at {' 09497042268 '}
-        <Link to='/needhelp'>Customer Support </Link>
-      </p>
-    </Container>
+              {/* ── FOOTER NOTE ─────────────────────────────────────────── */}
+              <div className="rp-footer-note">
+                <p>
+                  By completing a purchase on Yeilvastore, you confirm that you have read
+                  and accepted this policy in full.
+                </p>
+              </div>
+
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </>
   );
-};
-
+}

@@ -104,6 +104,7 @@ export default function Footer({ isLoggedIn }) {
             </p>
           </Col>
           <Col md={6} className="text-center text-md-end mt-2 mt-md-0">
+          <Link to="/returnpolicy" className="small text-decoration-none me-3">Return Policy</Link>
             <Link to="/privacypolicy" className="small text-decoration-none me-3">Privacy Policy</Link>
             <Link to="/termsandconditions" className="small text-decoration-none">Terms of Service</Link>
           </Col>
